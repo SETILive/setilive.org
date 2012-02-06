@@ -1,0 +1,11 @@
+development: &global_settings
+  app_id: '***REMOVED***'
+  key: '***REMOVED***'
+  secret: '***REMOVED***'
+
+test:
+  database: marv-test
+  <<: *global_settings
+
+production:
+  <<: *global_settings

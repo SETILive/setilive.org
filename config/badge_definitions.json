@@ -1,0 +1,29 @@
+{
+  "badges":
+    {
+      "title" : "Classifications",
+      "description" : "You have been awarded a badge for contributing %d classifications",
+      "images/"
+      "condition" : "Users.classifications",
+      "type"  : "cumulative",
+      "levels" : [1, 10 ,50, 100]
+    },
+
+    {
+      "title" : "Classifications",
+      "description" : "You have been awarded a badge for contributing %d classifications",
+      "images/"
+      "condition" : "Users.classifications",
+      "type"  : "cumulative",
+      "levels" : [1, 10 ,50, 100]
+    },
+
+    {
+      "title" : "Classifications",
+      "description" : "You have been awarded a badge for contributing %d classifications",
+      "images/"
+      "condition" : "Users.classifications",
+      "type"  : "cumulative",
+      "levels" : [1, 10 ,50, 100]
+    },
+}

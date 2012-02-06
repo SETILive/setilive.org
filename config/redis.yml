@@ -1,0 +1,18 @@
+development:
+  host: localhost
+  thread_safe: true
+  port: 6379
+  db: 10
+  
+test:
+  host: localhost
+  thread_safe: true
+  port: 6379
+  db: 1
+
+production:
+  host: ***REMOVED***
+  port: 9359
+  db: 0
+  password: ***REMOVED***
+  username: redistogo

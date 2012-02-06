@@ -1,0 +1,9 @@
+development: &global_settings
+  password : "zooniverse" 
+  salt : "123"
+
+test:
+  <<: *global_settings
+
+production:
+  <<: *global_settings
