@@ -82,4 +82,4 @@ class Stars extends Spine.Controller
   
   @include SpinePusher
 
-window.Start = Stars
+window.Stars = Stars

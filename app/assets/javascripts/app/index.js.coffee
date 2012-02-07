@@ -9,8 +9,11 @@
 #= require spine/ajax
 #= require spine/route
 #= require spine/local
+#= require spine/relation
+
 
 #= require_tree ./lib
+#= require_tree ./modules
 #= require_tree ./models
 #= require_tree ./controllers
 #= require_tree ./views

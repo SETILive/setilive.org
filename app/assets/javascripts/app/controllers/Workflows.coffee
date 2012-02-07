@@ -27,13 +27,13 @@ class Workflows extends Spine.Controller
      
     for question in workflow.questions
       @current_question= question if question._id==question_id    
-    @question.html @view("views/workflow_question")(@current_question)
+    @question.html @view("workflow_question")(@current_question)
     @answer_list.html("")    
     answers  = @current_question.answers
     
 
     answer.icon = @helpers.answer_icon(answer.name) for answer in answers
-    @answer_list.append @view('views/workflow_answers')(answers)
+    @answer_list.append @view('workflow_answers')(answers)
   
   selectAnswer: (event)=>
     answer= $(event.target).data('item')

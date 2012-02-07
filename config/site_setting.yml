@@ -1,0 +1,17 @@
+common:
+  application_name: "Marv"
+  s3_light_curves_bucket: "seti_subject_bucket"
+  location: "marv.org"
+  sqs_queue: "zooniverse_marv"
+  alerts_active: true
+  alert_recipients:
+    - arfon.smith@gmail.com
+  default_interface_name: "ZooniverseInterface"
+
+  s3_access_key_id: "***REMOVED***"
+  s3_secret_access_key: "***REMOVED***"
+development:
+
+production:
+
+test:

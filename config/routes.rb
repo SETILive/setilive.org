@@ -17,6 +17,7 @@ Marv::Application.routes.draw do
   resources :favourites 
   resources :badges 
   
+  match '/classify'  => 'classifications#classify'
 
   # Sample resource route with options:
   #   resources :products do

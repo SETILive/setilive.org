@@ -29,5 +29,9 @@ class ClassificationsController < ApplicationController
     end
   end
 
+  def classify 
+
+  end
+
 
 end

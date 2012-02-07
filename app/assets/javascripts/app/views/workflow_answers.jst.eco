@@ -1,0 +1,4 @@
+<li id='answer_<%=@_id%>' class='answer'>
+  <%-@icon%>
+  <%-@name%>
+</li>
