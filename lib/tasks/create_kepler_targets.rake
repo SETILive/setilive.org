@@ -1,5 +1,5 @@
 task :create_kepler_targets => :environment do
-  kepler_sources = JSON.parse(IO.read("tmp/kepler_planets_data/setiKeplerTargets.json"))
+  kepler_sources = JSON.parse(IO.read("data/kepler_planets_data/setiKeplerTargets.json"))
 
   kepler_sources.each_pair do |kepler_id, details|
     info = details['star_info']

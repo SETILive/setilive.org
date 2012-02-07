@@ -13,6 +13,10 @@ Marv::Application.routes.draw do
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   resources :classifications
   resources :users 
+  resources :sources
+  resources :subjects
+
+
   resources :workflows 
   resources :favourites 
   resources :badges 

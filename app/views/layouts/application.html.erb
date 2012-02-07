@@ -48,7 +48,8 @@
           <li><a href='#'>talk</a> </li>
         </ul>
       </div>
-      <div id='star_field' class='big_field'></div>
+    
+      <div id='star_field' class= <%= @small_star_field ? 'small_field' : "big_field"%>></div>
 
 
       <%= yield %>
