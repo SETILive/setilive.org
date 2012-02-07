@@ -1,1 +1,0 @@
-<div class='signal_overlay' style='width:<%=@freqEnd-@freqStart%>px; height:<%=@timeEnd-@timeStart%>px; top:<%=@timeStart%>px; left:<%=@freqStart%>px' ></div>
