@@ -37,8 +37,13 @@ class ClassificationPage extends Spine.Controller
     
     Source.fetch()
     Workflow.fetch_from_url("/workflows.json")
-    
+
+class LoginPage extends Spine.Controller 
+  constructor:->
+    super 
+    @stars = new Stars(el:$("#star_field"))
+    Source.fetch()
 
 window.HomePage = HomePage
 window.ClassificationPage = ClassificationPage
-    
+window.LoginPage = LoginPage
