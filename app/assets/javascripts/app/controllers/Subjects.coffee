@@ -18,6 +18,8 @@ class Subjects extends Spine.Controller
   constructor: ->
     super
     Subject.bind('create', @render)  
+    Subject.bind('done', @saveClassification)
+
     Spine.bind("enableSignalDraw", @enableSignalDraw)
     Spine.bind("dissableSignalDraw", @dissableSignalDraw)
     Workflow.bind("workflowDone", @enableSignalDraw)
@@ -45,16 +47,18 @@ class Subjects extends Spine.Controller
   selectBeam:(beamNo)=>
     if typeof beamNo == 'object'
       beamNo.preventDefault()
-      console.log "beam is ", beamNo
       beamNo = $(beamNo.currentTarget).data().id 
 
     $("#main-waterfall .signal_beam_#{@current_beam}").hide()
+
     @current_beam = beamNo
     $(".waterfall").removeClass("selected_beam")
     
     $("main-waterfall path").hide()
     $("#waterfall-#{@current_beam}").addClass("selected_beam")
+    
     @drawBeam @main_beam.find("canvas"), @current_subject, @current_beam
+    $("#main-waterfall .signal_beam_#{@current_beam}").show()
 
   enableSignalDraw :=>
     @canDrawSignal = true 
@@ -200,4 +204,7 @@ class Subjects extends Spine.Controller
 
     @stage=0
     
+  saveClassification:=>
+    @current_classification.save()
+
 window.Subjects = Subjects

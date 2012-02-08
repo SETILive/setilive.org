@@ -27,14 +27,14 @@ class Info extends Spine.Controller
 
   done :=>
     Spine.trigger "dissableSignalDraw" 
-    @doneTalk.html @view("views/talk_prompt")()
+    @doneTalk.html @view("talk_prompt")()
 
   talk :=>
     window.open 'http://talk.setilive.org'
-    Subject.fetch()
-  
+    Subject.trigger "done"
+
   dontTalk :(e)=>
-    Subject.fetch()
+    Subject.trigger "done"    
     
 window.Info = Info
   

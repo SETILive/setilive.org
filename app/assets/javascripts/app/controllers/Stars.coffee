@@ -15,13 +15,14 @@ class Stars extends Spine.Controller
     @paper = Raphael("star_field","100%","100%")
     Source.bind("refresh", @drawField)
 
+
   updateTarget: (data) ->
     console.log("here")
     alert(data)
 
   drawField:=>
     @stars = Source.all()
-  
+    console.log @stars
     @drawStar(star) for star in @stars 
     @drawIndicator(@stars[0],"#CDDC28")
     @drawIndicator(@stars[10],"red")
