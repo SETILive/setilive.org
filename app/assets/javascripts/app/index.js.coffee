@@ -38,7 +38,11 @@ class ClassificationPage extends Spine.Controller
     Source.fetch()
     Workflow.fetch_from_url("/workflows.json")
     
+class AboutPage extends Spine.Controller
+    constructor: ->
+        super
+        $('#star_field').hide()
 
 window.HomePage = HomePage
 window.ClassificationPage = ClassificationPage
-    
+window.AboutPage = AboutPage
