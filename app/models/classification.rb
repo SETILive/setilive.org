@@ -1,3 +1,4 @@
+
 class Classification
   include MongoMapper::Document
   

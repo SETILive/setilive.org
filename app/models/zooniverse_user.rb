@@ -26,6 +26,15 @@ class ZooniverseUser
       badge.award_to self if badge.award?(self)
     end
   end
+
+  def add_favourite(subject)
+    favourites<< subject
+    save
+  end
+
+  def remove_favourite(subject)
+    favourite_ids.
+  end
   
   def update_classification_stats(classification)
      update_classification_count classification

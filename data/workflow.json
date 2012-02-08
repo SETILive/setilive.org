@@ -1,0 +1,59 @@
+{
+  "description": "The default zooniverse interface for the seti data",
+  "primary": true,
+  "type": "decision_tree",
+  "name": "zooniverse_interface",
+  "project": "zooniverse",
+  "version": "1.0",
+  "questions": [
+    {
+      "_id": "4ecbcc1f40af4716ef000001",
+      "name": "Is the signal mostly ",
+      "answers": [
+        {
+          "_id": "4ecbcc1f40af4716ef000002",
+          "name": "white",
+          "leads_to" : "4ecbcc1f40af4716ef000006"
+          
+        },
+        {
+          "_id": "4ecbcc1f40af4716ef000003",
+          "name": "red",
+          "leads_to" : "4ecbcc1f40af4716ef000006"
+        },
+        {
+          "_id": "4ecbcc1f40af4716ef000004",
+          "name": "blue",
+          "leads_to" : "4ecbcc1f40af4716ef000006"
+        },
+        {
+          "_id": "4ecbcc1f40af4716ef000005",
+          "name": "green",
+          "leads_to" : "4ecbcc1f40af4716ef000006"
+        }
+      ]
+    },
+    {
+      "_id": "4ecbcc1f40af4716ef000006",
+      "name": "Describe the signal",
+      "answers": [
+        {
+          "_id": "4ecbcc1f40af4716ef000007",
+          "name": "straight"
+        },
+        {
+          "_id": "4ecbcc1f40af4716ef000008",
+          "name": "diagonal"
+        },
+        {
+          "_id": "4ecbcc1f40af4716ef000009",
+          "name": "spiral"
+        },
+        {
+          "_id": "4ecbcc1f40af4716ef00000a",
+          "name": "broken"
+        }
+      ]
+    }
+  ]
+}

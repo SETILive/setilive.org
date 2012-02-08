@@ -30,7 +30,7 @@ class ClassificationsController < ApplicationController
   end
 
   def classify 
-    @small_star_field = true 
+    @small_star_field = true  
   end
 
 

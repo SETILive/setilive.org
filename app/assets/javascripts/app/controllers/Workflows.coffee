@@ -10,6 +10,7 @@ class Workflows extends Spine.Controller
     super
     Spine.bind("startWorkflow", @startWorkflow)
     @el.hide()
+    Workflow.fetch()
   
   startWorkflow:(signal)=>
     x = @el.parent().width()*(Math.max(signal.freqEnd, signal.freqStart) ) + 20

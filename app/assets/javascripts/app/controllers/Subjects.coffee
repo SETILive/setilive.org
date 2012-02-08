@@ -12,7 +12,7 @@ class Subjects extends Spine.Controller
     
   constructor: ->
     super
-    Subject.bind('create', @setUpSubject)  
+    Subject.bind('create', @render)  
     Spine.bind("updateSignal", @updateSignal)
     Spine.bind("enableSignalDraw", @enableSignalDraw)
     Spine.bind("dissableSignalDraw", @dissableSignalDraw)
@@ -41,15 +41,13 @@ class Subjects extends Spine.Controller
   dissableSignalDraw :=>
     @canDrawSignal = false 
 
-  setUpSubject:(subject) =>
+  render:(subject) =>
     @current_subject = subject
-    @current_classification = Classification.create({subject_id : @current_subject.id, user_id: 1, start_time : new Date() })
-    @current_classification.save()
-    @name.html(@current_subject.activityId)
+    @current_classification = Classification.new({subject_id : @current_subject.id, user_id: 1, start_time : new Date() })
     @setUpBeams()
 
   getNextSubject:=>
-    Subject.fetch_from_url('data/test.json')
+    Subject.fetch_from_url('/next_subject')
     
   setUpBeams: ->
     @wrapBeams()       

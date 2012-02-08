@@ -22,7 +22,7 @@ Marv::Application.routes.draw do
   resources :badges 
   
   match '/classify'  => 'classifications#classify'
-
+  match '/next_subject' => 'subjects#next_subject_for_user'
   # Sample resource route with options:
   #   resources :products do
   #     member do

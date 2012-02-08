@@ -1,27 +1,25 @@
 
 class Subject extends Spine.Model
-  @configure 'Subject', 'beam1', 'beam2', 'beam3','activityId', 'bandwidthMhz', 'bitPix', 'centerFreqMhz', 'endTimeNanos','height','width'
+  @configure 'Subject','beam','activityId', 'bandwidthMhz', 'bitPix', 'centerFreqMhz', 'endTimeNanos','height','width'
   @extend Spine.Events
   @extend Spine.Model.Ajax
 
   
   @fetch_from_url: (url) ->
     $.getJSON(url, (data)->
-      subject= new Subject(data)
-      subject.save() 
+      subject=  Subject.create(data)
     )
 
   @fetch: ->
-    @fetch_from_url("data/test.json")
+    @fetch_from_url("next_subject.json")
     
   imageDataForBeam:(beamNo,targetWidth,targetHeight)->
     imageData=[]
     imageData[i] =0 for i in [0..targetWidth*targetHeight]
-    data = [@beam1,@beam2,@beam3][beamNo]
-
+    data = @beam[beamNo].data
+    console.log "dimensions", @width, @height
     bounds = @calcBounds()
 
-    
     for x in [0..targetWidth]
       for y in [0..targetHeight]
         imagePos = (y+x*targetWidth)*4
@@ -33,9 +31,10 @@ class Subject extends Spine.Model
           for bY in [0..0]
             dataPos  = ( (dataPosX+ bx) + (dataPosY+bY)*@width)
             dataVal += data[dataPos] 
+        
+        dataVal=@scaleVal dataVal, beamNo
+        
 
-        dataVal=@scaleVal dataVal, beamNo+1
-       
         Subject.setPixel(imageData,targetWidth,x,y, dataVal,dataVal,dataVal,255)
     
     imageData
@@ -75,11 +74,10 @@ class Subject extends Spine.Model
   calcBounds : ->
     unless @bounds?
       @bounds = []
-      for beamNo in [1..3]
+      for beam, beamNo in @beam
         max = 0
         min = 100000000
-        beam = [0,@beam1,@beam2,@beam3][beamNo]
-        for val in beam
+        for val in beam.data
           max = val if val > max
           min = val if val < min
         @bounds[beamNo] = [min- (max-min)*0.0,max]

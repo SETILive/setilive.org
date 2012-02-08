@@ -3,6 +3,7 @@ class Subject
 
 
   key :data_url, String 
+  key :beam , Array
   key :activity_id, String, :requited=>true
   key :location, Hash
   key :time_range, Float
@@ -13,6 +14,8 @@ class Subject
   key :central_freq , Float
   key :status, String, :default =>"inactive"
   key :scores, Hash
+  key :width , Integer
+  key :height , Integer
   key :total_score , Float
 
   timestamps!
@@ -99,14 +102,28 @@ class Subject
     s
   end
 
+  def self.random_frank_subject 
+    keys = RedisConnection.keys 'subject_*'
+    return nil if keys.empty?
+    subject  = BSON.deserialize(RedisConnection.get keys.sample)
+    generate_subject_from_frank(subject)
+
+  end
+
   def self.generate_subject_from_frank(subject)
+    puts "subject width height "
+    puts subject['width'] , subject['height']
     s=Subject.new(    :activity_id => subject["activityId"],
-                      :time_range  => subject["endTimeNanos"]-subject["startTimeNanos"],
-                      :freq_range  => subject["bandwidthMhz"],
-                      :location    => {:time=>subject["startTimeNanos"], :freq=>subject["centerFreqMhz"]})
-    s.data={:beam_1 => subject["beam1"], 
-            :beam_2 => subject["beam2"],
-            :beam_3 => subject["beam3"] }
+                      :time_range  => subject["endTimeNanos"].to_i-subject["startTimeNanos"].to_i,
+                      :freq_range  => subject["bandwidthMhz"].to_f,
+                      :location    => {:time=>subject["startTimeNanos"], :freq=>subject["centerFreqMhz"]},
+                      :width => subject['width'],
+                      :height=> subject['height'])
+    
+    subject['beam'].each do |beam|
+      beam['data'] = beam['data'].to_a
+      s.beam << beam unless beam['data'].empty?
+    end
     s
   end
 

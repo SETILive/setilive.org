@@ -29,16 +29,9 @@ class App extends Spine.Controller
     @subjects = new SubjectsSeq({el:$("#waterfalls")})
     @info = new Info({el: $("#info")})
     @stats = new Stats({el:$("#stats")})
-    @workflows = new Workflows({el:$("#workflow")})
     
-
-    #@append(@workdlows = new Workflows(el : $("#workflow") ))
-
-
-    # Spine.Route.setup()    
-    Workflow.fetch_from_url("data/workflow.json")
-    Subject.fetch("data/test2.json")
     Source.fetch()
+    Workflow.fetch_from_url("/workflow.json")
     
 
 window.App = App

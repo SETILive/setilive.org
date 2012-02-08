@@ -2,43 +2,51 @@
 class SubjectsSeq extends Spine.Controller
   elements: 
     ".name" : "name"
-    "#main-waterfall" : "main_beam"
-    "#waterfall-1" : "beam1"
-    "#waterfall-2" : "beam2"
-    "#waterfall-3" : "beam3"
-    
+    "#main-waterfall"  : "main_beam"
+    ".small-waterfall" : "sub_beams"
+    ".waterfall"       : "beams"
+     
   events:
     'click #main-waterfall' : 'markerPlaced'
+
+  canDrawSignal : true
+  dragging : false
+  stage:0
     
   constructor: ->
     super
-    Subject.bind('create', @setUpSubject)  
+    Subject.bind('create', @render)  
     Spine.bind("updateSignal", @updateSignal)
     Spine.bind("enableSignalDraw", @enableSignalDraw)
     Spine.bind("dissableSignalDraw", @dissableSignalDraw)
     Workflow.bind("workflowDone", @enableSignalDraw)
     Workflow.bind("workflowDone", @finalizeSignal)
-
+    
+    Subject.fetch()
 
     $("#nextBeam").click (e)=>
       e.preventDefault()
-      $("#main-waterfall .signal_beam_#{@current_beam}").hide()
-      @current_beam++
-      $(".waterfall").removeClass("selected_beam")
-      
-      $("main-waterfall path").hide()
-      $("#waterfall-#{@current_beam+1}").addClass("selected_beam")
-      @drawBeam @main_beam.find("canvas"), @current_subject, @current_beam
 
-    Subject.bind "fetch", =>
-      $("waterfall").append("<img src='/images/spinner.gif'></img>")
-      
-    @canDrawSignal = true
-    # Workflow.bind('workflowDone', @getNextSubject)
-    @dragging = false
-    @beams = [@main_beam, @beam1, @beam2, @beam3]
-    @sub_beams = [@beam1, @beam2, @beam3]
-    @stage=0
+  render: (subject) =>
+    @current_subject = subject
+    @html @view('waterfalls')(@current_subject.beam)
+    
+    @main_beam.append( new Workflows() )
+    
+    @current_classification = new Classification 
+      subject_id : @current_subject.id
+      start_time : new Date()
+
+    @setUpBeams()
+     
+  selectBeam:(beamNo)=>
+    $("#main-waterfall .signal_beam_#{@current_beam}").hide()
+    @current_beam = beamNo
+    $(".waterfall").removeClass("selected_beam")
+    
+    $("main-waterfall path").hide()
+    $("#waterfall-#{@current_beam+1}").addClass("selected_beam")
+    @drawBeam @main_beam.find("canvas"), @current_subject, @current_beam
 
   enableSignalDraw :=>
     @canDrawSignal = true 
@@ -52,29 +60,24 @@ class SubjectsSeq extends Spine.Controller
   dissableSignalDraw :=>
     @canDrawSignal = false 
 
-  setUpSubject:(subject) =>
-    @current_subject = subject
-    @current_classification = Classification.create({subject_id : @current_subject.id, user_id: 1, start_time : new Date() })
-    @current_classification.save()
-    @name.html(@current_subject.activityId)
-    @setUpBeams()
+  
 
   getNextSubject:=>
     Subject.fetch_from_url('data/test.json')
     
-  setUpBeams: ->
-    @wrapBeams()       
+  setUpBeams: =>
+    @wrapBeams()           
     @current_beam or= 0
-    @drawBeam beam.find("canvas"), @current_subject, index for beam, index in @sub_beams
+    @drawBeam $(beam).find("canvas"), @current_subject, index for beam, index in @sub_beams
     @drawBeam @main_beam.find("canvas"), @current_subject, @current_beam
+
     $("#waterfall-#{@current_beam+1}").addClass("selected_beam")
 
-    # @drawCombinedBeam @main_beam.find("canvas"), @current_subject 
   
   #drawing methods for the beams 
 
   wrapBeams: ->
-    @overlays = ( Raphael(beam.attr("id"), '100%', '100%') for beam in @beams )
+    @overlays = ( Raphael($(beam).attr("id"), '100%', '100%') for beam in @beams )
     $(overlay.canvas).css("z-index","10000") for overlay in @overlays 
 
   drawBeam:(target,subject,beam_no)->
@@ -89,8 +92,6 @@ class SubjectsSeq extends Spine.Controller
     ctx.putImageData(imageData,0,0)
 
 
-    
-        
   drawCombinedBeam:(target,subject)->
     ctx = target[0].getContext('2d')
     targetWidth = $(target[0]).width()
@@ -172,21 +173,7 @@ class SubjectsSeq extends Spine.Controller
     $(".signal_line_#{signal.id}").attr
       "fill" : signal.color() 
 
-    # if signal.signalType()
-    #   x = signal.freqStart * $(@overlays[0].canvas).width()*1.0+20
-    #   y = signal.timeStart * $(@overlays[0].canvas).height()*1.0+20
-      
-    #   console.log("for image #{signal.freqStart} , #{signal.timeStart}")
-    #   console.log("for image #{signal.freqStart} , #{signal.timeStart}")
-
-    #   console.log("for image #{$(@overlays[0].canvas).width()} , #{$(@overlays[0].canvas).height()}")
-    #   icon = $("<img src='images/spiral.png'></img>")
-    #   icon.css
-    #     'top' : y
-    #     'left' : x
-    #     'position' : 'absolute'
-      
-    #   $(@main_beam).append icon
+  
 
   updateLine:(signal)=>
     $(".signal_line_#{signal.id}").remove()
