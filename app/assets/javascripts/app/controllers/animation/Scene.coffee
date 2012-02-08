@@ -14,6 +14,7 @@ class Scene extends Spine.Controller
 
 	reset: =>
 		clearTimeout @loopTimeout
+		@$(':animated').stop(true, true)
 
 	enter: =>
 		unless isNaN @loopDuration
