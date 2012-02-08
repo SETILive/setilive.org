@@ -1,0 +1,56 @@
+<% content_for :head do %>
+  <script type="text/javascript" charset="utf-8">
+
+    var exports = this;
+    jQuery(function(){
+        new LoginPage({el: $("body")});      
+    });     
+  </script>
+<%end%>
+
+<div id='login'>
+  <div id ='login_header'>
+    <h1>Welcome, Science Channel Viewers</h1>
+    <p>Join SETILIVE and you can earn special badges that qualify you to win a trip for two to the SETI Institute in California and 
+a private tour of the Radio Telescope Observatory at Hat Creek. Earn more badges and you’ll qualify for additional entries! </p>
+  </div>
+
+  <div id='login_lower'>
+    <div id='science_channel'>
+      <h2>You can use this login across all of the Zooniverse’s citizen science projects, so you 
+only need to sign up once. We promise not to share your details with anyone else.</h2>
+
+      <div id='extra_signup_info'>
+        <p>
+          <input type='text' name='name' ><span class='default'>First Name*</span></input> 
+          <input type='text' name='last_name' ><span class='default'>Password*</span></input>
+        </p>
+
+        <input type='text' name='address_1' ><span class='default'>Address 1*</span></input>
+        <p>
+          <input type='text' name='address_2'><span class='default'>Address 2*</span></input>
+          <input type='text' name='telephone'><span class='default'>Telephone*</span></input>
+        </p>
+        <p>
+          <input type='text' name='city'><span class='default'>City*</span></input>
+          <input type='text' name='state'><span class='default'>State*</span></input>
+          <input type='text' name='zipcode'><span class='default'>zipcode*</span></input>
+
+        </p>
+      </div>
+
+      <div id='user_signup_info'>
+        <input type='text' name='name' ><span class='default'>Username*</span></input>
+        <input type='password' name='password' ><span class='default'>Password*</span></input>
+        <input type='password' name='confirm_password' ><span class='default'>Confirm Password*</span></input>
+        <input type='text' name='email' ><span class='default'>Email*</span></input>
+
+
+        <button id='register'>register</button>
+      </div>
+
+    </div>
+    <div id='zooniverse_login'></div>
+  </div>
+  
+</div>

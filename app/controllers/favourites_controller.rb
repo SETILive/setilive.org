@@ -1,7 +1,7 @@
 class FavouritesController < ApplicationController
 
   def create
-    user = current_zooniverse_user
+    user = current_user
 
     respond_to do |format|
       if @classification.save
