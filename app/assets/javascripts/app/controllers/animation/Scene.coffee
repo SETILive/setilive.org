@@ -2,8 +2,8 @@ class Scene extends Spine.Controller
 	@instances = []
 
 	enterDuration: 0
-	exitDuration: 0
 	loopDuration: NaN
+	exitDuration: 0
 
 	loopTimeout: NaN
 
@@ -16,7 +16,7 @@ class Scene extends Spine.Controller
 		clearTimeout @loopTimeout
 
 	enter: =>
-		if @loopDuration then @loopTimeout = setTimeout @loop, @enterDuration + 10
+		@loopTimeout = setTimeout @loop, @enterDuration + 10 unless isNaN @loopDuration
 
 	loop: =>
 		@loopTimeout = setTimeout @loop, @loopDuration
@@ -25,6 +25,7 @@ class Scene extends Spine.Controller
 		setTimeout @reset, @exitDuration + 100
 
 window.Scene = Scene
+
 window.scenes = Scene.instances
 
 $ ->

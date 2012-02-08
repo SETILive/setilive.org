@@ -46,5 +46,5 @@ class Ata extends Scene
 		@mountain.animate left: '-=100%', opacity: 0, 3000
 		@farScopes.animate left: '-=100%', opacity: 0, 2500
 		@nearScopes.animate left: '-=100%', opacity: 0,  2000
-			
+
 window.Ata = Ata
