@@ -1,7 +1,6 @@
 class Subject
   include MongoMapper::Document
 
-
   key :data_url, String 
   key :beam , Array
   key :activity_id, String, :requited=>true
@@ -23,7 +22,6 @@ class Subject
   belongs_to :observation
   has_many :classifications
 
-
   # validates_presence_of  :observation_id
   # after_save :store_in_redis
 
@@ -31,12 +29,10 @@ class Subject
   scope :active,             where(:status=>'active')
   scope :done,               where(:status=>'done')
 
-
   state_machine :status, :initial=> 'active' do 
-
-     after_transition :on => :pause,        :do => :remove_from_redis
-     after_transition :on => :activate,     :do => :store_in_redis 
-     after_transition :on => :mark_as_done, :do => :remove_form_redis 
+    after_transition :on => :pause,        :do => :remove_from_redis
+    after_transition :on => :activate,     :do => :store_in_redis 
+    after_transition :on => :mark_as_done, :do => :remove_form_redis 
       
     event :pause do
       transition :to => 'paused', :from =>'active'

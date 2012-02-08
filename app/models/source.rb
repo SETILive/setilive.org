@@ -24,5 +24,4 @@ class Source
   def active 
     RedisConnection.key("current_target*")
   end
-  
 end
