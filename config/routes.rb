@@ -23,6 +23,8 @@ Marv::Application.routes.draw do
   
   match '/classify'  => 'classifications#classify'
   match '/next_subject' => 'subjects#next_subject_for_user'
+  match '/about'  => 'about#index'
+
   # Sample resource route with options:
   #   resources :products do
   #     member do
