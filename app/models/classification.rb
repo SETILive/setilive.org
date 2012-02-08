@@ -1,12 +1,9 @@
-
 class Classification
   include MongoMapper::Document
-  
-
   timestamps! 
 
   belongs_to :observation
-  belongs_to :user 
+  belongs_to :zooniverse_user 
   belongs_to :subject
   many :SubjectSignals
 
@@ -19,5 +16,4 @@ class Classification
   def update_source
     
   end
-
 end
