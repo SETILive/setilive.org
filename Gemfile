@@ -27,9 +27,16 @@ gem 'redis'
 gem 'pusher'
 gem 'ezcrypto'
 
+gem 'sidekiq'
+
+
 gem "bcrypt-ruby", :require => "bcrypt"
 gem 'aws-s3', :require => 'aws/s3'
 
+gem 'libxml-ruby', '2.2.2'
+gem 'httparty', '0.8.1'
+gem 'multi_xml', '0.4.1' # dependency of HTTParty, but also used directly
+gem 'rubycas-client', git: 'git://github.com/parrish/rubycas-client.git', ref: '6dddf665ac3c0e1'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
