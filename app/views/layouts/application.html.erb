@@ -19,6 +19,9 @@
       <title>App</title>
       <script src="assets/jquery.min.js" type='text/javascript' charset='utf-8'></script>
       <script src="assets/raphael-min.js" type = 'text/javascript' charset='utf-8'></script>
+
+      <script src="assets/jquery.svg.min.js" type='text/javascript' charset='utf-8'></script>
+      <script src="assets/jquery.svgdom.min.js" type='text/javascript' charset='utf-8'></script>
       <script src="assets/date.js" type = 'text/javascript' charset='utf-8'></script>
       <script src="http://js.pusher.com/1.11/pusher.min.js" type="text/javascript"></script>
       <link rel='stylesheet' href='assets/TitilliumText-fontfacekit/stylesheet.css' type='text/css' charset='utf-8' />
@@ -27,14 +30,8 @@
       <%= javascript_include_tag "application" %>
       <%= csrf_meta_tags %>
 
-      <script type="text/javascript" charset="utf-8">
-        //var jQuery  = require("jqueryify");
-        var exports = this;
-        jQuery(function(){
-          new App({el: $("body")});      
-        });
-        
-      </script>
+     
+      <%= yield :head%>
     </head>
 
      <body>

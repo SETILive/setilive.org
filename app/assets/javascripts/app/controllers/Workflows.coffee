@@ -9,9 +9,12 @@ class Workflows extends Spine.Controller
   constructor: ->
     super
     Spine.bind("startWorkflow", @startWorkflow)
+    @render()
     @el.hide()
-    Workflow.fetch()
   
+  render:=>
+    @html @view('workflow')()
+
   startWorkflow:(signal)=>
     x = @el.parent().width()*(Math.max(signal.freqEnd, signal.freqStart) ) + 20
     y = @el.parent().height()*(signal.timeEnd + signal.timeStart)/2.0 - @el.height()/2.0
@@ -20,6 +23,7 @@ class Workflows extends Spine.Controller
       left : x
     @el.show()
     @currentSignal = signal
+    console.log Workflow.first()
     @setUpQuestion(Workflow.first().questions[0]._id)
 
   setUpQuestion: (question_id=-1) ->

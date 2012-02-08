@@ -3,7 +3,6 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
 #= require json2
-#= require jquery
 #= require spine
 #= require spine/manager
 #= require spine/ajax
@@ -21,18 +20,25 @@
 
 
 
-class App extends Spine.Controller
+class HomePage extends Spine.Controller
+  constructor: ->
+    super
+    @stars = new Stars(el:$("#star_field"))
+    @stats = new Stats({el:$("#stats")})
+    Source.fetch()
+
+class ClassificationPage extends Spine.Controller
   constructor: ->
     super
     @stars = new Stars(el:$("#star_field"))
     
-    @subjects = new SubjectsSeq({el:$("#waterfalls")})
+    @subjects = new Subjects({el:$("#waterfalls")})
     @info = new Info({el: $("#info")})
-    @stats = new Stats({el:$("#stats")})
     
     Source.fetch()
-    Workflow.fetch_from_url("/workflow.json")
+    Workflow.fetch_from_url("/workflows.json")
     
 
-window.App = App
+window.HomePage = HomePage
+window.ClassificationPage = ClassificationPage
     

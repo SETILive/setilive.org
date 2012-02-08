@@ -25,14 +25,14 @@ class Subject
 
 
   # validates_presence_of  :observation_id
-  after_save :store_in_redis
+  # after_save :store_in_redis
 
   scope :paused,             where(:status=>'paused')
   scope :active,             where(:status=>'active')
   scope :done,               where(:status=>'done')
 
 
-  state_machine :status, :initial=> 'inactive' do 
+  state_machine :status, :initial=> 'active' do 
 
      after_transition :on => :pause,        :do => :remove_from_redis
      after_transition :on => :activate,     :do => :store_in_redis 

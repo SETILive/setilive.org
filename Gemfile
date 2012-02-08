@@ -30,7 +30,6 @@ gem 'ezcrypto'
 gem "bcrypt-ruby", :require => "bcrypt"
 gem 'aws-s3', :require => 'aws/s3'
 
-gem 'jquery-rails'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

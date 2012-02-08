@@ -1,7 +1,7 @@
 
 class Classification extends Spine.Model
   @configure 'Classification', 'subject_id', 'user_id', 'start_time', 'end_time'  
-  @hasMany 'signals', 'models/Signal'
+  @hasMany 'signals', 'Signal'
   @extend Spine.Model.Ajax
 
   constructor : ->

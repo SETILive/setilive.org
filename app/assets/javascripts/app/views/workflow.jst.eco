@@ -1,0 +1,4 @@
+<div class='workflow-area' id='workflow'>
+  <div class='question'></div>
+  <ul class='answer_list'></ul>
+</div>
