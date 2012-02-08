@@ -16,13 +16,14 @@ class Scene extends Spine.Controller
 		clearTimeout @loopTimeout
 
 	enter: =>
-		@loopTimeout = setTimeout @loop, @enterDuration + 10 unless isNaN @loopDuration
+		unless isNaN @loopDuration
+			@loopTimeout = setTimeout @loop, @enterDuration + $.speed('slow').duration
 
 	loop: =>
 		@loopTimeout = setTimeout @loop, @loopDuration
 
 	exit: =>
-		setTimeout @reset, @exitDuration + 100
+		setTimeout @reset, @exitDuration + $.speed('slow').duration
 
 window.Scene = Scene
 

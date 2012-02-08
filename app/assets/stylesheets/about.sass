@@ -77,3 +77,53 @@
 			> .other.planet
 				left: 75%
 				top: 63%
+
+		> .habitable-zone.scene
+			> .outer.ring
+				left: 8%
+				top: 24%
+
+			> .inner.ring
+				left: 27%
+				top: 30%
+
+			> .star
+				left: 41%
+				top: 27%
+
+			> .planet
+				left: 27%
+				top: 54%
+
+			> .flag
+				background: #fff
+				color: #000
+				display: inline-block
+				font-size: 18px
+				letter-spacing: 0
+				padding: 10px 20px 5px
+
+				&:after
+					background: #fff
+					content: ""
+					height: 200%
+					left: 0
+					position: absolute
+					top: 0
+					width: 2px
+
+				&.for-star
+					left: 48.5%
+					top: 10%
+
+				&.for-planet
+					left: 17.5%
+					top: 37%
+
+					&:after
+						left: auto
+						right: 0
+
+				&.for-zone
+					left: 77%
+					top: 33%
