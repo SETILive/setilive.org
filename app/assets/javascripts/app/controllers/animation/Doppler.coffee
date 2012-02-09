@@ -1,8 +1,7 @@
 #= require ./Scene
 
 class Doppler extends Scene
-	enterDuration: 0
-	exitDuration: 0
+	exitDuration: 1000
 
 	elements:
 		'.mountain': 'mountain'
@@ -18,13 +17,14 @@ class Doppler extends Scene
 
 		@mountain.add(@tower).css
 			opacity: 0
-			transform: 'translateX(500px)'
+			transform: 'translateX(200px)'
 
 		@telescope.css
 			opacity: 0
-			transform: 'translateX(1000px)'
+			transform: 'translateX(800px)'
 
-		@satellite.css
+		@satellite.add(@satelliteWaves).css
+			left: ''
 			opacity: 0
 			transform: 'translateX(-100px)'
 
@@ -33,7 +33,7 @@ class Doppler extends Scene
 	enter: =>
 		super
 
-		@mountain.add(@tower).add(@telescope).add(@satellite).animate
+		@mountain.add(@tower).add(@telescope).add(@satellite).add(@satelliteWaves).animate
 			opacity: 1
 			transform: ''
 
@@ -42,15 +42,21 @@ class Doppler extends Scene
 		@towerPulse()
 
 	satelliteGoesRight: =>
+		return unless @active
+
 		@satellite.data 'direction', 'right'
 		@satelliteGroup.animate left: '+=90%', {duration: 30000, queue: false, complete: @satelliteGoesLeft}
 
 	satelliteGoesLeft: =>
+		return unless @active
+
 		# TODO: This makes Firefox sad.
 		@satellite.data 'direction', 'left'
 		@satelliteGroup.animate left: '-=90%', {duration: 30000, queue: false, complete: @satelliteGoesRight}
 
 	satellitePulse: =>
+		return unless @active
+
 		wait = 1000
 
 		# TODO: This is really rough; I'm bad at math.
@@ -61,7 +67,16 @@ class Doppler extends Scene
 		@satelliteWaves.animate opacity: 0, 300, @satellitePulse
 
 	towerPulse: =>
+		return unless @active
+
 		@towerWaves.delay(1000).animate opacity: 1, 200
 		@towerWaves.animate opacity: 0, 300, @towerPulse
+
+	exit: =>
+		super
+
+		@mountain.add(@tower).animate opacity: 0, transform: 'translateX(-200px)', 1000
+		@telescope.animate opacity: 0, transform: 'translateX(-800px)', 1000
+		@satellite.animate opacity: 0, transform: 'translateX(100px)', 1000
 
 window.Doppler = Doppler

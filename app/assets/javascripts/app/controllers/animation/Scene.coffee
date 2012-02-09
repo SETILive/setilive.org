@@ -1,6 +1,8 @@
 class Scene extends Spine.Controller
 	@instances = []
 
+	active: false
+
 	enterDuration: 0
 	exitDuration: 0
 
@@ -13,7 +15,6 @@ class Scene extends Spine.Controller
 		@reset()
 
 	reset: =>
-		@$(':animated').stop(true, true)
 
 	activate: =>
 		activeSibling = @el.siblings('.active').data 'scene'
@@ -22,8 +23,11 @@ class Scene extends Spine.Controller
 
 	enter: =>
 		@el.addClass 'active'
+		@active = true
 
 	exit: =>
+		el.stop(true, true) for name, el in @elements
+		@active = false
 		@el.removeClass 'active'
 		setTimeout @reset, @exitDuration + $.speed('slow').duration
 
