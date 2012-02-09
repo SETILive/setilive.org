@@ -1,7 +1,7 @@
 <div id='user_profile'>
   <div id='profile_top'>
     <h1 id='user_welcome'>
-      Welcome back , <%=@user.name%>.
+      Welcome back, <%=@user.name%>.
     </h1>
     <ul id='user_badges'>
       <% for badge in [0...9]:%>
@@ -11,18 +11,20 @@
     </ul>
   </div>
   <div id='profile_bottom'>
-    <p> View </p>
-    <ul id='view_selection'>
-      <li>Recents</li>
-      <li>Followups</li> 
-      <li>Favorites</li> 
-    </ul>
-  </div>
+    <div id='view_selection'>
+      <span> View </span>
+      <ul id='view_selection'>
+        <li <%= "class='catagory_selection'" if @collectionType=='recents'%> data-id="recents" >Recents / </li>
+        <li <%= "class='catagory_selection'" if @collectionType=='followups'%> data-id="Followups">Followups /</li> 
+        <li <%= "class='catagory_selection'" if @collectionType=='favourites'%> data-id="favorites">Favorites</li> 
+      </ul>
+    </div>
 
-  <div id='content'>
-    <% for subject in @subjects: %>
-      <div class='waterfall' data-id='<%=subject.id%>' >
-      </div>
-    <%end%>
+    <div id='subjects'>
+      <% for subject in @subjects[@pagination.start()...@pagination.end()]: %>
+        <div class='waterfall' data-id='<%=subject.id%>' >
+        </div>
+      <%end%>
+    </div>
   </div>
 </div>

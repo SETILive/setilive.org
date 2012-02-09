@@ -29,6 +29,11 @@
   @include round-corner-mozilla("bottomleft", $amount)
   @include round-corner-mozilla("bottomright", $amount)
 
+@mixin box-shadow($offsetX:2px, $offsetY:5px, $width:5px, $color:#878686)
+  -moz-box-shadow: $offsetX   $offsetY $width $color 
+  -webkit-box-shadow: $offsetX  $offsetY $width $color 
+  box-shadow: $offsetX  $offsetY $width $color 
+
 ul
   list-style: none
   padding: 0px
@@ -646,7 +651,39 @@ p.title
         display: inline-block
         background-image: url("emptyBadge.png")
   #profile_bottom
-    p 
-      color: black
     #view_selection
+      margin-left: 30px
+      margin-top: 30px
+      text-transform: uppercase
+      font-size: 12px
+      font-family: TitilliumText22LThin, Sans-serif
+      span 
+        color: black
+        margin-right: 20px
+      ul
+        display: inline-block
+        margin: 0px
+        padding: 0px
+        list-style: none 
+        color: black
+        cursor: pointer
+        li
+          display: inline-block
+          vertical-align: top
+        li.catagory_selection
+          font-family: TitilliumText22LBold, Sans-serif
+    #subjects 
+      margin-left: 30px
+      margin-top: 40px
+      .waterfall
+        display: inline-block
+        vertical-align: top
+        width: 220px
+        height: 130px
+        border: 3px solid #F1F1F1
+        @include box-shadow
+        margin-right: 10px
+        margin-bottom: 20px
+        background-image: url("example_thumb.png")
+          
         

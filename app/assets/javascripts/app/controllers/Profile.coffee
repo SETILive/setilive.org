@@ -22,7 +22,8 @@ class Profile extends Spine.Controller
     @append @view('user_profile')
       user: @user
       pagination : @pagination
-      subjects : @user[@collectionType]
+      subjects : [1..20] #@user[@collectionType]
+      collectionType: @collectionType
   
   selectPage:(e)=>
     e.preventDefault()
@@ -42,5 +43,10 @@ class Profile extends Spine.Controller
       page : 0
       pages: collection.length/@pagination_no
       noPerPage: @pagination_no
-
+      start: ->
+        @page*@noPerPage
+      end: ->
+        (@page+1)*@noPerPage
+      
+  
 window.Profile = Profile
