@@ -1,8 +1,5 @@
-
 class Classification
   include MongoMapper::Document
-  
-
   timestamps! 
 
   belongs_to :observation
@@ -19,5 +16,4 @@ class Classification
   def update_source
     
   end
-
 end

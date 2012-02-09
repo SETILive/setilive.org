@@ -11,16 +11,12 @@ class ZooniverseUser
   key :classification_count, Hash
   key :signal_count, Hash
   key :follow_up_count, Hash
-
-
-  one :zooniverse_user_extra_info
-
   timestamps! 
-
+  
+  one :zooniverse_user_extra_info
   many :classifications 
   many :favourites, :class_name => "Subject", :in => :favourite_ids
   many :badges, :class_name => "Badge", :in => :badge_ids
-
 
   def award_badges 
     Badge.not_awarded(self).each do |badge|
@@ -34,7 +30,7 @@ class ZooniverseUser
   end
 
   def remove_favourite(subject)
-    
+    # favourite_ids.
   end
   
   def update_classification_stats(classification)

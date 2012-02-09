@@ -56,7 +56,15 @@ class LoginPage extends Spine.Controller
           $(@).css("color", "grey")
     )
     Source.fetch()
+    
+class AboutPage extends Spine.Controller
+    constructor: ->
+        super
+        $('#star_field').hide()
+
 
 window.HomePage = HomePage
 window.ClassificationPage = ClassificationPage
 window.LoginPage = LoginPage
+window.ClassificationPage = ClassificationPage
+window.AboutPage = AboutPage

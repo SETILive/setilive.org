@@ -18,8 +18,7 @@ class UsersController < ApplicationController
   end
 
   def current_user 
-    if current_user 
-      respond_to 
+
   end 
 
   def login
@@ -29,5 +28,4 @@ class UsersController < ApplicationController
   def logout 
 
   end
-
 end

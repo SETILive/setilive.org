@@ -1,0 +1,52 @@
+<% content_for :head do %>
+  <script type="text/javascript" charset="utf-8">
+    var exports = this;
+    jQuery(function(){
+        new AboutPage({el: $("body")});
+    });
+  </script>
+<%end%>
+
+<div class="about">
+	<div class="stage">
+		<div data-animation-scene="Ata" class="ata scene">
+			<img src="/assets/about/ata/mountain.png" class="mountain" />
+			<img src="/assets/about/ata/telescope_large.png" class="first far scope" />
+			<img src="/assets/about/ata/telescope_large.png" class="second far scope" />
+			<img src="/assets/about/ata/telescope_large.png" class="third far scope" />
+			<img src="/assets/about/ata/telescope_large.png" class="first near scope" />
+			<img src="/assets/about/ata/telescope_large.png" class="second near scope" />
+		</div>
+
+ 		<div data-animation-scene="Radiosphere" class="radiosphere scene">
+			<img src="/assets/about/radiosphere/ring_outer.png" class="outer ring" />
+			<img src="/assets/about/radiosphere/ring_mid.png" class="middle ring" />
+			<img src="/assets/about/radiosphere/ring_inner.png" class="inner ring" />
+			<img src="/assets/about/radiosphere/planet.png" class="main planet" />
+			<img src="/assets/about/radiosphere/radio.png" class="radio" />
+			<img src="/assets/about/radiosphere/waves.png" class="radio-waves" />
+			<img src="/assets/about/radiosphere/planet_back.png" class="tiny planet" />
+			<img src="/assets/about/radiosphere/planet_mid.png" class="small planet" />
+			<img src="/assets/about/radiosphere/planet_front.png" class="other planet" />
+		</div>
+
+		<div data-animation-scene="HabitableZone" class="habitable-zone scene">
+			<img src="/assets/about/habitable-zone/ring_outer.png" class="outer ring" />
+			<img src="/assets/about/habitable-zone/ring_inner.png" class="inner ring" />
+			<img src="/assets/about/habitable-zone/star.png" class="star" />
+			<img src="/assets/about/habitable-zone/planet.png" class="planet" />
+			<span class="flag for-star">Star</span>
+			<span class="flag for-planet">Planet</span>
+			<span class="flag for-zone">Habitable Zone</span>
+		</div>
+
+		<div data-animation-scene="Doppler" class="doppler scene">
+			<img src="/assets/about/doppler/mountain.png" class="mountain" />
+			<img src="/assets/about/doppler/satellite.png" class="satellite" />
+			<img src="/assets/about/doppler/waves_satellite.png" class="waves for-satellite" />
+			<img src="/assets/about/doppler/tower.png" class="tower" />
+			<img src="/assets/about/doppler/waves_tower.png" class="waves for-tower" />
+			<img src="/assets/about/doppler/telescope_large.png" class="telescope" />
+		</div>
+	</div>
+</div>

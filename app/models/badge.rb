@@ -8,7 +8,6 @@ class Badge
   key :type   , String , :required => true , :validate_in => ['one_off', 'cumulative']
   key :levels, Array 
 
-
   def award?(user,subject)
     MongoMapper.connection(condition > 1 )
   end
@@ -17,5 +16,4 @@ class Badge
     user.badges << self 
     PusherConnection.send("badges", "awarded", self.to_json)
   end
-
 end
