@@ -29,6 +29,7 @@ gem 'ezcrypto'
 
 gem 'sidekiq'
 
+gem 'pry', group: 'development'
 
 gem "bcrypt-ruby", :require => "bcrypt"
 gem 'aws-s3', :require => 'aws/s3'

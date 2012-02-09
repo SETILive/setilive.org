@@ -42,6 +42,19 @@ class LoginPage extends Spine.Controller
   constructor:->
     super 
     @stars = new Stars(el:$("#star_field"))
+    $("input").each(->
+        $(@).attr('data-placeholder',$(@).val())
+    )
+    $("input").focus( ->
+        console.log("here")
+        $(@).val("")
+        $(@).css("color", "black")
+    )
+    $("input").blur( ->
+        if $(@).val()==""
+          $(@).val($(@).data().placeholder) if $(@).val()==""
+          $(@).css("color", "grey")
+    )
     Source.fetch()
 
 window.HomePage = HomePage

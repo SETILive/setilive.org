@@ -34,7 +34,7 @@ class ZooniverseUser
   end
 
   def remove_favourite(subject)
-    favourite_ids.
+    
   end
   
   def update_classification_stats(classification)

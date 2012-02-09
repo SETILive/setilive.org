@@ -1,0 +1,37 @@
+<% content_for :head do %>
+  <script type="text/javascript" charset="utf-8">
+
+    var exports = this;
+    jQuery(function(){
+        new TargetsIndexPage({el: $("body")});      
+    });     
+  </script>
+<%end%>
+
+<div id='content'>
+      <h1 id='section-title'>classify</h1> 
+      <div id='flash'><span class='dismiss'>X</span> The telescope is following up on something you just identified! Go check it out...</div>
+      <div id='classify-area'>
+        <div id='waterfalls'>
+        </div>
+         
+        <div id='info'>
+          <div id='countdown'>
+            <p id='time'>2:34:03</p>
+            <p class='title'>Time till new data</p>
+          </div>
+          <div id='live_cam'>
+            <div id='live_feed'></div>
+            <p class='title'>Allen telescope live feed</p>
+          </div>
+
+          <div id = 'extra_controlls'>
+            <div id='done_talk'>
+              <div id='done'> Done </div>
+            </div>
+            <div id='favourite'> Add to Favourites</div>
+             <a href='#' id='nextBeam' >NEXT BEAM</a>
+          </div>
+        </div>
+      </div>
+    </div>

@@ -25,7 +25,9 @@ class Subject
 
 
   # validates_presence_of  :observation_id
-  # after_save :store_in_redis
+  #after_save :store_in_redis
+  after_save :persist_on_s3
+
 
   scope :paused,             where(:status=>'paused')
   scope :active,             where(:status=>'active')
@@ -67,6 +69,10 @@ class Subject
 
   def data
     @data ||= fetch_persisted_data
+  end
+
+  def persist_on_s3
+    SubjectUploader.perfom_async(self)
   end
 
   def remove_from_redis 

@@ -1,7 +1,6 @@
 
 class Source extends Spine.Model
   @configure 'Source', 'name', 'coords', 'description', 'type', 'meta'
-  @extend Spine.Model.Ajax
   @extend Spine.Events
 
   @fetch:->

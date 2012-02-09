@@ -1,4 +1,5 @@
 Marv::Application.routes.draw do
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -12,7 +13,12 @@ Marv::Application.routes.draw do
 
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   resources :classifications
-  resources :users 
+  resources :ZooniverseUsers do
+    member do 
+      post 'badges'
+      post 'favourites'
+    end
+  end
   resources :sources
   resources :subjects
 
@@ -23,6 +29,7 @@ Marv::Application.routes.draw do
   
   match '/classify'  => 'classifications#classify'
   match '/next_subject' => 'subjects#next_subject_for_user'
+  match '/current_user' => "ZooniverseUsers#current_logged_in_user"
   # Sample resource route with options:
   #   resources :products do
   #     member do
@@ -63,7 +70,10 @@ Marv::Application.routes.draw do
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
   root :to => 'home#index'
-  match '/login' => 'accounts#login'
+  match '/login' => 'accounts#login', :as => 'login'
+  match '/logout' => 'accounts#logout', :as => 'logout'
+  match '/signup' => 'accounts#signup', :as => 'signup'
+
   # See how all your routes lay out with "rake routes"
 
   # This is a legacy wild controller route that's not recommended for RESTful applications.

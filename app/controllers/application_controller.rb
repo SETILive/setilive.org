@@ -22,10 +22,7 @@ class ApplicationController < ActionController::Base
     respond_with 403 unless currnet_user 
   end
     
-  def current_user
-    current_zooniverse_user
-  end
-  
+
   def zooniverse_user
     session[:cas_user] || session[:zooniverse_user]
   end
@@ -58,7 +55,7 @@ class ApplicationController < ActionController::Base
   end
   
   def create_or_update_zooniverse_user
-    ZooniverseUser.first_or_create_by_zooniverse_user_id(zooniverse_user_id).tap do |user|
+    ZooniverseUser.first_or_create( zooniverse_user_id: zooniverse_user_id ).tap do |user|
       user.name = zooniverse_user
       user.email = zooniverse_user_email
       user.api_key = zooniverse_user_api_key
