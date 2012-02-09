@@ -32,7 +32,9 @@ gem 'sidekiq'
 gem 'pry', group: 'development'
 
 gem "bcrypt-ruby", :require => "bcrypt"
-gem 'aws-s3', :require => 'aws/s3'
+
+gem "aws-sdk", "~> 1.3.3"
+
 
 gem 'libxml-ruby', '2.2.2'
 gem 'httparty', '0.8.1'
