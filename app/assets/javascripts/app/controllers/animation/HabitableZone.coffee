@@ -1,8 +1,7 @@
 #= require ./Scene
 
 class HabitableZone extends Scene
-	enterDuration: 2000
-	exitDuration: 500
+	exitDuration: 1000
 
 	elements:
 		'.outer.ring': 'outerRing'
@@ -58,7 +57,7 @@ class HabitableZone extends Scene
 			opacity: 0
 			transform: 'translateY(200%)'
 
-		@planet.add(@planetFlag).delay(500).animate
+		@planet.add(@planetFlag).delay(600).animate
 			opacity: 0
 			transform: 'translateY(200%)'
 

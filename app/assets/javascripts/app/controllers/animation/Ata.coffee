@@ -1,8 +1,8 @@
 #= require ./Scene
 
 class Ata extends Scene
-	enterDuration: 667
-	exitDuration: 3000
+	enterDuration: 1000
+	exitDuration: 1000
 
 	elements:
 		'.mountain': 'mountain'
@@ -18,33 +18,23 @@ class Ata extends Scene
 
 	reset: =>
 		super
-		images = @mountain.add(@farScopes).add(@nearScopes)
 
-		images.css
-			height: ''
-			left: ''
-			opacity: ''
-
-		images.each ->
-			$el = $(@)
-			$el.data 'naturalHeight', $el.height()
-			$el.height 0
+		@mountain.css   opacity: 0, transform: 'translateX(200px)', 2000
+		@farScopes.css  opacity: 0, transform: 'translateX(400px)', 2000
+		@nearScopes.css opacity: 0, transform: 'translateX(800px)', 2000
 
 	enter: =>
 		super
-		@mountain.animate
-			height: @mountain.data 'naturalHeight'
 
-		@farScopes.delay(667).animate
-			height: @farScopes.data 'naturalHeight'
-
-		@nearScopes.delay(333).animate
-			height: @nearScopes.data 'naturalHeight'
+		@mountain.animate   opacity: 1, transform: '', 1000
+		@farScopes.animate  opacity: 1, transform: '', 1000
+		@nearScopes.animate opacity: 1, transform: '', 1000
 
 	exit: =>
 		super
-		@mountain.animate left: '-=100%', opacity: 0, 3000
-		@farScopes.animate left: '-=100%', opacity: 0, 2500
-		@nearScopes.animate left: '-=100%', opacity: 0,  2000
+
+		@mountain.animate   opacity: 0, transform: 'translateX(-200px)', 1000
+		@farScopes.animate  opacity: 0, transform: 'translateX(-400px)', 1000
+		@nearScopes.animate opacity: 0, transform: 'translateX(-800px)', 1000
 
 window.Ata = Ata

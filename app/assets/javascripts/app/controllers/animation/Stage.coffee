@@ -26,10 +26,10 @@ class Stage extends Spine.Controller
 		@el.append @controlsTemplate
 
 	goPrevious: =>
-		console.log @el.children('.active').prev().data('scene').activate()
+		@el.children('.active').prev().data('scene').activate()
 
 	goNext: =>
-		console.log @el.children('.active').next().data('scene').activate()
+		@el.children('.active').next().data('scene').activate()
 
 window.Stage = Stage
 window.stages = Stage.instances
