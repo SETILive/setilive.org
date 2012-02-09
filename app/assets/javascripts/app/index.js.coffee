@@ -58,9 +58,16 @@ class LoginPage extends Spine.Controller
     Source.fetch()
     
 class AboutPage extends Spine.Controller
-    constructor: ->
-        super
-        $('#star_field').hide()
+  constructor: ->
+    super
+    $('#star_field').hide()
+
+class TargetsIndexPage extends Spine.Controller
+  constructor: ->
+    super 
+    @stars = new Stars(el:$("#star_field"))
+    new TargetsIndex(el:$("#sources"))
+    Source.fetch()
 
 
 window.HomePage = HomePage
@@ -68,3 +75,4 @@ window.ClassificationPage = ClassificationPage
 window.LoginPage = LoginPage
 window.ClassificationPage = ClassificationPage
 window.AboutPage = AboutPage
+window.TargetsIndexPage = TargetsIndexPage

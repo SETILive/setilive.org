@@ -8,6 +8,9 @@ class Source extends Spine.Model
       Source.create(source) for source in data
       Source.trigger('refresh',Source.all())
 
+  kepler_no:->
+    @name.replace('kplr',"")
+
   planetHuntersLink :->
     "http://www.planethunters.org/sources/#{@zooniverse_id}"
 

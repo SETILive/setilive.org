@@ -2,6 +2,7 @@ class SourcesController < ApplicationController
 
   def index
     @sources = Source.all
+    @small_star_field = true  
 
     respond_to do |format|
       format.html # index.html.erb
@@ -11,6 +12,7 @@ class SourcesController < ApplicationController
 
   def show
     @source = Source.find(params[:id])
+    @small_star_field = true  
 
     respond_to do |format|
       format.html # show.html.erb

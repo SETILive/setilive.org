@@ -22,7 +22,7 @@ class Stars extends Spine.Controller
 
   drawField:=>
     @stars = Source.all()
-    console.log @stars
+    
     @drawStar(star) for star in @stars 
     @drawIndicator(@stars[0],"#CDDC28")
     @drawIndicator(@stars[10],"red")

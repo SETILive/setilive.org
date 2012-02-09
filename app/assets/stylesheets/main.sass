@@ -4,10 +4,30 @@
   background-image: -moz-linear-gradient(center top, $color1, $color2)
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from($color1), to($color2))
 
+
+@mixin round-corner($position, $amount: $default_rounded_amount)
+  border-#{$position}-radius: $amount
+  -webkit-border-#{$position}-radius: $amount
+
+@mixin round-corner-mozilla($position, $amount: $default_rounded_amount)
+  -moz-border-radius-#{$position}: $amount
+
 @mixin round-corners($amount)
   border-radius: $amount
   -moz-border-radius: $amount
   -webkit-border-radius: $amount
+
+@mixin round-top-corners($amount: 5px)
+  @include round-corner("top-left", $amount)
+  @include round-corner("top-right", $amount)
+  @include round-corner-mozilla("topleft", $amount)
+  @include round-corner-mozilla("topright", $amount)
+
+@mixin round-bottom-corners($amount: $default_rounded_amount)
+  @include round-corner("bottom-left", $amount)
+  @include round-corner("bottom-right", $amount)
+  @include round-corner-mozilla("bottomleft", $amount)
+  @include round-corner-mozilla("bottomright", $amount)
 
 ul
   list-style: none
@@ -400,7 +420,7 @@ p.title
     text-align: center
     font-size: 32px
     text-align: center
-  p
+  p.blurb
     width: 850px
     font-family: TitilliumText22LThin, Sans-serif     
     text-align: center
@@ -409,36 +429,46 @@ p.title
     margin: 0px
     padding: 0px
     height: 23px
-    @include round-corners(30)
-  h2
-    @include gradient-bg(#ebeaea, #b3b3b3)
-    font-size: 12px
+    @include round-corners(2px)
+  .login_section_header
+    @include gradient-bg(#ECEAEA, #DFDEDE)
+    font-size: 16px
     font-family: TitilliumText22LThin, Sans-serif   
     letter-spacing: 0px
     text-align: center
+    vertical-align: middle
     height: 83px
-    margin-top: 30px
     border-bottom: 1px solid #b2b2b2
     margin: 0px
     padding: 0px
-
+    @include round-top-corners(2px)
+    h2
+      font-size: 16px
+      font-family: TitilliumText22LThin, Sans-serif   
+  .login_section_lower
+    height: 222px
+    @include gradient-bg(#DFDEDE, #B3B3B3)
+    @include round-bottom-corners(2px)
+    p
+      margin-top: 10px
+      padding: 0px
   #science_channel 
     width:  685px
+    height: 304px
     color: black
     display: inline-block
     vertical-align: top
     text-align: left
-    @include round-corners(30)
 
-   
     #extra_signup_info
       margin-left: 0px
-      text-align: left
-      width: 685px
+      width: 380px
+    #user_signup_info
+      width: 220px
     .user_info_region
       display: inline-block
-      @include gradient-bg(#dfdede, #202730)
-
+      vertial-align: top
+        
 
   #zooniverse_login
     width:  240px
@@ -446,5 +476,52 @@ p.title
     color: black
     display: inline-block
     vertical-align: top
-    @include round-corner(30)
+    @include round-corners(30)
 
+.source_content
+  text-align: center
+#sources_header
+  width: 940px
+  margin-left: auto
+  margin-right: auto
+  margin-top : 20px
+  padding: 0px
+#sources_title 
+  font-size: 50px
+  color: #F2F2F2
+  text-align: center
+
+#sources_blurb
+  font-size: 14px
+  color: #F2F2F2
+  text-align: center
+  font-family: TitilliumText22LThin, Sans-serif
+
+
+#sources 
+  ul#source_list
+    width: 940px
+    margin-left: auto
+    margin-right: auto
+    padding: 0px
+    list-style: none
+    li.source
+      @include gradient-bg(#ECEAEA, #B3B3B3)
+      width: 210px
+      height: 150px
+      display: inline-block
+      vertical-align: top
+      margin-right: 20px
+      margin-bottom: 20px
+      cursor: pointer
+      p
+        text-transform: uppercase 
+        letter-spacing: 0px
+        color : #12161A
+  ul#pagination
+    list-style: none
+    li
+      display: inline-block
+      .pagination_active
+        text-decoration: underline 
+      
