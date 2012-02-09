@@ -1,6 +1,29 @@
 class TargetsShow extends Spine.Controller 
+  events:
+    'click #back_button' : 'goBack'
+    'click #planethunters_button' : 'openPlanetHunters'
+  elements:
+    '#star_vis' : "visualization"
+
   constructor : ->
     super
+    @source_id = window.location.pathname.split("/")[2]
+    Source.bind('refresh', @setupSource)
+
+  setupSource:=>
+    @source = Source.find(@source_id)
+    @render()
+    
+  goBack:=>
+    window.location = '/sources/'
+
+  render:=>
+    @html @view('target_show')(@source)
+    new SystemViewer({el: @visualization, source: @source })
+
+  openPlanetHunters:=>
+    window.open(@source.planetHuntersLink(),'_newtab');
+
 
 class TargetsIndex extends Spine.Controller 
   events:

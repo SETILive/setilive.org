@@ -523,5 +523,62 @@ p.title
     li
       display: inline-block
       .pagination_active
-        text-decoration: underline 
-      
+        text-decoration: underline   
+#source
+  width: 940px
+  height: 540px
+  margin-left: auto
+  margin-right: auto
+  #star_vis
+    width: 540px
+    height: 540px
+    display: inline-block
+    vertical-align: middle
+  #star_details
+    width: 220px
+    height: 220px
+    @include gradient-bg(#ECEAEA, #B3B3B3)
+    @include round-corners(2px)
+    text-align: center
+    color: black
+    letter-spacing: 0px
+    padding-top: 10px
+    display: inline-block
+    vertical-align: middle
+    margin-left: 40px
+    h1
+      font-size: 12px
+      text-transform: uppercase
+      margin: 0px
+      padding: 0px
+      margin-top: 27px
+    h2
+      margin: 0px
+      padding: 0px
+      margin-top: 20px
+      font-size: 17px
+      text-transform: uppercase
+  #buttons
+    margin-left: auto
+    margin-right: auto
+    #back_button
+      width: 80px
+      height: 25px
+      line-height: 25px
+      @include gradient-bg(#EBF767, #989F41)
+      color: white
+      display: inline-block
+      vertical-align: top
+      cursor: pointer
+
+    #planethunters_button
+      width: 80px
+      height: 25px
+      line-height: 25px
+      font-size: 10px
+      @include gradient-bg(#EBF767, #989F41)
+      color: white
+      display: inline-block
+      vertical-align: top
+      cursor: pointer
+ 

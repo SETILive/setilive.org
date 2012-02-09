@@ -1,6 +1,6 @@
 
 class Source extends Spine.Model
-  @configure 'Source', 'name', 'coords', 'description', 'type', 'meta'
+  @configure 'Source', 'name', 'coords', 'description', 'type', 'meta','zooniverse_id'
   @extend Spine.Events
 
   @fetch:->
@@ -12,7 +12,8 @@ class Source extends Spine.Model
     @name.replace('kplr',"")
 
   planetHuntersLink :->
-    "http://www.planethunters.org/sources/#{@zooniverse_id}"
+    sph = @zooniverse_id.replace("SSL","SPH")
+    "http://www.planethunters.org/sources/#{sph}"
 
 window.Source = Source
 

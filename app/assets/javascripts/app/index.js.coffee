@@ -69,6 +69,12 @@ class TargetsIndexPage extends Spine.Controller
     new TargetsIndex(el:$("#sources"))
     Source.fetch()
 
+class TargetsShowPage extends Spine.Controller
+  constructor: ->
+    super 
+    @stars = new Stars(el:$("#star_field"))
+    new TargetsShow(el:$("#source"))
+    Source.fetch()
 
 window.HomePage = HomePage
 window.ClassificationPage = ClassificationPage
@@ -76,3 +82,5 @@ window.LoginPage = LoginPage
 window.ClassificationPage = ClassificationPage
 window.AboutPage = AboutPage
 window.TargetsIndexPage = TargetsIndexPage
+window.TargetsShowPage = TargetsShowPage
+
