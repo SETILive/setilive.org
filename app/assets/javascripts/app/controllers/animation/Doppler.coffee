@@ -31,26 +31,26 @@ class Doppler extends Scene
 			opacity: 0
 
 	enter: =>
-		@satelliteGoesRight()
-		@satellitePulse()
-
 		@mountain.add(@tower).add(@towerWaves).add(@telescope).animate
 			opacity: 1
 			transform: ''
 
 		@towerPulse()
 
+		@satelliteGoesRight()
+		@satellitePulse()
+
 	satelliteGoesRight: =>
-		@satelliteGroup.css left: ''
+		@satelliteGroup.css left: '', opacity: 0
 
 		# Fade in, fade out
 		@satelliteGroup.animate opacity: 1, {duration: 2500, queue: false}
-		delay @satelliteDuration - 2500, =>
+		@timeouts.satelliteFadeOout = delay @satelliteDuration - 2500, =>
 			@satelliteGroup.animate opacity: 0, {duration: 2500, queue: false}
 
 		# Rise, fall
 		@satelliteGroup.animate transform: 'translateY(-50%)', {duration: @satelliteDuration / 2, queue: false}
-		delay @satelliteDuration / 2, =>
+		@timeouts.satelliteFall = delay @satelliteDuration / 2, =>
 			@satelliteGroup.animate transform: '', {duration: @satelliteDuration / 2, queue: false}
 
 		# Move to the right
@@ -84,8 +84,8 @@ class Doppler extends Scene
 		@towerWaves.animate opacity: 0, 300
 
 	exit: =>
-		@mountain.add(@tower).animate opacity: 0, transform: 'translateX(-200px)', 1000
+		@mountain.add(@tower).add(@towerWaves).animate opacity: 0, transform: 'translateX(-200px)', 1000
 		@telescope.animate opacity: 0, transform: 'translateX(-800px)', 1000
-		@satellite.animate opacity: 0, transform: 'translateX(100px)', 1000
+		@satelliteGroup.css opacity: 0
 
 window.Doppler = Doppler

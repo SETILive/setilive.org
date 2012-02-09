@@ -43,12 +43,8 @@ class Scene extends Spine.Controller
 
 	stopAnimating: =>
 		@$(':animated').stop true, true
-
-		for name, el of @elements
-			@[el].stop(true, true)
-
-		for name, timeout of @timeouts
-			clearTimeout timeout
+		for name, el of @elements then @[el].clearQueue()
+		for name, timeout of @timeouts then clearTimeout timeout
 
 	exit: =>
 		# Override
