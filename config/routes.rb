@@ -25,8 +25,8 @@ Marv::Application.routes.draw do
   match '*all' => 'application#cor', :constraints => {:method => 'OPTIONS'}
 
   root :to => 'home#index'
-  match '/login' => 'accounts#login', :as => 'login'
-  match '/logout' => 'accounts#logout', :as => 'logout'
-  match '/signup' => 'accounts#signup', :as => 'signup'
-
+  match '/login'   => 'accounts#login', :as => 'login'
+  match '/logout'  => 'accounts#logout', :as => 'logout'
+  match '/signup'  => 'accounts#signup', :as => 'signup'
+  match '/profile' => 'ZooniverseUsers#show', :as => 'profile'
 end

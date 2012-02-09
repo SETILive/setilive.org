@@ -7,7 +7,9 @@ class ZooniverseUser
   key :name, String 
   key :favourite_ids, Array 
   key :badges, Hash
-  key :total_classifications , Integer
+  key :total_classifications , Integer, :default => 0
+  key :total_follow_ups , Integer,  :default => 0
+  key :total_signals , Integer,  :default => 0
   key :classification_count, Hash
   key :signal_count, Hash
   key :follow_up_count, Hash

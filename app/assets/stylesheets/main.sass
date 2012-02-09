@@ -582,3 +582,65 @@ p.title
       vertical-align: top
       cursor: pointer
  
+#user_stats
+  width: 980px
+  height: 80px
+  margin-left: auto
+  margin-right: auto
+  li
+    width: 220px
+    height: 100%
+    display: inline-block
+    margin-right: 20px
+    .stats_box
+      @include gradient-bg(#EBEAEA, #A8A7A7)
+      @include round-corners(2px)
+      height: 60px
+      p
+        text-align: center
+        line-height: 50px
+        font-size: 25px
+        width: 210px
+        height: 50px
+        position: relative
+        margin-left: auto
+        margin-right: auto
+        top: 5px
+        background-image: url("glass.png")
+        background-repeat: repeat-x
+        color: #d0de35
+    p
+      color: #898080
+      text-transform: uppercase 
+      font-size: 9px
+      margin-top: 9px
+
+#user_profile 
+  width: 1000px
+  height: 517px
+  @include round-corners(2px)
+  @include gradient-bg(#ECEAEA, #B3B3B3)
+  margin-left: auto
+  margin-right: auto
+  margin-top: 30px
+  #profile_top
+    width: 100%
+    height: 105px
+    border-bottom: 1px solid #BCBCBC
+    color: black
+    h1
+      font-size: 25px
+      letter-spacing: 0px
+      line-height: 80px
+      margin-left: 30px
+      display: inline-block
+      vertical-align: middle
+    #user_badges
+      display: inline-block
+      vertical-align: middle
+      margin-left: 100px
+      li
+        width: 51px
+        height: 51px
+        display: inline-block
+        background-image: url("emptyBadge.png")

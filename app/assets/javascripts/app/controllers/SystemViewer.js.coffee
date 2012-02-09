@@ -46,6 +46,7 @@ class SystemViewer extends Spine.Controller
     orbit = @context.circle @cent_x, @cent_y , planet.a*@localDistScale
 
     circle = @context.circle x, y, r
+    
     circle.attr
       fill: "black"
       stroke:"white"

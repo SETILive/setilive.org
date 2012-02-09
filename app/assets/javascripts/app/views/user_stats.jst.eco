@@ -1,0 +1,27 @@
+<%console.log "maing stats for ", @%>
+<ul id='user_stats'>
+  <li>
+    <div class='stats_box'>
+      <p><%=@total_classifications%></p>
+    </div> 
+    <p>Total Classification</p>
+  </li>
+  <li>
+    <div class='stats_box'>
+      <p><%=@total_follow_ups%></p>
+    </div> 
+    <p>Follow Ups</p>
+  </li>
+  <li>
+    <div class='stats_box'>
+      <p><%=@total_signals%></p>
+    </div> 
+    <p>Signals Marked</p>
+  </li>
+  <li>
+    <div class='stats_box'>
+      <p>0</p>
+    </div> 
+    <p>Extraterrestrials Found</p>
+  </li>
+ </ul>

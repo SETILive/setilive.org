@@ -76,6 +76,14 @@ class TargetsShowPage extends Spine.Controller
     new TargetsShow(el:$("#source"))
     Source.fetch()
 
+class ProfilePage extends Spine.Controller
+  constructor:->
+    super
+    @stars = new Stars(el:$("#star_field"))
+    new Profile(el: $("#profile"))
+    Source.fetch()
+    User.fetch_current_user()
+
 window.HomePage = HomePage
 window.ClassificationPage = ClassificationPage
 window.LoginPage = LoginPage
@@ -83,4 +91,4 @@ window.ClassificationPage = ClassificationPage
 window.AboutPage = AboutPage
 window.TargetsIndexPage = TargetsIndexPage
 window.TargetsShowPage = TargetsShowPage
-
+window.ProfilePage = ProfilePage

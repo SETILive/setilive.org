@@ -1,0 +1,28 @@
+<div id='user_profile'>
+  <div id='profile_top'>
+    <h1 id='user_welcome'>
+      Welcome back , <%=@user.name%>.
+    </h1>
+    <ul id='user_badges'>
+      <% for badge in [0...9]:%>
+        <li  class='badge'>
+        </li>
+      <%end%>
+    </ul>
+  </div>
+  <div id='profile_bottom'>
+    <p> View </p>
+    <ul id='view_selection'>
+      <li>Recents</li>
+      <li>Followups</li> 
+      <li>Favorites</li> 
+    </ul>
+  </div>
+
+  <div id='content'>
+    <% for subject in @subjects: %>
+      <div class='waterfall' data-id='<%=subject.id%>' >
+      </div>
+    <%end%>
+  </div>
+</div>
