@@ -3,7 +3,6 @@
 		background: #233
 		height: 400px
 		margin: 0 auto
-		outline: 1px solid red
 		position: relative
 		width: 800px
 
@@ -13,6 +12,10 @@
 			position: absolute
 			top: 0
 			width: 100%
+
+			&.active
+				position: relative
+				z-index: 1
 
 			> *
 				position: absolute
@@ -158,3 +161,7 @@
 			> .telescope
 				bottom: 4%
 				left: 13%
+
+		> .controls
+			position: absolute
+			z-index: 2
