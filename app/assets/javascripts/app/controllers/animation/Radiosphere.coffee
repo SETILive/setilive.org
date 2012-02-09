@@ -17,8 +17,6 @@ class Radiosphere extends Scene
 		'.other.planet': 'otherPlanet'
 
 	reset: =>
-		super
-
 		@el.css opacity: 0
 
 		@mainPlanet.css opacity: 1, transform: 'scale(0.01)'
@@ -34,8 +32,6 @@ class Radiosphere extends Scene
 		@radioWaves.css opacity: 0
 
 	enter: =>
-		super
-
 		@el.css opacity: 1
 
 		@outerRing.animate transform: '', 500
@@ -45,9 +41,9 @@ class Radiosphere extends Scene
 		@mainPlanet.animate transform: '', 1500
 		@radio.delay(2000).animate opacity: 1, transform: '', 250
 
-		@tinyPlanet.animate transform: '', 2500, @loop
-		@smallPlanet.animate transform: '', 1500
-		@otherPlanet.animate transform: '', 1000
+		@tinyPlanet.animate transform: '', 2000, @loop
+		@smallPlanet.animate transform: '', 667
+		@otherPlanet.animate transform: '', 333
 
 	loop: =>
 		return unless @active
@@ -60,17 +56,16 @@ class Radiosphere extends Scene
 		@otherPlanet.delay(1000).animate(transform: 'scale(1.1)').animate transform: '', @loop
 
 	exit: =>
-		super
-
-		@outerRing.animate opacity: 0, transform: 'translateY(70%) scale(3)', 500
-		@middleRing.animate opacity: 0, transform: 'translateY(75%) scale(3)', 1000
-		@innerRing.animate opacity: 0, transform: 'translateY(80%) scale(3)', 1500
-
-		@mainPlanet.animate opacity: 0, transform: 'translateY(85%) scale(3)', 2000
 		@radio.animate opacity: 0, 250
 
-		@tinyPlanet.animate opacity: 0, transform: 'translate(500%, 500%) scale(3)', 2500
-		@smallPlanet.animate opacity: 0, transform: 'translate(50%, 500%) scale(3)', 1500
-		@otherPlanet.animate opacity: 0, transform: 'translate(500%, 500%) scale(3)', 1000
+		@outerRing.animate opacity: 0, transform: 'translateY(170%) scale(3)', 500
+		@middleRing.animate opacity: 0, transform: 'translateY(175%) scale(3)', 1000
+		@innerRing.animate opacity: 0, transform: 'translateY(180%) scale(3)', 1500
+
+		@mainPlanet.animate opacity: 0, transform: 'translateY(185%) scale(3)', 1500
+
+		@tinyPlanet.animate opacity: 0, transform: 'translate(100%, -100%%) scale(3)', 2500
+		@smallPlanet.animate opacity: 0, transform: 'translate(-500%, 350%) scale(3)', 1500
+		@otherPlanet.animate opacity: 0, transform: 'translate(1000%, 600%) scale(3)', 1000
 
 window.Radiosphere = Radiosphere

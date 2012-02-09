@@ -13,8 +13,6 @@ class Doppler extends Scene
 		'.telescope': 'telescope'
 
 	reset: =>
-		super
-
 		@mountain.add(@tower).css
 			opacity: 0
 			transform: 'translateX(200px)'
@@ -31,8 +29,6 @@ class Doppler extends Scene
 		@satelliteWaves.add(@towerWaves).css opacity: 0
 
 	enter: =>
-		super
-
 		@mountain.add(@tower).add(@telescope).add(@satellite).add(@satelliteWaves).animate
 			opacity: 1
 			transform: ''
@@ -73,8 +69,6 @@ class Doppler extends Scene
 		@towerWaves.animate opacity: 0, 300, @towerPulse
 
 	exit: =>
-		super
-
 		@mountain.add(@tower).animate opacity: 0, transform: 'translateX(-200px)', 1000
 		@telescope.animate opacity: 0, transform: 'translateX(-800px)', 1000
 		@satellite.animate opacity: 0, transform: 'translateX(100px)', 1000

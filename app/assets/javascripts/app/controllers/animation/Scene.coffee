@@ -12,24 +12,40 @@ class Scene extends Spine.Controller
 		Scene.instances.push @
 		super
 		@el.data 'scene', @
+
 		@reset()
 
 	reset: =>
+		# Override
 
 	activate: =>
-		activeSibling = @el.siblings('.active').data 'scene'
-		if activeSibling then activeSibling.exit()
-		setTimeout @enter, activeSibling?.exitDuration || 0
-
-	enter: =>
 		@el.addClass 'active'
 		@active = true
 
-	exit: =>
-		el.stop(true, true) for name, el in @elements
+		activeSibling = @el.siblings('.active').data 'scene'
+		activeSibling?.deactivate()
+
+		setTimeout @enter, activeSibling?.exitDuration or 0
+
+	enter: =>
+		# Override
+
+	deactivate: =>
+		@stopAnimating()
+
 		@active = false
 		@el.removeClass 'active'
-		setTimeout @reset, @exitDuration + $.speed('slow').duration
+
+		setTimeout @reset, @exitDuration + 1000
+
+		setTimeout @exit, 0
+
+	stopAnimating: =>
+		@$(':animated').stop(true, true)
+		el.queue([]) for name, el in @elements
+
+	exit: =>
+		# Override
 
 window.Scene = Scene
 

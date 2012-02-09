@@ -1,26 +1,58 @@
 .about
 	> .stage
-		background: #233
-		height: 400px
+		height: 600px
 		margin: 0 auto
 		position: relative
 		width: 800px
 
+		> .controls
+			left: 0
+			position: absolute
+			top: 200px
+			z-index: 2
+			width: 100%
+
+			> button
+				background: transparent
+				border: 0
+				color: inherit
+				cursor: pointer
+				padding: 20px
+				position: absolute
+				top: 0
+
+				&.previous
+					right: 100%
+
+				&.next
+					left: 100%
+
 		> .scene
-			height: 100%
 			left: 0
 			position: absolute
 			top: 0
 			width: 100%
 
+			> .container
+				height: 400px
+				position: relative
+				width: 100%
+
+				> *
+					position: absolute
+
+			> .description
+				text-align: center
+				display: none
+
 			&.active
 				position: relative
 				z-index: 1
 
-			> *
-				position: absolute
+				> .description
+					display: block
 
-		> .ata.scene
+		> .ata.scene > .container
 			> .mountain
 				left: 0
 				bottom: 41%
@@ -47,7 +79,7 @@
 				&.second
 					left: 50%
 
-		> .radiosphere.scene
+		> .radiosphere.scene > .container
 			> .outer.ring
 				left: 6%
 				top: 18%
@@ -84,7 +116,7 @@
 				left: 75%
 				top: 63%
 
-		> .habitable-zone.scene
+		> .habitable-zone.scene > .container
 			> .outer.ring
 				left: 8%
 				top: 24%
@@ -134,7 +166,7 @@
 					left: 77%
 					top: 33%
 
-		> .doppler.scene
+		> .doppler.scene > .container
 			> .mountain
 				left: 0
 				bottom: 51%
@@ -158,9 +190,3 @@
 			> .telescope
 				bottom: 4%
 				left: 13%
-
-		> .controls
-			left: 0
-			position: absolute
-			top: 0
-			z-index: 2

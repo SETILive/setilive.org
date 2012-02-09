@@ -14,8 +14,6 @@ class HabitableZone extends Scene
 		'.flag.for-zone': 'zoneFlag'
 
 	reset: =>
-		super
-
 		@outerRing.add(@innerRing).add(@star).css
 			opacity: 0
 			transform: 'translateY(-200%)'
@@ -25,8 +23,6 @@ class HabitableZone extends Scene
 			transform: 'translateY(-400%)'
 
 	enter: =>
-		super
-
 		@outerRing.animate opacity: 1, transform: 'translateY(20%)'
 		@outerRing.animate transform: 'translateY(-10%)'
 		@outerRing.animate transform: ''
@@ -47,8 +43,6 @@ class HabitableZone extends Scene
 		@zoneFlag.delay(2000).animate opacity: 1, transform: ''
 
 	exit: =>
-		super
-
 		@outerRing.add(@zoneFlag).animate
 			opacity: 0
 			transform: 'translateY(200%)'

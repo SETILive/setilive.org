@@ -44,4 +44,4 @@ $ ->
 			scene = new Ctor el: @
 			stage.scenes.push scene
 
-			if $el.hasClass 'active' then setTimeout scene.enter, 10
+			if $el.hasClass 'active' then setTimeout scene.activate, 10
