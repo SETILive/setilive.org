@@ -34,6 +34,7 @@ class Profile extends Spine.Controller
   selectCollectionType:(e)=>
     e.preventDefault()
     @collectionType =  $(e.currentTarget).data().collection_type
+    console.log "collection type", $(e.currentTarget).data().collection_type
     @paginate()
     @render()
 

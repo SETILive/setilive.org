@@ -14,9 +14,9 @@
     <div id='view_selection'>
       <span> View </span>
       <ul id='view_selection'>
-        <li <%= "class='catagory_selection'" if @collectionType=='recents'%> data-id="recents" >Recents / </li>
-        <li <%= "class='catagory_selection'" if @collectionType=='followups'%> data-id="Followups">Followups /</li> 
-        <li <%= "class='catagory_selection'" if @collectionType=='favourites'%> data-id="favorites">Favorites</li> 
+        <li  class= 'collectionType <%= "catagory_selection" if @collectionType=='recents'%>' data-id="recents" >Recents / </li>
+        <li class= 'collectionType <%= "catagory_selection" if @collectionType=='followups'%>' data-id="Followups">Followups /</li> 
+        <li class= 'collectionType <%= "catagory_selection" if @collectionType=='favorites'%>' data-id="favorites">Favorites</li> 
       </ul>
     </div>
 
