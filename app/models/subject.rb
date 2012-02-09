@@ -15,6 +15,7 @@ class Subject
   key :scores, Hash
   key :width , Integer
   key :height , Integer
+  key :uploaded, Boolean, :default =>"false"
   key :total_score , Float
 
   timestamps!

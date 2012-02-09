@@ -1,4 +1,5 @@
 class ClassificationsController < ApplicationController
+    before_filter CASClient::Frameworks::Rails::Filter
 
   def show
     @classification = Classification.find(params[:id])

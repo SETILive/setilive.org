@@ -1,4 +1,5 @@
 class FavouritesController < ApplicationController
+  before_filter CASClient::Frameworks::Rails::Filter
 
   def create
     user = current_user

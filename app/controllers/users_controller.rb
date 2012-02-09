@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  before_filter :signed_id
+  before_filter CASClient::Frameworks::Rails::Filter 
+
 
   def badges 
     if current_user 
@@ -21,11 +22,5 @@ class UsersController < ApplicationController
 
   end 
 
-  def login
-
-  end
-
-  def logout 
-
-  end
+  
 end

@@ -1,4 +1,5 @@
 class SourcesController < ApplicationController
+  before_filter CASClient::Frameworks::Rails::GatewayFilter
 
   def index
     @sources = Source.all

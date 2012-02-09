@@ -32,19 +32,12 @@
 
      
       <%= yield :head%>
+    
+
     </head>
 
      <body>
-      <div id='top'>
-        <a href='/' id='logo'>SETI<span class='green live'>LIVE</span></a>
-        <ul  id='nav'>
-          <li><a href='/about'>about</a> </li>
-          <li><a href='/classify.html'>classify</a> </li>
-          <li><a href='/profile'>profile</a> </li>
-          <li><a href='/sources'>targets</a> </li>
-          <li><a href='http://talk.setilive.org'>talk</a> </li>
-        </ul>
-      </div>
+     
     
       <div id='star_field' class= <%= @small_star_field ? 'small_field' : "big_field"%>></div>
 

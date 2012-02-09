@@ -19,29 +19,32 @@
 #= require_self
 
 
-
-class HomePage extends Spine.Controller
-  constructor: ->
-    super
+class SetiLiveController extends Spine.Controller
+  constructor:->
+    super 
+    User.fetch_current_user()
+    @prepend new NavBar()
     @stars = new Stars(el:$("#star_field"))
-    @stats = new Stats({el:$("#stats")})
     Source.fetch()
 
-class ClassificationPage extends Spine.Controller
+
+class HomePage extends SetiLiveController
   constructor: ->
     super
-    @stars = new Stars(el:$("#star_field"))
+    @stats = new Stats({el:$("#stats")})
+
+class ClassificationPage extends SetiLiveController
+  constructor: ->
+    super
     
     @subjects = new Subjects({el:$("#waterfalls")})
     @info = new Info({el: $("#info")})
-    
-    Source.fetch()
     Workflow.fetch_from_url("/workflows.json")
 
-class LoginPage extends Spine.Controller 
+class LoginPage extends SetiLiveController
   constructor:->
     super 
-    @stars = new Stars(el:$("#star_field"))
+    
     $("input").each(->
         $(@).attr('data-placeholder',$(@).val())
     )
@@ -55,35 +58,27 @@ class LoginPage extends Spine.Controller
           $(@).val($(@).data().placeholder) if $(@).val()==""
           $(@).css("color", "grey")
     )
-    Source.fetch()
     
-class AboutPage extends Spine.Controller
+class AboutPage extends SetiLiveController
   constructor: ->
     super
     $('#star_field').hide()
 
-class TargetsIndexPage extends Spine.Controller
+class TargetsIndexPage extends SetiLiveController
   constructor: ->
     super 
-    @stars = new Stars(el:$("#star_field"))
     new TargetsIndex(el:$("#sources"))
-    Source.fetch()
 
-class TargetsShowPage extends Spine.Controller
+class TargetsShowPage extends SetiLiveController
   constructor: ->
     super 
-    @stars = new Stars(el:$("#star_field"))
     new TargetsShow(el:$("#source"))
-    Source.fetch()
 
-class ProfilePage extends Spine.Controller
+class ProfilePage extends SetiLiveController
   constructor:->
     super
-    @stars = new Stars(el:$("#star_field"))
     new Profile(el: $("#profile"))
-    Source.fetch()
-    User.fetch_current_user()
-
+  
 window.HomePage = HomePage
 window.ClassificationPage = ClassificationPage
 window.LoginPage = LoginPage

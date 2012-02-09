@@ -1,4 +1,5 @@
 class SubjectsController < ApplicationController
+  before_filter CASClient::Frameworks::Rails::Filter
 
   def next_subject_for_user
     subject = nil
