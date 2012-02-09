@@ -18,6 +18,7 @@ class Profile extends Spine.Controller
     @render()
 
   render:=> 
+    @html ""
     @append @view('user_stats')(@user)
     @append @view('user_profile')
       user: @user
@@ -27,7 +28,7 @@ class Profile extends Spine.Controller
   
   selectPage:(e)=>
     e.preventDefault()
-    @pagnination.page = $(e.currentTarget).data().id
+    @pagination.page = $(e.currentTarget).data().id
     @render()
 
   selectCollectionType:(e)=>
@@ -37,8 +38,7 @@ class Profile extends Spine.Controller
     @render()
 
   paginate:=>
-    console.log("collection type is ", @collectionType)
-    collection = @user[@collectionType]
+    collection = [1..20] #@user[@collectionType]
     @pagination =
       page : 0
       pages: collection.length/@pagination_no
@@ -47,6 +47,8 @@ class Profile extends Spine.Controller
         @page*@noPerPage
       end: ->
         (@page+1)*@noPerPage
+      menu:->
+        JST["app/views/pagination"](@)
       
   
 window.Profile = Profile

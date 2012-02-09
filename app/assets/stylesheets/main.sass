@@ -621,9 +621,22 @@ p.title
       font-size: 9px
       margin-top: 9px
 
+ul.pagination
+  margin: 0px
+  padding: 0px
+  li
+    cursor: pointer
+    display: inline-block
+    vertical-align: top
+    margin: 0px
+    padding: 0px
+  li.selected_page
+    text-decoration: underline
+    
+
 #user_profile 
   width: 1000px
-  height: 517px
+  height: 530px
   @include round-corners(2px)
   @include gradient-bg(#ECEAEA, #B3B3B3)
   margin-left: auto
@@ -685,5 +698,8 @@ p.title
         margin-right: 10px
         margin-bottom: 20px
         background-image: url("example_thumb.png")
-          
-        
+    .pagination
+      color: black
+      float: right
+      margin-right: 20px
+      font-size: 12px
