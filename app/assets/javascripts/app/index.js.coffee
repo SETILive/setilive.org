@@ -87,3 +87,6 @@ window.AboutPage = AboutPage
 window.TargetsIndexPage = TargetsIndexPage
 window.TargetsShowPage = TargetsShowPage
 window.ProfilePage = ProfilePage
+
+# Run jQuery animations at 20 FPS
+jQuery.fx.interval = 50

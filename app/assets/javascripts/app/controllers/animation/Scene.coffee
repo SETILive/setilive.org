@@ -6,11 +6,12 @@ class Scene extends Spine.Controller
 	enterDuration: 0
 	exitDuration: 0
 
-	loopTimeout: NaN
+	timeouts: null
 
 	constructor: ->
 		Scene.instances.push @
 		super
+		@timeouts = {}
 		@el.data 'scene', @
 
 		@reset()
@@ -41,8 +42,13 @@ class Scene extends Spine.Controller
 		setTimeout @exit, 0
 
 	stopAnimating: =>
-		@$(':animated').stop(true, true)
-		el.queue([]) for name, el in @elements
+		@$(':animated').stop true, true
+
+		for name, el of @elements
+			@[el].stop(true, true)
+
+		for name, timeout of @timeouts
+			clearTimeout timeout
 
 	exit: =>
 		# Override
