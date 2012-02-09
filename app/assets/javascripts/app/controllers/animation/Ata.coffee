@@ -18,6 +18,7 @@ class Ata extends Scene
 
 	reset: =>
 		super
+
 		images = @mountain.add(@farScopes).add(@nearScopes)
 
 		images.css

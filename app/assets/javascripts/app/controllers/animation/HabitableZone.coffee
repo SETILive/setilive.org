@@ -2,7 +2,7 @@
 
 class HabitableZone extends Scene
 	enterDuration: 2000
-	exitDuration: 500
+	exitDuration: 1000
 
 	elements:
 		'.outer.ring': 'outerRing'

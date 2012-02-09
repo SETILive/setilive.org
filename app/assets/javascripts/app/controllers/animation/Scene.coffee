@@ -2,7 +2,6 @@ class Scene extends Spine.Controller
 	@instances = []
 
 	enterDuration: 0
-	loopDuration: NaN
 	exitDuration: 0
 
 	loopTimeout: NaN
@@ -14,7 +13,6 @@ class Scene extends Spine.Controller
 		@reset()
 
 	reset: =>
-		clearTimeout @loopTimeout
 		@$(':animated').stop(true, true)
 
 	activate: =>
@@ -24,12 +22,6 @@ class Scene extends Spine.Controller
 
 	enter: =>
 		@el.addClass 'active'
-
-		unless isNaN @loopDuration
-			@loopTimeout = setTimeout @loop, @enterDuration + $.speed('slow').duration
-
-	loop: =>
-		@loopTimeout = setTimeout @loop, @loopDuration
 
 	exit: =>
 		@el.removeClass 'active'
