@@ -1,20 +1,27 @@
-<div id='target'>
-        <p>Kepler <%=source.kepler_no()%></p>
-        <%details = @current_target.meta%>
-<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width = 100% height=100>
-        <circle r = "<%=Math.max(details.stellar_rad*10, 5)%>" cx="105" cy="51" fill="#E2E2E2" />
-        <circle r = "<%=Math.max(details.stellar_rad*10, 5)%>" cx="105" cy="50" fill="#A8A8A8" />
+<div id='targets'>
+  <p>Kepler <%=@current_target.kepler_no()%></p>
+          <%details = @current_target.meta%>
+  <div id='target'>
+          
+          <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width = 100% height=100>
+            <circle r = "<%=Math.max(details.stellar_rad*10, 5)%>" cx="105" cy="51" fill="#E2E2E2" />
+            <circle r = "<%=Math.max(details.stellar_rad*10, 5)%>" cx="105" cy="50" fill="#A8A8A8" />
 
-        <% planetStep = 100 / details.planets.length %>
-        <% for planet,index in details.planets: %>
-         <circle r = "<%=Math.max(planet.radius, 2)%>" cx="<%=index*planetStep+80%>" cy="53" fill="#E2E2E2" />
-          <circle r = "<%=Math.max(planet.radius, 2)%>" cx="<%=index*planetStep+80%>" cy="52" fill="#12161A" />
-        <%end%>
-      </svg>
+            <% planetStep = 100 / details.planets.length %>
+            <% for planet,index in details.planets: %>
+             <circle r = "<%=Math.max(planet.radius, 2)%>" cx="<%=index*planetStep+80%>" cy="53" fill="#E2E2E2" />
+              <circle r = "<%=Math.max(planet.radius, 2)%>" cx="<%=index*planetStep+80%>" cy="52" fill="#12161A" />
+            <%end%>
+        </svg>
+
+    
+  </div>
+  <ul id='controls'>
+      <% for source in @targets: %>
+        <li class='dot <%= "selected" if source.id==@current_target.id%>' data-id='<%=source.id%>'></li>
+      <%end%>
+    </ul>
+
 </div>
 
-<ul id='controls'>
-  <% for source in @targets: %>
-    <li class='dot' data-id='<%=source.id%>'></li>
-  <%end%>
-</ul>
+<p class='title'>Targets Currently in View</p>

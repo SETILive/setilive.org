@@ -288,7 +288,7 @@ body
   cursor: pointer 
 
 #info
-  width: 260px
+  width: 220px
   height: 560px
   padding: 0px
   margin: 0px
@@ -296,14 +296,50 @@ body
   top: 0px
   right: 0px
 
+  #current_targets
+    width: 100%
+    #targets
+      width: 220px
+      height: 200px
+      padding-top: 10px
+      margin-left: auto
+      margin-right: auto
+      @include gradient-bg(#ECEAEA, #B3B3B3)
+      @include round-corners(2px)
+      #target
+        cursor: pointer
+      p
+        height: 13px
+        color: black
+        text-transform: uppercase
+        margin-top: 28px
+        text-align: center
+        display: block
+    #controls
+      text-align: center
+      height: 28px
+      width: 100%
+      border-top: 1px solid #9C9B9B
+      .dot
+        width: 10px
+        height: 10px
+        margin-top: 6px
+        @include round-corners(10px)
+        background-color : #545454
+        display: inline-block
+        vertical-align : top
+        cursor: pointer
+      .selected
+        background: #E2E2E2
+
 #countdown #time
   color: #cddc28
   font-family: TitilliumText22LThin, Sans-serif
-  font-size: 40pt
+  font-size: 25pt
   text-align: center
-  line-height: 60pt
-  width: 260px
-  height: 76px
+  line-height: 45pt
+  width: 214px
+  height: 50px
   background-image: url("gradient_background.png")
   margin: 0px
   border: 3px #BBBBBB solid
@@ -361,10 +397,33 @@ p.title
 
 #extra_controlls
   width: 100%
-  height: 125px
-  margin-top: 17px
-  #done_talk
-    width: 262px
+  height: 189px
+  margin-top: -10px
+
+  .extra_button
+    color: white
+    text-align: center
+    @include gradient-bg(#ECF96B, #90991F)
+    @include round-corners(2px)
+    height: 42px
+    line-height: 42px
+    margin: 0px
+    padding: 0px
+    margin-bottom: 20px
+    display: inline-block
+    vertical-align: bottom
+    cursor: pointer
+  #clear_signal
+    width: 163px
+    margin-right: 5px
+  #favourite
+    width: 48px
+  #next_beam
+    width: 100%
+    height: 60px
+    line-height: 60px
+    margin-top: 4px
+  
   #done
     width: 262px
     height: 78px

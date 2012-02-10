@@ -41,6 +41,7 @@ class Subjects extends Spine.Controller
       subject_id : @current_subject.id
       start_time : new Date()
     
+    
     @setUpBeams()
      
   selectBeam:(beamNo)=>

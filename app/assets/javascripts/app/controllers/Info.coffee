@@ -4,16 +4,31 @@ class Info extends Spine.Controller
     "#time" : "time"
     "#extra_controlls" : "controls"
     "#done_talk" : "doneTalk"
+    "#current_targets" : "targets"
 
   events:
     "click #done " : "done"
     "click #talk_yes" : "talk"
     "click #talk_no" : "dontTalk"
-
+    "click #favourite" : "favourite"
+    "click #next_beam" : "nextBeam"
+    "click #clear_signal" : "clearSignals"
+    "click #" : "clearSignals"
   constructor: ->
     super
     @resetTime()
     setInterval @updateTime, 100
+    Subject.bind('create', @setupTargets)
+    Source.bind('refresh', @setupTargets)
+
+  setupTargets:() =>
+    subject = Subject.first()
+    sources  = Source.all()
+    if subject?  and sources.length > 0
+      # target_ids = ( targets for targets in subject.beam ) 
+      targets    = [sources[33],sources[44]] 
+      new TargetsSlide(el:@targets , targets: targets)
+
 
   updateTime:=>
     timeRemaining = (@targetTime - Date.now())/1000
@@ -35,6 +50,10 @@ class Info extends Spine.Controller
 
   dontTalk :(e)=>
     Subject.trigger "done"    
+  
+  favourite:=>
+    u= User.first()
+    u.addFavourite Subject.first
     
 window.Info = Info
   
