@@ -9,13 +9,12 @@ class Workflows extends Spine.Controller
   constructor: ->
     super
     Spine.bind("startWorkflow", @startWorkflow)
-    @el.hide()
     @render()
-
-  
+    @el.hide()
   render:=>
-    console.log @el
-    @html @view('workflow')()
+    @html @view('workflow')
+      question : @current_question
+      helpers : @helpers
 
   startWorkflow:(signal)=>
     x = @el.parent().width()*(Math.max(signal.freqEnd, signal.freqStart) ) + 20
@@ -25,7 +24,6 @@ class Workflows extends Spine.Controller
       left : x
     @el.show()
     @currentSignal = signal
-    console.log Workflow.first()
     @setUpQuestion(Workflow.first().questions[0]._id)
 
   setUpQuestion: (question_id=-1) ->
@@ -34,19 +32,18 @@ class Workflows extends Spine.Controller
      
     for question in workflow.questions
       @current_question= question if question._id==question_id    
-    @question.html @view("workflow_question")(@current_question)
-    @answer_list.html("")    
-    answers  = @current_question.answers
     
-
-    answer.icon = @helpers.answer_icon(answer.name) for answer in answers
-    @answer_list.append @view('workflow_answers')(answers)
-  
+    @render()
+    
   selectAnswer: (event)=>
-    answer= $(event.target).data('item')
+    console.log("selected answer")
+    answer= $(event.currentTarget).data()
+
+   
+
     @currentSignal.characterisations.push 
       question_id: @current_question._id
-      answer_id : answer._id
+      answer_id : answer.id
 
     if answer.leads_to
       @setUpQuestion(answer.leads_to)
@@ -67,10 +64,10 @@ class Workflows extends Spine.Controller
         "white"    : "<div class='answer-icon' style='display:inline-block; width:10px; height:10px; background-color:white'></div>"
         "blue"     : "<div class= 'answer-icon' style='display:inline-block; width:10px; height:10px; background-color:blue'></div>"
         "green"    : "<div class= 'answer-icon' style='display:inline-block; width:10px; height:10px; background-color:green'></div>"
-        "spiral"   : "<img src='images/spiral.png' class ='answer-icon' style='display: inline-block'></img>"
-        "diagonal" : "<img src='images/diagonal.png' class ='answer-icon' style='display: inline-block'></img>"
-        "broken"   : "<img src='images/broken.png' class ='answer-icon' style='display: inline-block'></img>"
-        "straight" : "<img src='images/straight.png' class ='answer-icon' style='display: inline-block'></img>"
-      lookup[answer.toLowerCase()]
+        "spiral"   : "<img src='assets/question_icons/spiral.png' class ='answer-icon' style='display: inline-block'></img>"
+        "diagonal" : "<img src='assets/question_icons/diagonal.png' class ='answer-icon' style='display: inline-block'></img>"
+        "broken"   : "<img src='assets/question_icons/broken.png' class ='answer-icon' style='display: inline-block'></img>"
+        "straight" : "<img src='assets/question_icons/straight.png' class ='answer-icon' style='display: inline-block'></img>"
+      lookup[answer.name.toLowerCase()]
     
 window.Workflows = Workflows

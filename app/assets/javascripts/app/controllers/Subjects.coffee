@@ -5,6 +5,7 @@ class Subjects extends Spine.Controller
     "#main-waterfall"  : "main_beam"
     ".small-waterfall" : "sub_beams"
     ".waterfall"       : "beams"
+    "#workflow"   : 'workflowArea'
      
   events:
     'click #main-waterfall' : 'markerPlaced'
@@ -35,7 +36,7 @@ class Subjects extends Spine.Controller
   render: (subject) =>
     @current_subject = subject
     @html @view('waterfalls')(@current_subject.beam)
-        
+    
     @current_classification = new Classification 
       subject_id : @current_subject.id
       start_time : new Date()
@@ -79,15 +80,17 @@ class Subjects extends Spine.Controller
     @wrapBeams()           
     @current_beam or= 0
     @drawBeam $(beam).find("canvas"), @current_subject, index for beam, index in @sub_beams
-    @main_beam.append new Workflows()
+    
     @selectBeam @current_beam
 
   
   #drawing methods for the beams 
 
-  wrapBeams: ->
+  wrapBeams: =>
     @overlays = ( Raphael($(beam).attr("id"), '100%', '100%') for beam in @beams )
     $(overlay.canvas).css("z-index","10000") for overlay in @overlays 
+
+    new Workflows({el:$(@workflowArea)})
 
   drawBeam:(target,subject,beam_no)->
     ctx = target[0].getContext('2d')

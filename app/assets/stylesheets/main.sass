@@ -333,27 +333,30 @@ p.title
   font-size: 10pt
 
 #workflow
-  width: 220px
-  height: 140px
-  border: 1px solid #383838
+  width: 100px
+  height: 175px
   z-index: 10000
+  @include gradient-bg(#ECEAEA, #B3B3B3)
+  @include round-corners(2px)
   position: absolute
-  background-color: black
   padding: 0px
-  color: white
+  color: black
   text-align: center
   ul li
     cursor: pointer
-    text-transform: lowercase
+    height: 28px
+    line-height: 28px
+    font-size: 12pt
+    border-top: 1px solid #D7D6D6
+        
   #question_text
-    font-size: 13pt
-    line-height: 35px
-    height: 38px
+    font-size: 12pt
+    height: 23px
     width: 100%
     padding: 0px
     margin: 0px
-    background-image: url('gradient-small.png')
-    color: #CDDC28
+    padding-top: 20px
+    text-transform: uppercase
   ul li:hover
     cursor: pointer
     color: #383838
