@@ -21,13 +21,13 @@ class Ata extends Scene
 		@nearScopes.css opacity: 0, transform: 'translateX(800px)', 2000
 
 	enter: =>
-		@mountain.animate   opacity: 1, transform: '', 1000
-		@farScopes.animate  opacity: 1, transform: '', 1000
-		@nearScopes.animate opacity: 1, transform: '', 1000
+		@mountain[@dotAnimate]   opacity: 1, transform: 'translateX(0)', 1000
+		@farScopes[@dotAnimate]  opacity: 1, transform: 'translateX(0)', 1000
+		@nearScopes[@dotAnimate] opacity: 1, transform: 'translateX(0)', 1000
 
 	exit: =>
-		@mountain.animate   opacity: 0, transform: 'translateX(-200px)', 1000
-		@farScopes.animate  opacity: 0, transform: 'translateX(-400px)', 1000
-		@nearScopes.animate opacity: 0, transform: 'translateX(-800px)', 1000
+		@mountain[@dotAnimate]   opacity: 0, transform: 'translateX(-200px)', 1000
+		@farScopes[@dotAnimate]  opacity: 0, transform: 'translateX(-400px)', 1000
+		@nearScopes[@dotAnimate] opacity: 0, transform: 'translateX(-800px)', 1000
 
 window.Ata = Ata
