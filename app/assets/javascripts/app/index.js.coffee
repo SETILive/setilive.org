@@ -33,6 +33,7 @@ class SetiLiveController extends Spine.Controller
     @notifications= new Notifications(el: $("#notification_bar"))
     User.fetch_current_user()
     Source.fetch()
+    Badge.fetch()
 
 
 class HomePage extends SetiLiveController
