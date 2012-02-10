@@ -11,11 +11,11 @@ class Badge extends Spine.Model
   testUser:(user)=>
     if @type=='one_off'
       if @check_condition(user)
-        alert("awarding ",@)
+        user.award(@)
     else
       for level in @levels
         if @check_condition(user, level)
-          alert("awarding ",@)
+          user.award(@,level)
 
   
   check_condition:(user,level...)=>

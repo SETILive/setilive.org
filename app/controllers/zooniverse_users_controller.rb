@@ -11,6 +11,17 @@ class ZooniverseUsersController < ApplicationController
     end
   end
 
+  def awardBadge 
+    if current_user
+      current_user.badges[params['badge_id']] = (params['level'] || "awarded")
+      respond_to do |format|
+        format.json { render json: current_user.to_json }
+      end
+    else
+      respond_with 403
+    end
+  end
+
   def favourites 
     respond_to do |format|
       format.json { render json: current_user.badges.to_json }

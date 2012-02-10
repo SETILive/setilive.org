@@ -30,6 +30,7 @@ class SetiLiveController extends Spine.Controller
     super 
     @prepend new NavBar()
     @stars = new Stars(el:$("#star_field"))
+    @notifications= new Notifications(el: $("#notification_bar"))
     User.fetch_current_user()
     Source.fetch()
 

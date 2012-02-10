@@ -11,5 +11,17 @@ class User extends Spine.Model
       User.create(data)
       User.trigger('refresh')
     
-
+  award:(badge,level...)=>
+    unless @hasBadge(badge,level)
+      level = nil unless level?
+      data= {id: badge.id, level:level, name: badge.title}
+      @badges.push data
+      User.trigger "badge_awarded", data
+  
+  hasBadge:(testBadge,level...)=>
+    for badge in @badges 
+      if testBadge.id == badge.id 
+        if level? and badge.levels.indexOf(level)
+          return true
+    return false
 window.User = User

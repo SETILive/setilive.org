@@ -4,11 +4,6 @@ class Stars extends Spine.Controller
     "#field" : "field"
     ".star"  : "stars"
   
-  pusherKey     : "***REMOVED***"
-  pusherChannel : "telescope"
-
-  pusher: 
-    "sourceChanged" : "updateSource"
     
   constructor: ->
     super
@@ -81,6 +76,6 @@ class Stars extends Spine.Controller
 
       indicator.animate anim.delay(index*400)
   
-  @include SpinePusher
+
 
 window.Stars = Stars

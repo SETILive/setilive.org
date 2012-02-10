@@ -18,7 +18,6 @@ class ZooniverseUser
   one :zooniverse_user_extra_info
   many :classifications 
   many :favourites, :class_name => "Subject", :in => :favourite_ids
-  many :badges, :class_name => "Badge", :in => :badge_ids
 
   def award_badges 
     Badge.not_awarded(self).each do |badge|

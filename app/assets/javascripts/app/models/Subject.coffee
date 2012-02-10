@@ -2,7 +2,6 @@
 class Subject extends Spine.Model
   @configure 'Subject','beam','activityId', 'bandwidthMhz', 'bitPix', 'centerFreqMhz', 'endTimeNanos','height','width'
   @extend Spine.Events
-  @extend Spine.Model.Ajax
 
   
   @fetch_from_url: (url) ->

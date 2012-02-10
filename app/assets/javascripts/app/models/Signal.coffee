@@ -3,7 +3,6 @@ class Signal extends Spine.Model
   @configure 'Signal', 'freqStart', 'freqEnd','timeStart', 'timeEnd', 'characterisations'
   @belongsTo "classification", "models/Classification"
   
-  @extend Spine.Model.Ajax
 
   # @url : =>
     # "/classifications/#{@classification.id}/signal/"
