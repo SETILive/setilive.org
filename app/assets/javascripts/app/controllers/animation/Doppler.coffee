@@ -28,7 +28,7 @@ class Doppler extends Scene
 			opacity: 0
 
 	enter: =>
-		@mountain.add(@tower).add(@towerWaves).add(@telescope)[@dotAnimate]
+		@mountain.add(@tower).add(@towerWaves).add(@telescope).animate
 			opacity: 1
 			transform: ''
 
@@ -41,17 +41,17 @@ class Doppler extends Scene
 		@satelliteGroup.css left: '', opacity: 0
 
 		# Fade in, fade out
-		@satelliteGroup[@dotAnimate] opacity: 1, {duration: 2500, queue: false}
+		@satelliteGroup.animate opacity: 1, {duration: 2500, queue: false}
 		@defer 'satelliteFadeOut', @satelliteDuration - 2500, =>
-			@satelliteGroup[@dotAnimate] opacity: 0, {duration: 2500, queue: false}
+			@satelliteGroup.animate opacity: 0, {duration: 2500, queue: false}
 
 		# Rise, fall
-		@satelliteGroup[@dotAnimate] transform: 'translateY(-50%)', {duration: @satelliteDuration / 2, queue: false}
+		@satelliteGroup.animate transform: 'translateY(-50%)', {duration: @satelliteDuration / 2, queue: false}
 		@defer 'satelliteFall', @satelliteDuration / 2, =>
-			@satelliteGroup[@dotAnimate] transform: '', {duration: @satelliteDuration / 2, queue: false}
+			@satelliteGroup.animate transform: '', {duration: @satelliteDuration / 2, queue: false}
 
 		# Move to the right
-		@satelliteGroup[@dotAnimate] left: '+=90%', {
+		@satelliteGroup.animate left: '+=90%', {
 			duration: @satelliteDuration
 			queue: false
 		}
@@ -69,20 +69,20 @@ class Doppler extends Scene
 
 		if 0.1 < percentLeft < 0.3 then period /= 2
 
-		@satelliteWaves[@dotAnimate] opacity: 1, 200
-		@satelliteWaves[@dotAnimate] opacity: 0, 300
+		@satelliteWaves.animate opacity: 1, 200
+		@satelliteWaves.animate opacity: 0, 300
 
 		@defer 'satellitePulse', period, @satellitePulse
 
 	towerPulse: =>
-		@towerWaves[@dotAnimate] opacity: 1, 200
-		@towerWaves[@dotAnimate] opacity: 0, 300
+		@towerWaves.animate opacity: 1, 200
+		@towerWaves.animate opacity: 0, 300
 
 		@defer 'towerPulse', 1500, @towerPulse
 
 	exit: =>
-		@mountain.add(@tower).add(@towerWaves)[@dotAnimate] opacity: 0, transform: 'translateX(-200px)', 1000
-		@telescope[@dotAnimate] opacity: 0, transform: 'translateX(-800px)', 1000
+		@mountain.add(@tower).add(@towerWaves).animate opacity: 0, transform: 'translateX(-200px)', 1000
+		@telescope.animate opacity: 0, transform: 'translateX(-800px)', 1000
 		@satelliteGroup.css opacity: 0
 
 window.Doppler = Doppler

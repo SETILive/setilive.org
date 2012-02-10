@@ -431,14 +431,23 @@ p.title
   margin-bottom: 45px
   width: 940px
   h1
-    width: 850px
+    width: 840px
     text-align: center
-    font-size: 32px
+    font-weight: lighter
+    font-size: 40px
+    line-height: 60px
     text-align: center
+    margin: 0px auto
   p.blurb
-    width: 850px
+    width: 840px
     font-family: TitilliumText22LThin, Sans-serif     
     text-align: center
+    font-size: 15px
+    line-height: 20px
+    margin: 0px auto
+    
+  #login_lower
+    padding-top: 30px
   input
     color: grey
     margin: 0px
@@ -455,43 +464,87 @@ p.title
     height: 83px
     border-bottom: 1px solid #b2b2b2
     margin: 0px
-    padding: 0px
+    padding: 10px 20px 0px 20px
     @include round-top-corners(2px)
     h2
-      font-size: 16px
-      font-family: TitilliumText22LThin, Sans-serif   
+      font-size: 14px
+      line-height: 20px
+      font-family: TitilliumText22LThin, Sans-serif
   .login_section_lower
-    height: 222px
+    height: 240px
     @include gradient-bg(#DFDEDE, #B3B3B3)
     @include round-bottom-corners(2px)
+    padding: 10px 20px
     p
       margin-top: 10px
       padding: 0px
   #science_channel 
     width:  685px
-    height: 304px
+    height: 315px
+    min-height: 315px
     color: black
     display: inline-block
     vertical-align: top
     text-align: left
+    padding-bottom: 60px
+    padding-right: 10px
 
     #extra_signup_info
       margin-left: 0px
       width: 380px
+      table
+        border: 0
+        td
+          padding: 8px 0px 0px 0px
+        td.first
+          padding: 8px 10px 0px 0px
+          
+      input[type=text]
+        width: 100%
+        @include round-corners(3px)
+        padding: 3px 0px 3px 3px
+      input[type=checkbox]
+        width: 3%
+        height: 12px
+      .disclaimer
+        padding: 0px
+        margin: 0px
+        line-height: 17px
+        font-size: 12px
+        
     #user_signup_info
+      float: right
       width: 220px
+      padding-right: 10px
+      table
+        border: 0
+        td
+          padding: 8px 0px 0px 0px
+      input
+        width: 100%
+        @include round-corners(3px)
+        padding: 3px 0px 3px 3px
+      
     .user_info_region
       display: inline-block
       vertial-align: top
         
-
   #zooniverse_login
-    width:  240px
-    background-color: #e9e8e8
+    width: 240px
+    height: 315px
+    min-height: 315px
     color: black
     display: inline-block
     vertical-align: top
-    @include round-corners(30)
+    padding-bottom: 60px
+    
+    input
+      width: 100%
+      @include round-corners(3px)
+      font-size: 14px
+      padding: 3px 0px 3px 3px
+      
+    
 
 .source_content
   text-align: center

@@ -16,7 +16,7 @@
  * Send me music http://www.amazon.co.uk/wishlist/HNTU0468LQON
  *
  */
-(function( $, window, document, Math, undefined ) {
+(function( $, window, document, Math ) {
 "use strict";
 
 /*
@@ -24,6 +24,7 @@
  */
 var div = document.createElement("div"),
 	divStyle = div.style,
+	propertyName = "transform",
 	suffix = "Transform",
 	testProperties = [
 		"O" + suffix,
@@ -37,21 +38,12 @@ var div = document.createElement("div"),
 	supportFloat32Array = "Float32Array" in window,
 	propertyHook,
 	propertyGet,
-	rMatrix = /Matrix([^)]*)/,
-	rAffine = /^\s*matrix\(\s*1\s*,\s*0\s*,\s*0\s*,\s*1\s*(?:,\s*0(?:px)?\s*){2}\)\s*$/,
-	_transform = "transform",
-	_transformOrigin = "transformOrigin",
-	_translate = "translate",
-	_rotate = "rotate",
-	_scale = "scale",
-	_skew = "skew",
-	_matrix = "matrix";
+	rMatrix = /Matrix([^)]*)/;
 
-// test different vendor prefixes of these properties
+// test different vendor prefixes of this property
 while ( i-- ) {
 	if ( testProperties[i] in divStyle ) {
-		$.support[_transform] = supportProperty = testProperties[i];
-		$.support[_transformOrigin] = supportProperty + "Origin";
+		$.support[propertyName] = supportProperty = testProperties[i];
 		continue;
 	}
 }
@@ -60,17 +52,16 @@ if ( !supportProperty ) {
 	$.support.matrixFilter = supportMatrixFilter = divStyle.filter === "";
 }
 
-// px isn't the default unit of these properties
-$.cssNumber[_transform] = $.cssNumber[_transformOrigin] = true;
+// px isn't the default unit of this property
+$.cssNumber[propertyName] = true;
 
 /*
  * fn.css() hooks
  */
-if ( supportProperty && supportProperty != _transform ) {
+if ( supportProperty && supportProperty != propertyName ) {
 	// Modern browsers can use jQuery.cssProps as a basic hook
-	$.cssProps[_transform] = supportProperty;
-	$.cssProps[_transformOrigin] = supportProperty + "Origin";
-
+	$.cssProps[propertyName] = supportProperty;
+	
 	// Firefox needs a complete hook because it stuffs matrix with "px"
 	if ( supportProperty == "Moz" + suffix ) {
 		propertyHook = {
@@ -84,7 +75,7 @@ if ( supportProperty && supportProperty != _transform ) {
 			set: function( elem, value ) {
 				// add "px" to matrices
 				elem.style[supportProperty] = /matrix\([^)p]*\)/.test(value) ?
-					value.replace(/matrix((?:[^,]*,){4})([^,]*),([^)]*)/, _matrix+"$1$2px,$3px"):
+					value.replace(/matrix((?:[^,]*,){4})([^,]*),([^)]*)/, "matrix$1$2px,$3px"):
 					value;
 			}
 		};
@@ -111,12 +102,12 @@ if ( supportProperty && supportProperty != _transform ) {
 			}
 		}
 	}*/
-
+	
 } else if ( supportMatrixFilter ) {
 	propertyHook = {
-		get: function( elem, computed, asArray ) {
+		get: function( elem, computed ) {
 			var elemStyle = ( computed && elem.currentStyle ? elem.currentStyle : elem.style ),
-				matrix, data;
+				matrix;
 
 			if ( elemStyle && rMatrix.test( elemStyle.filter ) ) {
 				matrix = RegExp.$1.split(",");
@@ -129,18 +120,9 @@ if ( supportProperty && supportProperty != _transform ) {
 			} else {
 				matrix = [1,0,0,1];
 			}
-
-			if ( ! $.cssHooks[_transformOrigin] ) {
-				matrix[4] = elemStyle ? parseInt(elemStyle.left, 10) || 0 : 0;
-				matrix[5] = elemStyle ? parseInt(elemStyle.top, 10) || 0 : 0;
-
-			} else {
-				data = $._data( elem, "transformTranslate", undefined );
-				matrix[4] = data ? data[0] : 0;
-				matrix[5] = data ? data[1] : 0;
-			}
-
-			return asArray ? matrix : _matrix+"(" + matrix + ")";
+			matrix[4] = elemStyle ? elemStyle.left : 0;
+			matrix[5] = elemStyle ? elemStyle.top : 0;
+			return "matrix(" + matrix + ")";
 		},
 		set: function( elem, value, animate ) {
 			var elemStyle = elem.style,
@@ -156,42 +138,40 @@ if ( supportProperty && supportProperty != _transform ) {
 			value = matrix(value);
 
 			// rotate, scale and skew
-			Matrix = [
-				"Matrix("+
-					"M11="+value[0],
-					"M12="+value[2],
-					"M21="+value[1],
-					"M22="+value[3],
-					"SizingMethod='auto expand'"
-			].join();
-			filter = ( currentStyle = elem.currentStyle ) && currentStyle.filter || elemStyle.filter || "";
+			if ( !animate || animate.M ) {
+				Matrix = [
+					"Matrix("+
+						"M11="+value[0],
+						"M12="+value[2],
+						"M21="+value[1],
+						"M22="+value[3],
+						"SizingMethod='auto expand'"
+				].join();
+				filter = ( currentStyle = elem.currentStyle ) && currentStyle.filter || elemStyle.filter || "";
 
-			elemStyle.filter = rMatrix.test(filter) ?
-				filter.replace(rMatrix, Matrix) :
-				filter + " progid:DXImageTransform.Microsoft." + Matrix + ")";
-
-			if ( ! $.cssHooks[_transformOrigin] ) {
+				elemStyle.filter = rMatrix.test(filter) ?
+					filter.replace(rMatrix, Matrix) :
+					filter + " progid:DXImageTransform.Microsoft." + Matrix + ")";
 
 				// center the transform origin, from pbakaus's Transformie http://github.com/pbakaus/transformie
 				if ( (centerOrigin = $.transform.centerOrigin) ) {
 					elemStyle[centerOrigin == "margin" ? "marginLeft" : "left"] = -(elem.offsetWidth/2) + (elem.clientWidth/2) + "px";
 					elemStyle[centerOrigin == "margin" ? "marginTop" : "top"] = -(elem.offsetHeight/2) + (elem.clientHeight/2) + "px";
 				}
+			}
 
-				// translate
+			// translate
+			if ( !animate || animate.T ) {
 				// We assume that the elements are absolute positionned inside a relative positionned wrapper
 				elemStyle.left = value[4] + "px";
 				elemStyle.top = value[5] + "px";
-
-			} else {
-				$.cssHooks[_transformOrigin].set( elem, value );
 			}
 		}
 	};
 }
 // populate jQuery.cssHooks with the appropriate hook if necessary
 if ( propertyHook ) {
-	$.cssHooks[_transform] = propertyHook;
+	$.cssHooks[propertyName] = propertyHook;
 }
 // we need a unique setter for the animation logic
 propertyGet = propertyHook && propertyHook.get || $.css;
@@ -204,11 +184,19 @@ $.fx.step.transform = function( fx ) {
 		start = fx.start,
 		end = fx.end,
 		pos = fx.pos,
-		transform = "", i, startVal, endVal, unit;
+		transform,
+		translate,
+		rotate,
+		scale,
+		skew,
+		T = false,
+		M = false,
+		prop;
+	translate = rotate = scale = skew = "";
 
-	// fx.end and fx.start need to be converted to interpolation lists
+	// fx.end and fx.start need to be converted to their translate/rotate/scale/skew components
+	// so that we can interpolate them
 	if ( !start || typeof start === "string" ) {
-
 		// the following block can be commented out with jQuery 1.5.1+, see #7912
 		if ( !start ) {
 			start = propertyGet( elem, supportProperty );
@@ -219,48 +207,57 @@ $.fx.step.transform = function( fx ) {
 			elem.style.zoom = 1;
 		}
 
-		// replace "+=" in relative animations (-= is meaningless with transforms)
-		end = end.split("+=").join(start);
+		// start is either "none" or a matrix(...) that has to be parsed
+		fx.start = start = start == "none"?
+			{
+				t: [0,0],
+				r: 0,
+				s: [1,1],
+				k: [0,0]
+			}:
+			unmatrix( toArray(start) );
 
-		// parse both transform to generate interpolation list of same length
-		return $.extend( fx, interpolationList( start, end ) );
+		// fx.end has to be parsed and decomposed
+		fx.end = end = unmatrix(matrix(end));
 	}
 
-	i = start.length;
-
-	// interpolate functions of the list one by one
-	while ( i-- ) {
-		startVal = start[i];
-		endVal = end[i];
-		unit = +false;
-
-		switch ( startVal[0] ) {
-
-			case _translate:
-				unit = "px";
-			case _scale:
-				unit || ( unit = " ");
-			case _skew:
-				unit || ( unit = "rad" );
-
-				transform = startVal[0] + "(" +
-					(startVal[1][0] + (endVal[1][0] - startVal[1][0]) * pos) + unit +","+
-					(startVal[1][1] + (endVal[1][1] - startVal[1][1]) * pos) + unit + ")"+
-					transform;
-				break;
-
-			case _rotate:
-				transform = _rotate + "(" +
-					(startVal[1] + (endVal[1] - startVal[1]) * pos) +"rad)"+
-					transform;
-				break;
-		}
+	/*
+	 * We want a fast interpolation algorithm.
+	 * This implies avoiding function calls and sacrifying DRY principle:
+	 * - avoid $.each(function(){})
+	 * - round values using bitewise hacks, see http://jsperf.com/math-round-vs-hack/3
+	 */
+	if ( start.t[0] || end.t[0] || start.t[1] || end.t[1] ) {
+		// round translate to the closest pixel
+		translate = " translate("+
+			((start.t[0] + (end.t[0] - start.t[0]) * pos + .5) | 0) +"px,"+
+			((start.t[1] + (end.t[1] - start.t[1]) * pos + .5) | 0) +"px"+
+		")";
+		T = true;
+	}
+	if ( start.r || end.r ) {
+		rotate = " rotate("+ (start.r + (end.r - start.r) * pos) +"rad)";
+		M = true;
+	}
+	if ( start.s[0]-1 || end.s[0]-1 || start.s[1]-1 || end.s[1]-1 ) {
+		scale = " scale("+
+			(start.s[0] + (end.s[0] - start.s[0]) * pos) +","+
+			(start.s[1] + (end.s[1] - start.s[1]) * pos) +
+		")";
+		M = true;
+	}
+	if ( start.k[0] || end.k[0] || start.k[1] || end.k[1] ) {
+		skew = " skew("+
+			(start.k[0] + (end.k[0] - start.k[0]) * pos) +"rad,"+
+			(start.k[1] + (end.k[1] - start.k[1]) * pos) +"rad"+
+		")";
+		M = true;
 	}
 
-	fx.origin && ( transform = fx.origin + transform );
+	transform = translate + rotate + skew + scale;
 
 	propertyHook && propertyHook.set ?
-		propertyHook.set( elem, transform, +true ):
+		propertyHook.set( elem, transform, {M: M, T: T} ):
 		elem.style[supportProperty] = transform;
 };
 
@@ -294,21 +291,21 @@ function matrix( transform ) {
 		curr[1] = curr[2] = curr[4] = curr[5] = 0;
 
 		switch (prop) {
-			case _translate+"X":
+			case "translateX":
 				curr[4] = parseInt(val, 10);
 				break;
 
-			case _translate+"Y":
+			case "translateY":
 				curr[5] = parseInt(val, 10);
 				break;
 
-			case _translate:
+			case "translate":
 				val = val.split(",");
 				curr[4] = parseInt(val[0], 10);
 				curr[5] = parseInt(val[1] || 0, 10);
 				break;
 
-			case _rotate:
+			case "rotate":
 				val = toRadian(val);
 				curr[0] = Math.cos(val);
 				curr[1] = Math.sin(val);
@@ -316,35 +313,35 @@ function matrix( transform ) {
 				curr[3] = Math.cos(val);
 				break;
 
-			case _scale+"X":
+			case "scaleX":
 				curr[0] = +val;
 				break;
 
-			case _scale+"Y":
+			case "scaleY":
 				curr[3] = val;
 				break;
 
-			case _scale:
+			case "scale":
 				val = val.split(",");
 				curr[0] = val[0];
 				curr[3] = val.length>1 ? val[1] : val[0];
 				break;
 
-			case _skew+"X":
+			case "skewX":
 				curr[2] = Math.tan(toRadian(val));
 				break;
 
-			case _skew+"Y":
+			case "skewY":
 				curr[1] = Math.tan(toRadian(val));
 				break;
 
-			case _skew:
+			case "skew":
 				val = val.split(",");
 				curr[2] = Math.tan(toRadian(val[0]));
-				val[1] && ( curr[1] = Math.tan(toRadian(val[1])) );
+				curr[1] = Math.tan(toRadian(val[1] || 0));
 				break;
 
-			case _matrix:
+			case "matrix":
 				val = val.split(",");
 				curr[0] = val[0];
 				curr[1] = val[1];
@@ -355,15 +352,15 @@ function matrix( transform ) {
 				break;
 		}
 
-		// Matrix product (array in column-major order)
-		rslt[0] = prev[0] * curr[0] + prev[2] * curr[1];
-		rslt[1] = prev[1] * curr[0] + prev[3] * curr[1];
-		rslt[2] = prev[0] * curr[2] + prev[2] * curr[3];
-		rslt[3] = prev[1] * curr[2] + prev[3] * curr[3];
-		rslt[4] = prev[0] * curr[4] + prev[2] * curr[5] + prev[4];
-		rslt[5] = prev[1] * curr[4] + prev[3] * curr[5] + prev[5];
+		// Matrix product
+		rslt[0] = prev[0] * curr[0] + prev[1] * curr[2];
+		rslt[1] = prev[0] * curr[1] + prev[1] * curr[3];
+		rslt[2] = prev[2] * curr[0] + prev[3] * curr[2];
+		rslt[3] = prev[2] * curr[1] + prev[3] * curr[3];
+		rslt[4] = prev[0] * curr[4] + prev[1] * curr[5] + prev[4];
+		rslt[5] = prev[2] * curr[4] + prev[3] * curr[5] + prev[5];
 
-		prev = [rslt[0],rslt[1],rslt[2],rslt[3],rslt[4],rslt[5]];
+		prev = rslt;
 	}
 	return rslt;
 }
@@ -411,127 +408,12 @@ function unmatrix(matrix) {
 		throw new Error("matrix is singular");
 	}
 
-	// The recomposition order is very important
-	// see http://hg.mozilla.org/mozilla-central/file/7cb3e9795d04/layout/style/nsStyleAnimation.cpp#l971
-	return [
-		[_translate, [+matrix[4], +matrix[5]]],
-		[_rotate, Math.atan2(B, A)],
-		[_skew, [Math.atan(skew), 0]],
-		[_scale, [scaleX, scaleY]]
-	];
-}
-
-// build the list of transform functions to interpolate
-// use the algorithm described at http://dev.w3.org/csswg/css3-2d-transforms/#animation
-function interpolationList( start, end ) {
-	var list = {
-			start: [],
-			end: []
-		},
-		i = -1, l,
-		currStart, currEnd, currType;
-
-	// get rid of affine transform matrix
-	( start == "none" || isAffine( start ) ) && ( start = "" );
-	( end == "none" || isAffine( end ) ) && ( end = "" );
-
-	// if end starts with the current computed style, this is a relative animation
-	// store computed style as the origin, remove it from start and end
-	if ( start && end && !end.indexOf("matrix") && toArray( start ).join() == toArray( end.split(")")[0] ).join() ) {
-		list.origin = start;
-		start = "";
-		end = end.slice( end.indexOf(")") +1 );
-	}
-
-	if ( !start && !end ) { return; }
-
-	// start or end are affine, or list of transform functions are identical
-	// => functions will be interpolated individually
-	if ( !start || !end || functionList(start) == functionList(end) ) {
-
-		start && ( start = start.split(")") ) && ( l = start.length );
-		end && ( end = end.split(")") ) && ( l = end.length );
-
-		while ( ++i < l-1 ) {
-			start[i] && ( currStart = start[i].split("(") );
-			end[i] && ( currEnd = end[i].split("(") );
-			currType = $.trim( ( currStart || currEnd )[0] );
-
-			append( list.start, parseFunction( currType, currStart ? currStart[1] : 0 ) );
-			append( list.end, parseFunction( currType, currEnd ? currEnd[1] : 0 ) );
-		}
-
-	// otherwise, functions will be composed to a single matrix
-	} else {
-		list.start = unmatrix(matrix(start));
-		list.end = unmatrix(matrix(end))
-	}
-
-	return list;
-}
-
-function parseFunction( type, value ) {
-	var
-		// default value is 1 for scale, 0 otherwise
-		defaultValue = +(!type.indexOf(_scale)),
-		// value is parsed to radian for skew, int otherwise
-		valueParser = !type.indexOf(_skew) ? toRadian : parseFloat,
-		scaleX,
-		cat = type.replace( /[XY]/, "" );
-
-	switch ( type ) {
-		case _translate+"Y":
-		case _scale+"Y":
-		case _skew+"Y":
-
-			value = [
-				defaultValue,
-				value ?
-					valueParser( value ):
-					defaultValue
-			];
-			break;
-
-		case _translate+"X":
-		case _translate:
-		case _scale+"X":
-			scaleX = 1;
-		case _scale:
-		case _skew+"X":
-		case _skew:
-
-			value = value ?
-				( value = value.split(",") ) &&	[
-					valueParser( value[0] ),
-					valueParser( value.length>1 ? value[1] : type == _scale ? scaleX || value[0] : defaultValue+"" )
-				]:
-				[defaultValue, defaultValue];
-			break;
-
-		case _rotate:
-			value = value ? toRadian( value ) : 0;
-			break;
-
-		case _matrix:
-			return unmatrix( value ? toArray(value) : [1,0,0,1,0,0] );
-			break;
-	}
-
-	return [[ cat, value ]];
-}
-
-function isAffine( matrix ) {
-	return rAffine.test(matrix);
-}
-
-function functionList( transform ) {
-	return transform.replace(/(?:\([^)]*\))|\s/g, "");
-}
-
-function append( arr1, arr2, value ) {
-	while ( value = arr2.shift() ) {
-		arr1.push( value );
-	}
+	return {
+		t: [+matrix[4], +matrix[5]],
+		r: Math.atan2(B, A),
+		s: [scaleX, scaleY],
+		k: [Math.atan(skew), 0]
+	};
 }
 
 // converts an angle string in any unit to a radian Float
@@ -545,8 +427,8 @@ function toRadian(value) {
 
 // Converts "matrix(A,B,C,D,X,Y)" to [A,B,C,D,X,Y]
 function toArray(matrix) {
-	// remove the unit of X and Y for Firefox
-	matrix = /([^,]*),([^,]*),([^,]*),([^,]*),([^,p]*)(?:px)?,([^)p]*)(?:px)?/.exec(matrix);
+	// Fremove the unit of X and Y for Firefox
+	matrix = /\(([^,]*),([^,]*),([^,]*),([^,]*),([^,p]*)(?:px)?,([^)p]*)(?:px)?/.exec(matrix);
 	return [matrix[1], matrix[2], matrix[3], matrix[4], matrix[5], matrix[6]];
 }
 
