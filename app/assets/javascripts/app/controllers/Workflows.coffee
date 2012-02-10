@@ -64,10 +64,10 @@ class Workflows extends Spine.Controller
         "white"    : "<div class='answer-icon' style='display:inline-block; width:10px; height:10px; background-color:white'></div>"
         "blue"     : "<div class= 'answer-icon' style='display:inline-block; width:10px; height:10px; background-color:blue'></div>"
         "green"    : "<div class= 'answer-icon' style='display:inline-block; width:10px; height:10px; background-color:green'></div>"
-        "spiral"   : "<img src='images/spiral.png' class ='answer-icon' style='display: inline-block'></img>"
-        "diagonal" : "<img src='images/diagonal.png' class ='answer-icon' style='display: inline-block'></img>"
-        "broken"   : "<img src='images/broken.png' class ='answer-icon' style='display: inline-block'></img>"
-        "straight" : "<img src='images/straight.png' class ='answer-icon' style='display: inline-block'></img>"
+        "spiral"   : "<img src='assets/question_icons/spiral.png' class ='answer-icon' style='display: inline-block'></img>"
+        "diagonal" : "<img src='assets/question_icons/diagonal.png' class ='answer-icon' style='display: inline-block'></img>"
+        "broken"   : "<img src='assets/question_icons/broken.png' class ='answer-icon' style='display: inline-block'></img>"
+        "straight" : "<img src='assets/question_icons/straight.png' class ='answer-icon' style='display: inline-block'></img>"
       lookup[answer.name.toLowerCase()]
     
 window.Workflows = Workflows
