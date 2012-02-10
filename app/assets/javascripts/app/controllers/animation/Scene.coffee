@@ -8,7 +8,14 @@ class Scene extends Spine.Controller
 
 	timeouts: null
 
+	# TEMPORARY: Use this instead of "animate", because IE can't animate transforms.
+	# Even though the whole reason I'm not just using CSS is so that they'll animate in IE.
+	# Keep an eye out for a fix: https://github.com/louisremi/jquery.transform.js
+	# It should be easy to replace these all with "animate". I am so very sorry.
+	dotAnimate: if $.browser.msie then 'css' else 'animate'
+
 	constructor: ->
+		console.log @dotAnimate
 		Scene.instances.push @
 		super
 		@timeouts = {}
