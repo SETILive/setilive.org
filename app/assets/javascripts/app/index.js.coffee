@@ -20,18 +20,32 @@
 
 
 class SetiLiveController extends Spine.Controller
+  events :
+    "click #start_searching_button" : ->
+      window.location = '/classify'
+    "click #view_all_button" : ->
+      window.location = '/profile'
+    
   constructor:->
     super 
-    User.fetch_current_user()
     @prepend new NavBar()
     @stars = new Stars(el:$("#star_field"))
+    User.fetch_current_user()
     Source.fetch()
 
 
 class HomePage extends SetiLiveController
+  elements:
+    '#home_content': 'home_content'
+    '#most_recent_badge': 'home_badge'
+
   constructor: ->
     super
-    @stats = new Stats({el:$("#stats")})
+    @stats = new Stats({el:$("#global_stats")})
+    @home_content.html @view('home_main_content')
+      subjects : [1..4]
+    @home_badge.html @view('home_badge')
+      user: User.first
 
 class ClassificationPage extends SetiLiveController
   constructor: ->

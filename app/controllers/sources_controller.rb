@@ -1,6 +1,5 @@
 class SourcesController < ApplicationController
-  before_filter CASClient::Frameworks::Rails::GatewayFilter
-
+  
   def index
     @sources = Source.all
     @small_star_field = true  

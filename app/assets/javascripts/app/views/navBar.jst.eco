@@ -1,11 +1,10 @@
 
 <a href='/' id='logo'>SETI<span class='green live'>LIVE</span></a>
 <ul id='nav'>
-  <%unless @user?:%>
+  <%unless @user?: %>
     <li><a href='/login'>login</a> </li>
-  <%else:%>
+  <%else: %>
     <li><a href='/logout'>logout </a> </li>
-
     <li><a href='/profile'><%-@user.name%></a> </li>
   <%end%>
   <li><a href='/about'>about</a> </li>

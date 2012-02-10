@@ -1,0 +1,24 @@
+<li>
+  <div class='stats_box'>
+    <p><%=@people_online%></p>
+  </div> 
+  <p>People Online</p>
+</li>
+<li>
+  <div class='stats_box'>
+    <p><%=@total_classifications%></p>
+  </div> 
+  <p>Total Classifications</p>
+</li>
+<li>
+  <div class='stats_box'>
+    <p><%=@classifications_today%></p>
+  </div> 
+  <p>Classifications Today</p>
+</li>
+<li>
+  <div class='stats_box'>
+    <p><%=@classifications_per_min%></p>
+  </div> 
+  <p>Classifications per min</p>
+</li>

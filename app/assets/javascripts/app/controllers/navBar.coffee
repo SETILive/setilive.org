@@ -7,7 +7,6 @@ class NavBar extends Spine.Controller
     @render()
   
   render:=>
-    console.log "user is ", User.first()
     @html @view('navBar')
       user : User.first()
 

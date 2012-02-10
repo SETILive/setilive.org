@@ -1,4 +1,3 @@
-<%console.log "maing stats for ", @%>
 <ul id='user_stats'>
   <li>
     <div class='stats_box'>
