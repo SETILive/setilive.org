@@ -46,14 +46,14 @@ class Radiosphere extends Scene
 		@otherPlanet.animate transform: '', 333
 
 	loop: =>
-		return unless @active
-
 		@radioWaves.animate(opacity: 1, 250).animate opacity: 0, 250
 		@innerRing.delay(250).animate(transform: 'scale(1.1)', 250).animate transform: '', 250
 		@middleRing.delay(500).animate(transform: 'scale(1.1)').animate transform: ''
 		@outerRing.delay(750).animate(transform: 'scale(1.1)').animate transform: ''
 		@smallPlanet.delay(750).animate(transform: 'scale(1.2)').animate transform: ''
-		@otherPlanet.delay(1000).animate(transform: 'scale(1.1)').animate transform: '', @loop
+		@otherPlanet.delay(1000).animate(transform: 'scale(1.1)').animate transform: ''
+
+		@defer 'loop', 3000, @loop
 
 	exit: =>
 		@radio.animate opacity: 0, 250

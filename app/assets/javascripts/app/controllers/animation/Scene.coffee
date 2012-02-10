@@ -49,6 +49,11 @@ class Scene extends Spine.Controller
 	exit: =>
 		# Override
 
+	# Call a function later.
+	# Automatically stopped on deactivation.
+	defer: (name, wait, fn) =>
+		@timeouts[name] = setTimeout @proxy(fn), wait
+
 window.Scene = Scene
 
 window.scenes = Scene.instances

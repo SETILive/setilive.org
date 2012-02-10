@@ -1,8 +1,5 @@
 #= require ./Scene
 
-delay = (wait, fn) ->
-	setTimeout fn, wait
-
 class Doppler extends Scene
 	exitDuration: 1000
 
@@ -45,25 +42,24 @@ class Doppler extends Scene
 
 		# Fade in, fade out
 		@satelliteGroup.animate opacity: 1, {duration: 2500, queue: false}
-		@timeouts.satelliteFadeOout = delay @satelliteDuration - 2500, =>
+		@defer 'satelliteFadeOut', @satelliteDuration - 2500, =>
 			@satelliteGroup.animate opacity: 0, {duration: 2500, queue: false}
 
 		# Rise, fall
 		@satelliteGroup.animate transform: 'translateY(-50%)', {duration: @satelliteDuration / 2, queue: false}
-		@timeouts.satelliteFall = delay @satelliteDuration / 2, =>
+		@defer 'satelliteFall', @satelliteDuration / 2, =>
 			@satelliteGroup.animate transform: '', {duration: @satelliteDuration / 2, queue: false}
 
 		# Move to the right
 		@satelliteGroup.animate left: '+=90%', {
 			duration: @satelliteDuration
-			easing: 'linear'
 			queue: false
 		}
 
-		@timeouts.satelliteMove = delay @satelliteDuration + 1000, @satelliteGoesRight
+		@defer 'satelliteMove', @satelliteDuration + 1000, @satelliteGoesRight
 
 	satellitePulse: =>
-		period = 1000
+		period = 1500
 
 		# TODO: This is really rough; I'm bad at math.
 
@@ -71,17 +67,18 @@ class Doppler extends Scene
 		percentLeft = parseFloat groupLeft
 		if ~groupLeft.indexOf 'px' then percentLeft /= @el.width() else percentLeft /= 100
 
-		if 0.1 < percentLeft < 0.3 then period = 333
+		if 0.1 < percentLeft < 0.3 then period /= 2
 
 		@satelliteWaves.animate opacity: 1, 200
 		@satelliteWaves.animate opacity: 0, 300
 
-		@timeouts.satellitePulse = delay period, @satellitePulse
+		@defer 'satellitePulse', period, @satellitePulse
 
 	towerPulse: =>
-		@timeouts.towerPulse =  delay 1000, @towerPulse
 		@towerWaves.animate opacity: 1, 200
 		@towerWaves.animate opacity: 0, 300
+
+		@defer 'towerPulse', 1500, @towerPulse
 
 	exit: =>
 		@mountain.add(@tower).add(@towerWaves).animate opacity: 0, transform: 'translateX(-200px)', 1000
