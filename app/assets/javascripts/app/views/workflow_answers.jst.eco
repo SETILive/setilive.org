@@ -1,4 +1,6 @@
-<li id='answer_<%=@_id%>' class='answer'>
-  <%-@icon%>
-  <%-@name%>
-</li>
+<%for answer in @:%>
+  <li id='answer_<%=answer._id%>' class='answer'>
+    <%-answer.icon%>
+    <%-answer.name%>
+  </li>
+<%end%>
