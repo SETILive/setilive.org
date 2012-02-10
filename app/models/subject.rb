@@ -69,7 +69,7 @@ class Subject
   end
 
   def persist_on_s3
-    SubjectUploader.perfom_async(self)
+    SubjectUploader.perform_async(self)
   end
 
   def remove_from_redis 
