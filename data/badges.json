@@ -1,0 +1,20 @@
+{
+  "badges":[
+    {
+    "title" : "registration",
+    "description": "Register for SETI Live",
+    "condition": " user? ",
+    "logo_url": "assets/badges/200px/registration-200.png",
+    "type": "one_off",
+    "levels":[]
+    },
+    {
+    "title": "classify",
+    "description": "Classify level number of waterfalls",
+    "condition": " user.total_classifications > level  ",
+    "logo_url": "assets/badges/200px/registration-200.png",
+    "type": "cumulative",
+    "levels":[1,5,10,15]
+    }
+  ]
+}

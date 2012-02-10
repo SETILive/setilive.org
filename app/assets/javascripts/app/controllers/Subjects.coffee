@@ -35,13 +35,11 @@ class Subjects extends Spine.Controller
   render: (subject) =>
     @current_subject = subject
     @html @view('waterfalls')(@current_subject.beam)
-    
-    @main_beam.append( new Workflows() )
-    
+        
     @current_classification = new Classification 
       subject_id : @current_subject.id
       start_time : new Date()
-
+    
     @setUpBeams()
      
   selectBeam:(beamNo)=>

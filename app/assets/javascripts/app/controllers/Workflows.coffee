@@ -9,10 +9,12 @@ class Workflows extends Spine.Controller
   constructor: ->
     super
     Spine.bind("startWorkflow", @startWorkflow)
-    @render()
     @el.hide()
+    @render()
+
   
   render:=>
+    console.log @el
     @html @view('workflow')()
 
   startWorkflow:(signal)=>

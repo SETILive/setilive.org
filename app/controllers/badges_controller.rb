@@ -1,5 +1,4 @@
 class BadgesController < ApplicationController
-  before_filter CASClient::Frameworks::Rails::Filter
 
   def index
     @badges = Badge.all
