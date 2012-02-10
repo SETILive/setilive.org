@@ -1,5 +1,6 @@
 class ZooniverseUsersController < ApplicationController
-  before_filter CASClient::Frameworks::Rails::Filter
+  before_filter CASClient::Frameworks::Rails::GatewayFilter
+  before_filter :check_login
 
   def badges 
     if current_user 
@@ -40,14 +41,7 @@ class ZooniverseUsersController < ApplicationController
     end
   end 
 
-  def login
-
-  end
-
-  def logout 
-
-  end
-
+ 
   def show
     @small_star_field = true  
   end

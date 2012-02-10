@@ -14,6 +14,14 @@ class ApplicationController < ActionController::Base
     "SETILive: en"
   end
   
+
+  def check_login
+    unless zooniverse_user 
+      redirect_to '/login'
+      return false
+    end
+  end
+
   def cas_logout
     CASClient::Frameworks::Rails::Filter.logout(self, "http://www.setilive.org")
   end
