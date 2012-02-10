@@ -11,8 +11,8 @@
 <div id='login'>
   <div id ='login_header'>
     <h1>Welcome, Science Channel Viewers</h1>
-    <p class='blurb'>Join SETILIVE and you can earn special badges that qualify you to win a trip for two to the SETI Institute in California and 
-a private tour of the Radio Telescope Observatory at Hat Creek. Earn more badges and you’ll qualify for additional entries! </p>
+    <p class='blurb'>Join <strong>SETI</strong>LIVE and you can earn special badges that qualify you to win a trip for two to the SETI Institute in California and 
+a private tour of the Radio Telescope Observatory at Hat Creek. Earn more badges and you’ll qualify for additional entries!</p>
   </div>
 
   <div id='login_lower'>
@@ -23,30 +23,53 @@ only need to sign up once. We promise not to share your details with anyone else
         <%= form_tag(signup_path, :id => "signup") do %>
           <%= hidden_field_tag(:return_to, @return_to) if @return_to and @return_to != root_url %>
           <div id='extra_signup_info' class='user_info_region'>
-            <p>
-              <%= text_field_tag "first_name", "First Name", :style=>"width:184px" %>
-              <%= text_field_tag "last_name", "Last Name", :style=>"width:180px" %>
-            </p> 
-              <%= text_field_tag "address_1", "Address 1", :style=>"width:380px" %>
-            <p>
-              <%= text_field_tag "address_2", "Address 2", :style=>"width:260px" %>
-              <%= text_field_tag "telephone", "Telephone", :style=>"width:114px" %>
-            </p>
-            <p>
-              <%= text_field_tag "city", "City", :style=>"width:184px" %>
-              <%= text_field_tag "state", "State",:style=>"width:184px"  %>
-              <%= text_field_tag "zipcode", "Zipcode",:style=>"width:115px" %>
-
-            </p>
+            <table>
+              <tr>
+                <td class="first"><%= text_field_tag "first_name", "First Name" %></td>
+                <td colspan="2"><%= text_field_tag "last_name", "Last Name" %></td>
+              </tr>
+              <tr>
+                <td colspan="3"><%= text_field_tag "address_1", "Address 1" %></td>
+              </tr>
+              <tr>
+                <td colspan="2" class="first"><%= text_field_tag "address_2", "Address 2" %></td>
+                <td><%= text_field_tag "telephone", "Telephone" %></td>
+              </tr>
+              <tr>
+                <td widht="50%" class="first"><%= text_field_tag "city", "City" %></td>
+                <td width="20%" class="first"><%= text_field_tag "state", "State" %></td>
+                <td width="30%"><%= text_field_tag "zipcode", "Zipcode" %></td>
+              </tr>
+              <tr>
+                <td colspan="3">
+                  <p class="disclaimer">This information will only be used to contact you if you are a winner</p>
+                  <p class="disclaimer"><input type="checkbox" /> By checking this box you agree to the <strong>official rules.</strong></p>
+                  
+                  <p class="disclaimer"><input type="checkbox" /> No thanks! I don't want to be entered into the sweepstakes.</p>
+                  
+                </td>
+              </tr>
+            </table>
           </div>
 
           <div id='user_signup_info' class='user_info_region'>
-            <%= text_field_tag "username", "Username", :style=>"width:219px" %>
-            <%= password_field_tag "password", "Password", :style=>"width:219px" %>
-            <%= password_field_tag "password_confirm", "Password Confirmation", :style=>"width:219px" %>
-            <%= text_field_tag "email", "Email" %>
-
-            <%= image_submit_tag "register.png",  :style=>"width:220px; height:40px" %>
+            <table>
+              <tr>
+                <td><%= text_field_tag "username", "Username" %></td>
+              </tr>
+              <tr>
+                <td><%= password_field_tag "password", "Password" %></td>
+              </tr>
+              <tr>
+                <td><%= password_field_tag "password_confirm", "Password Confirmation" %></td>
+              </tr>
+              <tr>
+                <td><%= text_field_tag "email", "Email" %></td>
+              </tr>
+              <tr>
+                <td><%= image_submit_tag "register.png",  :style=>"width:220px; height:40px" %></td>
+              </tr>
+            </table>            
           </div>
         <%end %>
       </div>
@@ -56,12 +79,12 @@ only need to sign up once. We promise not to share your details with anyone else
       <div class='login_section_lower'>
 
         <%= form_tag @cas_client.login_url do %>
-          <%= text_field_tag :username,  "Username" , :width=>128%>
-          <%= password_field_tag :password, "Password", :width=>128 %>
+          <p><%= text_field_tag :username, "Username" %></p>
+          <p><%= password_field_tag :password, "Password" %></p>
             
           <%= hidden_field_tag :service, @return_to %>
           <%= hidden_field_tag :lt, @cas_client.request_login_ticket %>
-          <%= image_submit_tag "login.png", :style=>"width:220px; height:40px" %>
+          <%= image_submit_tag "login.png", :style => "width:200px; height:40px" %>
 
         <% end -%>
       <div>
