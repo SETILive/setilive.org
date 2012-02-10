@@ -2,6 +2,7 @@ class TargetsSlide extends Spine.Controller
 
   events:
     'click .dot' : 'selectTarget'
+    'click #target': 'showTarget'
 
   constructor:(args)->
     super
@@ -16,7 +17,9 @@ class TargetsSlide extends Spine.Controller
 
   selectTarget:(e)=>
     targetId = $(e.currentTarget).data().id 
-    @currentTarget = (target for target in @targets when target.id == targetId)
+    @current_target = (target for target in @targets when target.id == targetId)[0]
     @render()
-    
+
+  showTarget:(e)=>
+    window.open("/sources/#{@current_target.id}")
 window.TargetsSlide = TargetsSlide

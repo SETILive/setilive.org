@@ -5,6 +5,7 @@ class Info extends Spine.Controller
     "#extra_controlls" : "controls"
     "#done_talk" : "doneTalk"
     "#current_targets" : "targets"
+    "#next_beam" : "nextBeam"
 
   events:
     "click #done " : "done"
@@ -13,7 +14,8 @@ class Info extends Spine.Controller
     "click #favourite" : "favourite"
     "click #next_beam" : "nextBeam"
     "click #clear_signal" : "clearSignals"
-    "click #" : "clearSignals"
+    
+
   constructor: ->
     super
     @resetTime()
@@ -54,6 +56,9 @@ class Info extends Spine.Controller
   favourite:=>
     u= User.first()
     u.addFavourite Subject.first
+
+  nextBeam:=>
+    @nextBeam.replaceWith("<div class='extra_button' id='done'>Done</div>")
     
 window.Info = Info
   
