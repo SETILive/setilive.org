@@ -1,4 +1,4 @@
-class SubjectSignals
+class SubjectSignal
   include MongoMapper::Document
 
   key :characteristics , Array 

@@ -44,6 +44,7 @@ class Info extends Spine.Controller
 
   done :=>
     Spine.trigger "dissableSignalDraw" 
+    Spine.trigger 'doneClassification'
     @doneTalk.html @view("talk_prompt")()
 
   talk :=>
@@ -59,6 +60,7 @@ class Info extends Spine.Controller
 
   nextBeam:=>
     @nextBeam.replaceWith("<div class='extra_button' id='done'>Done</div>")
-    
+    Spine.trigger("nextBeam")
+
 window.Info = Info
   

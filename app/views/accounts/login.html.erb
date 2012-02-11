@@ -8,6 +8,11 @@
   </script>
 <%end%>
 
+<% if flash[:error] %>
+  <%flash[:error].each do |message|%>
+    <div id='flash'><%=message%></div>
+  <%end%>
+<%end%>
 <div id='login'>
   <div id ='login_header'>
     <h1>Welcome, Science Channel Viewers</h1>
@@ -55,13 +60,13 @@ only need to sign up once. We promise not to share your details with anyone else
           <div id='user_signup_info' class='user_info_region'>
             <table>
               <tr>
-                <td><%= text_field_tag "username", "Username" %></td>
+                <td><%= text_field_tag "login", "login" %></td>
               </tr>
               <tr>
                 <td><%= password_field_tag "password", "Password" %></td>
               </tr>
               <tr>
-                <td><%= password_field_tag "password_confirm", "Password Confirmation" %></td>
+                <td><%= password_field_tag "password_confirmation", "Password Confirmation" %></td>
               </tr>
               <tr>
                 <td><%= text_field_tag "email", "Email" %></td>

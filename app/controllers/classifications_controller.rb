@@ -1,6 +1,6 @@
 class ClassificationsController < ApplicationController
-  before_filter CASClient::Frameworks::Rails::GatewayFilter
-  before_filter :check_login
+  before_filter CASClient::Frameworks::Rails::Filter 
+  # before_filter :check_login
 
   def show
     @classification = Classification.find(params[:id])
@@ -15,9 +15,13 @@ class ClassificationsController < ApplicationController
   def create
     signals         = params.delete(:signals)
     @classification = Classification.new(params[:classification])
+    @classification.zooniverse_user = current_user 
 
-    signals.each do |signal|
-      @classification.signals << Signal.new(signal)
+    binding.pry
+    if signals 
+      signals.each do |signal|
+        @classification.signals << SbjectSignal.new(signal)
+      end
     end
 
     respond_to do |format|

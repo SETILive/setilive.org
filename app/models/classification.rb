@@ -10,7 +10,8 @@ class Classification
   after_create :update_zooniverse_user, :update_source
 
   def update_zooniverse_user 
-    zooniverse_user.update_classificaiton_stats(self)
+    binding.pry
+    zooniverse_user.update_classification_stats(self)
   end
 
   def update_source

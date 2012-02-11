@@ -28,10 +28,10 @@ class Subjects extends Spine.Controller
     
     Subject.fetch()
 
-    $("#nextBeam").click (e)=>
-      e.preventDefault()
+    Spine.bind 'nextBeam', =>
       @selectBeam @current_beam+=1
     
+    Spine.bind 'doneClassification', @saveClassification
 
   render: (subject) =>
     @current_subject = subject
@@ -40,7 +40,6 @@ class Subjects extends Spine.Controller
     @current_classification = new Classification 
       subject_id : @current_subject.id
       start_time : new Date()
-    
     
     @setUpBeams()
      
