@@ -123,12 +123,15 @@ class Subject
     if s 
       subject['beam'].each_with_index do |beam,index|
         beam['data'] = beam['data'].to_a
-        unless beam.empty?
+        unless beam['data'].empty?
           source = Source.find_by_seti_id beam['target_id']
           if source
             s.observations.create( :data    => beam['data'], 
                                                   :source  => Source.find_by_seti_id(beam['target_id']),
-                                                  :beam_no => index)
+                                                  :beam_no => index,
+                                                  :width => beam['width'],
+                                                  :height => beam['height']
+                                                  )
           else 
             throw "Could not find Source for observation #{beam['target_id']}"
           end

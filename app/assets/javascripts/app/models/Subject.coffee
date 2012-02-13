@@ -16,9 +16,8 @@ class Subject extends Spine.Model
     imageData=[]
     imageData[i] =0 for i in [0..targetWidth*targetHeight]
     data = @observations[beamNo].data
-    console.log "dimensions", @width, @height
     bounds = @calcBounds()
-
+    console.log "width height", @width, @height
     for x in [0..targetWidth]
       for y in [0..targetHeight]
         imagePos = (y+x*targetWidth)*4
@@ -30,6 +29,7 @@ class Subject extends Spine.Model
           for bY in [0..0]
             dataPos  = ( (dataPosX+ bx) + (dataPosY+bY)*@width)
             dataVal += data[dataPos] 
+        
         
         dataVal=@scaleVal dataVal, beamNo
         

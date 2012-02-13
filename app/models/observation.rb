@@ -5,6 +5,8 @@ class Observation
   key :data , Array 
   key :beam_no, Integer
   key :zooniverse_id, String
+  key :width, Integer
+  key :height, Integer
 
 
   belongs_to :source 
