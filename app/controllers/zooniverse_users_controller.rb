@@ -23,10 +23,13 @@ class ZooniverseUsersController < ApplicationController
   end
 
   def awardBadge 
+    puts params
+    @current_user = current_user
     if current_user
-      current_user.badges[params['badge_id']] = (params['level'] || "awarded")
+      @current_user.badges.push({ :id => params[:id], :level => params[:level] })
+      @current_user.save
       respond_to do |format|
-        format.json { render json: current_user.to_json }
+        format.json { render json: @current_user.to_json }
       end
     else
       respond_with 403

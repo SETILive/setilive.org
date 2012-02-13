@@ -13,11 +13,26 @@ class User extends Spine.Model
     
   award:(badge,level...)=>
     unless @hasBadge(badge,level)
-      level = nil unless level?
+      if level.length>0
+        level = level[level.length-1] 
+      else 
+        level = null
+        
       data= {id: badge.id, level:level, name: badge.title}
       @badges.push data
       User.trigger "badge_awarded", data
+      @persistBadge(data)
   
+  persistBadge:(data)=>
+    console.log('data is ', data)
+    $.ajax
+      type: 'POST'
+      url: '/awardBadge'
+      data: data
+      dataType: 'json'
+      success: (response)->
+        console.log("badge ",response)
+
   hasBadge:(testBadge,level...)=>
     console.log("testBadge is ",testBadge," level is ",level)
     for badge in @badges 
