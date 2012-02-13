@@ -29,7 +29,7 @@ class Subjects extends Spine.Controller
     Subject.fetch()
 
     Spine.bind 'nextBeam', =>
-      @selectBeam @current_beam+=1
+      @selectBeam @current_beam+1
     
     Spine.bind 'doneClassification', @saveClassification
 

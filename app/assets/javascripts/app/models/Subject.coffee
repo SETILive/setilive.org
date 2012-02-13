@@ -17,17 +17,18 @@ class Subject extends Spine.Model
     imageData[i] =0 for i in [0..targetWidth*targetHeight]
     data = @observations[beamNo].data
     bounds = @calcBounds()
-    console.log "width height", @width, @height
+    width = @observations[beamNo].width
+    height = @observations[beamNo].height
     for x in [0..targetWidth]
       for y in [0..targetHeight]
         imagePos = (y+x*targetWidth)*4
-        dataPosX = Math.floor((x*1.0)*@width/(targetWidth*1.0))
-        dataPosY = Math.floor((y*1.0)*@height/(targetHeight*1.0))
+        dataPosX = Math.floor((x*1.0)*width/(targetWidth*1.0))
+        dataPosY = Math.floor((y*1.0)*height/(targetHeight*1.0))
 
         dataVal = 0
         for bx in [0..0]
           for bY in [0..0]
-            dataPos  = ( (dataPosX+ bx) + (dataPosY+bY)*@width)
+            dataPos  = ( (dataPosX+ bx) + (dataPosY+bY)*width)
             dataVal += data[dataPos] 
         
         

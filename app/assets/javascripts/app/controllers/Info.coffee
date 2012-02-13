@@ -25,10 +25,12 @@ class Info extends Spine.Controller
 
   setupTargets:() =>
     subject = Subject.first()
-    sources  = Source.all()
-    if subject?  and sources.length > 0
+    if subject?  and Source.count() > 0
       # target_ids = ( targets for targets in subject.beam ) 
-      targets    = [sources[33],sources[44]] 
+      targets = []
+      for observation in subject.observations
+        source = Source.find(observation.source_id)
+        targets.push(source ) if source?
       new TargetsSlide(el:@targets , targets: targets)
 
 

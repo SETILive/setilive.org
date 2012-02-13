@@ -120,6 +120,8 @@ class Subject
                       :freq_range  => subject["bandwidthMhz"].to_f,
                       :location    => {:time=>subject["startTimeNanos"], :freq=>subject["centerFreqMhz"]})
     
+    puts "sbject dimensions",   subject['width'], subject['height']
+
     if s 
       subject['beam'].each_with_index do |beam,index|
         beam['data'] = beam['data'].to_a
@@ -129,8 +131,8 @@ class Subject
             s.observations.create( :data    => beam['data'], 
                                                   :source  => Source.find_by_seti_id(beam['target_id']),
                                                   :beam_no => index,
-                                                  :width => beam['width'],
-                                                  :height => beam['height']
+                                                  :width => subject['width'],
+                                                  :height => subject['height']
                                                   )
           else 
             throw "Could not find Source for observation #{beam['target_id']}"
