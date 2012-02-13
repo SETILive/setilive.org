@@ -6,7 +6,10 @@ task :bundle_app => :environment do
   `gzip marv.tar`
   
   require 'rubygems'
-  require 'aws/s3'
+  require 'aws-sdk'
+
+  s3 = AWS::S3.new
+  
   AWS::S3::Base.establish_connection!(
     :access_key_id     => '***REMOVED***',
     :secret_access_key => '***REMOVED***'
