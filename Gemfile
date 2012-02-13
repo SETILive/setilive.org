@@ -33,6 +33,8 @@ gem 'pry', group: 'development'
 
 gem "bcrypt-ruby", :require => "bcrypt"
 
+gem "therubyracer"
+
 gem "aws-sdk", "~> 1.3.3"
 
 
