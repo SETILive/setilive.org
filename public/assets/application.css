@@ -1,0 +1,1700 @@
+/*
+ * This is a manifest file that'll automatically include all the stylesheets available in this directory
+ * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
+ * the top of the compiled file, but it's generally better to create a new file per style scope.
+*/
+
+/* line 2, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/about.sass */
+.about > .stage {
+  height: 600px;
+  margin: 0 auto;
+  position: relative;
+  width: 800px;
+}
+/* line 8, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/about.sass */
+.about > .stage > .controls {
+  left: 0;
+  position: absolute;
+  top: 200px;
+  z-index: 2;
+  width: 100%;
+}
+/* line 15, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/about.sass */
+.about > .stage > .controls > button {
+  background: transparent;
+  border: 0;
+  color: inherit;
+  cursor: pointer;
+  padding: 20px;
+  position: absolute;
+  top: 0;
+}
+/* line 24, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/about.sass */
+.about > .stage > .controls > button.previous {
+  right: 100%;
+}
+/* line 27, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/about.sass */
+.about > .stage > .controls > button.next {
+  left: 100%;
+}
+/* line 30, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/about.sass */
+.about > .stage > .scene {
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+/* line 36, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/about.sass */
+.about > .stage > .scene > .container {
+  height: 400px;
+  position: relative;
+  width: 100%;
+}
+/* line 41, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/about.sass */
+.about > .stage > .scene > .container > * {
+  position: absolute;
+}
+/* line 44, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/about.sass */
+.about > .stage > .scene > .description {
+  text-align: center;
+  display: none;
+}
+/* line 48, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/about.sass */
+.about > .stage > .scene.active {
+  position: relative;
+  z-index: 1;
+}
+/* line 52, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/about.sass */
+.about > .stage > .scene.active > .description {
+  display: block;
+}
+/* line 56, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/about.sass */
+.about > .stage > .ata.scene > .container > .mountain {
+  left: 0;
+  bottom: 41%;
+}
+/* line 60, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/about.sass */
+.about > .stage > .ata.scene > .container > .far.scope {
+  bottom: 30%;
+  height: 90px;
+}
+/* line 64, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/about.sass */
+.about > .stage > .ata.scene > .container > .far.scope.first {
+  left: 8%;
+}
+/* line 67, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/about.sass */
+.about > .stage > .ata.scene > .container > .far.scope.second {
+  left: 45%;
+}
+/* line 70, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/about.sass */
+.about > .stage > .ata.scene > .container > .far.scope.third {
+  left: 82%;
+}
+/* line 73, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/about.sass */
+.about > .stage > .ata.scene > .container > .near.scope {
+  bottom: 10%;
+}
+/* line 76, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/about.sass */
+.about > .stage > .ata.scene > .container > .near.scope.first {
+  left: 12%;
+}
+/* line 79, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/about.sass */
+.about > .stage > .ata.scene > .container > .near.scope.second {
+  left: 50%;
+}
+/* line 83, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/about.sass */
+.about > .stage > .radiosphere.scene > .container > .outer.ring {
+  left: 6%;
+  top: 18%;
+}
+/* line 87, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/about.sass */
+.about > .stage > .radiosphere.scene > .container > .middle.ring {
+  left: 16%;
+  top: 20%;
+}
+/* line 91, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/about.sass */
+.about > .stage > .radiosphere.scene > .container > .inner.ring {
+  left: 27%;
+  top: 24%;
+}
+/* line 95, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/about.sass */
+.about > .stage > .radiosphere.scene > .container > .main.planet {
+  left: 41%;
+  top: 21%;
+}
+/* line 99, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/about.sass */
+.about > .stage > .radiosphere.scene > .container > .radio {
+  left: 46%;
+  top: 11%;
+}
+/* line 103, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/about.sass */
+.about > .stage > .radiosphere.scene > .container > .radio-waves {
+  left: 45%;
+  top: 3%;
+}
+/* line 107, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/about.sass */
+.about > .stage > .radiosphere.scene > .container > .tiny.planet {
+  left: 80%;
+  top: 3%;
+}
+/* line 111, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/about.sass */
+.about > .stage > .radiosphere.scene > .container > .small.planet {
+  left: 17%;
+  top: 61%;
+}
+/* line 115, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/about.sass */
+.about > .stage > .radiosphere.scene > .container > .other.planet {
+  left: 75%;
+  top: 63%;
+}
+/* line 120, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/about.sass */
+.about > .stage > .habitable-zone.scene > .container > .outer.ring {
+  left: 7%;
+  top: 24%;
+}
+/* line 124, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/about.sass */
+.about > .stage > .habitable-zone.scene > .container > .inner.ring {
+  left: 27%;
+  top: 30%;
+}
+/* line 128, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/about.sass */
+.about > .stage > .habitable-zone.scene > .container > .star {
+  left: 41%;
+  top: 27%;
+}
+/* line 132, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/about.sass */
+.about > .stage > .habitable-zone.scene > .container > .planet {
+  left: 27%;
+  top: 54%;
+}
+/* line 136, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/about.sass */
+.about > .stage > .habitable-zone.scene > .container > .flag {
+  background: white;
+  color: black;
+  display: inline-block;
+  font-size: 18px;
+  letter-spacing: 0;
+  padding: 10px 20px 5px;
+}
+/* line 144, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/about.sass */
+.about > .stage > .habitable-zone.scene > .container > .flag:after {
+  background: white;
+  content: "";
+  height: 200%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 2px;
+}
+/* line 153, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/about.sass */
+.about > .stage > .habitable-zone.scene > .container > .flag.for-star {
+  left: 48.5%;
+  top: 10%;
+}
+/* line 157, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/about.sass */
+.about > .stage > .habitable-zone.scene > .container > .flag.for-planet {
+  left: 17.5%;
+  top: 37%;
+}
+/* line 161, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/about.sass */
+.about > .stage > .habitable-zone.scene > .container > .flag.for-planet:after {
+  left: auto;
+  right: 0;
+}
+/* line 165, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/about.sass */
+.about > .stage > .habitable-zone.scene > .container > .flag.for-zone {
+  left: 77%;
+  top: 33%;
+}
+/* line 170, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/about.sass */
+.about > .stage > .doppler.scene > .container > .mountain {
+  left: 0;
+  bottom: 51%;
+}
+/* line 174, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/about.sass */
+.about > .stage > .doppler.scene > .container > .satelliteGroup {
+  left: 0;
+  top: 15%;
+}
+/* line 178, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/about.sass */
+.about > .stage > .doppler.scene > .container > .satelliteGroup > .satellite {
+  left: 0;
+  position: absolute;
+  top: 0;
+}
+/* line 183, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/about.sass */
+.about > .stage > .doppler.scene > .container > .satelliteGroup > .waves.for-satellite {
+  left: 27px;
+  position: absolute;
+  top: 24px;
+}
+/* line 188, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/about.sass */
+.about > .stage > .doppler.scene > .container > .tower {
+  bottom: 54%;
+  left: 75%;
+}
+/* line 192, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/about.sass */
+.about > .stage > .doppler.scene > .container > .waves.for-tower {
+  bottom: 72%;
+  left: 76.5%;
+}
+/* line 196, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/about.sass */
+.about > .stage > .doppler.scene > .container > .telescope {
+  bottom: 4%;
+  left: 13%;
+}
+/* line 37, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+ul {
+  list-style: none;
+  padding: 0px;
+}
+
+/* line 41, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+a {
+  color: #b2b2b2;
+  text-decoration: none;
+}
+/* line 44, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+a:hover {
+  color: #f0f0f0;
+}
+
+/* line 47, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#footer {
+  margin-left: auto;
+  margin-right: auto;
+  width: 940px;
+  border-top: 1px #373737 solid;
+  padding-bottom: 30px;
+  height: 200px;
+  color: #b2b2b2;
+}
+/* line 55, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#footer li.footer-column {
+  font-family: TitilliumText22LThin, Sans-serif;
+  width: 120px;
+  height: 115px;
+  padding-left: 28px;
+  padding-right: 28px;
+  float: left;
+  border-left: #383838 1px solid;
+}
+/* line 63, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#footer li.footer-column:nth-child(1) {
+  border: none;
+  padding-right: 80px;
+  margin-top: 10px;
+  padding-left: 0px;
+}
+/* line 68, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#footer li.footer-column:nth-child(2) {
+  border: none;
+}
+/* line 70, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#footer li.footer-column h2 {
+  font-size: 14px;
+  padding-bottom: 5px;
+}
+/* line 74, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#footer li.footer-column ul li {
+  font-size: 12px;
+  line-height: 20px;
+  color: #b2b2b2;
+}
+
+/* line 79, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+body {
+  font-family: TitilliumText22LRegular, Sans-serif;
+  width: 100%;
+  height: 100%;
+  background-image: url("background_gradient.png");
+  background-color: #12161b;
+  background-position: center center;
+  background-repeat: no-repeat;
+  color: white;
+  margin: 0;
+  padding: 0;
+  font-family: TitilliumText22LMedium, Sans-serif;
+  letter-spacing: 0px;
+}
+
+/* line 94, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#real_time h1 {
+  font-family: TitilliumText22LThin, Sans-serif;
+  border-bottom: 1px #373737 solid;
+  padding-bottom: 20px;
+  font-size: 40pt;
+}
+/* line 99, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#real_time h2 {
+  font-family: TitilliumText22LThin, Sans-serif;
+  color: #666666;
+  margin-top: -24px;
+  margin-bottom: 40px;
+  font-size: 20px;
+  text-transform: uppercase;
+  font-size: 10pt;
+}
+
+/* line 108, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#top {
+  margin-left: auto;
+  margin-right: auto;
+  width: 1100px;
+  height: 100px;
+  padding-top: 0px;
+}
+
+/* line 115, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+.green {
+  color: #cddc28;
+  font-weight: 500;
+}
+
+/* line 119, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+.thick {
+  font-family: TitilliumText22LBold, Sans-serif;
+}
+
+/* line 122, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+.live {
+  font-family: TitilliumText22LThin, Sans-serif;
+}
+
+/* line 126, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#top #nav {
+  float: right;
+  margin-top: 69px;
+  padding: 0;
+}
+/* line 130, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#top #nav li {
+  font-family: TitilliumText22LThin, Sans-serif;
+  float: right;
+  text-align: left;
+  font-size: 15px;
+  margin-left: 45px;
+  text-transform: uppercase;
+}
+/* line 137, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#top #logo {
+  font-family: TitilliumText22LBold, Sans-serif;
+  letter-spacing: 5px;
+  margin-top: 50px;
+  float: left;
+  font-size: 30pt;
+}
+/* line 143, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#top #logo .green {
+  letter-spacing: 2px;
+}
+
+/* line 146, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+.small_field {
+  height: 150px;
+}
+
+/* line 149, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+.big_field {
+  height: 320px;
+}
+
+/* line 152, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#star_field {
+  width: 100%;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
+}
+
+/* line 159, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#content {
+  margin-left: auto;
+  margin-right: auto;
+  width: 1100px;
+  min-height: 800px;
+}
+
+/* line 165, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#stats li {
+  color: #cddc28;
+  float: left;
+  width: 259px;
+  padding-left: 20px;
+  font-size: 45px;
+  text-align: center;
+}
+/* line 172, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#stats li div {
+  background-image: url("gradient_background.png");
+  background-repeat: repeat-x;
+  font-family: TitilliumText22LThin, Sans-serif;
+  border: #383838 solid 1px;
+  height: 75px;
+  line-height: 83px;
+}
+/* line 179, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#stats li div span.mins {
+  font-size: 20pt;
+  margin-left: -12px;
+}
+/* line 182, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#stats li p {
+  color: #666666;
+  text-transform: uppercase;
+  font-size: 8pt;
+  text-align: left;
+}
+/* line 187, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#stats li:nth-child(1) {
+  padding-left: 0px;
+}
+
+/* line 190, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#lower {
+  margin-left: auto;
+  margin-right: auto;
+  width: 1100px;
+  margin-top: 180px;
+}
+/* line 195, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#lower #left {
+  font-family: TitilliumText22LLight, Sans-serif;
+  float: left;
+  width: 259px;
+  margin-right: 20px;
+  margin-top: -10px;
+  line-height: 24px;
+}
+/* line 202, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#lower #left p {
+  color: #b2b2b2;
+  margin-top: -1px;
+}
+/* line 205, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#lower #left a {
+  margin-top: 20px;
+}
+/* line 208, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#lower #right ul {
+  height: 100%;
+}
+/* line 210, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#lower #right li {
+  width: 257px;
+  height: 170px;
+  display: inline-block;
+  border: #383838 solid 1px;
+  margin-right: 10px;
+  margin-bottom: 20px;
+  position: relative;
+  background-image: url("example_thumb2.png");
+}
+/* line 211, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#lower #right li:nth-child(1) {
+  margin-left: 0px;
+}
+/* line 221, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#lower #right li p {
+  font-family: TitilliumText22LRegular, Sans-serif;
+  color: #666666;
+  font-size: 10px;
+  line-height: 40px;
+  text-align: center;
+  position: absolute;
+  bottom: 0px;
+  padding: 0px;
+  margin: 0px;
+  background-color: black;
+  width: 100%;
+  height: 38px;
+}
+/* line 234, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#lower #right li p span.star {
+  background-image: url("star.png");
+  width: 20px;
+  height: 20px;
+}
+/* line 238, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#lower #right li p span.star:hover {
+  background-image: url("star_selected.png");
+}
+
+/* line 241, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#classify-area {
+  width: 100%;
+  position: relative;
+  top: 0px;
+  left: 0px;
+}
+
+/* line 247, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#waterfalls {
+  width: 820px;
+  margin: 0px;
+  padding: 0px;
+  left: 0px;
+  top: 0px;
+  position: absolute;
+}
+
+/* line 255, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+.waterfall {
+  border: 3px #bbbbbb solid;
+  padding: 0px;
+}
+
+/* line 260, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+.large-waterfall {
+  height: 410px;
+  width: 818px;
+  margin-bottom: 20px;
+}
+
+/* line 267, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#waterfall-0 {
+  margin-left: 0px;
+}
+
+/* line 270, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#flash {
+  margin-left: auto;
+  margin-right: auto;
+  width: 1100px;
+  height: 60px;
+  color: black;
+  background-color: #cddc28;
+  font-size: 17pt;
+  text-align: center;
+  line-height: 47pt;
+  margin-bottom: 25px;
+}
+
+/* line 282, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+.small-waterfall {
+  width: 260px;
+  height: 125px;
+  margin-left: 17px;
+  display: inline-block;
+  vertical-align: top;
+  cursor: pointer;
+}
+
+/* line 290, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#info {
+  width: 220px;
+  height: 560px;
+  padding: 0px;
+  margin: 0px;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
+/* line 299, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#info #current_targets {
+  width: 100%;
+}
+/* line 301, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#info #current_targets #targets {
+  width: 220px;
+  height: 200px;
+  padding-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #eceaea;
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#eceaea, endColorstr=#b3b3b3);
+  background-image: -moz-linear-gradient(center top, #eceaea, #b3b3b3);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#eceaea), to(#b3b3b3));
+  border-radius: 2px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+}
+/* line 309, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#info #current_targets #targets #target {
+  cursor: pointer;
+}
+/* line 311, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#info #current_targets #targets p {
+  height: 13px;
+  color: black;
+  text-transform: uppercase;
+  margin-top: 28px;
+  text-align: center;
+  display: block;
+}
+/* line 318, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#info #current_targets #controls {
+  text-align: center;
+  height: 28px;
+  width: 100%;
+  border-top: 1px solid #9c9b9b;
+}
+/* line 323, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#info #current_targets #controls .dot {
+  width: 10px;
+  height: 10px;
+  margin-top: 6px;
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  background-color: #545454;
+  display: inline-block;
+  vertical-align: top;
+  cursor: pointer;
+}
+/* line 332, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#info #current_targets #controls .selected {
+  background: #e2e2e2;
+}
+
+/* line 335, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#countdown #time {
+  color: #cddc28;
+  font-family: TitilliumText22LThin, Sans-serif;
+  font-size: 25pt;
+  text-align: center;
+  line-height: 45pt;
+  width: 214px;
+  height: 50px;
+  background-image: url("gradient_background.png");
+  margin: 0px;
+  border: 3px #bbbbbb solid;
+}
+
+/* line 347, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+p.title {
+  font-family: TitilliumText22LBold, Sans-serif;
+  font-size: 9pt;
+  color: #bbbbbb;
+  text-transform: uppercase;
+}
+
+/* line 353, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#current_targets {
+  margin-top: 25px;
+}
+
+/* line 356, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#targets {
+  width: 220px;
+  height: 240px;
+}
+
+/* line 360, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#section-title {
+  font-family: TitilliumText22LThin, Sans-serif;
+  color: #666666;
+  margin-top: -24px;
+  margin-bottom: 40px;
+  font-size: 20px;
+  text-transform: uppercase;
+  font-size: 10pt;
+}
+
+/* line 369, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#workflow {
+  width: 100px;
+  height: 175px;
+  z-index: 10000;
+  background-color: #eceaea;
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#eceaea, endColorstr=#b3b3b3);
+  background-image: -moz-linear-gradient(center top, #eceaea, #b3b3b3);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#eceaea), to(#b3b3b3));
+  border-radius: 2px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  position: absolute;
+  padding: 0px;
+  color: black;
+  text-align: center;
+}
+/* line 379, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#workflow ul li {
+  cursor: pointer;
+  height: 28px;
+  line-height: 28px;
+  font-size: 12pt;
+  border-top: 1px solid #d7d6d6;
+}
+/* line 386, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#workflow #question_text {
+  font-size: 12pt;
+  height: 23px;
+  width: 100%;
+  padding: 0px;
+  margin: 0px;
+  padding-top: 20px;
+  text-transform: uppercase;
+}
+/* line 394, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#workflow ul li:hover {
+  cursor: pointer;
+  color: #383838;
+}
+
+/* line 398, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#extra_controlls {
+  width: 100%;
+  height: 189px;
+  margin-top: -10px;
+}
+/* line 403, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#extra_controlls .extra_button {
+  color: white;
+  text-align: center;
+  background-color: #ecf96b;
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#ecf96b, endColorstr=#90991f);
+  background-image: -moz-linear-gradient(center top, #ecf96b, #90991f);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ecf96b), to(#90991f));
+  border-radius: 2px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  height: 42px;
+  line-height: 42px;
+  margin: 0px;
+  padding: 0px;
+  margin-bottom: 20px;
+  display: inline-block;
+  vertical-align: bottom;
+  cursor: pointer;
+}
+/* line 416, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#extra_controlls #clear_signal {
+  width: 163px;
+  margin-right: 5px;
+}
+/* line 419, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#extra_controlls #favourite {
+  width: 48px;
+}
+/* line 421, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#extra_controlls #next_beam {
+  width: 100%;
+  height: 60px;
+  line-height: 60px;
+  margin-top: 4px;
+}
+/* line 426, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#extra_controlls #done {
+  width: 100%;
+  height: 60px;
+  line-height: 60px;
+  margin-top: 4px;
+}
+/* line 431, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#extra_controlls #favourite {
+  margin-top: 32px;
+}
+
+/* line 434, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#talk_yes {
+  display: inline-block;
+  width: 120px;
+  height: 78px;
+  font-family: TitilliumText22LThin, Sans-serif;
+  background-image: url("gradient_background.png");
+  color: #cddc28;
+  font-size: 35pt;
+  text-align: center;
+  line-height: 60pt;
+  font-weight: 100px;
+  border: 1px solid #383838;
+  cursor: pointer;
+  margin-right: 12px;
+}
+
+/* line 449, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#talk_no {
+  display: inline-block;
+  width: 120px;
+  height: 78px;
+  font-family: TitilliumText22LThin, Sans-serif;
+  background-image: url("gradient_background.png");
+  color: #cddc28;
+  font-size: 35pt;
+  text-align: center;
+  line-height: 60pt;
+  font-weight: 100px;
+  border: 1px solid #383838;
+  cursor: pointer;
+}
+
+/* line 463, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#talk_prompt {
+  color: #5f5f5f;
+}
+
+/* line 466, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#target_content {
+  width: 1100px;
+  height: 690px;
+}
+
+/* line 470, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#target_button {
+  display: inline-block;
+  background-image: url("gradient_background.png");
+  width: 260px;
+  height: 76px;
+}
+
+/* line 476, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+.selected_beam {
+  border: 3px solid #cddc28;
+}
+
+/* line 479, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#login {
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 45px;
+  width: 940px;
+}
+/* line 484, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#login h1 {
+  width: 840px;
+  text-align: center;
+  font-weight: lighter;
+  font-size: 40px;
+  line-height: 60px;
+  text-align: center;
+  margin: 0px auto;
+}
+/* line 492, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#login p.blurb {
+  width: 840px;
+  font-family: TitilliumText22LThin, Sans-serif;
+  text-align: center;
+  font-size: 15px;
+  line-height: 20px;
+  margin: 0px auto;
+}
+/* line 500, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#login #login_lower {
+  padding-top: 30px;
+}
+/* line 502, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#login input {
+  color: grey;
+  margin: 0px;
+  padding: 0px;
+  height: 23px;
+  border-radius: 2px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+}
+/* line 508, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#login .login_section_header {
+  background-color: #eceaea;
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#eceaea, endColorstr=#dfdede);
+  background-image: -moz-linear-gradient(center top, #eceaea, #dfdede);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#eceaea), to(#dfdede));
+  font-size: 16px;
+  font-family: TitilliumText22LThin, Sans-serif;
+  letter-spacing: 0px;
+  text-align: center;
+  vertical-align: middle;
+  height: 100px;
+  border-bottom: 1px solid #b2b2b2;
+  margin: 0px;
+  padding: 10px 20px 0px 20px;
+  border-top-left-radius: 2px;
+  -webkit-border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+  -webkit-border-top-right-radius: 2px;
+  -moz-border-radius-topleft: 2px;
+  -moz-border-radius-topright: 2px;
+  color: black;
+}
+/* line 521, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#login .login_section_header h2 {
+  font-size: 14px;
+  line-height: 20px;
+  font-family: TitilliumText22LThin, Sans-serif;
+}
+/* line 525, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#login .login_section_lower {
+  height: 200px;
+  background-color: #dfdede;
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#dfdede, endColorstr=#b3b3b3);
+  background-image: -moz-linear-gradient(center top, #dfdede, #b3b3b3);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#dfdede), to(#b3b3b3));
+  border-bottom-left-radius: 2px;
+  -webkit-border-bottom-left-radius: 2px;
+  border-bottom-right-radius: 2px;
+  -webkit-border-bottom-right-radius: 2px;
+  -moz-border-radius-bottomleft: 2px;
+  -moz-border-radius-bottomright: 2px;
+  padding: 10px 20px;
+}
+/* line 531, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#login .login_section_lower p {
+  margin-top: 10px;
+  padding: 0px;
+}
+/* line 534, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#login #science_channel {
+  width: 685px;
+  min-height: 315px;
+  color: black;
+  display: inline-block;
+  vertical-align: top;
+  text-align: left;
+  padding-bottom: 60px;
+  padding-right: 10px;
+  margin-left: 120px;
+}
+/* line 544, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#login #science_channel #extra_signup_info {
+  margin-left: 0px;
+  width: 100%;
+}
+/* line 547, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#login #science_channel #extra_signup_info table {
+  border: 0;
+}
+/* line 549, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#login #science_channel #extra_signup_info table td {
+  padding: 8px 0px 0px 0px;
+}
+/* line 551, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#login #science_channel #extra_signup_info table td.first {
+  padding: 8px 10px 0px 0px;
+}
+/* line 554, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#login #science_channel #extra_signup_info input[type=text] {
+  width: 100%;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  padding: 3px 0px 3px 3px;
+}
+/* line 558, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#login #science_channel #extra_signup_info input[type=checkbox] {
+  width: 3%;
+  height: 12px;
+}
+/* line 561, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#login #science_channel #extra_signup_info .disclaimer {
+  padding: 0px;
+  margin: 0px;
+  line-height: 17px;
+  font-size: 12px;
+}
+/* line 566, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#login #science_channel .login_section_lower {
+  height: 300px;
+  background-color: #dfdede;
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#dfdede, endColorstr=#b3b3b3);
+  background-image: -moz-linear-gradient(center top, #dfdede, #b3b3b3);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#dfdede), to(#b3b3b3));
+  border-bottom-left-radius: 2px;
+  -webkit-border-bottom-left-radius: 2px;
+  border-bottom-right-radius: 2px;
+  -webkit-border-bottom-right-radius: 2px;
+  -moz-border-radius-bottomleft: 2px;
+  -moz-border-radius-bottomright: 2px;
+  padding: 10px 20px;
+}
+/* line 572, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#login #science_channel #user_signup_info {
+  float: right;
+  width: 220px;
+  padding-right: 10px;
+}
+/* line 576, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#login #science_channel #user_signup_info table {
+  border: 0;
+}
+/* line 578, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#login #science_channel #user_signup_info table td {
+  padding: 8px 0px 0px 0px;
+}
+/* line 580, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#login #science_channel #user_signup_info input {
+  width: 100%;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  padding: 3px 0px 3px 3px;
+}
+/* line 585, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#login #science_channel .user_info_region {
+  display: inline-block;
+  vertial-align: top;
+}
+/* line 589, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#login #register {
+  width: 275px;
+  height: 315px;
+  min-height: 315px;
+  color: black;
+  display: inline-block;
+  vertical-align: top;
+  padding-bottom: 60px;
+  margin-left: 150px;
+  margin-top: 20px;
+}
+/* line 600, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#login #register input {
+  width: 100%;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  font-size: 14px;
+  padding: 3px 0px 3px 3px;
+}
+/* line 606, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#login #zooniverse_login {
+  width: 275px;
+  height: 315px;
+  min-height: 315px;
+  color: black;
+  display: inline-block;
+  vertical-align: top;
+  padding-bottom: 60px;
+  margin-left: 100px;
+  margin-top: 20px;
+}
+/* line 617, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#login #zooniverse_login input {
+  width: 100%;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  font-size: 14px;
+  padding: 3px 0px 3px 3px;
+}
+
+/* line 625, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+.source_content {
+  text-align: center;
+}
+
+/* line 627, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#sources_header {
+  width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  padding: 0px;
+}
+
+/* line 633, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#sources_title {
+  font-size: 50px;
+  color: #f2f2f2;
+  text-align: center;
+}
+
+/* line 638, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#sources_blurb {
+  font-size: 14px;
+  color: #f2f2f2;
+  text-align: center;
+  font-family: TitilliumText22LThin, Sans-serif;
+}
+
+/* line 646, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#sources ul#source_list {
+  width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0px;
+  list-style: none;
+}
+/* line 652, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#sources ul#source_list li.source {
+  background-color: #eceaea;
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#eceaea, endColorstr=#b3b3b3);
+  background-image: -moz-linear-gradient(center top, #eceaea, #b3b3b3);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#eceaea), to(#b3b3b3));
+  width: 210px;
+  height: 150px;
+  display: inline-block;
+  vertical-align: top;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+/* line 661, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#sources ul#source_list li.source p {
+  text-transform: uppercase;
+  letter-spacing: 0px;
+  color: #12161a;
+}
+/* line 665, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#sources ul#pagination {
+  list-style: none;
+}
+/* line 667, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#sources ul#pagination li {
+  display: inline-block;
+}
+/* line 669, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#sources ul#pagination li .pagination_active {
+  text-decoration: underline;
+}
+
+/* line 671, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#source {
+  width: 940px;
+  height: 540px;
+  margin-left: auto;
+  margin-right: auto;
+}
+/* line 676, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#source #star_vis {
+  width: 540px;
+  height: 540px;
+  display: inline-block;
+  vertical-align: middle;
+}
+/* line 681, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#source #star_details {
+  width: 220px;
+  height: 220px;
+  background-color: #eceaea;
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#eceaea, endColorstr=#b3b3b3);
+  background-image: -moz-linear-gradient(center top, #eceaea, #b3b3b3);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#eceaea), to(#b3b3b3));
+  border-radius: 2px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  text-align: center;
+  color: black;
+  letter-spacing: 0px;
+  padding-top: 10px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 40px;
+}
+/* line 693, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#source #star_details h1 {
+  font-size: 12px;
+  text-transform: uppercase;
+  margin: 0px;
+  padding: 0px;
+  margin-top: 27px;
+}
+/* line 699, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#source #star_details h2 {
+  margin: 0px;
+  padding: 0px;
+  margin-top: 20px;
+  font-size: 17px;
+  text-transform: uppercase;
+}
+/* line 705, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#source #buttons {
+  margin-left: auto;
+  margin-right: auto;
+}
+/* line 708, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#source #buttons #back_button {
+  width: 80px;
+  height: 25px;
+  line-height: 25px;
+  background-color: #ebf767;
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#ebf767, endColorstr=#989f41);
+  background-image: -moz-linear-gradient(center top, #ebf767, #989f41);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ebf767), to(#989f41));
+  color: white;
+  display: inline-block;
+  vertical-align: top;
+  cursor: pointer;
+}
+/* line 718, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#source #buttons #planethunters_button {
+  width: 80px;
+  height: 25px;
+  line-height: 25px;
+  font-size: 10px;
+  background-color: #ebf767;
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#ebf767, endColorstr=#989f41);
+  background-image: -moz-linear-gradient(center top, #ebf767, #989f41);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ebf767), to(#989f41));
+  color: white;
+  display: inline-block;
+  vertical-align: top;
+  cursor: pointer;
+}
+
+/* line 729, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#user_stats {
+  width: 980px;
+  height: 80px;
+  margin-left: auto;
+  margin-right: auto;
+}
+/* line 734, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#user_stats li {
+  width: 220px;
+  height: 100%;
+  display: inline-block;
+  margin-right: 20px;
+}
+/* line 739, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#user_stats li .stats_box {
+  background-color: #ebeaea;
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#ebeaea, endColorstr=#a8a7a7);
+  background-image: -moz-linear-gradient(center top, #ebeaea, #a8a7a7);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ebeaea), to(#a8a7a7));
+  border-radius: 2px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  height: 60px;
+}
+/* line 743, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#user_stats li .stats_box p {
+  text-align: center;
+  line-height: 50px;
+  font-size: 25px;
+  width: 210px;
+  height: 50px;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  top: 5px;
+  background-image: url("glass.png");
+  background-repeat: repeat-x;
+  color: #d0de35;
+}
+/* line 756, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#user_stats li p {
+  color: #898080;
+  text-transform: uppercase;
+  font-size: 9px;
+  margin-top: 9px;
+}
+
+/* line 762, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#global_stats {
+  width: 980px;
+  height: 80px;
+  margin-left: auto;
+  margin-right: auto;
+}
+/* line 767, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#global_stats li {
+  width: 220px;
+  height: 100%;
+  display: inline-block;
+  margin-right: 20px;
+}
+/* line 772, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#global_stats li .stats_box {
+  background-color: #ebeaea;
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#ebeaea, endColorstr=#a8a7a7);
+  background-image: -moz-linear-gradient(center top, #ebeaea, #a8a7a7);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ebeaea), to(#a8a7a7));
+  border-radius: 2px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  height: 60px;
+}
+/* line 776, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#global_stats li .stats_box p {
+  text-align: center;
+  line-height: 50px;
+  font-size: 25px;
+  width: 210px;
+  height: 50px;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  top: 5px;
+  background-image: url("glass.png");
+  background-repeat: repeat-x;
+  color: #d0de35;
+}
+/* line 789, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#global_stats li p {
+  color: #898080;
+  text-transform: uppercase;
+  font-size: 9px;
+  margin-top: 9px;
+}
+
+/* line 797, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+ul.pagination {
+  margin: 0px;
+  padding: 0px;
+}
+/* line 800, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+ul.pagination li {
+  cursor: pointer;
+  display: inline-block;
+  vertical-align: top;
+  margin: 0px;
+  padding: 0px;
+}
+/* line 806, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+ul.pagination li.selected_page {
+  text-decoration: underline;
+}
+
+/* line 810, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#user_profile {
+  width: 1000px;
+  height: 530px;
+  border-radius: 2px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  background-color: #eceaea;
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#eceaea, endColorstr=#b3b3b3);
+  background-image: -moz-linear-gradient(center top, #eceaea, #b3b3b3);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#eceaea), to(#b3b3b3));
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 30px;
+}
+/* line 818, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#user_profile #profile_top {
+  width: 100%;
+  height: 105px;
+  border-bottom: 1px solid #bcbcbc;
+  color: black;
+}
+/* line 823, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#user_profile #profile_top h1 {
+  font-size: 25px;
+  letter-spacing: 0px;
+  line-height: 80px;
+  margin-left: 30px;
+  display: inline-block;
+  vertical-align: middle;
+}
+/* line 830, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#user_profile #profile_top #user_badges {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 100px;
+}
+/* line 834, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#user_profile #profile_top #user_badges li {
+  width: 51px;
+  height: 51px;
+  display: inline-block;
+  background-image: url("emptyBadge.png");
+}
+/* line 840, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#user_profile #profile_bottom #view_selection {
+  margin-left: 30px;
+  margin-top: 30px;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-family: TitilliumText22LThin, Sans-serif;
+}
+/* line 846, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#user_profile #profile_bottom #view_selection span {
+  color: black;
+  margin-right: 20px;
+}
+/* line 849, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#user_profile #profile_bottom #view_selection ul {
+  display: inline-block;
+  margin: 0px;
+  padding: 0px;
+  list-style: none;
+  color: black;
+  cursor: pointer;
+}
+/* line 856, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#user_profile #profile_bottom #view_selection ul li {
+  display: inline-block;
+  vertical-align: top;
+}
+/* line 859, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#user_profile #profile_bottom #view_selection ul li.catagory_selection {
+  font-family: TitilliumText22LBold, Sans-serif;
+}
+/* line 861, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#user_profile #profile_bottom #subjects {
+  margin-left: 30px;
+  margin-top: 40px;
+}
+/* line 864, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#user_profile #profile_bottom #subjects .waterfall {
+  display: inline-block;
+  vertical-align: top;
+  width: 220px;
+  height: 130px;
+  border: 3px solid #f1f1f1;
+  -moz-box-shadow: 2px 5px 5px #878686;
+  -webkit-box-shadow: 2px 5px 5px #878686;
+  box-shadow: 2px 5px 5px #878686;
+  margin-right: 10px;
+  margin-bottom: 20px;
+  background-image: url("example_thumb.png");
+}
+/* line 874, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#user_profile #profile_bottom .pagination {
+  color: black;
+  float: right;
+  margin-right: 20px;
+  font-size: 12px;
+}
+
+/* line 880, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#home_content {
+  width: 1000px;
+  height: 430px;
+  border-radius: 2px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  background-color: #eceaea;
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#eceaea, endColorstr=#b3b3b3);
+  background-image: -moz-linear-gradient(center top, #eceaea, #b3b3b3);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#eceaea), to(#b3b3b3));
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 30px;
+}
+/* line 888, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#home_content #home_content_top {
+  width: 100%;
+  height: 105px;
+  border-bottom: 1px solid #bcbcbc;
+  color: black;
+}
+/* line 893, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#home_content #home_content_top h1 {
+  width: 673px;
+  font-size: 25px;
+  letter-spacing: 0px;
+  margin-top: 30px;
+  margin-left: 30px;
+  display: inline-block;
+  vertical-align: middle;
+}
+/* line 901, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#home_content #home_content_top #start_searching_button {
+  border-radius: 2px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  background-color: #ebf767;
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#ebf767, endColorstr=#989f41);
+  background-image: -moz-linear-gradient(center top, #ebf767, #989f41);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ebf767), to(#989f41));
+  margin-left: 130px;
+  margin-top: 30px;
+  width: 120px;
+  height: 33px;
+  color: white;
+  font-size: 13px;
+  line-height: 33px;
+  text-align: center;
+  cursor: pointer;
+  display: inline-block;
+  vertical-align: middle;
+  -moz-box-shadow: 2px 5px 5px #878686;
+  -webkit-box-shadow: 2px 5px 5px #878686;
+  box-shadow: 2px 5px 5px #878686;
+}
+/* line 919, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#home_content #home_content_bottom #subjects {
+  margin-left: 30px;
+  margin-top: 40px;
+}
+/* line 922, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#home_content #home_content_bottom #subjects .waterfall {
+  display: inline-block;
+  vertical-align: top;
+  width: 220px;
+  height: 130px;
+  border: 3px solid #bbbbbb;
+  -moz-box-shadow: 2px 5px 5px #878686;
+  -webkit-box-shadow: 2px 5px 5px #878686;
+  box-shadow: 2px 5px 5px #878686;
+  margin-right: 10px;
+  margin-bottom: 20px;
+  background-image: url("example_thumb.png");
+}
+/* line 932, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#home_content #home_content_bottom h2 {
+  margin-left: 30px;
+  color: black;
+  font-size: 13px;
+  text-transform: uppercase;
+  font-family: TitilliumText22LThin, Sans-serif;
+  letter-spacing: 0px;
+}
+/* line 939, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#home_content #home_content_bottom p {
+  color: black;
+  font-size: 11px;
+  font-family: TitilliumText22LThin, Sans-serif;
+  letter-spacing: 0px;
+  margin-left: 30px;
+  width: 916px;
+}
+
+/* line 947, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#home_lower {
+  width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  padding: 0px;
+}
+/* line 955, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#home_lower #most_recent_badge {
+  width: 365px;
+  height: 150px;
+  padding: 0px;
+  margin: 0px;
+  display: inline-block;
+  vertical-align: top;
+  border-radius: 2px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  background-color: #eceaea;
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#eceaea, endColorstr=#b3b3b3);
+  background-image: -moz-linear-gradient(center top, #eceaea, #b3b3b3);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#eceaea), to(#b3b3b3));
+  color: black;
+}
+/* line 965, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#home_lower #most_recent_badge .badge_icon {
+  margin-left: 30px;
+  margin-right: 10px;
+  margin-top: 30px;
+  width: 90px;
+  height: 90px;
+  display: inline-block;
+  vertical-align: middle;
+}
+/* line 974, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#home_lower #most_recent_badge .right {
+  display: inline-block;
+  vertical-align: middle;
+  margin-top: 30px;
+}
+/* line 978, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#home_lower #most_recent_badge .right h2 {
+  font-size: 19px;
+  margin: 0px;
+  margin-bottom: 4px;
+}
+/* line 982, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#home_lower #most_recent_badge .right p {
+  font-size: 13px;
+  padding: 0px;
+  margin: 0px;
+  margin-bottom: 6px;
+}
+/* line 987, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#home_lower #most_recent_badge .right #sign_in_button {
+  color: white;
+  text-align: center;
+  line-height: 25px;
+  width: 80px;
+  height: 25px;
+  font-size: 13px;
+  border-radius: 2px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  background-color: #ebf767;
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#ebf767, endColorstr=#989f41);
+  background-image: -moz-linear-gradient(center top, #ebf767, #989f41);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ebf767), to(#989f41));
+  -moz-box-shadow: 2px 5px 5px #878686;
+  -webkit-box-shadow: 2px 5px 5px #878686;
+  box-shadow: 2px 5px 5px #878686;
+  cursor: pointer;
+}
+/* line 998, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#home_lower #most_recent_badge .right #view_all_button {
+  color: white;
+  text-align: center;
+  line-height: 25px;
+  font-size: 13px;
+  width: 80px;
+  height: 25px;
+  border-radius: 2px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  background-color: #ebf767;
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#ebf767, endColorstr=#989f41);
+  background-image: -moz-linear-gradient(center top, #ebf767, #989f41);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ebf767), to(#989f41));
+  -moz-box-shadow: 2px 5px 5px #878686;
+  -webkit-box-shadow: 2px 5px 5px #878686;
+  box-shadow: 2px 5px 5px #878686;
+  cursor: pointer;
+}
+/* line 1011, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#home_lower #discovery_logo {
+  width: 610px;
+  height: 150px;
+  margin-left: 20px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* line 1018, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#notification_bar {
+  width: 1100px;
+  list-style: none;
+  max-height: 210px;
+  min-height: 60px;
+  overflow-y: hidden;
+  margin: 0px;
+  padding: 0px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
+}
+/* line 1029, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+#notification_bar li {
+  display: none;
+  width: 100%;
+  height: 60px;
+  background-color: #eceaea;
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#eceaea, endColorstr=#b3b3b3);
+  background-image: -moz-linear-gradient(center top, #eceaea, #b3b3b3);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#eceaea), to(#b3b3b3));
+  border-radius: 2px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  margin-bottom: 10px;
+  font-size: 12px;
+  text-align: center;
+  line-height: 60px;
+  color: black;
+}
+
+/* line 1041, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+.badge {
+  position: relative;
+  top: 0px;
+  left: 0px;
+}
+
+/* line 1046, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+.badge_level {
+  width: 20px;
+  height: 20px;
+  background-color: #d5e560;
+  color: grey;
+  font-size: 13px;
+  position: absolute;
+  right: 0px;
+  top: -5px;
+  text-align: center;
+  line-height: 22px;
+  border-radius: 20px;
+  -moz-border-radius: 20px;
+  -webkit-border-radius: 20px;
+  z-index: 3;
+}
+
+/* line 1059, /Users/stuartlynn/Sites/SETI/apps/Marv/app/assets/stylesheets/main.sass */
+.badge_level_shadow {
+  background-color: #999999;
+  z-index: 2;
+  opacity: 0.8;
+}

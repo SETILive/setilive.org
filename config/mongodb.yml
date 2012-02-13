@@ -13,4 +13,3 @@ production:
   port: 27017
   username: stuartlynn
   password: astr0Talk_#!
-  <<: *global_settings
