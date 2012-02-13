@@ -17,7 +17,9 @@ class Badge extends Spine.Model
         if @check_condition(user, level)
           user.award(@,level)
 
-  
+  maxLevel:=>
+    @levels[@levels.length-1]
+
   check_condition:(user,level...)=>
     condition = @condition
     console.log "level is #{level}"

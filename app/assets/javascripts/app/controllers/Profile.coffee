@@ -9,6 +9,7 @@ class Profile extends Spine.Controller
   constructor: ->
     super
     User.bind('refresh',@gotUser)
+    Badge.bind('refresh', @gotUser)
     @collectionType='favourites'
 
   gotUser:=>
@@ -25,6 +26,7 @@ class Profile extends Spine.Controller
       pagination : @pagination
       subjects : [1..20] #@user[@collectionType]
       collectionType: @collectionType
+      badgeTemplate: @view('badge')
   
   selectPage:(e)=>
     e.preventDefault()
