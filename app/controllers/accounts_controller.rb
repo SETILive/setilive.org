@@ -1,8 +1,11 @@
 class AccountsController < ApplicationController
+  before_filter CASClient::Frameworks::Rails::GatewayFilter
 
   def login
     @cas_client = CASClient::Frameworks::Rails::Filter.client
-    @return_to = params[:return_to] || root_url
+  
+    @return_to = "http://#{request.host}:#{request.port}/sweeps"
+    puts @return_to
     @small_star_field = true  
   end
   
@@ -13,9 +16,11 @@ class AccountsController < ApplicationController
   end
 
   def sweeps 
+    @current_user = current_user
+    # puts params 
     if (params[:first_name])
       @current_user.sweeps_status = 'in'
-      @current_user.zooniverse_user_extra_info<< ZooniverseUserExtraInfo.new(params)
+      # @current_user.zooniverse_user_extra_info.zooniverse_user_extra_info= ZooniverseUserExtraInfo.create(params)
       @current_user.save
       redirect_to root_path
     elsif @current_user

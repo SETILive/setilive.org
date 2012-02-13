@@ -1,4 +1,24 @@
-<div id='science_channel'>
+  <% content_for :head do %>
+  <script type="text/javascript" charset="utf-8">
+
+    var exports = this;
+    jQuery(function(){
+        new LoginPage({el: $("body")});      
+    });     
+  </script>
+<%end%>
+
+<% if flash[:error] %>
+  <%flash[:error].each do |message|%>
+    <div id='flash'><%=message%></div>
+  <%end%>
+<%end%>
+<div id='login'>
+  <div id ='login_header'>
+    <h1>Welcome, to   <strong>SETI</strong>LIVE</h1>
+    <p class='blurb'>Join <strong>SETI</strong>LIVE and you ca help Scientists hunt for interesting signals from beyond the Earth</p>
+  </div>
+  <div id='science_channel'>
       <div class='login_section_header'><h2>During the Join The Search Month, The Science Channel are running a competation to visit the SETI telescope. If you would like to enter please fill out the form bellow. The information will be used to contact you if you are the winner. After the competition all personal info will be destroyed.  </h2></div>
       <div class='login_section_lower'>
         <%= form_tag(sweeps_path, :id => "sweeps") do %>
@@ -15,6 +35,7 @@
               <tr>
                 <td colspan="2" class="first"><%= text_field_tag "address_2", "Address 2" %></td>
                 <td><%= text_field_tag "telephone", "Telephone" %></td>
+              
               </tr>
               <tr>
                 <td widht="50%" class="first"><%= text_field_tag "city", "City" %></td>
@@ -26,10 +47,16 @@
                   <p class="disclaimer">This information will only be used to contact you if you are a winner</p>
                   <p class="disclaimer"><input type="checkbox" /> By checking this box you agree to the <strong>official rules.</strong></p>
                   
-                  <p class="disclaimer"><input type="checkbox" /> No thanks! I don't want to be entered into the sweepstakes.</p>
-                  
                 </td>
               </tr>
             </table>
+            <div class='sweeps_buttons' style='float:right; margin-top:30px'>
+              <%= image_submit_tag "register.png",  :style=>"width:220px; height:40px", :id=>'sweeps_register' %>
+              <%= image_submit_tag "login.png",  :style=>"width:220px; height:40px",  :id=>'sweeps_no_thanks' %>
+            </div>
           </div>
         <%end%>
+  </div>
+  </div>
+  
+</div>

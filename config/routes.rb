@@ -28,6 +28,8 @@ Marv::Application.routes.draw do
   match '/login'   => 'accounts#login', :as => 'login'
   match '/logout'  => 'accounts#logout', :as => 'logout'
   match '/signup'  => 'accounts#signup', :as => 'signup'
+  match '/sweeps'  => 'accounts#sweeps', :as => 'sweeps'
+
   match '/profile' => 'ZooniverseUsers#show', :as => 'profile'
   match '/awardBadge' => 'ZooniverseUsers#awardBadge', :as => 'awardBadge'
   match '/science_report' => 'ZooniverseUsers#index'
