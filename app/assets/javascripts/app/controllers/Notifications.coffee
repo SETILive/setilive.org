@@ -15,9 +15,7 @@ class Notifications extends Spine.Controller
     super
     console.log @['setupLocal']
     @setupLocal()
-    @pusherChannels={}
-    @openPusher()
-    @setupPusherBindings(@defaultChannel, @pusher)
+    @setupPusher() if Pusher?
 
   openPusher:->
     if @pusherKey
@@ -38,7 +36,10 @@ class Notifications extends Spine.Controller
         channel = @createChannel(key)
         @setupPusherBindings channel, method
   
-
+  setupPusher:=>
+    @pusherChannels={}
+    @openPusher()
+    @setupPusherBindings(@defaultChannel, @pusher)
   setupLocal:=>
     console.log @localEvents
     for model, events of @localEvents
