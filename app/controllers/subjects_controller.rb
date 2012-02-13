@@ -3,7 +3,7 @@ class SubjectsController < ApplicationController
 
   def next_subject_for_user
     subject = nil
-    if [1,2].sample ==1
+    if [2,2].sample ==1
       subject = get_seen_subject
     else
       subject = get_new_subject
@@ -16,7 +16,7 @@ class SubjectsController < ApplicationController
 
     if subject 
       respond_to do |format|
-        format.json { render json: subject.to_json, :status => '200' }
+        format.json { render json: subject.to_json(:include => :observations), :status => '200' }
       end
     else
       respond_to do |format|

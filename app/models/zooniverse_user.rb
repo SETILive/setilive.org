@@ -10,14 +10,18 @@ class ZooniverseUser
   key :total_classifications , Integer, :default => 0
   key :total_follow_ups , Integer,  :default => 0
   key :total_signals , Integer,  :default => 0
+  key :talk_click_count, Integer, :default => 0 
   key :classification_count, Hash
   key :signal_count, Hash
   key :follow_up_count, Hash
+  key :sweeps_status, String, :in =>['none', 'in','out'], :default=>'none'
+  key :seen_subjects, Array
+
   timestamps! 
   
   one :zooniverse_user_extra_info
   many :classifications 
-  many :favourites, :class_name => "Subject", :in => :favourite_ids
+  many :favourites, :in => :favourite_ids, :class_name => "Subject"
 
   def award_badges 
     Badge.not_awarded(self).each do |badge|
@@ -26,29 +30,32 @@ class ZooniverseUser
   end
 
   def add_favourite(subject)
-    favourites<< subject
+    self.favourites <<  subject
     save
   end
 
   def remove_favourite(subject)
-    # favourite_ids.
+    puts self.favourite_ids
+    self.favourites.delete!(subject)
+    puts self.favourite_ids
+    save
   end
-  
+ 
   def update_classification_stats(classification)
      update_classification_count classification
      update_signal_count         classification
      award_badges                classification
   end
 
+  def update_classification_count (clasificaiton)
+     # classification.subject.classification_count.
+  end
+
   def update_signal_count(classificaiton)
     source = classification.subject.source 
-    signal_count = classification.subject_signals.signal_count
+    signal_count = classification.subject_signals.count
     self.signal_count[source.id] ||=0
     self.signal_count[source.id] += signal_count
   end
 
-  def update_signal_count(classification)
-    source = classification.subject.source
-    self.classification_count[source.id] += 1 
-  end
 end

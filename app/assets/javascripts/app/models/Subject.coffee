@@ -1,6 +1,6 @@
 
 class Subject extends Spine.Model
-  @configure 'Subject','beam','activityId', 'bandwidthMhz', 'bitPix', 'centerFreqMhz', 'endTimeNanos','height','width'
+  @configure 'Subject','observations','activityId', 'bandwidthMhz', 'bitPix', 'centerFreqMhz', 'endTimeNanos','height','width'
   @extend Spine.Events
 
   
@@ -15,7 +15,7 @@ class Subject extends Spine.Model
   imageDataForBeam:(beamNo,targetWidth,targetHeight)->
     imageData=[]
     imageData[i] =0 for i in [0..targetWidth*targetHeight]
-    data = @beam[beamNo].data
+    data = @observations[beamNo].data
     console.log "dimensions", @width, @height
     bounds = @calcBounds()
 
@@ -73,7 +73,7 @@ class Subject extends Spine.Model
   calcBounds : ->
     unless @bounds?
       @bounds = []
-      for beam, beamNo in @beam
+      for beam, beamNo in @observations
         max = 0
         min = 100000000
         for val in beam.data

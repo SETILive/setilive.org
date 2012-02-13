@@ -1,5 +1,3 @@
-require 'zooniverse'
-
 class AccountsController < ApplicationController
 
   def login
@@ -12,6 +10,17 @@ class AccountsController < ApplicationController
     @current_user = @current_zooniverse_user = nil
     session.clear
     cas_logout
+  end
+
+  def sweeps 
+    if (params[:first_name])
+      @current_user.sweeps_status = 'in'
+      @current_user.zooniverse_user_extra_info<< ZooniverseUserExtraInfo.new(params)
+      @current_user.save
+      redirect_to root_path
+    elsif @current_user
+      redirect_to root_path if @current_user.sweeps_status == 'out'
+    end 
   end
   
   def signup

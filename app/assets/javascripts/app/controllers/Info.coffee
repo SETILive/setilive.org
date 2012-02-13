@@ -3,7 +3,7 @@ class Info extends Spine.Controller
   elements:
     "#time" : "time"
     "#extra_controlls" : "controls"
-    "#done_talk" : "doneTalk"
+    "#done" : "done"
     "#current_targets" : "targets"
     "#next_beam" : "nextBeam"
 
@@ -45,7 +45,8 @@ class Info extends Spine.Controller
   done :=>
     Spine.trigger "dissableSignalDraw" 
     Spine.trigger 'doneClassification'
-    @doneTalk.html @view("talk_prompt")()
+   
+    @done.html( @view("talk_prompt")())
 
   talk :=>
     window.open 'http://talk.setilive.org'

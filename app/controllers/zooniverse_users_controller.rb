@@ -2,6 +2,16 @@ class ZooniverseUsersController < ApplicationController
   before_filter CASClient::Frameworks::Rails::GatewayFilter
   before_filter :check_login
 
+
+  def index 
+    
+    respond_to do |format|
+      format.json { render json: ZooniverseUser.all.to_json(:except=>[:api_key,:email]) }
+    end
+
+  end
+
+
   def badges 
     if current_user 
       respond_to do |format|

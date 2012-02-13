@@ -17,7 +17,6 @@ class ClassificationsController < ApplicationController
     @classification = Classification.new(params[:classification])
     @classification.zooniverse_user = current_user 
 
-    binding.pry
     if signals 
       signals.each do |signal|
         @classification.signals << SbjectSignal.new(signal)

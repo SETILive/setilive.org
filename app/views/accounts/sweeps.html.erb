@@ -1,0 +1,35 @@
+<div id='science_channel'>
+      <div class='login_section_header'><h2>During the Join The Search Month, The Science Channel are running a competation to visit the SETI telescope. If you would like to enter please fill out the form bellow. The information will be used to contact you if you are the winner. After the competition all personal info will be destroyed.  </h2></div>
+      <div class='login_section_lower'>
+        <%= form_tag(sweeps_path, :id => "sweeps") do %>
+          <%= hidden_field_tag(:return_to, @return_to) if @return_to and @return_to != root_url %>
+          <div id='extra_signup_info' class='user_info_region'>
+            <table>
+              <tr>
+                <td class="first"><%= text_field_tag "first_name", "First Name" %></td>
+                <td colspan="2"><%= text_field_tag "last_name", "Last Name" %></td>
+              </tr>
+              <tr>
+                <td colspan="3"><%= text_field_tag "address_1", "Address 1" %></td>
+              </tr>
+              <tr>
+                <td colspan="2" class="first"><%= text_field_tag "address_2", "Address 2" %></td>
+                <td><%= text_field_tag "telephone", "Telephone" %></td>
+              </tr>
+              <tr>
+                <td widht="50%" class="first"><%= text_field_tag "city", "City" %></td>
+                <td width="20%" class="first"><%= text_field_tag "state", "State" %></td>
+                <td width="30%"><%= text_field_tag "zipcode", "Zipcode" %></td>
+              </tr>
+              <tr>
+                <td colspan="3">
+                  <p class="disclaimer">This information will only be used to contact you if you are a winner</p>
+                  <p class="disclaimer"><input type="checkbox" /> By checking this box you agree to the <strong>official rules.</strong></p>
+                  
+                  <p class="disclaimer"><input type="checkbox" /> No thanks! I don't want to be entered into the sweepstakes.</p>
+                  
+                </td>
+              </tr>
+            </table>
+          </div>
+        <%end%>

@@ -19,9 +19,14 @@ class User extends Spine.Model
       User.trigger "badge_awarded", data
   
   hasBadge:(testBadge,level...)=>
+    console.log("testBadge is ",testBadge," level is ",level)
     for badge in @badges 
+      console.log "ids ",testBadge.id, " badge.id  ", badge.id 
       if testBadge.id == badge.id 
-        if level? and badge.levels.indexOf(level)
-          return true
+        if level.length>0 
+          if badge.levels.indexOf(level[0])
+            return true
+        else 
+          return true 
     return false
 window.User = User

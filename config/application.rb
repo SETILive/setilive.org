@@ -5,6 +5,7 @@ require "action_mailer/railtie"
 require "active_resource/railtie"
 require "rails/test_unit/railtie"
 
+
 if defined?(Bundler)
   # If you precompile assets before deploying to production, use this line
   Bundler.require(*Rails.groups(:assets => %w(development test)))
@@ -52,6 +53,10 @@ end
 
 require 'casclient'
 require 'casclient/frameworks/rails/filter'
+
+require "zooniverse"
+require "zooniverse_id"
+
 
 CASClient::Frameworks::Rails::Filter.configure(
     :cas_base_url => "https://login.zooniverse.org"

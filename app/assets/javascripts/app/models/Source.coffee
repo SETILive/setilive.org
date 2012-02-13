@@ -1,12 +1,17 @@
 
 class Source extends Spine.Model
-  @configure 'Source', 'name', 'coords', 'description', 'type', 'meta','zooniverse_id'
+  @configure 'Source', 'name', 'coords', 'description', 'type', 'meta','zooniverse_id', 'seti_id'
   @extend Spine.Events
 
   @fetch:->
     $.getJSON '/sources.json', (data)=>
       Source.create(source) for source in data
       Source.trigger('refresh',Source.all())
+
+  @find_by_seti_id:(id)->
+    @select (item) ->
+      item.seti_id==id
+       
 
   kepler_no:->
     @name.replace('kplr',"")
