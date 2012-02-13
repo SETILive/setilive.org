@@ -1,0 +1,1 @@
+<li class='notification'>Beam no <%=@target.beam_no%> is now looking at target <%=@target_id%> </li>

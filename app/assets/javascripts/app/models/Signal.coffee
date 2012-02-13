@@ -1,6 +1,6 @@
 
 class Signal extends Spine.Model
-  @configure 'Signal', 'freqStart', 'freqEnd','timeStart', 'timeEnd', 'characterisations'
+  @configure 'Signal', 'freqStart', 'freqEnd','timeStart', 'timeEnd', 'characterisations', "observation_id"
   @belongsTo "classification", "models/Classification"
   
 

@@ -19,9 +19,14 @@ class Stars extends Spine.Controller
     @stars = Source.all()
     
     @drawStar(star) for star in @stars 
-    @drawIndicator(@stars[0],"#CDDC28")
-    @drawIndicator(@stars[10],"red")
-    @drawIndicator(@stars[3],"blue")
+
+    stars_with_coords = Source.select (s)=>
+      s.coords[0] !=0 and s.coords[1] !=0
+
+    console.log "srars with coord",stars_with_coords[2]
+    @drawIndicator(stars_with_coords[2],"#CDDC28")
+    @drawIndicator(stars_with_coords[1],"red")
+    # @drawIndicator(@stars[44],"blue")
     
 
   calcBounds:->
@@ -54,6 +59,7 @@ class Stars extends Spine.Controller
       circle.attr "fill", "white"
 
   drawIndicator:(star, color)->
+    console.log("drawing indicator ", star)
     pos = @convertRaDec(star.coords)
     mag = @convertMag(star.meta.kepler_mag)
 

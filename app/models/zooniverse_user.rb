@@ -43,15 +43,18 @@ class ZooniverseUser
  
   def update_classification_stats(classification)
      update_classification_count classification
-     update_signal_count         classification
-     award_badges                classification
+     # update_signal_count         classification
+     # award_badges                classification
   end
 
   def update_classification_count (clasificaiton)
+    puts "updating classificaiton count"
+    self.total_classifications=  self.total_classifications+1
+    self.save
      # classification.subject.classification_count.
   end
 
-  def update_signal_count(classificaiton)
+  def update_signal_count(classification)
     source = classification.subject.source 
     signal_count = classification.subject_signals.count
     self.signal_count[source.id] ||=0

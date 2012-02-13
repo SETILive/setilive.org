@@ -126,7 +126,7 @@ class Subjects extends Spine.Controller
       dy  = e.offsetY*1.0 / @main_beam.height()*1.0
       console.log "current classification  is ", @current_classification
       if(@stage==0)
-        @current_classification.newSignal(dx, dy)
+        @current_classification.newSignal(dx, dy, @current_subject.observations[@current_beam].id )
       else 
         @current_classification.updateSignal(dx,dy)
 
@@ -206,6 +206,6 @@ class Subjects extends Spine.Controller
     @stage=0
     
   saveClassification:=>
-    @current_classification.save()
+    @current_classification.persist()
 
 window.Subjects = Subjects

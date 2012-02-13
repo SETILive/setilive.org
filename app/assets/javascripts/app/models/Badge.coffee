@@ -2,6 +2,13 @@
 class Badge extends Spine.Model
   @configure 'Badge', 'title', 'description', 'condition', 'logo_url', 'type', 'levels'  
 
+  constructor:->
+    super 
+    @testUser(User.first()) if User.count==1
+    User.bind 'refresh', =>
+      console.log("testing user")
+      @testUser User.first()
+
   @fetch:->
     $.getJSON '/badges.json', (data)=>
       for badge in data
@@ -9,6 +16,7 @@ class Badge extends Spine.Model
       Badge.trigger('refresh')
 
   testUser:(user)=>
+    console.log("really testing user")
     if @type=='one_off'
       if @check_condition(user)
         user.award(@)

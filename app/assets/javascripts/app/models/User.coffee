@@ -4,6 +4,7 @@ class User extends Spine.Model
   constructor: ->
     super 
     @id = @zooniverse_user_id 
+    
 
   @fetch_current_user :->
     $.getJSON '/current_user.json', (data) =>
@@ -17,7 +18,7 @@ class User extends Spine.Model
         level = level[level.length-1] 
       else 
         level = null
-        
+
       data= {id: badge.id, level:level, name: badge.title}
       @badges.push data
       User.trigger "badge_awarded", data

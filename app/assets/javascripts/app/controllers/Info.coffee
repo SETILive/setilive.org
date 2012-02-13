@@ -48,9 +48,9 @@ class Info extends Spine.Controller
     Spine.trigger "dissableSignalDraw" 
     Spine.trigger 'doneClassification'
     console.log "rendering talk prompt "
-    console.log   @view("talk_prompt")()
-    console.log   @done
-    @done.html( @view("talk_prompt")())
+    # console.log   @view("talk_prompt")()
+    # console.log   @done
+    # @done.replaceWith( @view("talk_prompt")())
 
   talk :=>
     window.open 'http://talk.setilive.org'
