@@ -65,7 +65,6 @@ class LoginPage extends SetiLiveController
         $(@).attr('data-placeholder',$(@).val())
     )
     $("input").focus( ->
-        console.log("here")
         $(@).val("")
         $(@).css("color", "black")
     )

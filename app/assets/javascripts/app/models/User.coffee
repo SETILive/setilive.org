@@ -4,7 +4,7 @@ class User extends Spine.Model
   constructor: ->
     super 
     @id = @zooniverse_user_id 
-    
+
 
   @fetch_current_user :->
     $.getJSON '/current_user.json', (data) =>
@@ -25,7 +25,6 @@ class User extends Spine.Model
       @persistBadge(data)
   
   persistBadge:(data)=>
-    console.log('data is ', data)
     $.ajax
       type: 'POST'
       url: '/awardBadge'
@@ -35,9 +34,7 @@ class User extends Spine.Model
         console.log("badge ",response)
 
   hasBadge:(testBadge,level...)=>
-    console.log("testBadge is ",testBadge," level is ",level)
     for badge in @badges 
-      console.log "ids ",testBadge.id, " badge.id  ", badge.id 
       if testBadge.id == badge.id 
         if level.length>0 
           if badge.levels.indexOf(level[0])

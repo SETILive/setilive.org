@@ -10,12 +10,9 @@ class Classification extends Spine.Model
   newSignal: (x,y,id)=>
     @currentSignal  = @signals().create({timeStart: y, freqStart : x, observation_id: id})
 
-  persist:=>
-    console.log("persisiting")
-    
+  persist:=>    
     @signals= @signals().all()
   
-
     $.ajax
       type: 'POST'
       url: '/classifications/'

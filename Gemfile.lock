@@ -1,7 +1,5 @@
-GIT
-  remote: git://github.com/parrish/rubycas-client.git
-  revision: 6dddf665ac3c0e122181d45deaf57bbef7f07c95
-  ref: 6dddf665ac3c0e1
+PATH
+  remote: vendor/gems/rubycas-client/
   specs:
     rubycas-client (2.1.0)
       activesupport

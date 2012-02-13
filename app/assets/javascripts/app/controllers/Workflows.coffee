@@ -35,7 +35,6 @@ class Workflows extends Spine.Controller
     @render()
     
   selectAnswer: (event)=>
-    console.log("selected answer")
     answer= $(event.currentTarget).data()
 
    

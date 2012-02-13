@@ -12,7 +12,6 @@ class Stars extends Spine.Controller
 
 
   updateTarget: (data) ->
-    console.log("here")
     alert(data)
 
   drawField:=>
@@ -23,7 +22,7 @@ class Stars extends Spine.Controller
     stars_with_coords = Source.select (s)=>
       s.coords[0] !=0 and s.coords[1] !=0
 
-    console.log "srars with coord",stars_with_coords[2]
+    
     @drawIndicator(stars_with_coords[2],"#CDDC28")
     @drawIndicator(stars_with_coords[1],"red")
     # @drawIndicator(@stars[44],"blue")
@@ -59,11 +58,12 @@ class Stars extends Spine.Controller
       circle.attr "fill", "white"
 
   drawIndicator:(star, color)->
-    console.log("drawing indicator ", star)
     pos = @convertRaDec(star.coords)
     mag = @convertMag(star.meta.kepler_mag)
 
     indicators = ( @paper.circle(pos[0], pos[1], mag) for i in [1..3])    
+    for indicator in indicators
+      $(indicator.node).addClass("star_indicator")
     self= this
 
     $.each indicators, (index,indicator) =>

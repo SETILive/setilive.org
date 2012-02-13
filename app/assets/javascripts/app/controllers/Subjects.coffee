@@ -124,7 +124,6 @@ class Subjects extends Spine.Controller
     if @canDrawSignal and not @dragging
       dx  = e.offsetX*1.0 / @main_beam.width()*1.0
       dy  = e.offsetY*1.0 / @main_beam.height()*1.0
-      console.log "current classification  is ", @current_classification
       if(@stage==0)
         @current_classification.newSignal(dx, dy, @current_subject.observations[@current_beam].id )
       else 
@@ -172,7 +171,7 @@ class Subjects extends Spine.Controller
       $(circle.node).addClass("stage_#{@stage}")
       $(circle.node).addClass("signal_beam_#{@current_beam}")
       $(circle.node).addClass("draggable")
-      console.log("node is ",$(circle.node))
+      
 
 
     @stage += 1 

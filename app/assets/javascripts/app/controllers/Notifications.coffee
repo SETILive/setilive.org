@@ -41,7 +41,6 @@ class Notifications extends Spine.Controller
     @setupPusherBindings(@defaultChannel, @pusher)
 
   setupLocal:=>
-    console.log @localEvents
     for model, events of @localEvents
       for trigger, response of events
         window[model].bind(trigger,@[response])
@@ -50,19 +49,15 @@ class Notifications extends Spine.Controller
     @addNotification('source_change',data)
 
   newData: (data)=>
-    console.log("NEW DATA")
     @addNotification('new_data',data)
 
   telescopeStatusChange: (data)=> 
-    console.log("STATUS CHANGE")
     @addNotification('telescope_status_changed',data)
   
   badgeAwarded:(data)=>
-    console.log("badge awarded ")
     @addNotification('badge_awarded',data)  
 
   addNotification:(type, data)=>
-    console.log type, data
     notification= $(@view("notifications/#{type}_notification")(data) )
     @append notification
     $(notification).slideDown 1000, =>
