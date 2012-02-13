@@ -8,7 +8,7 @@ class Info extends Spine.Controller
     "#next_beam" : "nextBeam"
 
   events:
-    "click #done " : "done"
+    "click #done " : "doneClassification"
     "click #talk_yes" : "talk"
     "click #talk_no" : "dontTalk"
     "click #favourite" : "favourite"
@@ -44,10 +44,12 @@ class Info extends Spine.Controller
   resetTime:=>
     @targetTime = (1).minutes().fromNow()
 
-  done :=>
+  doneClassification :=>
     Spine.trigger "dissableSignalDraw" 
     Spine.trigger 'doneClassification'
-   
+    console.log "rendering talk prompt "
+    console.log   @view("talk_prompt")()
+    console.log   @done
     @done.html( @view("talk_prompt")())
 
   talk :=>

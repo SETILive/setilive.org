@@ -517,6 +517,7 @@ p.title
     margin: 0px
     padding: 10px 20px 0px 20px
     @include round-top-corners(2px)
+    color: black
     h2
       font-size: 14px
       line-height: 20px
@@ -579,15 +580,34 @@ p.title
     .user_info_region
       display: inline-block
       vertial-align: top
-        
-  #zooniverse_login
-    width: 240px
+  
+  #register 
+    width: 275px
     height: 315px
     min-height: 315px
     color: black
     display: inline-block
     vertical-align: top
     padding-bottom: 60px
+    margin-left: 150px
+    margin-top: 20px
+    
+    input
+      width: 100%
+      @include round-corners(3px)
+      font-size: 14px
+      padding: 3px 0px 3px 3px
+
+  #zooniverse_login
+    width: 275px
+    height: 315px
+    min-height: 315px
+    color: black
+    display: inline-block
+    vertical-align: top
+    padding-bottom: 60px
+    margin-left: 100px
+    margin-top: 20px
     
     input
       width: 100%

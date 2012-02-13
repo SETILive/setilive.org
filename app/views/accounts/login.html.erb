@@ -15,17 +15,19 @@
 <%end%>
 <div id='login'>
   <div id ='login_header'>
-    <h1>Welcome, Science Channel Viewers</h1>
-    <p class='blurb'>Join <strong>SETI</strong>LIVE and you can earn special badges that qualify you to win a trip for two to the SETI Institute in California and 
-a private tour of the Radio Telescope Observatory at Hat Creek. Earn more badges and you’ll qualify for additional entries!</p>
+    <h1>Welcome, to   <strong>SETI</strong>LIVE</h1>
+    <p class='blurb'>Join <strong>SETI</strong>LIVE and you ca help Scientists hunt for interesting signals from beyond the Earth</p>
   </div>
 
   <div id='login_lower'>
     <div class='login_section_header'><h2>You can use this login across all of the Zooniverse’s citizen science projects, so you 
 only need to sign up once. We promise not to share your details with anyone else. </h2></div>
-
+  <div id="register">
    <%= form_tag(signup_path, :id => "signup") do %>
           <%= hidden_field_tag(:return_to, @return_to) if @return_to and @return_to != root_url %>
+
+        <div class='login_section_header'><h2>Register for a zooniverse Account</h2> </div>
+        <div class='login_section_lower'>
           <div id='user_signup_info' class='user_info_region'>
             <table>
               <tr>
@@ -48,6 +50,7 @@ only need to sign up once. We promise not to share your details with anyone else
         <%end %>
       </div>
     </div>
+
     <div id='zooniverse_login'>
       <div class='login_section_header'><h2> Already have a Zooniverse username? Sign in here: </h2> </div>
       <div class='login_section_lower'>
