@@ -12,11 +12,12 @@ gem 'sqlite3'
 # in production environments by default.
 group :assets do
   gem 'sass-rails',   '~> 3.1.4'
-  gem 'coffee-rails', '~> 3.1.1'
   gem 'uglifier', '>= 1.0.3'
   gem 'eco' 
   gem 'spine-rails'
 end
+
+gem 'coffee-rails', '~> 3.1.1'
 
 gem 'mongo_mapper'
 gem 'bson'
@@ -29,7 +30,7 @@ gem 'ezcrypto'
 
 gem 'sidekiq'
 
-gem 'pry', group: 'development'
+gem 'pry'
 
 gem "bcrypt-ruby", :require => "bcrypt"
 
