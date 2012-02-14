@@ -4,5 +4,11 @@
 // It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
 // the compiled file.
 //
+//= require ./jquery.min.js
+//= require ./raphael-min.js
+//= require ./jquery.svg.min.js
+//= require ./jquery.svgdom.min.js
+//= require ./jquery.transform2d.js
+//= require ./date.js
 //= require app
 //= require_tree .
