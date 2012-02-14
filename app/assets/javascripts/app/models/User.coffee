@@ -36,7 +36,7 @@ class User extends Spine.Model
   hasBadge:(testBadge,level...)=>
     for badge in @badges 
       if testBadge.id == badge.id 
-        if level.length>0 
+        if level.length>0 and badge.levels?
           if badge.levels.indexOf(level[0])
             return true
         else 

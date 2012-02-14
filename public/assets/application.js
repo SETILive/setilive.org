@@ -2595,7 +2595,7 @@ replace(/(?:^|:|,)(?:\s*\[)+/g, ''))) {
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         badge = _ref[_i];
         if (testBadge.id === badge.id) {
-          if (level.length > 0) {
+          if (level.length > 0 && (badge.levels != null)) {
             if (badge.levels.indexOf(level[0])) return true;
           } else {
             return true;
@@ -3119,7 +3119,6 @@ replace(/(?:^|:|,)(?:\s*\[)+/g, ''))) {
 
     function Stats() {
       this.render = __bind(this.render, this);      Stats.__super__.constructor.apply(this, arguments);
-      if (this.el[0]) setInterval(this.updateStats, 2000);
       this.render();
     }
 
@@ -3311,9 +3310,14 @@ replace(/(?:^|:|,)(?:\s*\[)+/g, ''))) {
 
     Subjects.prototype.markerPlaced = function(e) {
       var dx, dy;
+      console.log(e);
+      console.log("current target", $(e.currentTarget));
       if (this.canDrawSignal && !this.dragging) {
-        dx = e.offsetX * 1.0 / this.main_beam.width() * 1.0;
-        dy = e.offsetY * 1.0 / this.main_beam.height() * 1.0;
+        dx = (e.pageX * 1.0 - $(e.currentTarget).offset().left) / this.main_beam.width() * 1.0;
+        dy = (e.pageY * 1.0 - $(e.currentTarget).offset().top) / this.main_beam.height() * 1.0;
+        console.log("dx is ", dx, " dy is ", dy);
+        console.log("dx is ", e.pageX, " dy is ", $(e.currentTarget).outerWidth());
+        console.log("dx is ", e.pageY, " dy is ", $(e.currentTarget).outerWidth());
         if (this.stage === 0) {
           this.current_classification.newSignal(dx, dy, this.current_subject.observations[this.current_beam].id);
         } else {
@@ -3330,8 +3334,10 @@ replace(/(?:^|:|,)(?:\s*\[)+/g, ''))) {
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         beam = _ref[_i];
         canvas = $(beam.canvas);
-        radius = canvas.height() * 0.017;
-        circle = beam.circle(x * canvas.width(), y * canvas.height(), radius);
+        radius = canvas.parent().height() * 0.017;
+        console.log("!!!!!!!dx ", x, " ", y, " ", canvas.parent().height(), " ", canvas.parent().width());
+        window.clickcanvas = canvas;
+        circle = beam.circle(x * canvas.parent().width(), y * canvas.parent().height(), radius);
         circle.attr({
           "stroke": "#CDDC28",
           "stroke-width": "2",
@@ -3348,13 +3354,13 @@ replace(/(?:^|:|,)(?:\s*\[)+/g, ''))) {
             });
             if ($(this.node).hasClass("stage_0")) {
               signal.updateAttributes({
-                "freqStart": this.attr("cx") / canvas.width(),
-                "timeStart": this.attr("cy") / canvas.height()
+                "freqStart": this.attr("cx") / canvas.parent().width(),
+                "timeStart": this.attr("cy") / canvas.parent().height()
               });
             } else {
               signal.updateAttributes({
-                "freqEnd": this.attr("cx") / canvas.width(),
-                "timeEnd": this.attr("cy") / canvas.height()
+                "freqEnd": this.attr("cx") / canvas.parent().width(),
+                "timeEnd": this.attr("cy") / canvas.parent().height()
               });
             }
             return self.updateLine(signal);
@@ -3389,10 +3395,10 @@ replace(/(?:^|:|,)(?:\s*\[)+/g, ''))) {
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         beam = _ref[_i];
         canvas = $(beam.canvas);
-        startY = signal.interp(0) * canvas.height();
-        endY = signal.interp(1) * canvas.height();
+        startY = signal.interp(0) * canvas.parent().height();
+        endY = signal.interp(1) * canvas.parent().height();
         startX = 0;
-        endX = canvas.width();
+        endX = canvas.parent().width();
         line = beam.path("M" + startX + "," + startY + "l" + (endX - startX) + "," + (endY - startY) + "z");
         line.attr({
           stroke: "#CDDC28",

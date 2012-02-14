@@ -121,9 +121,16 @@ class Subjects extends Spine.Controller
   # interaction with the beams! 
   
   markerPlaced:(e)=>
+    console.log e 
+    console.log "current target",$(e.currentTarget)
     if @canDrawSignal and not @dragging
-      dx  = e.offsetX*1.0 / @main_beam.width()*1.0
-      dy  = e.offsetY*1.0 / @main_beam.height()*1.0
+      dx  = (e.pageX*1.0-$(e.currentTarget).offset().left) / @main_beam.width()*1.0
+      dy  = (e.pageY*1.0-$(e.currentTarget).offset().top)/ @main_beam.height()*1.0
+
+      console.log "dx is ",dx," dy is ",dy
+      console.log "dx is ",e.pageX," dy is ",$(e.currentTarget).outerWidth()
+      console.log "dx is ",e.pageY," dy is ",$(e.currentTarget).outerWidth()
+        
       if(@stage==0)
         @current_classification.newSignal(dx, dy, @current_subject.observations[@current_beam].id )
       else 
@@ -135,8 +142,11 @@ class Subjects extends Spine.Controller
     signal = @current_classification.currentSignal
     for beam in [@overlays[0]]
       canvas = $(beam.canvas)
-      radius = canvas.height()*0.017
-      circle=beam.circle(x*canvas.width(), y*canvas.height(), radius)
+      radius = canvas.parent().height()*0.017
+      console.log "!!!!!!!dx ",x," ",y," ",canvas.parent().height(), " ",canvas.parent().width()
+
+      window.clickcanvas = canvas
+      circle=beam.circle(x*canvas.parent().width(), y*canvas.parent().height(), radius)
       circle.attr
         "stroke": "#CDDC28"
         "stroke-width":"2"
@@ -153,12 +163,12 @@ class Subjects extends Spine.Controller
               cy : this.startY+y 
             if $(this.node).hasClass("stage_0")
               signal.updateAttributes 
-                "freqStart" : this.attr("cx")/canvas.width()
-                "timeStart" : this.attr("cy")/canvas.height()
+                "freqStart" : this.attr("cx")/canvas.parent().width()
+                "timeStart" : this.attr("cy")/canvas.parent().height()
             else 
               signal.updateAttributes 
-                "freqEnd" : this.attr("cx")/canvas.width()
-                "timeEnd" : this.attr("cy")/canvas.height()
+                "freqEnd" : this.attr("cx")/canvas.parent().width()
+                "timeEnd" : this.attr("cy")/canvas.parent().height()
             self.updateLine(signal)
        ,->
           if $(this.node).hasClass("draggable")
@@ -189,10 +199,10 @@ class Subjects extends Spine.Controller
   drawLine:(signal)=>
     for beam in [@overlays[0], @overlays[@current_beam+1]] 
       canvas = $(beam.canvas)
-      startY = signal.interp(0) * canvas.height()
-      endY   = signal.interp(1) * canvas.height()
+      startY = signal.interp(0) * canvas.parent().height()
+      endY   = signal.interp(1) * canvas.parent().height()
       startX = 0
-      endX   = canvas.width()
+      endX   = canvas.parent().width()
       
       line  = beam.path("M#{startX},#{startY}l#{endX-startX},#{endY-startY}z")
       line.attr
