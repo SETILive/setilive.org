@@ -28,6 +28,13 @@ class Badge extends Spine.Model
   maxLevel:=>
     @levels[@levels.length-1]
 
+  facebookString:(level=null)=>
+    reply= ""
+    if(level?)
+      reply+= "Level #{level} of the "
+    reply += "#{@title} Badge aquired on SETILive"
+    reply
+    
   check_condition:(user,level...)=>
     condition = @condition
     console.log "level is #{level}"
