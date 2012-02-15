@@ -1,0 +1,11 @@
+<div id='facebook_button' style='display:inline-block; width:400px; height: 100px' >
+  <a target="_blank" href="https://www.facebook.com/dialog/feed?
+    app_id=310507282327045&
+    link=<%=encodeURI("http://marv.setilive.org/badge/#{@badge.id}")%>&
+    picture=<%= encodeURI("http://marv.setilive.org/#{@badge.logo_url}") %>&
+    name=<%=encodeURI( "#{@badge.title} Badge aquired on SETILive" )%>&
+    caption=<%=encodeURI(@badge.description)%>&
+    description=<%=encodeURI(@badge.description)%>&
+    message=<%= encodeURI("I just earned a badge on SETI LIVE")%>&
+    redirect_uri=http://www.setilive.org"> Post to Facebook </a>
+</div>

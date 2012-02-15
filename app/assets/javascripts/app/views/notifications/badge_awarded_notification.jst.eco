@@ -1,1 +1,5 @@
-<li class='notification'> Badge awarded </li>
+<li class='notification'>
+  <%-@badgeTemplate%>
+  <p style='display:inline-block'> You have just been awarded a badge </p>
+  <%-@facebookTemplate%>
+</li>

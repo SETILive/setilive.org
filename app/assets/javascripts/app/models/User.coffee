@@ -21,7 +21,7 @@ class User extends Spine.Model
 
       data= {id: badge.id, level:level, name: badge.title}
       @badges.push data
-      User.trigger "badge_awarded", data
+      User.trigger "badge_awarded", {badge: badge, level: level }
       @persistBadge(data)
   
   persistBadge:(data)=>
