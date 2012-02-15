@@ -33,4 +33,5 @@ Marv::Application.routes.draw do
   match '/profile' => 'ZooniverseUsers#show', :as => 'profile'
   match '/awardBadge' => 'ZooniverseUsers#awardBadge', :as => 'awardBadge'
   match '/science_report' => 'ZooniverseUsers#index'
+  match '/stats' => 'home#stats'
 end
