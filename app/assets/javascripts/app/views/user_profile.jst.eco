@@ -7,7 +7,6 @@
       <%console.log "badges are ", Badge.all() %>
       <% for badge in Badge.all() :%>
         <li  class='badge'>
-
           <%- @badgeTemplate({badge:badge, size: 50, level:10})  %>
         </li>
       <%end%>
