@@ -45,6 +45,7 @@ class ZooniverseUser
      update_classification_count classification
      # update_signal_count         classification
      # award_badges                classification
+     RedisConnection.setex "online_#{self.id}", 10*60, 1
   end
 
   def update_classification_count (clasificaiton)

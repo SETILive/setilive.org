@@ -37,7 +37,7 @@ class ApplicationController < ActionController::Base
   helper_method :zooniverse_user
   
   def zooniverse_user_id
-    session[:cas_extra_attributes] ? session[:cas_extra_attributes]['zooniverse_user_id'] : nil
+    session[:cas_extra_attributes] ? session[:cas_extra_attributes]['id'] : nil
   end
   helper_method :zooniverse_user_id
   

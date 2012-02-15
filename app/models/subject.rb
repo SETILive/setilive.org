@@ -23,6 +23,7 @@ class Subject
   timestamps!
 
   has_many :observations 
+  has_many :classifications
 
   # validates_presence_of  :observation_id
   #after_save :store_in_redis
