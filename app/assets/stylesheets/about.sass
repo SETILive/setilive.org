@@ -13,19 +13,33 @@
 			width: 100%
 
 			> button
-				background: transparent
+				background: url("/assets/about/buttons.png")
 				border: 0
 				color: inherit
 				cursor: pointer
-				padding: 20px
+				height: 51px
+				letter-spacing: -1em
+				overflow: hidden
+				padding: 0
 				position: absolute
+				text-align: left
+				text-indent: -1em
 				top: 0
+				width: 55px
 
 				&.previous
+					background-position: 0 0
 					right: 100%
 
+					&:hover
+						background-position: 0 100%
+
 				&.next
+					background-position: 100% 0
 					left: 100%
+
+					&:hover
+						background-position: 100% 100%
 
 		> .scene
 			left: 0

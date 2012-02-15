@@ -29,7 +29,7 @@
   @include round-corner-mozilla("bottomleft", $amount)
   @include round-corner-mozilla("bottomright", $amount)
 
-@mixin box-shadow($offsetX:2px, $offsetY:5px, $width:5px, $color:#878686)
+@mixin box-shadow($offsetX:0px, $offsetY:2px, $width:4px, $color:#888888)
   -moz-box-shadow: $offsetX   $offsetY $width $color 
   -webkit-box-shadow: $offsetX  $offsetY $width $color 
   box-shadow: $offsetX  $offsetY $width $color 
@@ -52,6 +52,8 @@ a
   padding-bottom: 30px
   height: 200px
   color: #b2b2b2
+  .logo
+    color: #f2f2f2
   li.footer-column
     font-family: TitilliumText22LThin, Sans-serif
     width: 120px
@@ -108,7 +110,7 @@ body
 #top
   margin-left: auto
   margin-right: auto
-  width: 1100px
+  width: 1000px
   height: 100px
   padding-top: 0px
 
@@ -134,20 +136,26 @@ body
       font-size: 15px
       margin-left: 45px
       text-transform: uppercase
+      a
+        color: #f2f2f2
+        &:hover
+          color: #ffffff
+          text-decoration: underline
   #logo
     font-family: TitilliumText22LBold, Sans-serif
     letter-spacing: 5px
     margin-top: 50px
     float: left
     font-size: 30pt
+    color: #f2f2f2
     .green
       letter-spacing: 2px
 
 .small_field
-  height: 150px
+  height: 130px
 
 .big_field
-  height: 320px
+  height: 200px
 
 #star_field
   width: 100%
@@ -159,7 +167,7 @@ body
 #content
   margin-left: auto
   margin-right: auto
-  width: 1100px
+  width: 1000px
   min-height: 800px
 
 #stats li
@@ -259,7 +267,7 @@ body
 
 .large-waterfall
   height: 410px
-  width: 818px
+  width: 758px
   margin-bottom: 20px
   position:relative
   
@@ -413,6 +421,7 @@ p.title
     display: inline-block
     vertical-align: bottom
     cursor: pointer
+    
   #clear_signal
     width: 163px
     margin-right: 5px
@@ -620,8 +629,6 @@ p.title
       font-size: 14px
       padding: 3px 0px 3px 3px
       
-    
-
 .source_content
   text-align: center
 #sources_header
@@ -632,11 +639,15 @@ p.title
   padding: 0px
 #sources_title 
   font-size: 50px
+  margin-bottom: 20px
+  padding-bottom: 0px
   color: #F2F2F2
   text-align: center
-
 #sources_blurb
+  padding-top: 0px
+  margin-top: 0px
   font-size: 14px
+  line-height: 20px
   color: #F2F2F2
   text-align: center
   font-family: TitilliumText22LThin, Sans-serif
@@ -647,7 +658,7 @@ p.title
     width: 940px
     margin-left: auto
     margin-right: auto
-    padding: 0px
+    padding: 20px
     list-style: none
     li.source
       @include gradient-bg(#ECEAEA, #B3B3B3)
@@ -659,9 +670,13 @@ p.title
       margin-bottom: 20px
       cursor: pointer
       p
+        font-family: TittilliumText22LBold, Sans-serif
+        text-shadow: 0px 1px 0px #d4d4d4
         text-transform: uppercase 
         letter-spacing: 0px
         color : #12161A
+        font-size: 14px
+                
   ul#pagination
     list-style: none
     li
@@ -727,7 +742,7 @@ p.title
       cursor: pointer
  
 #user_stats
-  width: 980px
+  width: 940px
   height: 80px
   margin-left: auto
   margin-right: auto
@@ -735,15 +750,18 @@ p.title
     width: 220px
     height: 100%
     display: inline-block
-    margin-right: 20px
+    margin-right: 15px
+    &:nth-child(4)
+      margin-right: 0px
     .stats_box
       @include gradient-bg(#EBEAEA, #A8A7A7)
       @include round-corners(2px)
       height: 60px
       p
         text-align: center
-        line-height: 50px
-        font-size: 25px
+        line-height: 55px
+        font-family: TitilliumText22LThin, Sans-serif
+        font-size: 35px
         width: 210px
         height: 50px
         position: relative
@@ -754,13 +772,14 @@ p.title
         background-repeat: repeat-x
         color: #d0de35
     p
-      color: #898080
+      color: #bcbcbc
       text-transform: uppercase 
       font-size: 9px
       margin-top: 9px
+      letter-spacing: 1px
 
 #global_stats
-  width: 980px
+  width: 940px
   height: 80px
   margin-left: auto
   margin-right: auto
@@ -768,15 +787,20 @@ p.title
     width: 220px
     height: 100%
     display: inline-block
-    margin-right: 20px
+    margin-right: 15px
+    &:nth-child(4)
+      margin-right: 0px
+      
     .stats_box
       @include gradient-bg(#EBEAEA, #A8A7A7)
       @include round-corners(2px)
       height: 60px
+
       p
         text-align: center
-        line-height: 50px
-        font-size: 25px
+        line-height: 55px
+        font-family: TitilliumText22LThin, Sans-serif
+        font-size: 35px
         width: 210px
         height: 50px
         position: relative
@@ -787,12 +811,11 @@ p.title
         background-repeat: repeat-x
         color: #d0de35
     p
-      color: #898080
+      color: #bcbcbc
       text-transform: uppercase 
       font-size: 9px
       margin-top: 9px
-
-
+      letter-spacing: 1px
 
 ul.pagination
   margin: 0px
@@ -805,7 +828,6 @@ ul.pagination
     padding: 0px
   li.selected_page
     text-decoration: underline
-    
 
 #user_profile 
   width: 1000px
@@ -889,19 +911,23 @@ ul.pagination
     width: 100%
     height: 105px
     border-bottom: 1px solid #BCBCBC
+    shadow: 0px 2px 4px #ffffff
     color: black
     h1
-      width: 673px
-      font-size: 25px
+      width: 733px
+      font-size: 30px
       letter-spacing: 0px
       margin-top: 30px
       margin-left: 30px
       display: inline-block
       vertical-align: middle
+      color: #12161b
+      font-family: TitilliumText22LMedium, Sans-serif
+      text-shadow: #ffffff 0px 1px 0px
     #start_searching_button
       @include round-corners(2px)
       @include gradient-bg(#EBF767, #989F41)
-      margin-left: 130px 
+      margin-left: 50px 
       margin-top: 30px
       width: 120px
       height: 33px
@@ -912,8 +938,8 @@ ul.pagination
       cursor: pointer
       display: inline-block
       vertical-align: middle
-      @include box-shadow
-
+      border: 1px solid #9a9a9a
+      @include box-shadow(0px, 2px, 0px, #f2f2f2)
    
   #home_content_bottom
     #subjects 
@@ -931,15 +957,17 @@ ul.pagination
         background-image: url("example_thumb.png")
     h2
       margin-left: 30px
-      color: black
-      font-size: 13px
+      color: #12161b
+      font-size: 15px
       text-transform: uppercase
-      font-family: TitilliumText22LThin, Sans-serif
+      font-family: TitilliumText22LBold, Sans-serif
       letter-spacing: 0px
+      text-shadow: 0px 1px 0px #d4d4d4
     p
-      color: black
-      font-size: 11px
-      font-family: TitilliumText22LThin, Sans-serif
+      color: #12161b
+      font-size: 13px
+      font-family: TitilliumText22LRegular, Sans-serif
+      text-shadow: 0px 1px 0px #d4d4d4
       letter-spacing: 0px
       margin-left: 30px
       width: 916px
@@ -1004,7 +1032,8 @@ ul.pagination
         height: 25px
         @include round-corners(2px)
         @include gradient-bg(#EBF767, #989F41)
-        @include box-shadow
+        border: 1px solid #9a9a9a
+        @include box-shadow(0px, 2px, 0px, #f2f2f2)
         cursor: pointer
 
   

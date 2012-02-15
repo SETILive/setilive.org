@@ -30,6 +30,7 @@ Are-we-alone-610x150.jpg: Are-we-alone-610x150-eefcccc43b66257ddd763318c46ce21a.
 about/ata/mountain.png: about/ata/mountain-88547edcb5b2aa1e735949626718654c.png
 about/ata/telescope_large.png: about/ata/telescope_large-bd5d5da3ac71221893bf31e079d80544.png
 about/ata/telescope_small.png: about/ata/telescope_small-cc0afefb8e350330f69f2e01f62300a5.png
+about/buttons.png: about/buttons-b0d14ebee28637b1cdb3139a4f75e835.png
 about/doppler/mountain.png: about/doppler/mountain-88547edcb5b2aa1e735949626718654c.png
 about/doppler/satellite.png: about/doppler/satellite-44073078e172259087ed65875ee6174a.png
 about/doppler/telescope_large.png: about/doppler/telescope_large-bd5d5da3ac71221893bf31e079d80544.png
@@ -105,5 +106,5 @@ star.png: star-51e26c929abcb9bc3d96610c90c34818.png
 star_selected.png: star_selected-6b4eb5c53fe6cc2fafd7ae68c68f33b8.png
 transGreen.png: transGreen-72c13d976eaf105bec578696a79093c4.png
 webcam.jpg: webcam-15c27302571bf846db6fe81ada2a884a.jpg
-application.js: application-fcfec335ba63f8f8df5f69425d7788ef.js
-application.css: application-4577fc8d0c7db23111e894f8891cfb60.css
+application.js: application-24f41dc71fafe7088152ed8628ebbeb2.js
+application.css: application-1a515374ce17ce790cc86451df4afd37.css
