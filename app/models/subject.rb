@@ -16,7 +16,6 @@ class Subject
   key :scores, Hash
   key :width , Integer
   key :height , Integer
-  key :uploaded, Boolean, :default =>"false"
   key :total_score , Float
   key :classification_count, Integer, :default => 0 
 
