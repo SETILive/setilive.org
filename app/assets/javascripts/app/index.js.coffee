@@ -26,11 +26,16 @@ class SetiLiveController extends Spine.Controller
     "click #view_all_button" : ->
       window.location = '/profile'
     
+  notificationsOn : true
+
   constructor:->
     super 
     @prepend new NavBar()
     @stars = new Stars(el:$("#star_field"))
-    @notifications= new Notifications(el: $("#notification_bar"))
+    if @notificationsOn
+      @notifications= new Notifications(el: $("#notification_bar")) 
+    else
+      $("#notification_bar").remove()
     User.fetch_current_user()
     Source.fetch()
     Badge.fetch()
@@ -51,16 +56,18 @@ class HomePage extends SetiLiveController
 
 class ClassificationPage extends SetiLiveController
   constructor: ->
-    super
-    
+    super  
     @subjects = new Subjects({el:$("#waterfalls")})
     @info = new Info({el: $("#info")})
     Workflow.fetch_from_url("/workflows.json")
 
 class LoginPage extends SetiLiveController
+
+  notificationsOn : false 
+  
   constructor:->
     super 
-    
+
     $("span").click(->
         $(@).hide()
         $(@).parent().find('input').focus()
