@@ -101,8 +101,9 @@ class Subjects extends Spine.Controller
     target[0].height = targetHeight
     
     if subject.observations[beamNo].uploaded 
-      imgObj = new Image subject.observations[beamNo].image_url
-      imgObj.onload =>
+      imgObj = new Image targetWidth, targetHeight
+      imgObj.src= subject.observations[beamNo].image_url
+      $(imgObj).load =>
         ctx.drawImage imgObj, 0, 0, targetWidth,targetHeight
     else
       imageData = ctx.getImageData(0,0,targetWidth,targetHeight)
