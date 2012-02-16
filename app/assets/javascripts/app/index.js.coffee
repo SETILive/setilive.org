@@ -61,17 +61,18 @@ class LoginPage extends SetiLiveController
   constructor:->
     super 
     
-    $("input").each(->
-        $(@).attr('data-placeholder',$(@).val())
+    $("span").click(->
+        $(@).hide()
+        $(@).parent().find('input').focus()
     )
     $("input").focus( ->
-        $(@).val("")
-        $(@).css("color", "black")
+        $(@).parent().find('span').hide()
     )
     $("input").blur( ->
-        if $(@).val()==""
-          $(@).val($(@).data().placeholder) if $(@).val()==""
-          $(@).css("color", "grey")
+        $(@).parent().find('span').show() if $(@).val()==""
+        # if $(@).val()==""
+        #   $(@).val($(@).data().placeholder) if $(@).val()==""
+        #   $(@).css("color", "grey")
     )
     
 class AboutPage extends SetiLiveController
