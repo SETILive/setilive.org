@@ -6,24 +6,31 @@ task :bundle_app => :environment do
   `gzip marv.tar`
   
   require 'rubygems'
-  require 'aws/s3'
+  require 'aws-sdk'
   
-  AWS::S3::Base.establish_connection!(
-    :access_key_id     => '***REMOVED***',
-    :secret_access_key => '***REMOVED***'
-  )
-  
+  AWS.config :access_key_id=>'***REMOVED***', :secret_access_key => '***REMOVED***'
+
   # upload the new one
+
+  s3 = AWS::S3.new
+  bucket = s3.buckets['***REMOVED***']
+  object = bucket.objects['marv.tar.gz']
+  object_persits = bucket.objects["marv-#{Time.now.strftime('%H%M-%d%m%y')}.tar.gz"]
+
+  data = File.read('marv.tar.gz')
+  
   print "Uploading new one..."
-  AWS::S3::S3Object.store('marv_new.tar.gz', open('marv.tar.gz'), '***REMOVED***')
+
+  object.write(data)
+  print "done\n"
+
+
+  print "Uploading archive one..."
+
+  object_persits.write(data)
   print "done\n"
   
-  # rename the old file
-  puts "Renaming old code bundle"
-  AWS::S3::S3Object.rename "marv.tar.gz", "marv-#{Time.now.strftime('%H%M-%d%m%y')}.tar.gz", "***REMOVED***"
-  
-  # rename the new file
-  AWS::S3::S3Object.rename "marv_new.tar.gz", "marv.tar.gz", "***REMOVED***"
+  # clean up
   
   puts "Cleaning up"
   `rm marv.tar.gz`
