@@ -510,6 +510,7 @@ p.title
     
   #login_lower
     padding-top: 30px
+    text-align: center
   input
     color: grey
     margin: 0px
@@ -518,27 +519,32 @@ p.title
     @include round-corners(2px)
   .login_section_header
     @include gradient-bg(#ECEAEA, #DFDEDE)
-    font-size: 16px
-    font-family: TitilliumText22LThin, Sans-serif   
+    font-size: 15px
+    font-family: TitilliumText22LBold, Sans-serif   
     letter-spacing: 0px
-    text-align: center
+    text-align: left
     vertical-align: middle
-    height: 100px
+    height: 81px
     border-bottom: 1px solid #b2b2b2
     margin: 0px
     padding: 10px 20px 0px 20px
     @include round-top-corners(2px)
     color: black
     h2
-      font-size: 14px
+      font-size: 15px
       line-height: 20px
-      font-family: TitilliumText22LThin, Sans-serif
+      font-family: TitilliumText22LRegular, Sans-serif
   .login_section_lower
-    height: 200px
+    text-align: left
+    height: 225px
     @include gradient-bg(#DFDEDE, #B3B3B3)
     @include round-bottom-corners(2px)
-    padding: 10px 20px
+    padding: 10px 4px
 
+    a 
+      font-size: 10px
+      color: black 
+      font-family: TitilliumText22LRegular, Sans-serif
     p
       margin-top: 10px
       padding: 0px
@@ -582,9 +588,9 @@ p.title
       @include gradient-bg(#DFDEDE, #B3B3B3)
       @include round-bottom-corners(2px)
       padding: 10px 20px
+
         
     #user_signup_info
-      float: right
       width: 220px
       padding-right: 10px
       table
@@ -602,38 +608,44 @@ p.title
       vertial-align: top
   
   #register 
-    width: 275px
-    height: 315px
-    min-height: 315px
+
+    
+    width: 240px
+    height: 306px
     color: black
     display: inline-block
     vertical-align: top
     padding-bottom: 60px
-    margin-left: 150px
+    margin-left: auto
+    margin-right: 20px
     margin-top: 20px
-    
+          
     input
-      width: 100%
+      width: 217px
+      height: 30px
       @include round-corners(3px)
       font-size: 14px
-      padding: 3px 0px 3px 3px
+      padding: 3px 0px 0px 3px
+      margin-bottom: 3px
 
   #zooniverse_login
-    width: 275px
-    height: 315px
-    min-height: 315px
+    width: 240px
+    height: 306px
     color: black
     display: inline-block
-    vertical-align: top 
+    vertical-align: top
     padding-bottom: 60px
-    margin-left: 100px
+    margin-left: 0px
+    margin-right: auto
     margin-top: 20px
-    
+          
     input
-      width: 100%
+      width: 217px
+      height: 30px
       @include round-corners(3px)
       font-size: 14px
-      padding: 3px 0px 3px 3px
+      padding: 3px 0px 0px 3px
+      margin-bottom: 3px
 
 td 
   position: relative
@@ -642,7 +654,7 @@ form p
   position: relative
 .placeholder
   position: absolute 
-  top: 6px
+  top: 8px
   left: 4px
   width: 100%
   padding: 3px 0px 3px 3px

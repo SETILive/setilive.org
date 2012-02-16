@@ -16,12 +16,11 @@
 <div id='login'>
   <div id ='login_header'>
     <h1>Welcome, to   <strong>SETI</strong>LIVE</h1>
-    <p class='blurb'>Join <strong>SETI</strong>LIVE and you ca help Scientists hunt for interesting signals from beyond the Earth</p>
+    <p class='blurb'>Join <strong>SETI</strong>LIVE and you ca help Scientists hunt for interesting signals from beyond the Earth. You can use this login across all of the Zooniverse’s citizen science projects, so you only need to sign up once. We promise not to share your details with anyone else.</p>
   </div>
 
   <div id='login_lower'>
-    <div class='login_section_header'><h2>You can use this login across all of the Zooniverse’s citizen science projects, so you 
-only need to sign up once. We promise not to share your details with anyone else. </h2></div>
+    
   <div id="register">
    <%= form_tag(signup_path, :id => "signup") do %>
           <%= hidden_field_tag(:return_to, @return_to) if @return_to and @return_to != root_url %>
@@ -56,12 +55,27 @@ only need to sign up once. We promise not to share your details with anyone else
       <div class='login_section_lower'>
 
         <%= form_tag @cas_client.login_url do %>
-          <p><%= text_field_tag :username%><span class='placeholder'>Username</span></p>
-          <p><%= password_field_tag :password%><span class='placeholder'>Password</span></p>
-            
-          <%= hidden_field_tag :service, @return_to %>
-          <%= hidden_field_tag :lt, @cas_client.request_login_ticket %>
-          <%= image_submit_tag "login.png", :style => "width:200px; height:40px" %>
+         <table>
+              <tr>
+                <td><%= text_field_tag :username%><span class='placeholder'>Username</span></td>
+              </tr>
+              <tr>
+                <td><%= password_field_tag :password%><span class='placeholder'>Password</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <p><a href='https://www.zooniverse.org/password/reset'>Forgot your password ?</a>
+                  </p>
+                </td> 
+              </tr>
+              <tr>
+                <td><%= hidden_field_tag :service, @return_to %>
+                   <%= hidden_field_tag :lt, @cas_client.request_login_ticket %>
+                  <%= image_submit_tag "login.png",  :style=>"width:220px; height:40px;margin-top:43px" %>
+
+              </td>
+              </tr>
+            </table>    
 
         <% end -%>
       <div>
