@@ -31,16 +31,16 @@ only need to sign up once. We promise not to share your details with anyone else
           <div id='user_signup_info' class='user_info_region'>
             <table>
               <tr>
-                <td><%= text_field_tag "login", "login" %></td>
+                <td><%= text_field_tag "Login" %> <span class='placeholder'>login</span></td>
               </tr>
               <tr>
-                <td><%= password_field_tag "password", "Password" %></td>
+                <td><%= password_field_tag "Password" %><span class='placeholder'>password</span></td>
               </tr>
               <tr>
-                <td><%= password_field_tag "password_confirmation", "Password Confirmation" %></td>
+                <td><%= password_field_tag "password_confirmation"%><span class='placeholder'>Password Confirmation</span> </td>
               </tr>
               <tr>
-                <td><%= text_field_tag "email", "Email" %></td>
+                <td><%= text_field_tag "email"%><span class='placeholder'>Email</span></td>
               </tr>
               <tr>
                 <td><%= image_submit_tag "register.png",  :style=>"width:220px; height:40px" %></td>
@@ -56,8 +56,8 @@ only need to sign up once. We promise not to share your details with anyone else
       <div class='login_section_lower'>
 
         <%= form_tag @cas_client.login_url do %>
-          <p><%= text_field_tag :username, "Username" %></p>
-          <p><%= password_field_tag :password, "Password" %></p>
+          <p><%= text_field_tag :username%><span class='placeholder'>Username</span></p>
+          <p><%= password_field_tag :password%><span class='placeholder'>Password</span></p>
             
           <%= hidden_field_tag :service, @return_to %>
           <%= hidden_field_tag :lt, @cas_client.request_login_ticket %>
