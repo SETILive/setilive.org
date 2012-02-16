@@ -1,16 +1,19 @@
 
 class Subject extends Spine.Model
-  @configure 'Subject','observations','activityId', 'bandwidthMhz', 'bitPix', 'centerFreqMhz', 'endTimeNanos','height','width'
+  @configure 'Subject','observations','activityId', 'bandwidthMhz', 'bitPix', 'centerFreqMhz', 'endTimeNanos', 'uploaded', 'image_url', 'thumb_url','data_url'
   @extend Spine.Events
 
   
   @fetch_from_url: (url) ->
-    $.getJSON(url, (data)->
+    $.getJSON url, (data)->
       subject=  Subject.create(data)
-    )
-
-  @fetch: ->
-    @fetch_from_url("next_subject.json")
+      unless subject.uploaded
+       @trigger('got')
+    
+  @fetch_next_for_user: ->
+    $.getJSON "next_subject.json", (data)->
+      subject=  Subject.create(data)
+      Subject.trigger('next_subject', subject)
     
   imageDataForBeam:(beamNo,targetWidth,targetHeight)->
     imageData=[]

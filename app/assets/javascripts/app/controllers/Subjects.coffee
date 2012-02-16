@@ -18,7 +18,7 @@ class Subjects extends Spine.Controller
     
   constructor: ->
     super
-    Subject.bind('create', @render)  
+    Subject.bind('next_subject', @render)  
     Subject.bind('done', @saveClassification)
 
     Spine.bind("enableSignalDraw", @enableSignalDraw)
@@ -26,7 +26,7 @@ class Subjects extends Spine.Controller
     Workflow.bind("workflowDone", @enableSignalDraw)
     Workflow.bind("workflowDone", @finalizeSignal)
     
-    Subject.fetch()
+    Subject.fetch_next_for_user()
 
     Spine.bind 'nextBeam', =>
       @selectBeam @current_beam+1
@@ -92,16 +92,23 @@ class Subjects extends Spine.Controller
 
     new Workflows({el:$(@workflowArea)})
 
-  drawBeam:(target,subject,beam_no)->
+  drawBeam:(target,subject,beamNo)->
     ctx = target[0].getContext('2d')
+
     targetWidth = $(target[0]).width()
     targetHeight = $(target[0]).height()
     target[0].width = targetWidth
     target[0].height = targetHeight
-    imageData = ctx.getImageData(0,0,targetWidth,targetHeight)
-    data = subject.imageDataForBeam(beam_no,targetWidth,targetHeight)
-    imageData.data[i]=data[i] for i in [0..data.length]    
-    ctx.putImageData(imageData,0,0)
+    
+    if subject.observations[beamNo].uploaded 
+      imgObj = new Image subject.observations[beamNo].image_url
+      imgObj.onload =>
+        ctx.drawImage imgObj, 0, 0, targetWidth,targetHeight
+    else
+      imageData = ctx.getImageData(0,0,targetWidth,targetHeight)
+      data = subject.imageDataForBeam(beamNo,targetWidth,targetHeight)
+      imageData.data[i]=data[i] for i in [0..data.length]    
+      ctx.putImageData(imageData,0,0)
 
 
   drawCombinedBeam:(target,subject)->
