@@ -1,12 +1,11 @@
 class SourcesController < ApplicationController
   
   def index
-    @sources = Source.all
     @small_star_field = true  
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @sources }
+      format.json {render :json =>Rails.cache.fetch(:sources, :expires_in => 1.day) { Source.all.to_json} }
     end
   end
 
