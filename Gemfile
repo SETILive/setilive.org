@@ -31,14 +31,15 @@ gem 'ezcrypto'
 gem 'sidekiq'
 
 gem 'pry'
+gem 'pry-rails'
+
+gem 'chunky_png'
 
 gem "bcrypt-ruby", :require => "bcrypt"
 
 gem "therubyracer"
 
 gem "aws-sdk", "~> 1.3.3"
-gem 'aws-s3', :require => 'aws/s3'
-
 
 gem 'libxml-ruby', '2.2.2'
 gem 'httparty', '0.8.1'
