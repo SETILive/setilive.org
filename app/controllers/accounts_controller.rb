@@ -3,7 +3,6 @@ class AccountsController < ApplicationController
 
   def login
     @cas_client = CASClient::Frameworks::Rails::Filter.client
-  
     @return_to = "http://#{request.host}:#{request.port}/sweeps"
     puts @return_to
     @small_star_field = true  
@@ -44,15 +43,12 @@ class AccountsController < ApplicationController
     create_zooniverse_user
 
     if @successful && params[:return_to]
-      CASClient::Frameworks::Rails::Filter
-      redirect_to params[:return_to]
+      redirect_to "http://#{request.host}:#{request.port}/sweeps"
     elsif @successful
-      CASClient::Frameworks::Rails::Filter
-      redirect_to root_path
+      redirect_to "http://#{request.host}:#{request.port}/sweeps"
     else
       flash.now[:error] = @messages
       @cas_client = CASClient::Frameworks::Rails::Filter.client
-
       render :login
     end
 
