@@ -11,10 +11,30 @@
     {
     "title": "classify",
     "description": "Classify level number of waterfalls",
-    "condition": " user.total_classifications > level  ",
-    "logo_url": "assets/badges/200px/registration-200.png",
+    "condition": " user.total_classifications >= level  ",
+    "logo_url": "assets/badges/200px/classifications-200.png",
+    "type": "cumulative",
+    "levels":[1,5,10,15]
+    },
+
+    {
+    "title": "signals",
+    "description": "Mark signals",
+    "condition": " user.total_signals >= level  ",
+    "logo_url": "assets/badges/200px/signals-marked-200.png",
+    "type": "cumulative",
+    "levels":[1,5,10,15]
+    },
+
+    {
+    "title": "talk",
+    "description": "Talk about a signal",
+    "condition": " user.total_talk >= level  ",
+    "logo_url": "assets/badges/200px/talk-200.png",
     "type": "cumulative",
     "levels":[1,5,10,15]
     }
+
+
   ]
 }
