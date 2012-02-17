@@ -7,5 +7,7 @@
     You have just been awarded the <%=@data.badge.title%> badge 
   <%end%>
   </p>
-  <%-@facebookTemplate%>
-  <%-@twitterTemplate%>
+  <div class='badge_social_buttons'>
+    <%-@facebookTemplate%>
+    <%-@twitterTemplate%>
+  </div>

@@ -27,6 +27,8 @@ class SetiLiveController extends Spine.Controller
       window.location = '/classify'
     "click #view_all_button" : ->
       window.location = '/profile'
+    "click #sign_in_button" : ->
+      window.location = '/classify'
     
   notificationsOn : true
 
@@ -53,8 +55,11 @@ class HomePage extends SetiLiveController
     @stats = new Stats({el:$("#global_stats")})
     @home_content.html @view('home_main_content')
       subjects : [1..4]
+
     @home_badge.html @view('home_badge')
-      user: User.first
+    User.bind 'create', (user)=>
+      @home_badge.html @view('home_badge')
+        user: user
 
 class ClassificationPage extends SetiLiveController
   constructor: ->

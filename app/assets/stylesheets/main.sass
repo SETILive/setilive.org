@@ -1096,7 +1096,18 @@ ul.pagination
         border: 1px solid #9a9a9a
         @include box-shadow(0px, 2px, 0px, #f2f2f2)
         cursor: pointer
-
+      #sign_in_button
+        color: white
+        text-align: center
+        line-height: 25px
+        font-size: 13px
+        width: 80px
+        height: 25px
+        @include round-corners(2px)
+        @include gradient-bg(#EBF767, #989F41)
+        border: 1px solid #9a9a9a
+        @include box-shadow(0px, 2px, 0px, #f2f2f2)
+        cursor: pointer
   
   #discovery_logo
     width: 610px 
@@ -1123,23 +1134,32 @@ ul.pagination
     @include gradient-bg(#ECEAEA, #B3B3B3)
     @include round-corners(2px)
     margin-bottom: 10px
-    font-size: 12px
+    font-size: 15px
     text-align: center 
     line-height: 60px
     color: black
     .dismiss_button
       cursor: pointer
-    p
-      font-size: 20px
-    a 
-      font-size: 20px
-      color: black
-
+      float: left 
+      margin-top: 21px
+      margin-left: 21px
+    .badge_social_buttons
+      float: right
+      margin-right: 21px
+      margin-top: 21px
+  
 .badge 
   position: relative 
   top: 0px
   left: 0px
 
+.badge_container 
+  background-image: url('/assets/emptyBadge.png')
+  position: relative
+  img 
+    position: relative
+    top: 0px
+    left: 1px
 .badge_level 
   width: 20px
   height: 20px
@@ -1157,9 +1177,3 @@ ul.pagination
   background-color: #999999
   z-index: 999
   opacity: 0.8
-
-#facebook_button
-  width
-
-
-

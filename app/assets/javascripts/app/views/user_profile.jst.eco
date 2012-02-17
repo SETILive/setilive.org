@@ -4,10 +4,13 @@
       Welcome back, <%=@user.name%>.
     </h1>
     <ul id='user_badges'>
-      <%console.log "badges are ", Badge.all() %>
-      <% for badge in Badge.all() :%>
+      <% for badge in Badge.all(): %>
         <li  class='badge'>
-          <%- @badgeTemplate({badge:badge, size: 50, level:10})  %>
+          <%if @user.hasBadge(badge): %>
+            <%- @badgeTemplate({badge:badge, size: 50, level: @user.maxLevelForBadge(badge)})  %>
+          <%else: %>
+            <%- @badgeTemplate({size: 50})  %>
+          <%end%>
         </li>
       <%end%>
     </ul>

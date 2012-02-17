@@ -1,4 +1,4 @@
-<div id='facebook_button' style='display:inline-block; width:400px; height: 100px' >
+<div class='facebook_button' style='display:inline-block;' >
   <a target="_blank" href="https://www.facebook.com/dialog/feed?
     app_id=310507282327045&
     link=<%=encodeURI("http://marv.setilive.org/badge/#{@badge.id}")%>&
