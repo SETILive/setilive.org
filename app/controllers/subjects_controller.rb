@@ -3,16 +3,25 @@ class SubjectsController < ApplicationController
 
   def next_subject_for_user
     subject = nil
-    if [2,2].sample ==1
-      subject = get_seen_subject
+    if Subject.count >0
+      subject = Subject.first
     else
       subject = get_new_subject
       if subject
         subject.save
-      else
-        subject = get_seen_subject
       end
     end
+      
+    # if [1,2].sample ==1
+    #   subject = get_seen_subject
+    # else
+    #   subject = get_new_subject
+    #   if subject
+    #     subject.save
+    #   else
+    #     subject = get_seen_subject
+    #   end
+    # end
 
     if subject 
       respond_to do |format|
