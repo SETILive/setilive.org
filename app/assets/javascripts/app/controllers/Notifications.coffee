@@ -5,7 +5,8 @@ class Notifications extends Spine.Controller
   pusher: 
       # "target_changed" : "sourceChange"
       # "new_data" : "newData"
-      "status_changedd" : "telescopeStatusChange"
+      "status_changed" : "telescopeStatusChange"
+      "stats_update" : "updateStats"
 
   localEvents:
     "User":
@@ -48,6 +49,9 @@ class Notifications extends Spine.Controller
         console.log "responce ", @[response]
         window[model].bind trigger, (data)=>
           @[response](data)
+
+  updateStats:(data)=>
+    Spine.trigger('updateStats',data)  
 
   sourceChange: (data)=> 
     Spine.trigger('target_target_changed', data)
