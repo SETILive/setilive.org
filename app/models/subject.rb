@@ -140,6 +140,9 @@ class Subject
         end
       end
     end
+
+    GenerateTalk.perform_async s.id
+
     s
   end
 
