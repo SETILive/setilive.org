@@ -1,0 +1,15 @@
+<% content_for :head do %>
+  <script type="text/javascript" charset="utf-8">
+
+    var exports = this;
+    jQuery(function(){
+        new BadgePage({el: $("body")});      
+    });     
+  </script>
+<%end%>
+
+<div id='content'>
+  <div id='badgePage'>
+    <div id='user_summary'></div>
+  </div>
+</div>
