@@ -14,10 +14,10 @@ class GenerateTalk
                          target: { zooniverse_id: observation.source.zooniverse_id }
                        } 
       end
-      post = { zooniverse_id: subject.zooniverse_id,  observation_group: observations}
+      post = {  zooniverse_id:subject.zooniverse_id, observations: observations}
       puts JSON.pretty_generate post
-      puts HTTParty.post('https://talk.setilive.org/observation_groups/', post.merge({format: 'json', username:'***REMOVED***', password: '***REMOVED***'}))
 
+      TalkCreator.talk_create(post)
     else
       throw 'Subject could not be uploaded to talk #{subject_id}'
     end
