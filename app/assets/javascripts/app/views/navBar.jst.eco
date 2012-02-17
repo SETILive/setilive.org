@@ -4,8 +4,11 @@
   <%unless @user?: %>
     <li><a href='/login'>login</a> </li>
   <%else: %>
-    <li><a href='/logout'>logout </a> </li>
-    <li><a href='/profile'><%-@user.name%></a> </li>
+    <li><a href='/profile'><%-@user.name%></a>
+      <ul class='nav_submenu'>
+        <li><a href='/logout'>logout </a> </li>
+      </ul> 
+    </li>
   <%end%>
   <li><a href='/about'>about</a> </li>
   <li><a href='/classify.html'>classify</a> </li>

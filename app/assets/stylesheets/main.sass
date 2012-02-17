@@ -136,11 +136,25 @@ body
       font-size: 15px
       margin-left: 45px
       text-transform: uppercase
+      .nav_submenu
+        display: none
+        position: relative
       a
         color: #f2f2f2
         &:hover
           color: #ffffff
           text-decoration: underline
+    li:hover 
+      color: green
+      .nav_submenu
+        display: block
+        li
+          margin-top: 10px
+          padding: 0px
+          width: auto
+          float: none
+          text-align: center
+
   #logo
     font-family: TitilliumText22LBold, Sans-serif
     letter-spacing: 5px
@@ -1132,5 +1146,6 @@ ul.pagination
 
 #facebook_button
   width
+
 
 
