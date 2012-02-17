@@ -19,6 +19,8 @@
 #= require_self
 
 
+
+
 class SetiLiveController extends Spine.Controller
   events :
     "click #start_searching_button" : ->
@@ -64,23 +66,19 @@ class ClassificationPage extends SetiLiveController
 class LoginPage extends SetiLiveController
 
   notificationsOn : false 
-  
   constructor:->
     super 
 
-    $("span").click(->
+    $("span").click ->
         $(@).hide()
         $(@).parent().find('input').focus()
-    )
-    $("input").focus( ->
+    
+    $("input").focus ->
         $(@).parent().find('span').hide()
-    )
-    $("input").blur( ->
+    
+    $("input").blur ->
         $(@).parent().find('span').show() if $(@).val()==""
-        # if $(@).val()==""
-        #   $(@).val($(@).data().placeholder) if $(@).val()==""
-        #   $(@).css("color", "grey")
-    )
+     
     
 class AboutPage extends SetiLiveController
   constructor: ->
@@ -101,6 +99,11 @@ class ProfilePage extends SetiLiveController
   constructor:->
     super
     new Profile(el: $("#profile"))
+
+class BadgePage extends SetiLiveController
+  constructor:->
+    super
+    new Badges(el:$("#badgePage"))
   
 window.HomePage = HomePage
 window.ClassificationPage = ClassificationPage
@@ -110,6 +113,7 @@ window.AboutPage = AboutPage
 window.TargetsIndexPage = TargetsIndexPage
 window.TargetsShowPage = TargetsShowPage
 window.ProfilePage = ProfilePage
+window.BadgePage = BadgePage
 
 # Run jQuery animations at 20 FPS
 jQuery.fx.interval = 50
