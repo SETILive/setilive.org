@@ -62,4 +62,8 @@ class ZooniverseUser
     self.signal_count[source.id] += signal_count
   end
 
+  def badgeDetails
+    self.badges.collect{|b| { badge: Badge.find(b['id']), level: b['level'] } }
+  end
+
 end
