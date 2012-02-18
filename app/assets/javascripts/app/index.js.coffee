@@ -109,6 +109,20 @@ class BadgePage extends SetiLiveController
   constructor:->
     super
     new Badges(el:$("#badgePage"))
+
+
+class TelescopePage extends SetiLiveController
+  elements :
+    '#telescopeStatus' : "telescopeStatus"
+  constructor:->
+    super
+    new Stats({el:$("#global_stats")})
+    $.getJSON '/telescope_status.json', (status)=>
+      @telescopeStatus.html @view('telescopeStatusExplination')
+        status: status.status
+    Spine.bind 'target_status_changed',(status)=>
+      @telescopeStatus.html @view(telescopeStatusExplination)
+        status: status.status
   
 window.HomePage = HomePage
 window.ClassificationPage = ClassificationPage
@@ -119,6 +133,6 @@ window.TargetsIndexPage = TargetsIndexPage
 window.TargetsShowPage = TargetsShowPage
 window.ProfilePage = ProfilePage
 window.BadgePage = BadgePage
-
+window.TelescopePage = TelescopePage
 # Run jQuery animations at 20 FPS
 jQuery.fx.interval = 50

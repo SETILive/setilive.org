@@ -1,0 +1,14 @@
+<% content_for :head do %>
+  <script type="text/javascript" charset="utf-8">
+
+    var exports = this;
+    jQuery(function(){
+        new TelescopePage({el: $("body")});      
+    });     
+  </script>
+<%end%>
+
+<div id='content'>
+  <ul id='global_stats'> </ul>
+  <div id='telescopeStatus'></div>
+</div>

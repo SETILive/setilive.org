@@ -19,7 +19,7 @@ class HomeController < ApplicationController
   end
 
   def telescope_status
-     @status = RedisConnection.get('current_status')
+     @status = 'active'# RedisConnection.get('current_status')
      respond_to do |format|
        format.html
        format.json{ render :json=> {status: @status}.to_json}
