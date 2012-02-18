@@ -1,6 +1,7 @@
 class ZooniverseUsersController < ApplicationController
   before_filter CASClient::Frameworks::Rails::GatewayFilter
   before_filter :check_login
+  before_filter :authenticate
 
 
   def index 
