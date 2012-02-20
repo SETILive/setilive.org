@@ -1,0 +1,32 @@
+
+
+  <div class='telescopeStatusVis'>
+    <img class='telescope_status_large_img ' src='/assets/telescopeStatusLarge_<%=@status%>.png'></img>
+    <ul>
+      <% for status in ['active','training', 'inactive'] : %>
+        <li class='telescopeStatusIndicator'>
+          <%if @status ==status : %>
+            <img id='status_<%=status%>' src='/assets/status_<%=@status%>.png'></img>
+          <%else : %>
+            <img id='status_<%=status%>' class='telescopeStatusIndicator' src='/assets/status_unknown.png'></img>
+          <%end%>
+        </li>
+      <%end%>
+    </ul>
+  </div>
+  <div class='telescopeStatusExplinationText'>
+    <h1 id='large_status_title'>The telescope is <%=@status%></h1>
+    <h2 id='lastUpdate'>Last updated at  <%=Date.now().toString("HH:mm d/M/yyyy")%></h2>
+    <p>
+        <%if @status== 'inactive' : %>
+          The Allen Telescope Array is currently inactive. This means that there is no new data being read by the telescopes, and there’s not much you can do right now.
+          Don’t worry! New data will be coming in shortly.
+        <%end%>
+        <%if @status== 'active' : %>
+          The Allen Telescope Array is currently active. This means that  new data being read by the telescopes, and there are plenty of signals for you to anazlyze right now.
+        <%end%>
+        <%if @status== 'training' : %>
+         The Allen Telescope Array is currently showing archived data. This allows you to practice analyzing different types of signals and helps us gather better statistics about the data you’re helping to classify. Good luck!
+        <%end%>
+    </p>
+  </div>  

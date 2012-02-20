@@ -12,7 +12,7 @@
     {
     "title": "classify",
     "description": "Classify level number of waterfalls",
-    "condition": " user.total_classifications > level ",
+    "condition": " user.total_classifications >= level ",
     "logo_url": "assets/badges/200px/classifications-200.png",
     "type": "cumulative",
     "post_text": " just classified their (nth) target",

@@ -1,5 +1,13 @@
-<li class='notification'>
   <%-@badgeTemplate%>
-  <p style='display:inline-block'> You have just been awarded a badge </p>
-  <%-@facebookTemplate%>
-</li>
+  <p style='display:inline-block'> 
+
+  <%if @data.level? :%>
+    You have just been awarded the <%=@data.level%> level <%-@data.badge.title%> badge 
+  <%else:%>
+    You have just been awarded the <%=@data.badge.title%> badge 
+  <%end%>
+  </p>
+  <div class='badge_social_buttons'>
+    <%-@facebookTemplate%>
+    <%-@twitterTemplate%>
+  </div>

@@ -1,11 +1,18 @@
 class Notifications extends Spine.Controller
 
+  elements :
+    '.notification' : 'notifications'
+
+  events:
+    'click .dismiss_button' : 'removeNotification'
+
   pusherKey     : "***REMOVED***"
   pusherChannel : 'telescope'
   pusher: 
       # "target_changed" : "sourceChange"
       # "new_data" : "newData"
-      "status_changedd" : "telescopeStatusChange"
+      "status_changed" : "telescopeStatusChange"
+      "stats_update" : "updateStats"
 
   localEvents:
     "User":
@@ -40,14 +47,13 @@ class Notifications extends Spine.Controller
     @setupPusherBindings(@defaultChannel, @pusher)
 
   setupLocal:=>
-    console.log 'setting up local '
     for model, events of @localEvents
       for trigger, response of events
-        console.log "setting up ", window[model]
-        console.log " trigger ", trigger
-        console.log "responce ", @[response]
         window[model].bind trigger, (data)=>
           @[response](data)
+
+  updateStats:(data)=>
+    Spine.trigger('updateStats',data)  
 
   sourceChange: (data)=> 
     Spine.trigger('target_target_changed', data)
@@ -61,24 +67,28 @@ class Notifications extends Spine.Controller
     @addNotification('telescope_status_changed',data)
   
   badgeAwarded:(data)=>
-    console.log data
     data['size'] = "50"
     @addNotification 'badge_awarded',
       data : data
       badgeTemplate : @view('badge')(data)
       facebookTemplate : @view('facebookBadge')(data)
+      twitterTemplate  : @view('twitterBadge')(data)
+
 
   addNotification:(type, data)=>
-    notification= $(@view("notifications/#{type}_notification")(data) )
-    @append notification
-    $(notification).slideDown 1000, =>
-      setTimeout =>
-       @removeNotification(notification)
-      ,4000
+    notificationTemplate= @view("notifications/#{type}_notification")
+    notification = @view('notifications/notification')
+      data: data
+      notificationTemplate : notificationTemplate
+    
+    @append $(notification)
 
-  removeNotification:(notification)->
-    # $(notification).fadeOut 10000, ->
-      # $(notification).remove()
+    @notifications.slideDown 1000
+
+  removeNotification: (e)->
+    console.log e
+    $(e.currentTarget).parent().fadeOut 1000, ->
+      @.remove()
   
 
 window.Notifications= Notifications

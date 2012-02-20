@@ -1,0 +1,1 @@
+`sidekiq -s redis://redistogo:***REMOVED***@***REMOVED***:9359/ &`

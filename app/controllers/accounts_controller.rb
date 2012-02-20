@@ -16,15 +16,37 @@ class AccountsController < ApplicationController
 
   def sweeps 
     @current_user = current_user
-    # puts params 
-    if (params[:first_name])
-      @current_user.sweeps_status = 'in'
-      # @current_user.zooniverse_user_extra_info.zooniverse_user_extra_info= ZooniverseUserExtraInfo.create(params)
-      @current_user.save
+    # if the current user hasnt signed up or opted out of the sweeps 
+    if current_user.sweeps_status != 'none' 
       redirect_to root_path
-    elsif @current_user
-      redirect_to root_path if @current_user.sweeps_status == 'out'
-    end 
+    end
+  end
+
+  def sweeps_submit
+    @current_user = current_user
+    puts params 
+    if (params['register.x'])
+      @current_user.sweeps_status = 'in'
+      extra_info = ZooniverseUserExtraInfo.new
+      extra_info.first_name = params[:first_name]
+      extra_info.last_name = params[:last_name]
+      extra_info.address1 = params['address_1']
+      extra_info.address2 = params['address_2']
+      extra_info.city = params[:city]
+      extra_info.state = params[:state]
+      extra_info.zip_code = params[:zipcode]
+      extra_info.phone_no = params[:telephone]
+      extra_info.zooniverse_user = @current_user
+
+      binding.pry
+      extra_info.save
+
+    elsif(params['no_thanks.x'])
+      puts "opting user out"
+      @current_user.sweeps_status = 'out'
+    end
+    @current_user.save
+    redirect_to root_path
   end
   
   def signup
@@ -51,9 +73,7 @@ class AccountsController < ApplicationController
       @cas_client = CASClient::Frameworks::Rails::Filter.client
       render :login
     end
-
   end
-
 
   def create_zooniverse_user
     params['name'] = "#{ params['firstname'] } #{ params['lastname'] }"

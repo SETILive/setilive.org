@@ -29,9 +29,11 @@ Marv::Application.routes.draw do
   match '/logout'  => 'accounts#logout', :as => 'logout'
   match '/signup'  => 'accounts#signup', :as => 'signup'
   match '/sweeps'  => 'accounts#sweeps', :as => 'sweeps'
+  match '/sweeps_submit' => 'accounts#sweeps_submit', :as => 'sweeps_submit'
 
   match '/profile' => 'ZooniverseUsers#show', :as => 'profile'
   match '/awardBadge' => 'ZooniverseUsers#awardBadge', :as => 'awardBadge'
   match '/science_report' => 'ZooniverseUsers#index'
   match '/stats' => 'home#stats'
+  match '/telescope_status' => 'home#telescope_status'
 end

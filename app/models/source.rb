@@ -3,6 +3,7 @@ class Source
   include ZooniverseId
   
   zoo_id :prefix => 'T', :sub_id => '0'
+  
   key :name, String 
   key :coords, Array  
   key :description, String

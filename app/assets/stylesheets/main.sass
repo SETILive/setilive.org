@@ -129,6 +129,7 @@ body
     float: right
     margin-top: 69px
     padding: 0
+    height: 30px
     li
       font-family: TitilliumText22LThin, Sans-serif
       float: right
@@ -136,11 +137,36 @@ body
       font-size: 15px
       margin-left: 45px
       text-transform: uppercase
+      .nav_submenu
+        display: none
+        position: relative
       a
         color: #f2f2f2
         &:hover
           color: #ffffff
           text-decoration: underline
+    li:hover 
+      .nav_submenu
+        display: block
+        position: relative
+        li
+          position: relative
+          font-size: 10px
+          margin-top: 10px
+          padding: 0px
+          width: auto
+          text-align: center
+    .telescope_status
+      width: 70px
+      margin-right: 30px
+      margin-top: -6px
+      cursor: pointer
+
+      p
+        float: right
+        font-size: 5pt
+        font-family: TitilliumText22LRegular, Sans-serif
+
   #logo
     font-family: TitilliumText22LBold, Sans-serif
     letter-spacing: 5px
@@ -1070,7 +1096,18 @@ ul.pagination
         border: 1px solid #9a9a9a
         @include box-shadow(0px, 2px, 0px, #f2f2f2)
         cursor: pointer
-
+      #sign_in_button
+        color: white
+        text-align: center
+        line-height: 25px
+        font-size: 13px
+        width: 80px
+        height: 25px
+        @include round-corners(2px)
+        @include gradient-bg(#EBF767, #989F41)
+        border: 1px solid #9a9a9a
+        @include box-shadow(0px, 2px, 0px, #f2f2f2)
+        cursor: pointer
   
   #discovery_logo
     width: 610px 
@@ -1097,21 +1134,32 @@ ul.pagination
     @include gradient-bg(#ECEAEA, #B3B3B3)
     @include round-corners(2px)
     margin-bottom: 10px
-    font-size: 12px
+    font-size: 15px
     text-align: center 
     line-height: 60px
     color: black
-    p
-      font-size: 20px
-    a 
-      font-size: 20px
-      color: black
-
+    .dismiss_button
+      cursor: pointer
+      float: left 
+      margin-top: 21px
+      margin-left: 21px
+    .badge_social_buttons
+      float: right
+      margin-right: 21px
+      margin-top: 21px
+  
 .badge 
   position: relative 
   top: 0px
   left: 0px
 
+.badge_container 
+  background-image: url('/assets/emptyBadge.png')
+  position: relative
+  img 
+    position: relative
+    top: 0px
+    left: 1px
 .badge_level 
   width: 20px
   height: 20px
@@ -1130,7 +1178,46 @@ ul.pagination
   z-index: 999
   opacity: 0.8
 
-#facebook_button
-  width
+#telescopeStatus
+  width: 815px
+  height: 250px
+  padding: 75px 92px 75px 92px
+  @include gradient-bg(#ECEAEA, #B3B3B3)
+  @include round-corners(2px)
+  .telescopeStatusVis
+    display: inline-block
+    vertical-align: top
+    width: 191px
+    height: 225px 
+    text-align: center
+    ul
+      margin-top: 15px
+      padding: 0px
+      li.telescopeStatusIndicator
+        display: inline-block
+      
+  .telescopeStatusExplinationText
+    display: inline-block
+    vertical-align: top
+    width: 538px
+    height: 198px
+    color: black
+    margin-left: 70px
+    h1
+      padding-top: 0px
+      margin: 10px 0px 5px 0px
+      font-size: 48px
+      font-family: TitilliumText22LBold, Sans-serif
+    h2
+      margin: 0px
+      padding: 0px
+      font-size: 14px
+      font-family: TitilliumText22LRegular, Sans-serif
 
+    p
+      margin-top: 50px 
+      width: 455px
+      font-size: 19px
+      font-family: TitilliumText22LRegular, Sans-serif
 
+        

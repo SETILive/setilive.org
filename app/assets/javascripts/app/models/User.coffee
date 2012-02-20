@@ -42,4 +42,12 @@ class User extends Spine.Model
         else 
           return true 
     return false
+
+  maxLevelForBadge:(badge)=>
+    return null if badge.type=='one_off'
+    level=0
+    for item in @badges
+      level= item.level if item.id==badge.id and item.level >level
+    level
+
 window.User = User

@@ -8,18 +8,20 @@
   </script>
 <%end%>
 
-<% if flash[:error] %>
-  <%flash[:error].each do |message|%>
-    <div id='flash'><%=message%></div>
-  <%end%>
-<%end%>
+
 <div id='login'>
   <div id ='login_header'>
     <h1>Welcome, to   <strong>SETI</strong>LIVE</h1>
     <p class='blurb'>Join <strong>SETI</strong>LIVE and you ca help Scientists hunt for interesting signals from beyond the Earth. You can use this login across all of the Zooniverse’s citizen science projects, so you only need to sign up once. We promise not to share your details with anyone else.</p>
   </div>
 
-  <div id='login_lower'>
+  <% if flash[:error] %>
+    <%flash[:error].each do |message|%>
+      <div id='flash'><%=message%></div>
+    <%end%>
+  <%end%>
+
+  <div id='login_lower'> 
     
   <div id="register">
    <%= form_tag(signup_path, :id => "signup") do %>

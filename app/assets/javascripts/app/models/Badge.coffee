@@ -3,9 +3,8 @@ class Badge extends Spine.Model
 
   constructor:->
     super 
-    @testUser(User.first()) if User.count==1
+    @testUser(User.first()) if User.count()==1
     User.bind 'refresh', =>
-      console.log("testing user")
       @testUser User.first()
 
   @fetch:->
@@ -15,7 +14,6 @@ class Badge extends Spine.Model
       Badge.trigger('refresh')
 
   testUser:(user)=>
-    console.log("really testing user")
     if @type=='one_off'
       if @check_condition(user)
         user.award(@)
@@ -34,12 +32,17 @@ class Badge extends Spine.Model
     reply += "#{@title} Badge acquired on SETILive"
     reply
     
+  twitterString:(level=null)=>
+    reply= "I just earned  "
+    if(level?)
+      reply+= " level #{level} of  "
+    reply += "the #{@title} Badge on www.SETILive.org"
+    reply
+    
   check_condition:(user,level...)=>
     condition = @condition
-    console.log "level is #{level}"
     condition.replace(/level/g,level) if level?
     condition= condition+";"
-    console.log(condition)
     eval(condition)
     
     
