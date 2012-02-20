@@ -2,19 +2,66 @@
   "badges":[
     {
     "title" : "registration",
-    "description": "Register for SETI Live",
+    "description": "SETI Citizen Scientist",
     "condition": " user? ",
     "logo_url": "assets/badges/200px/registration-200.png",
     "type": "one_off",
+    "post_text": " is now a SETI Citizen Scientist",
     "levels":[]
     },
     {
     "title": "classify",
     "description": "Classify level number of waterfalls",
-    "condition": " user.total_classifications > level  ",
-    "logo_url": "assets/badges/200px/registration-200.png",
+    "condition": " user.total_classifications > level ",
+    "logo_url": "assets/badges/200px/classifications-200.png",
     "type": "cumulative",
-    "levels":[1,5,10,15]
+    "post_text": " just classified their (nth) target",
+    "levels":[5,10,25,50,75,100,250,500,750,1000]
+    },
+    {
+    "title": "trigger_followup",
+    "description": "Trigger a number of followups",
+    "condition": " user.total_signals > level ",
+    "logo_url": "assets/badges/200px/signals-marked-200.png",
+    "post_text": " just triggered a SETILive telescope followup",
+    "type": "cumulative",
+    "levels":[5,10,25,50,75,100,250,500,750,1000]
+    },
+    {
+    "title": "post_to_talk",
+    "description": "Post waterfall to Talk",
+    "condition": "",
+    "logo_url": "assets/badges/200px/talk-200.png",
+    "post_text": " is discussing the possibility of life beyond Earth",
+    "type": "one_off",
+    "levels":[]
+    },
+    {
+    "title": "returner",
+    "description": "Returned to SETILive",
+    "condition": "",
+    "logo_url": "assets/badges/200px/return-200.png",
+    "post_text": " is now a SETI Seeker",
+    "type": "one_off",
+    "levels":[]
+    },
+    {
+    "title": "signals_marked",
+    "description": "Marked a certain number of signals",
+    "condition": "user.total_signals > level",
+    "logo_url": "assets/badges/200px/signals-marked-200.png",
+    "post_text": " has marked (n) signals from the ATA",
+    "type": "cumulative",
+    "levels":[5,10,25,50,75,100,250,500,750,1000]
+    },
+    {
+    "title": "found_paul",
+    "description": "J",
+    "condition": "user.found_aliens == true",
+    "logo_url": "assets/badges/200px/aliens-200.png",
+    "post_text": " has found Aliens. What else do you need to know?",
+    "type": "one_off",
+    "levels":[]
     }
   ]
 }

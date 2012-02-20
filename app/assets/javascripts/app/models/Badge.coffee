@@ -1,4 +1,3 @@
-
 class Badge extends Spine.Model
   @configure 'Badge', 'title', 'description', 'condition', 'logo_url', 'type', 'levels'  
 
@@ -32,7 +31,7 @@ class Badge extends Spine.Model
     reply= ""
     if(level?)
       reply+= "Level #{level} of the "
-    reply += "#{@title} Badge aquired on SETILive"
+    reply += "#{@title} Badge acquired on SETILive"
     reply
     
   check_condition:(user,level...)=>
