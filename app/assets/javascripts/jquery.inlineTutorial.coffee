@@ -86,7 +86,7 @@ $.widget "ui.inlineTutorial",
       indicatorDiv = $("<div class=\"inline-indicator\"></div>")
       settings = indicatorPos.split(" ")
       $(indicatorDiv).addClass "inline-arrow-" + settings[0]
-      $(indicatorDiv).css settings[1], "0px"
+      $(indicatorDiv).addClass "inline-arrow-" + settings[1]
       $("#inline_tutorial_outer").append $(indicatorDiv)
 
   previous_step: ->

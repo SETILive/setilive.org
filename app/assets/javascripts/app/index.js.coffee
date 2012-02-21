@@ -79,7 +79,9 @@ class TutorialPage extends SetiLiveController
 
     $("#classify-area").inlineTutorial 
       steps: window.tutorialSteps
-    $("#classify-area").inlineTutorial("start")
+
+    setTimeout((->$("#classify-area").inlineTutorial("start")),200)
+      
     Workflow.fetch_from_url("/workflows.json")
     Subject.get_tutorial_subject()
 
