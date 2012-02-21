@@ -1,8 +1,11 @@
 class HomeController < ApplicationController
-  before_filter CASClient::Frameworks::Rails::GatewayFilter, :only =>[:index]
-
-
+  before_filter CASClient::Frameworks::Rails::GatewayFilter, :only =>[:index, :team]
+  
   def index 
+    
+  end
+  
+  def team
     
   end
 
@@ -25,5 +28,4 @@ class HomeController < ApplicationController
        format.json{ render :json=> {status: @status}.to_json}
      end
   end
-
 end

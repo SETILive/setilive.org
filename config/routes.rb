@@ -1,13 +1,13 @@
 Marv::Application.routes.draw do
-
- 
   resources :classifications
+  
   resources :ZooniverseUsers do
     member do 
       post 'badges'
       post 'favourites'
     end
   end
+  
   resources :sources
   resources :subjects
 
@@ -41,4 +41,5 @@ Marv::Application.routes.draw do
   match '/stats' => 'home#stats'
   match '/telescope_status' => 'home#telescope_status'
   match '/tutorial'  => 'classifications#tutorial'
+  match '/team' => 'home#team'
 end

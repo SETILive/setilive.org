@@ -1,37 +1,28 @@
 <!DOCTYPE html>
 <html>
-    <head>
-      <meta charset=utf-8>
-      <title>SETILive</title>
-      <%= stylesheet_link_tag    "application" %>
-      <%= javascript_include_tag "application" %>
-      <%= csrf_meta_tags %>
-      <script src="http://js.pusher.com/1.11/pusher.min.js" type="text/javascript" charset="utf-8"></script>
-     
-      <%= yield :head%>
-    
+<head>
+  <meta charset=utf-8>
+  <title>SETILive</title>
+  <%= stylesheet_link_tag    "application" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+  <script src="http://js.pusher.com/1.11/pusher.min.js" type="text/javascript" charset="utf-8"></script>
 
-    </head>
+  <%= yield :head%>
+</head>
+<body>
+    <div id='star_field' class= <%= @small_star_field ? 'small_field' : "big_field"%>></div>
+    <ul id='notification_bar'>
+    </ul>
+    <%= yield %>
 
-     <body>
-     
-    
-      <div id='star_field' class= <%= @small_star_field ? 'small_field' : "big_field"%>></div>
-
-      <ul id='notification_bar'>
-
-      </ul>
-
-
-      <%= yield %>
-
-      <div id='footer'>
-        <div class="container">
-          <p><%= link_to "SETILIVE", "/" %></p>
-          <p class="right"><%= link_to "CONTACT", "/contact" %></p>
-          <p class="right"><%= link_to "TEAM", "/team" %></p>
-          <p class="right"><%= link_to "ABOUT", "/about" %></p>
-        </div>
+    <div id='footer'>
+      <div class="container">
+        <p><%= link_to "SETILIVE", "/" %></p>
+        <p class="right"><%= link_to "CONTACT", "/contact" %></p>
+        <p class="right"><%= link_to "TEAM", "/team" %></p>
+        <p class="right"><%= link_to "ABOUT", "/about" %></p>
       </div>
+    </div>
   </body>
 </html>
