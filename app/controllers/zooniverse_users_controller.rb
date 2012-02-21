@@ -1,7 +1,7 @@
 class ZooniverseUsersController < ApplicationController
   before_filter CASClient::Frameworks::Rails::GatewayFilter
   before_filter :check_login
-  before_filter :authenticate
+  before_filter :authenticate, :only => [:index]
 
 
   def index 
@@ -52,6 +52,19 @@ class ZooniverseUsersController < ApplicationController
     end
   end 
 
+
+  def register_talk_click
+    if current_user
+      current_user.increment(:talk_click_count => 1)
+      respond_to do |format|
+        format.json {render json: current_user.to_json(:except=>[:email, :zooniverse_user_extra_info])}
+      end
+    else 
+      respond_to do |format|
+        format.json {render json: "please log in first", :status=>403}
+      end
+    end 
+  end
  
   def show
     @small_star_field = true  
