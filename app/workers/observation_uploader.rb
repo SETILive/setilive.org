@@ -52,19 +52,19 @@ class ObservationUploader
     thumb_image_width = 100
     thumb_image_height = 54
     
-    main_image  = make_png(img_width,img_height)
-    thumb_image = make_png(thumb_image_width,thumb_image_height)
+    main_image  = make_png(@observation, img_width,img_height)
+    thumb_image = make_png(@observation, thumb_image_width,thumb_image_height)
     
     image_url = upload_file("images/observation_#{@observation.zooniverse_id}.png",main_image.to_s)
     thumb_url = upload_file("thumbs/observation_#{@observation.zooniverse_id}.png",thumb_image.to_s)
     {image: image_url, thumb: thumb_url}
   end 
 
-  def make_png(img_width,img_height)
+  def make_png(observation, img_width,img_height)
     png = ChunkyPNG::Image.new(img_width, img_height, ChunkyPNG::Color.rgba(255, 0, 0, 255))
-    width  = @observation.width
-    height = @observation.height
-    beam = @observation.data
+    width  = observation.width
+    height = observation.height
+    beam = observation.data
 
     (0..(img_width-1)).each do |xpos|
       (0..(img_height-1)).each do |ypos|
