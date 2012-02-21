@@ -70,19 +70,13 @@ class ApplicationController < ActionController::Base
       user.api_key = zooniverse_user_api_key
       user.save if user.changed?
     end
+  end
 
-  protected
 
   def authenticate
     authenticate_or_request_with_http_basic do |username, password|
       username == "science" && password == "channel"
     end
   end
-    # if zoony_user.updated_at < 1.hour.ago
-    #   update_event = {:event => {:kind => 'workflow_activity', :zooniverse_user_id => "#{zooniverse_user_id}", :project => 'Whale FM', :project_id => '12', :count => "#{zoony_user.activity_for_workflow(1)}", :workflow => 'Whale Sound Matching', :created_at => "#{Time.now}"}}
-    #   RestClient.post 'https://zooniverse:events@events.zooniverse.org', update_event.to_json, :content_type => :json
-    # end
-    
-    # return zoony_user
-  end
+  
 end
