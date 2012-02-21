@@ -11,7 +11,7 @@
 
 <div id='login'>
   <div id ='login_header'>
-    <h1>Welcome, to   <strong>SETI</strong>LIVE</h1>
+    <h1>Welcome, to <strong>SETI</strong>LIVE</h1>
     <p class='blurb'>Join <strong>SETI</strong>LIVE and you ca help Scientists hunt for interesting signals from beyond the Earth. You can use this login across all of the Zooniverse’s citizen science projects, so you only need to sign up once. We promise not to share your details with anyone else.</p>
   </div>
 
@@ -38,7 +38,7 @@
                 <td><%= password_field_tag "password" %><span class='placeholder'>Password</span></td>
               </tr>
               <tr>
-                <td><%= password_field_tag "password_confirmation"%><span class='placeholder'>Password Confirmation</span> </td>
+                <td><%= password_field_tag "password_confirmation"%><span class='placeholder'>Password Confirmation</span></td>
               </tr>
               <tr>
                 <td><%= text_field_tag "email"%><span class='placeholder'>Email</span></td>
@@ -53,7 +53,7 @@
     </div>
 
     <div id='zooniverse_login'>
-      <div class='login_section_header'><h2> Already have a Zooniverse username? Sign in here: </h2> </div>
+      <div class='login_section_header'><h2> Already have a Zooniverse username? Sign in here: </h2></div>
       <div class='login_section_lower'>
 
         <%= form_tag @cas_client.login_url do %>
@@ -80,8 +80,7 @@
             </table>    
 
         <% end -%>
-      <div>
+      </div>
     </div>
   </div>
-  
 </div>
