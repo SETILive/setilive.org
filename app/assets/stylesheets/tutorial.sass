@@ -1,25 +1,15 @@
-#inline_tutorial_outer
-  width: 300px
-  color: #FFFFFF
-  height: 130px
-  background-color: #505050
-  border: 3px solid #303030
-  position: absolute
-  margin: 0px
-  padding: 0px
-  display: none
-  -moz-border-radius: 5px
-  border-radius: 5px
-  z-index: 10000
-  font: normal 12px / 15px Prelude, Arial, sans-serif
-  -moz-box-shadow: 0px 3px 6px #000
-  -webkit-box-shadow: 0px 3px 6px #000
-  box-shadow: 0px 3px 6px #000
-  /* For IE 8
-  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=180, Color='#000000')"
-  /* For IE 5.5 - 7
-  filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=180, Color='#000000')
+@mixin box-shadow($offsetX:0px, $offsetY:2px, $width:4px, $color:#888888, $opacity: 0.7)
+  -moz-box-shadow: $offsetX   $offsetY $width $color 
+  -webkit-box-shadow: $offsetX  $offsetY $width $color 
+  box-shadow: $offsetX  $offsetY $width transparentize($color,0.4) 
+  
 
+#inline_tutorial_outer
+  position: absolute
+  display: none
+  z-index: 10000
+  font: TitilliumText22LRegular, Sans-serif
+  color: white
 #inline_tutorial_box
   width: 100%
   height: 100%
@@ -28,29 +18,42 @@
   left: 0px
   margin: 0px
   padding: 0px
-  .tutorial_header
-    color: #FFFFFF
-    font-size: 15px
-    top: 10px
-    left: 5px
-    text-transform: uppercase
-    font: normal 14px / 14px Prelude, Arial, sans-serif
-  .tutorial_text
-    top: 30px
-    left: 5px
-    position: absolute
-  .controls
-    background-color: #303030
-    position: absolute
+  width: 220px
+  color: #FFFFFF
+  height: 127px
+  padding: 20px 
+
+  @include box-shadow(0px, 2px, 5px , black)
+
+  background-color: #0b7384
+  .content
     width: 100%
+    margin: 0px
+    padding: 20px, 20px, 0px, 20px
+    .tutorial_header
+      color: #FFFFFF
+      font-size: 15px
+      text-transform: uppercase
+      font: TitilliumText22LBold, Sans-serif
+    .tutorial_text
+      font: TitilliumText22LRegular, Sans-serif
+      font-size: 12px
+  .controls
+    background-color: #0b7384
+    width: 220px
     height: 20px
-    bottom: 0px
+    position: absolute
+    bottom: 20px
+    left : 20px
     text-transform: uppercase
-    font: normal 10px / 20px Prelude, Arial, sans-serif
+    font: TitilliumText22LBold, Sans-serif
+    font-size: 12px
+    padding: 0px
+    margin: 0px
     .tutorial_previous
       color: #FFFFFF
       position: absolute
-      left: 10px
+      left: 0px
       border: 0px
       padding: 0px
       cursor: pointer
@@ -58,7 +61,7 @@
     .tutorial_next, .prompt
       color: #FFFFFF
       position: absolute
-      right: 10px
+      right: 0px
       border: 0px
       padding: 0px
       cursor: pointer
@@ -73,7 +76,7 @@
   height: 0
   border-left: 20px solid transparent
   border-right: 20px solid transparent
-  border-bottom: 20px solid #303030
+  border-bottom: 20px solid #0b7384
   position: absolute
   top: -20px
 
@@ -82,16 +85,16 @@
   height: 0
   border-left: 20px solid transparent
   border-right: 20px solid transparent
-  border-top: 20px solid #303030
+  border-top: 20px solid #0b7384
   position: absolute
-  bottom: -20px
+  top: 50%
 
 .inline-arrow-right
   width: 0
   height: 0
   border-top: 20px solid transparent
   border-bottom: 20px solid transparent
-  border-left: 20px solid #303030
+  border-left: 20px solid #0b7384
   position: absolute
   right: -20px
 
