@@ -1,8 +1,8 @@
 class HomeController < ApplicationController
   before_filter CASClient::Frameworks::Rails::GatewayFilter, :only =>[:index]
 
+
   def index 
-    
     
   end
 
@@ -19,10 +19,11 @@ class HomeController < ApplicationController
   end
 
   def telescope_status
-     @status = 'active'# RedisConnection.get('current_status')
+     @status = RedisConnection.get('current_status') || 'unknown'
      respond_to do |format|
        format.html
        format.json{ render :json=> {status: @status}.to_json}
      end
   end
+
 end
