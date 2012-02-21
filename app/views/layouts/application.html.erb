@@ -26,54 +26,12 @@
       <%= yield %>
 
       <div id='footer'>
-        <ul>
-          <li class='footer-column'>
-            <div class='logo'>SETILIVE</div>
-          </li>
-          <li class='footer-column'>
-            <ul >
-              <h2>Who Are We</h2>
-              <li><a href='#'>About SETI</a></li>
-              <li><a href='#'>About Zooniverse</a></li>
-              <li><a href='#'>The Team</a></li>
-              <li><a herf='#'>Contact Us</a></li>
-            </ul>
-          </li>
-
-          <li class='footer-column'>
-            <ul>
-              <h2>More Projects</h2>
-              
-              <li><a href='#'>Galaxy Zoo</a></li>
-              <li><a href='#'>Planet Hunters</a></li>
-              <li><a href='#'>Moon Zoo</a></li>
-              <li><a herf='#'>Zoo Teach</a></li>
-            </ul>
-          </li>
-
-           <li class='footer-column'>
-            <ul>
-              <h2>Links</h2>
-              
-              <li><a href='#'>SETI Institute</a></li>
-              <li><a href='#'>NASA</a></li>
-              <li><a href='#'>Allan Telescope</a></li>
-              <li><a herf='#'>UCLS Berkeley</a></li>
-            </ul>
-          </li>
-
-
-           <li class='footer-column'>
-            <ul>
-              <h2>Extra Fun</h2>
-              
-              <li><a href='#'>Discovery</a></li>
-              <li><a href='#'>Angry Birds</a></li>
-              <li><a href='#'>Tiny Wings</a></li>
-              <li><a herf='#'>Plants vs Zombies</a></li>
-            </ul>
-          </li>
-        </ul>
+        <div class="container">
+          <p><%= link_to "SETILIVE", "/" %></p>
+          <p class="right"><%= link_to "CONTACT", "/contact" %></p>
+          <p class="right"><%= link_to "TEAM", "/team" %></p>
+          <p class="right"><%= link_to "ABOUT", "/about" %></p>
+        </div>
       </div>
   </body>
 </html>
