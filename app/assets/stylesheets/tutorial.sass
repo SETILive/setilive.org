@@ -71,38 +71,24 @@
   position: absolute
   z-index: 1000000000
 
-.inline-arrow-top
-  width: 0
-  height: 0
-  border-left: 20px solid transparent
-  border-right: 20px solid transparent
-  border-bottom: 20px solid #0b7384
+.inline-indicator
+  border: 0 solid transparent
+    width: 20px 40px
+  margin-left: -40px
   position: absolute
-  top: -20px
 
-.inline-arrow-bottom
-  width: 0
-  height: 0
-  border-left: 20px solid transparent
-  border-right: 20px solid transparent
-  border-top: 20px solid #0b7384
-  position: absolute
-  top: 50%
+  // Set two classes: (top or bottom) and (left or right)
 
-.inline-arrow-right
-  width: 0
-  height: 0
-  border-top: 20px solid transparent
-  border-bottom: 20px solid transparent
-  border-left: 20px solid #0b7384
-  position: absolute
-  right: -20px
+  &.inline-arrow-top
+    border-top-color: #0b7384
+    top: 0
 
-.inline-arrow-left
-  width: 0
-  height: 0
-  border-top: 20px solid transparent
-  border-bottom: 20px solid transparent
-  border-right: 20px solid #303030
-  position: absolute
-  left: -20px
+  &.inline-arrow-bottom
+    border-bottom-color: #0b7384
+    bottom: 0
+
+  &.inline-arrow-left
+    left: 0
+
+  &.inline-arrow-right
+    right: 0
