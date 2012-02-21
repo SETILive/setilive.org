@@ -31,7 +31,7 @@ $.widget "ui.inlineTutorial",
     self.setUpIndicator op.current_step.indicatorPos
     @show()
   show: ->
-    $("#inline_tutorial_outer").fadeIn 100, ->
+    $("#inline_tutorial_outer").fadeIn 2000, ->
 
   next_step: (withEvents) ->
     withEvents = true  unless withEvents?
