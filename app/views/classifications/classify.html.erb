@@ -3,7 +3,11 @@
 
     var exports = this;
     jQuery(function(){
-        new ClassificationPage({el: $("body")});      
+        <%if @tutorial%>
+          new TutorialPage({el: $("body")});      
+        <%else%>
+          new ClassificationPage({el: $("body")});      
+        <%end%>
     });     
   </script>
 <%end%>
