@@ -10,10 +10,12 @@ class ZooniverseUser
   key :total_classifications , Integer, :default => 0
   key :total_follow_ups , Integer,  :default => 0
   key :total_signals , Integer,  :default => 0
+  key :total_logins, Integer, :default =>0
   key :talk_click_count, Integer, :default => 0 
   key :classification_count, Hash
   key :signal_count, Hash
   key :follow_up_count, Hash
+  key :last_login, Date 
   key :sweeps_status, String, :in =>['none', 'in','out'], :default=>'none'
   key :seen_subjects, Array
 
