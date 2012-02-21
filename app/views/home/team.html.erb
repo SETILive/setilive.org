@@ -1,0 +1,18 @@
+<% content_for :head do %>
+  <script type="text/javascript" charset="utf-8">
+
+    var exports = this;
+    jQuery(function(){
+        new GenericAboutPage({el: $("body")});      
+    });     
+  </script>
+<%end%>
+
+<div id='content'>
+  <div id='aboutpage'>
+    <h1>SETILIVE is a collaboration between SETI Institute, TED, Science Channel and Zooniverse.</h1>
+    <div id="about_menu">
+      <p><%= link_to "Organisations", "#organisations" %></p><p><%= link_to "Development", "#development" %></p><p><%= link_to "Science Team", "#scienceteam" %> </p><p><%= link_to "Contact", "#contact" %></p>
+    </div>
+  </div>
+</div>

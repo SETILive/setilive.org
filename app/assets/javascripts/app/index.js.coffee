@@ -32,11 +32,16 @@ class SetiLiveController extends Spine.Controller
       window.location = '/classify'
     
   notificationsOn : true
+  starFieldOn : true
 
   constructor:->
     super 
     @prepend new NavBar()
-    @stars = new Stars(el:$("#star_field"))
+    if @starFieldOn
+      @stars = new Stars(el:$("#star_field"))
+    else
+      $("#star_field").remove()
+      
     if @notificationsOn
       @notifications= new Notifications(el: $("#notification_bar")) 
     else
@@ -127,7 +132,13 @@ class BadgePage extends SetiLiveController
     super
     new Badges(el:$("#badgePage"))
 
+class GenericAboutPage extends SetiLiveController
+  starFieldOn : false
 
+  constructor:->
+    super
+    
+    
 class TelescopePage extends SetiLiveController
   elements :
     '#telescopeStatus' : "telescopeStatus"
@@ -152,5 +163,6 @@ window.TargetsShowPage = TargetsShowPage
 window.ProfilePage = ProfilePage
 window.BadgePage = BadgePage
 window.TelescopePage = TelescopePage
+window.GenericAboutPage = GenericAboutPage
 # Run jQuery animations at 20 FPS
 jQuery.fx.interval = 50
