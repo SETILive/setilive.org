@@ -14,6 +14,11 @@ class Subject extends Spine.Model
     $.getJSON "next_subject.json", (data)->
       subject=  Subject.create(data)
       Subject.trigger('next_subject', subject)
+  
+  @get_tutorial_subject: ->
+    $.getJSON "tutorial_subject.json", (data)->
+      subject=  Subject.create(data)
+      Subject.trigger('next_subject', subject)
     
   imageDataForBeam:(beamNo,targetWidth,targetHeight)->
     imageData=[]

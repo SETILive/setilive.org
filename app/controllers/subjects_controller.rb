@@ -1,6 +1,11 @@
 class SubjectsController < ApplicationController
   before_filter CASClient::Frameworks::Rails::Filter
 
+  def tutorial_subject 
+    respond_to do |format|
+      format.json { render json: Subject.first.to_json(:include => :observations), :status => '200' }
+    end
+  end
   def next_subject_for_user
     subject = nil
     if Subject.count >0

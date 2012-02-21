@@ -4,6 +4,7 @@
 
 #= require json2
 #= require spine
+#= require jquery.inlineTutorial
 #= require spine/manager
 #= require spine/ajax
 #= require spine/route
@@ -66,7 +67,21 @@ class ClassificationPage extends SetiLiveController
     super  
     @subjects = new Subjects({el:$("#waterfalls")})
     @info = new Info({el: $("#info")})
+
     Workflow.fetch_from_url("/workflows.json")
+    Subject.fetch_next_for_user()
+
+class TutorialPage extends SetiLiveController
+  constructor: ->
+    super  
+    @subjects = new Subjects({el:$("#waterfalls")})
+    @info = new Info({el: $("#info")})
+
+    $("#classify-area").inlineTutorial 
+      steps: window.tutorialSteps
+    $("#classify-area").inlineTutorial("start")
+    Workflow.fetch_from_url("/workflows.json")
+    Subject.get_tutorial_subject()
 
 class LoginPage extends SetiLiveController
 
@@ -126,6 +141,7 @@ class TelescopePage extends SetiLiveController
   
 window.HomePage = HomePage
 window.ClassificationPage = ClassificationPage
+window.TutorialPage = TutorialPage
 window.LoginPage = LoginPage
 window.ClassificationPage = ClassificationPage
 window.AboutPage = AboutPage

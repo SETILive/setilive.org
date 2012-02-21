@@ -5,6 +5,7 @@
 // the compiled file.
 //
 //= require ./jquery.min.js
+//= require ./jquery-ui-1.8.6.custom
 //= require ./raphael-min.js
 //= require ./jquery.svg.min.js
 //= require ./jquery.svgdom.min.js

@@ -9,8 +9,8 @@ class User extends Spine.Model
   @fetch_current_user :->
     $.getJSON '/current_user.json', (data) =>
       data.favourites = data.favourite_ids
-      User.create(data)
-      User.trigger('refresh')
+      u = User.create(data)
+      User.trigger('refresh', u )
     
   award:(badge,level...)=>
     unless @hasBadge(badge,level)

@@ -16,7 +16,7 @@
     </li>
   <%end%>
   <li><a href='/about'>about</a> </li>
-  <li><a href='/classify.html'>classify</a> </li>
+  <li><a href='/classify'>classify</a> </li>
   <li><a href='/sources'>targets</a> </li>
   <li><a href='http://talk.setilive.org'>talk</a> </li>
 </ul>

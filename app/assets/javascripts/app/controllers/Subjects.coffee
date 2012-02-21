@@ -25,9 +25,7 @@ class Subjects extends Spine.Controller
     Spine.bind("dissableSignalDraw", @dissableSignalDraw)
     Workflow.bind("workflowDone", @enableSignalDraw)
     Workflow.bind("workflowDone", @finalizeSignal)
-    
-    Subject.fetch_next_for_user()
-
+  
     Spine.bind 'nextBeam', =>
       @selectBeam @current_beam+1
     

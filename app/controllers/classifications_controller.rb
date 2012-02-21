@@ -38,5 +38,10 @@ class ClassificationsController < ApplicationController
     @small_star_field = true  
   end
 
+  def tutorial
+    @tutorial = true
+    render :classify
+  end
+
 
 end
