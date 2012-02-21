@@ -1,5 +1,5 @@
 class Badge extends Spine.Model
-  @configure 'Badge', 'title', 'description', 'condition', 'logo_url', 'type', 'levels'  
+  @configure 'Badge', 'title', 'description', 'condition', 'logo_url','large_logo_url', 'type', 'levels'  
 
   constructor:->
     super 

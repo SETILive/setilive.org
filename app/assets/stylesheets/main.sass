@@ -918,7 +918,7 @@ ul.pagination
         width: 51px
         height: 51px
         display: inline-block
-        background-image: url("emptyBadge.png")
+       
   #profile_bottom
     #view_selection
       margin-left: 30px
@@ -1154,10 +1154,13 @@ ul.pagination
   left: 0px
 
 .badge_container 
-  background-image: url('/assets/emptyBadge.png')
   position: relative
-  img 
-    position: relative
+  img.badge_holder
+    position: absolute
+    top: 0px
+    left: 0px
+  img.badge_icon 
+    position: absolute
     top: 0px
     left: 1px
 .badge_level 
@@ -1220,4 +1223,22 @@ ul.pagination
       font-size: 19px
       font-family: TitilliumText22LRegular, Sans-serif
 
-        
+#badge_profile_bottom
+  padding: 70px 100px 80px 60px
+  width: 840px
+  height: 258px   
+  #badge_profile_left
+    display: inline-block
+    vertical-align: top
+    width: 250px
+
+  #badge_profile_right
+    color: black
+    width: 520px
+    display: inline-block
+    height: 244px
+    vertical-align: top
+    margin: 0px
+    padding: 0px 0px 0px 60px
+    
+

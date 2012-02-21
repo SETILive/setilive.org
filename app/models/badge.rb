@@ -5,6 +5,8 @@ class Badge
   key :description, String, :required => true
   key :condition, String , :required => true 
   key :logo_url , String,  :required => true
+  key :large_logo_url , String,  :required => true
+
   key :type   , String , :required => true , :validate_in => ['one_off', 'cumulative']
   key :levels, Array 
 

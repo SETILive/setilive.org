@@ -1,5 +1,4 @@
 class Badges extends Spine.Controller
-  pagination_no: 8
   inital_collection_type : 'favourites'
 
   events:
@@ -14,8 +13,8 @@ class Badges extends Spine.Controller
 
   gotUser:=>
     @user= User.first()
-    @collectionType= @inital_collection_type
-    @paginate()
+    @mainBadge = Badge.find(window.location.pathname.split("/")[2])
+ 
     @render()
 
   render:=> 
@@ -23,34 +22,14 @@ class Badges extends Spine.Controller
     @append @view('user_stats')(@user)
     @append @view('badge_details')
       user: @user
+      mainBadge: @mainBadge
       pagination : @pagination
       subjects : [1..20] #@user[@collectionType]
       collectionType: @collectionType
       badgeTemplate: @view('badge')
+      twitterTemplate: @view('twitterBadge')
+      facebookTemplate: @view('facebookBadge')
   
-  selectPage:(e)=>
-    e.preventDefault()
-    @pagination.page = $(e.currentTarget).data().id
-    @render()
 
-  selectCollectionType:(e)=>
-    e.preventDefault()
-    @collectionType =  $(e.currentTarget).data().collection_type
-    @paginate()
-    @render()
-
-  paginate:=>
-    collection = [1..20] #@user[@collectionType]
-    @pagination =
-      page : 0
-      pages: collection.length/@pagination_no
-      noPerPage: @pagination_no
-      start: ->
-        @page*@noPerPage
-      end: ->
-        (@page+1)*@noPerPage
-      menu:->
-        JST["app/views/pagination"](@)
-      
   
 window.Badges = Badges

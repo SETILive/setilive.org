@@ -1,8 +1,11 @@
 <div class='badge_container' data-id='<%=@badge?.id%>' style='width:<%=@size%>px; height:<%=@size%>px; position:relative;z-index:100000; display:inline-block' >
   
+
+
+
   <%if @badge: %>
     <a href='/badges/<%=@badge.id%>'>
-      <img data-id='<%=@badge.id%>' width=<%=@size%>  src='<%=@badge.logo_url%>' alt= '<%=@badge.description%>'/>
+      <img class='badge_icon' data-id='<%=@badge.id%>' width=<%=@size%>  src='/<%= if @size<200  then @badge.logo_url else @badge.large_logo_url %>' alt= '<%=@badge.description%>'/>
        
        <%if @level? > 0 : %>
           <div style = ' width: <%=@size*0.4%>px; height: <%=@size*0.4%>px; right:-1px; top:-5px ' class='badge_level'><%=@level%></div>
@@ -11,6 +14,8 @@
 
         <%end%> 
     </a>
+  <%else : %>
+    <img class='badge_holder' src ="/assets/emptyBadge.png" width=<%= @size%> />
   <%end%>
 </div>
 

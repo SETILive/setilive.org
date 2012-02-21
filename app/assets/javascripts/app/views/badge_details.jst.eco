@@ -1,0 +1,36 @@
+<div id='user_profile'>
+  <div id='profile_top'>
+    <h1 id='user_welcome'>
+      Welcome back, <%=@user.name%>.
+    </h1>
+    <ul id='user_badges'>
+      <% for badge in Badge.all(): %>
+        <li  class='badge'>
+          <%if @user.hasBadge(badge): %>
+            <%- @badgeTemplate({badge:badge, size: 50, level: @user.maxLevelForBadge(badge)})  %>
+          <%else: %>
+            <%- @badgeTemplate({size: 50})  %>
+          <%end%>
+        </li>
+      <%end%>
+    </ul>
+  </div>
+  <div id='badge_profile_bottom'>
+    <div id='badge_profile_left'>
+      <%- @badgeTemplate({badge:@mainBadge, size:250, level: @user.maxLevelForBadge(@mainBadge)})%>
+    </div>
+    <div id='badge_profile_right'>
+      <%if @mainBadge? and @user.hasBadge(@mainBadge) : %>
+        <h1>You’ve earned the <%-@mainBadge?.title%> Badge! </h1>
+        <p> You’ve earned this badge by registering for SETI Live. This is 
+important information about why you received this amazing
+badge. How cool is this? Extremely cool. Tell your friends.</p>
+         <%-@twitterTemplate({ badge: @mainBadge, level: @user.maxLevelForBadge(@mainBadge)}) %>
+         <%-@facebookTemplate({badge: @mainBadge, level: @user.maxLevelForBadge(@mainBadge)}) %>
+         <div id='badge_profile_return'>Return to Profile</div>
+      <%else : %>
+        <h1>You have yet to earn this badge</h1>
+      <%end%>
+    </div>
+  </div>
+</div>

@@ -33,7 +33,12 @@ Marv::Application.routes.draw do
 
   match '/profile' => 'ZooniverseUsers#show', :as => 'profile'
   match '/awardBadge' => 'ZooniverseUsers#awardBadge', :as => 'awardBadge'
+  match '/register_talk_click' => 'ZooniverseUsers#register_talk_click', :as => 'register_talk_click'
+
+  match '/tutorial_subject' => 'subjects#tutorial_subject'
+
   match '/science_report' => 'ZooniverseUsers#index'
   match '/stats' => 'home#stats'
   match '/telescope_status' => 'home#telescope_status'
+  match '/tutorial'  => 'classifications#tutorial'
 end

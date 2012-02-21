@@ -5,6 +5,7 @@
     "description": "SETI Citizen Scientist",
     "condition": " user? ",
     "logo_url": "assets/badges/200px/registration-200.png",
+    "large_logo_url": "assets/badges/250px/registration-250.png",
     "type": "one_off",
     "post_text": " is now a SETI Citizen Scientist",
     "levels":[]
@@ -14,6 +15,7 @@
     "description": "Classify level number of waterfalls",
     "condition": " user.total_classifications >= level ",
     "logo_url": "assets/badges/200px/classifications-200.png",
+    "large_logo_url": "assets/badges/250px/classifications-250.png",
     "type": "cumulative",
     "post_text": " just classified their (nth) target",
     "levels":[5,10,25,50,75,100,250,500,750,1000]
@@ -23,6 +25,8 @@
     "description": "Trigger a number of followups",
     "condition": " user.total_signals > level ",
     "logo_url": "assets/badges/200px/signals-marked-200.png",
+    "large_logo_url": "assets/badges/250px/signals-marked-250.png",
+
     "post_text": " just triggered a SETILive telescope followup",
     "type": "cumulative",
     "levels":[5,10,25,50,75,100,250,500,750,1000]
@@ -30,8 +34,10 @@
     {
     "title": "post_to_talk",
     "description": "Post waterfall to Talk",
-    "condition": "",
+    "condition": "user.talk_click_count > 1 ",
     "logo_url": "assets/badges/200px/talk-200.png",
+    "large_logo_url": "assets/badges/250px/talk-250.png",
+
     "post_text": " is discussing the possibility of life beyond Earth",
     "type": "one_off",
     "levels":[]
@@ -39,8 +45,9 @@
     {
     "title": "returner",
     "description": "Returned to SETILive",
-    "condition": "",
+    "condition": "user.login_count > level",
     "logo_url": "assets/badges/200px/return-200.png",
+    "large_logo_url": "assets/badges/250px/return-250.png",
     "post_text": " is now a SETI Seeker",
     "type": "one_off",
     "levels":[]
@@ -50,6 +57,8 @@
     "description": "Marked a certain number of signals",
     "condition": "user.total_signals > level",
     "logo_url": "assets/badges/200px/signals-marked-200.png",
+    "large_logo_url": "assets/badges/250px/signals-marked-250.png",
+
     "post_text": " has marked (n) signals from the ATA",
     "type": "cumulative",
     "levels":[5,10,25,50,75,100,250,500,750,1000]
@@ -59,6 +68,8 @@
     "description": "J",
     "condition": "user.found_aliens == true",
     "logo_url": "assets/badges/200px/aliens-200.png",
+    "large_logo_url": "assets/badges/250px//aliens-250.png",
+
     "post_text": " has found Aliens. What else do you need to know?",
     "type": "one_off",
     "levels":[]
