@@ -22,8 +22,8 @@ class ZooniverseUser
   timestamps! 
   
   one :zooniverse_user_extra_info
-  many :classifications 
-  many :favourites, :in => :favourite_ids, :class_name => "Subject"
+  has_many :classifications 
+  has_many :favourites, :in => :favourite_ids, :class_name => "Subject"
 
   def award_badges 
     Badge.not_awarded(self).each do |badge|

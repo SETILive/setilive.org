@@ -15,6 +15,8 @@ class Observation
   
   belongs_to :source 
   belongs_to :subject
+  has_many :subject_signals
+  
   # belongs_to :follow_up
   before_create :create_zooniverse_id
   after_create :process
