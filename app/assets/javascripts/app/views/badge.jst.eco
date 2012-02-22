@@ -8,9 +8,19 @@
       <img class='badge_icon' data-id='<%=@badge.id%>' width=<%=@size%>  src='/<%= if @size<200  then @badge.logo_url else @badge.large_logo_url %>' alt= '<%=@badge.description%>'/>
        
        <%if @level? > 0 : %>
-          <div style = ' width: <%=@size*0.4%>px; height: <%=@size*0.4%>px; right:-1px; top:-5px ' class='badge_level'><%=@level%></div>
+          <div style = ' width: <%=@size*0.4%>px; height: <%=@size*0.4%>px; right:-1px; top:-5px;border-radius: <%=@size*0.4%>px;
+          -moz-border-radius: <%=@size*0.4%>px;
+          -webkit-border-radius: <%=@size*0.4%>px;
+          line-height: <%=@size*0.4%>px ;
+          font-size : <%=@size*0.2%>px;'
 
-          <div style = ' width: <%=@size*0.4%>px; height: <%=@size*0.4%>px; right:-2px; top:-5px ' class='badge_level badge_level_shadow '></div>
+           class='badge_level'><%=@level%></div>
+
+          <div style = ' width: <%=@size*0.4%>px; height: <%=@size*0.4%>px; right:-2px; top:-5px;
+          border-radius: <%=@size*0.4%>px;
+          -moz-border-radius: <%=@size*0.4%>px;
+          -webkit-border-radius: <%=@size*0.4%>px;
+          line-height: <%=@size*0.4%>px  ' class='badge_level badge_level_shadow '></div>
 
         <%end%> 
     </a>
