@@ -196,6 +196,7 @@ DEPENDENCIES
   libxml-ruby (= 2.2.2)
   minitest
   mongo_mapper
+  multi_json (= 1.0.4)
   multi_xml (= 0.4.1)
   pry
   pry-rails
