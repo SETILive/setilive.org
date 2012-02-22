@@ -41,5 +41,9 @@ Marv::Application.routes.draw do
   match '/stats' => 'home#stats'
   match '/telescope_status' => 'home#telescope_status'
   match '/tutorial'  => 'classifications#tutorial'
+
+  match '/recent_classifications'  => 'classifications#recent'
+
   match '/team' => 'home#team'
+
 end

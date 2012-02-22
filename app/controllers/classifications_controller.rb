@@ -13,13 +13,20 @@ class ClassificationsController < ApplicationController
 
 
   def create
-    signals         = params.delete(:signals)
-    @classification = Classification.new(params[:classification])
-    @classification.zooniverse_user = current_user 
+
+    signals  = params.delete(:signals).values
+    subject  = Subject.find(params.delete(:subject_id))
+    
+
+    @classification = Classification.new(:subject=>subject, :zooniverse_user => current_user)
 
     if signals 
       signals.each do |signal|
-        @classification.signals << SbjectSignal.new(signal)
+        characteristics  = signal['characterisations'].values
+        observation = Observation.find(signal['observation_id'])
+        start_coords = [signal['freqStart'],signal['timeStart']]
+        end_coords   = [signal['freqEnd'],signal['timeEnd']]
+        @classification.subject_signals.create(:characteristics=> characteristics, :observation_id=> observation.id, :start_coords=>start_coords,:end_coords=> end_coords)
       end
     end
 
@@ -36,6 +43,12 @@ class ClassificationsController < ApplicationController
 
   def classify 
     @small_star_field = true  
+  end
+
+  def recent 
+    respond_to do |format|
+       format.json { render json: Classification.all(:limit=>4).to_json(:include=>{:subject=>{:include=>[:source, :observations]}})}
+    end 
   end
 
   def tutorial

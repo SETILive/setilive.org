@@ -11,12 +11,19 @@ class Classification extends Spine.Model
     @currentSignal  = @signals().create({timeStart: y, freqStart : x, observation_id: id})
 
   persist:=>    
-    @signals= @signals().all()
-  
+    window.classificaiton=@
+    signals = (signal.toJSON() for signal in @signals().all())
+    
+    result = 
+      signals : signals
+      subject_id : @subject_id
+
+    console.log("here ", result)
+
     $.ajax
       type: 'POST'
       url: '/classifications/'
-      data: @toJSON
+      data: result
       dataType: 'json'
       success: (response)->
         window.location='/classify'
@@ -25,6 +32,10 @@ class Classification extends Spine.Model
     @currentSignal.timeEnd= y
     @currentSignal.freqEnd= x
     @currentSignal.save()
+
+  @fetchRecent:(callback)->
+    $.getJSON "/recent_classificaitons.json", (data)=>
+      callback(data)
 
 
 

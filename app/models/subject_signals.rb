@@ -7,4 +7,6 @@ class SubjectSignal
   key :gradient , Float 
 
   belongs_to :classification
+  belongs_to :observation
+
 end

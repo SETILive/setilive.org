@@ -73,6 +73,10 @@ class Subject
     # SubjectUploader.perform_async(self)
   end
 
+  def self.tutorial_subject
+    Subject.where(:activity_id=>'tutorial').first
+  end
+
   def remove_from_redis 
     RedisConnection.srem Subject.redis_cache_name, self.redis_key 
     RedisConnection.del "#{self.redis_key}_score"

@@ -1,7 +1,7 @@
 class Observation
   include MongoMapper::Document
 
-  key :type , String, :validate_in => ['inital','on','off']
+  key :type , String, :validate_in => ['inital','on','off','tutorial']
   key :data , Array 
   key :data_url, String
   key :image_url, String
@@ -15,6 +15,8 @@ class Observation
   
   belongs_to :source 
   belongs_to :subject
+  has_many :subject_signals
+  
   # belongs_to :follow_up
   before_create :create_zooniverse_id
   after_create :process

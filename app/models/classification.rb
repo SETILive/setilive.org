@@ -6,9 +6,9 @@ class Classification
   belongs_to :subject
 
   
-  many :SubjectSignals
+  has_many :subject_signals
 
-  after_create :update_zooniverse_user, :update_source, :update_redis, :push_global_stats
+  after_create :update_zooniverse_user, :update_source, :update_redis, :push_global_stats,:push_classification
 
   def update_zooniverse_user 
     zooniverse_user.update_classification_stats(self)
@@ -26,5 +26,14 @@ class Classification
 
   def push_global_stats
     StatsPusher.perform_async
+  end
+
+  def push_classification
+    # ClassificationPusher.perform_async {classificaton_id: self.id, subject_id: self.subject_id, observation_locations: observation_locations}
+  end
+
+
+  def recent_classificaitons
+    return 
   end
 end
