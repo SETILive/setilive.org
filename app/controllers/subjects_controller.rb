@@ -3,30 +3,25 @@ class SubjectsController < ApplicationController
 
   def tutorial_subject 
     respond_to do |format|
-      format.json { render json: Subject.first.to_json(:include => :observations), :status => '200' }
+      format.json { render json: Subject.tutorial_subject.to_json(:include => :observations), :status => '200' }
     end
   end
+
+
   def next_subject_for_user
     subject = nil
-    if Subject.count >0
-      subject = Subject.first
+    
+      
+    if [1,2].sample ==1
+      subject = get_seen_subject
     else
       subject = get_new_subject
       if subject
         subject.save
+      else
+        subject = get_seen_subject
       end
     end
-      
-    # if [1,2].sample ==1
-    #   subject = get_seen_subject
-    # else
-    #   subject = get_new_subject
-    #   if subject
-    #     subject.save
-    #   else
-    #     subject = get_seen_subject
-    #   end
-    # end
 
     if subject 
       respond_to do |format|
@@ -38,6 +33,8 @@ class SubjectsController < ApplicationController
       end
     end
   end
+
+
 
   def get_new_subject
     Subject.random_frank_subject
