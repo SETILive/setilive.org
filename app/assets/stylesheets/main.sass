@@ -1170,14 +1170,23 @@ ul.pagination
 #notification_bar
   width: 940px
   list-style: none
-  max-height: 210px
-  min-height: 60px
+  height: 60px
   overflow-y: hidden
   margin: 0px
   padding: 0px
   margin-left: auto
   margin-right: auto
   margin-bottom: 20px
+  position: relative
+  .notification_count
+    position: absolute
+    top: 10px
+    right: 10px
+    width: 40px
+    height: 40px
+    background-color: red
+    @include round-corners(40px)
+    color: white
   li
     display: none
     width: 100%
@@ -1196,9 +1205,20 @@ ul.pagination
       margin-left: 21px
     .badge_social_buttons
       float: right
-      margin-right: 21px
-      margin-top: 21px
-  
+      position: relative
+      top: 10px
+      margin-right: 20px
+    .badge_notification_description
+      position: relative
+      top: -15px
+      margin-left: 5px
+      left: -80px
+    .badge_container
+      position: relative 
+      top: 5px 
+      left: -80px
+
+
 .badge 
   position: relative 
   top: 0px
@@ -1312,15 +1332,15 @@ ul.pagination
 
 #badge_profile_return
   width: 130px
-  height: 36px
-  color: white 
-  font-size: 10px
+  height: 34px
+  color: black 
+  font-size: 12px
   vertical-align: top
   line-height: 36px
   text-align: center
   cursor: pointer
-  font-family: TitilliumText22LRegular, Sans-serif
+  font-family: TitilliumText22LBold, Sans-serif
   display: inline-block
   @include round-corners(3px)
-  @include gradient-bg(#E4F61E, #A9B61B)
+  @include gradient-bg(#EBE9E9, #A9A9A9)
   @include box-shadow
