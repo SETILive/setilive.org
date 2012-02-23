@@ -9,7 +9,11 @@
   <li><a href='http://talk.setilive.org' target='_blank'>talk</a></li>
   
   <li><a href='/sources'>targets</a></li>
-  <li><a href='/classify'>classify</a></li>
+  <li><a href='/classify'>classify</a>
+     <ul class="nav_submenu">
+        <li><a href='/tutorial'>Tutorial</a> </li>
+     </ul>
+  </li>
   <li>
     <a href='/about'>about</a>
     <ul class="nav_submenu">
