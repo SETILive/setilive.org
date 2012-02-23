@@ -65,7 +65,7 @@ class ApplicationController < ActionController::Base
   
   def create_or_update_zooniverse_user
 
-    user = ZooniverseUser.where(zooniverse_user_id: zooniverse_user_id ).first
+    user = ZooniverseUser.where(zooniverse_user_id: zooniverse_user_id.to_i ).first
     user ||= ZooniverseUser.new 
     user.name = zooniverse_user
     user.email = zooniverse_user_email
