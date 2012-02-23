@@ -1,0 +1,24 @@
+<% for classification in @ : %>
+  <%console.log "doing ", classification%>
+  <%for observation in classification.subject.observations: %> 
+    <%if observation.uploaded :%>
+      <%console.log "doing ", classification%>
+
+      <div class='observation'>
+        <img src='<%=observation.source.image_url%>' />
+
+        <div id='favourite'>
+          <% if false : %>
+            <img src='/assets/favorited_button.png' />
+          <%else : %>
+            <img src=/assets/favourite_button.png' />
+          <%end%>
+        </div>
+
+        <span  class='classificaiton_details'>
+          <%=@name%> classified <%=observation.source.name%>
+        </span>
+      </div>
+    <%end%>
+  <%end%>
+<%end%>

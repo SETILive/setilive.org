@@ -11,12 +11,7 @@ the Kepler Field. Will we find life on another planet?
 </div>
 <div id='home_content_bottom'>
   
-  <div id='subjects'>
-    <% for subject in @subjects: %>
-      <div class='waterfall' data-id='<%=subject.id%>' >
-      </div>
-    <%end%>
-  </div>
+  <div id='subjects'></div>
   <h2>The Search</h2>
   <p>The radio sphere shows the boundary of Earth's radio signals beginning in the late 1930s and into the early 1940s, when radar, tv carrier waves, and atomic testing started sending strong radio signals into space. Strong enough to pass through Earth's ionosphere, these signals travel into interstellar space at the speed of light these signals travel into at speed of light.signals travel into interstellar space at the speed of light these signals travel into at speed of light. signals travel into. interstellar space at the </p>
 </div>
