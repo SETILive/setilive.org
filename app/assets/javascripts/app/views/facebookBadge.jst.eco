@@ -7,5 +7,5 @@
     caption=<%=encodeURI("SETILive allows users to help in the hunt for aliens by analysing data from the Allen telescope array in real time")%>&
     description=<%=encodeURI(@badge.description)%>&
     message=<%= encodeURI("I just earned a badge on SETI LIVE")%>&
-    redirect_uri=http://www.setilive.org"> <img height=18 src='/assets/facebookButton.png'/></a>
+    redirect_uri=http://www.setilive.org"> <div id='facebook_button'></div></a>
 </div>

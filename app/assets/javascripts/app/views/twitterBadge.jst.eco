@@ -1,6 +1,4 @@
-<a href="https://twitter.com/intent/tweet?screen_name=setilive&
+<a href="https://twitter.com/share?url=<%-window.location.href%>&text=<%-@badge.twitterString(@level)%>&hashtags=setilive"
 
-text=<%-encodeURI(@badge.twitterString(@level))%>"
-
- class="twitter-mention-button" data-size="small">Tweet</a>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+  target="_blank"> <div id="twitter_button"></div>
+</a>

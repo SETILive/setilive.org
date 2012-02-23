@@ -27,7 +27,7 @@ important information about why you received this amazing
 badge. How cool is this? Extremely cool. Tell your friends.</p>
          <%-@twitterTemplate({ badge: @mainBadge, level: @user.maxLevelForBadge(@mainBadge)}) %>
          <%-@facebookTemplate({badge: @mainBadge, level: @user.maxLevelForBadge(@mainBadge)}) %>
-         <div id='badge_profile_return'>Return to Profile</div>
+         <a href='/profile'><div id='badge_profile_return'>Return to Profile</div></a>
       <%else : %>
         <h1>You have yet to earn this badge</h1>
       <%end%>
