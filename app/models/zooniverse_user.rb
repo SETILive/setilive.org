@@ -1,7 +1,7 @@
 class ZooniverseUser
   include MongoMapper::Document
 
-  key :zooniverse_user_id, Integer
+  key :zooniverse_user_id, String
   key :email, String
   key :api_key, String 
   key :name, String 

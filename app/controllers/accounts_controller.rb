@@ -24,7 +24,7 @@ class AccountsController < ApplicationController
 
   def sweeps_submit
     @current_user = current_user
-    puts params 
+
     if (params['register.x'])
       @current_user.sweeps_status = 'in'
       extra_info = ZooniverseUserExtraInfo.new
@@ -38,11 +38,10 @@ class AccountsController < ApplicationController
       extra_info.phone_no = params[:telephone]
       extra_info.zooniverse_user = @current_user
 
-      binding.pry
+      # binding.pry
       extra_info.save
 
     elsif(params['no_thanks.x'])
-      puts "opting user out"
       @current_user.sweeps_status = 'out'
     end
     @current_user.save
@@ -50,13 +49,12 @@ class AccountsController < ApplicationController
   end
   
   def signup
-    puts params
 
     @messages ||= []
 
     unless params[:password] == params[:password_confirmation]
       @messages << "Password and password confirmation don't match"
-      flash.now[:error] = @message
+      flash.now[:error] = @message['error']    
       @cas_client = CASClient::Frameworks::Rails::Filter.client
       render :login
       return
@@ -90,6 +88,7 @@ class AccountsController < ApplicationController
       session[:zooniverse_user] = result['user']['login']
       current_zooniverse_user
     end
+    # binding.pry
   end
 
   def params_for(keys)

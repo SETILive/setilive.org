@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
 
 
   def check_login
-    unless zooniverse_user 
+    unless current_user 
       redirect_to '/login'
       return false
     end
@@ -64,12 +64,16 @@ class ApplicationController < ActionController::Base
   end
   
   def create_or_update_zooniverse_user
-    ZooniverseUser.first_or_create( zooniverse_user_id: zooniverse_user_id ).tap do |user|
-      user.name = zooniverse_user
-      user.email = zooniverse_user_email
-      user.api_key = zooniverse_user_api_key
-      user.save if user.changed?
-    end
+
+    user = ZooniverseUser.where(zooniverse_user_id: zooniverse_user_id ).first
+    user ||= ZooniverseUser.new 
+    user.name = zooniverse_user
+    user.email = zooniverse_user_email
+    user.api_key = zooniverse_user_api_key
+    user.zooniverse_user_id = zooniverse_user_id
+    user.save if user.changed?
+
+    user
   end
 
 
