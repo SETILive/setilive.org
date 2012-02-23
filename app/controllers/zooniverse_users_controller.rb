@@ -1,5 +1,4 @@
 class ZooniverseUsersController < ApplicationController
-  before_filter CASClient::Frameworks::Rails::GatewayFilter
   before_filter :check_login
   before_filter :authenticate, :only => [:index]
 
@@ -22,10 +21,12 @@ class ZooniverseUsersController < ApplicationController
 
   def awardBadge 
     puts params
+
     @current_user = current_user
-    if current_user
+    if @current_user
       @current_user.badges.push({ :id => params[:id], :level => params[:level] })
       @current_user.save
+
       respond_to do |format|
         format.json { render json: @current_user.to_json }
       end
@@ -41,6 +42,7 @@ class ZooniverseUsersController < ApplicationController
   end
 
   def current_logged_in_user 
+
     if current_user 
       respond_to do |format|
         format.json {render json: current_user.to_json(:except=>[:email, :zooniverse_user_extra_info])}
