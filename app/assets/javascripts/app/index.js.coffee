@@ -11,16 +11,12 @@
 #= require spine/local
 #= require spine/relation
 
-
 #= require_tree ./lib
 #= require_tree ./modules
 #= require_tree ./models
 #= require_tree ./controllers
 #= require_tree ./views
 #= require_self
-
-
-
 
 class SetiLiveController extends Spine.Controller
   events :
@@ -108,9 +104,10 @@ class LoginPage extends SetiLiveController
      
     
 class AboutPage extends SetiLiveController
+  starFieldOn : false
+
   constructor: ->
     super
-    $('#star_field').hide()
 
 class TargetsIndexPage extends SetiLiveController
   constructor: ->
@@ -138,6 +135,11 @@ class GenericAboutPage extends SetiLiveController
   constructor:->
     super
     
+class GalleryPage extends SetiLiveController
+  starFieldOn : false
+
+  constructor:->
+    super  
     
 class TelescopePage extends SetiLiveController
   elements :
@@ -164,5 +166,6 @@ window.ProfilePage = ProfilePage
 window.BadgePage = BadgePage
 window.TelescopePage = TelescopePage
 window.GenericAboutPage = GenericAboutPage
+window.GalleryPage = GalleryPage
 # Run jQuery animations at 20 FPS
 jQuery.fx.interval = 50

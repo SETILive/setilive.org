@@ -10,8 +10,6 @@ Marv::Application.routes.draw do
   
   resources :sources
   resources :subjects
-
-
   resources :workflows 
   resources :favourites 
   resources :badges 
@@ -24,7 +22,6 @@ Marv::Application.routes.draw do
 
   match '*all' => 'application#cor', :constraints => {:method => 'OPTIONS'}
 
-  root :to => 'home#index'
   match '/login'   => 'accounts#login', :as => 'login'
   match '/logout'  => 'accounts#logout', :as => 'logout'
   match '/signup'  => 'accounts#signup', :as => 'signup'
@@ -45,5 +42,7 @@ Marv::Application.routes.draw do
   match '/recent_classifications'  => 'classifications#recent'
 
   match '/team' => 'home#team'
+  match '/gallery' => 'home#gallery'
 
+  root :to => 'home#index'
 end
