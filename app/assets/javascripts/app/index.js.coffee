@@ -20,8 +20,6 @@
 #= require_self
 
 
-
-
 class SetiLiveController extends Spine.Controller
   events :
     "click #start_searching_button" : ->
@@ -30,15 +28,17 @@ class SetiLiveController extends Spine.Controller
       window.location = '/profile'
     "click #sign_in_button" : ->
       window.location = '/classify'
-    
   notificationsOn : true
   starFieldOn : true
+  badgesOn : true
 
   constructor:->
     super 
     @prepend new NavBar()
     if @starFieldOn
       @stars = new Stars(el:$("#star_field"))
+      Source.fetch()
+
     else
       $("#star_field").remove()
       
@@ -46,26 +46,33 @@ class SetiLiveController extends Spine.Controller
       @notifications= new Notifications(el: $("#notification_bar")) 
     else
       $("#notification_bar").remove()
+    
+    if @badgesOn
+      Badge.fetch()
+
     User.fetch_current_user()
-    Source.fetch()
-    Badge.fetch()
 
 
 class HomePage extends SetiLiveController
   elements:
     '#home_content': 'home_content'
     '#most_recent_badge': 'home_badge'
+    "#subjects" : "subjects"
 
   constructor: ->
     super
     @stats = new Stats({el:$("#global_stats")})
-    @home_content.html @view('home_main_content')
-      subjects : [1..4]
+    @home_content.html @view('home_main_content')()
+    
+    Classification.fetchRecent (observations)=>
+      $("#subjects").html @view('observation')(observations)
 
     @home_badge.html @view('home_badge')
+    
     User.bind 'create', (user)=>
       @home_badge.html @view('home_badge')
         user: user
+    
 
 class ClassificationPage extends SetiLiveController
   constructor: ->
@@ -93,6 +100,7 @@ class TutorialPage extends SetiLiveController
 class LoginPage extends SetiLiveController
 
   notificationsOn : false 
+  badgesOn : false 
   constructor:->
     super 
 
@@ -108,16 +116,22 @@ class LoginPage extends SetiLiveController
      
     
 class AboutPage extends SetiLiveController
+  starFieldOn: false
+  badgesOn: false
+
   constructor: ->
     super
-    $('#star_field').hide()
 
 class TargetsIndexPage extends SetiLiveController
+  badgesOn: false
+
   constructor: ->
     super 
     new TargetsIndex(el:$("#sources"))
 
 class TargetsShowPage extends SetiLiveController
+  badgesOn: false
+
   constructor: ->
     super 
     new TargetsShow(el:$("#source"))
@@ -134,6 +148,7 @@ class BadgePage extends SetiLiveController
 
 class GenericAboutPage extends SetiLiveController
   starFieldOn : false
+  badgesOn: false
 
   constructor:->
     super
