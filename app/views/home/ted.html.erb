@@ -1,0 +1,40 @@
+<% content_for :head do %>
+  <script type="text/javascript" charset="utf-8">
+
+    var exports = this;
+    jQuery(function(){
+        new GenericAboutPage({el: $("body")});      
+    });     
+  </script>
+<%end%>
+
+<div id='content'>
+  <div id='aboutpage'>
+    <h1>The TED Wish</h1>
+    <div id="about_menu" style='text-align:center'>
+      <p><%= link_to "TED Prize", "#wish" %></p><p><%= link_to "TED", "#test" %></p>
+    </div>
+    
+    
+    
+    <div class="team_member">
+      <div class="team_logo"><%= image_tag "tarter_interview.jpg", :style => "padding-bottom:55px", :width=>200 %></div>
+      <div class="team_text"><p class="team_name">Abot the TED prize</p>The first TED Prize was awarded in 2005, born out of the TED Conference and a vision by the world's leading entrepreneurs, innovators, and entertainers to change the world – one Wish at a time.
+The reward: $100,000, the TED Community's array of talent and expertise, and the leadership of a TED Prize team led by Amy Novogratz. What began as an unparalleled experiment to leverage the resources of the TED Community to spur global change has evolved into one of the most prestigious prizes.
+From Bono's the ONE Campaign ('05 recipient) to Jamie Oliver's Food Revolution ('10 recipient) and JR's Inside Out Project ('11 recipient), the TED Prize is helping to combat poverty, take on religious intolerance, improve global health, tackle child obesity, advance education, and inspire art around the world.
+In 2009, Jill Tarter won the TED Prize and, in her words, wished "to empower Earthlings everywhere to become active participants in the ultimate search for cosmic company."</div>
+    </div>
+    
+    <div class="team_member">
+      <div class="team_logo"><%= image_tag "team/logo_ted.png", :style => "padding-bottom:40px" %></div>
+      <div class="team_text"><p class="team_name">TED</p>TED is a nonprofit organization devoted to Ideas Worth Spreading. Started as a four-day conference in California 25 years ago, TED has grown to support those world-changing ideas with multiple initiatives. The annual TED Conference invites the world's leading thinkers and doers to speak for 18 minutes. Their talks are then made available, free, at TED.com. TED speakers have included Bill Gates, Al Gore, Jane Goodall, Elizabeth Gilbert, Sir Richard Branson, Nandan Nilekani, Philippe Starck, Ngozi Okonjo-Iweala, Isabel Allende and UK Prime Minister Gordon Brown. The annual TED Conference takes place in Long Beach, California, with simulcast in Palm Springs; TEDGlobal is held each year in Edinburgh, UK. TED's media initiatives include TED.com, where new TEDTalks are posted daily, and the Open Translation Project, which provides subtitles and interactive transcripts as well as the ability for any TEDTalk to be translated by volunteers worldwide. TED has established the annual TED Prize, where exceptional individuals with a wish to change the world are given the opportunity to put their wishes into action; TEDx, which offers individuals or groups a way to organize local, independent TED-like events around the world; and the TEDFellows program, helping world-changing innovators from around the globe to become part of the TED community and, with its help, amplify the impact of their remarkable projects and activities.
+      <br />  
+      Follow TED on Twitter at twitter.com/TEDTalks, and on Facebook at facebook.com/TED.
+
+</div>
+    </div>
+    
+   
+
+  </div>
+</div>

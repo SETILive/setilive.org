@@ -42,6 +42,8 @@ Marv::Application.routes.draw do
   match '/recent_classifications'  => 'classifications#recent'
 
   match '/team' => 'home#team'
+  match '/ted' => 'home#ted'
+
   match '/gallery' => 'home#gallery'
 
   root :to => 'home#index'

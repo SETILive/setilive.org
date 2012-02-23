@@ -8,6 +8,10 @@ class HomeController < ApplicationController
     
   end
 
+  def ted
+
+  end
+
   def stats
     respond_to do |format|
       format.json do 
