@@ -11,13 +11,11 @@ class ClassificationsController < ApplicationController
     end
   end
 
-
   def create
 
     signals  = params.delete(:signals).values
     subject  = Subject.find(params.delete(:subject_id))
     
-
     @classification = Classification.new(:subject=>subject, :zooniverse_user => current_user)
 
     if signals 
@@ -46,8 +44,9 @@ class ClassificationsController < ApplicationController
   end
 
   def recent 
+    c = Classification.all(:limit=>4).to_json(:include=>{:zooniverse_user=>{:only=>:name}, :subject=>{:include => {:observations=>{:except=>:data,:include=>:source}}}})
     respond_to do |format|
-       format.json { render json: Classification.all(:limit=>4).to_json(:include=>{:subject=>{:include=>[:source, :observations]}})}
+       format.json { render json: c }
     end 
   end
 
