@@ -2,7 +2,6 @@ class HomeController < ApplicationController
   before_filter CASClient::Frameworks::Rails::GatewayFilter, :only =>[:index, :team]
   
   def index 
-    
   end
   
   def team

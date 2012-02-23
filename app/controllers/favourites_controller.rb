@@ -3,25 +3,27 @@ class FavouritesController < ApplicationController
 
   def create
     user = current_user
+    subject = Subject.find(params[:subject_id])
 
     respond_to do |format|
-      if @classification.save
-        format.html { redirect_to @classification, notice: 'Classification was successfully created.' }
-        format.json { render json: @classification, status: :created, location: @classification }
+      if subject and user.push(:favourite_ids=>subject.id)
+        format.json { render json: user, status: :created}
       else
-        format.html { render action: "new" }
-        format.json { render json: @classification.errors, status: :unprocessable_entity }
+        format.json { render json: '', status: :unprocessable_entity }
       end
     end
   end
 
   def destroy
-    @classification = Classification.find(params[:id])
-    @classification.destroy
-
+    user = current_user
+    subject = Subject.find(params[:subject_id])
+    
     respond_to do |format|
-      format.html { redirect_to classifications_url }
-      format.json { head :ok }
+      if subject and user.pop(:favourite_ids=>subject.id)
+        format.json {render json: user, status: :destroyed }
+      else
+        format.json { render json: '', status: :unprocessable_entity }
+      end
     end
   end
 
