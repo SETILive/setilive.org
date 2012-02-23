@@ -18,6 +18,7 @@
 #= require_tree ./views
 #= require_self
 
+
 class SetiLiveController extends Spine.Controller
   events :
     "click #start_searching_button" : ->

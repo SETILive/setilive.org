@@ -6,7 +6,7 @@
   </li>
   
   <%unless @user?: %>
-    <li><a href='/login'>login</a> </li>
+    <li><a href='/login'>login / signup</a> </li>
   <%else: %>
     <li><a href='/profile'><%-@user.name%></a>
       <ul class='nav_submenu'>
