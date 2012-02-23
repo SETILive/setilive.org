@@ -502,6 +502,10 @@ p.title
     margin-right: 5px
   #favourite
     width: 48px
+    img
+      position: relative
+      top: 4px
+      left: -1px
   #next_beam
     width: 100%
     height: 60px
@@ -593,6 +597,24 @@ p.title
     height: 23px
     @include round-corners(2px)
   .login_section_header
+    @include gradient-bg(#ECEAEA, #DFDEDE)
+    font-size: 15px
+    font-family: TitilliumText22LBold, Sans-serif   
+    letter-spacing: 0px
+    text-align: left
+    vertical-align: middle
+    height: 81px
+    border-bottom: 1px solid #b2b2b2
+    margin: 0px
+    padding: 10px 20px 0px 20px
+    @include round-top-corners(2px)
+    color: black
+    height: 90px
+    h2
+      font-size: 15px
+      line-height: 20px
+      font-family: TitilliumText22LRegular, Sans-serif
+  .sweeps_section_header
     @include gradient-bg(#ECEAEA, #DFDEDE)
     font-size: 15px
     font-family: TitilliumText22LBold, Sans-serif   
