@@ -155,9 +155,14 @@ class GenericAboutPage extends SetiLiveController
 class GalleryPage extends SetiLiveController
   starFieldOn : false
   badgesOn: false
+  notificationsOn: false 
+  
+  elements:
+    '#gallery': 'gallery'
 
   constructor:->
     super  
+    @gallery.html @view('galleryWaterfalls')(window.galleryWaterfalls)
     
 class TelescopePage extends SetiLiveController
   elements :

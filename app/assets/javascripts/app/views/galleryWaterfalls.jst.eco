@@ -1,0 +1,6 @@
+<% for waterfall in @ :%>
+  <li class='galleryWaterfall'>
+    <img src='<%-waterfall.url%>' width= 500 />
+    <p> <%-waterfall.description%></p>  
+  </li>
+<%end%>
