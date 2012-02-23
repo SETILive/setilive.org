@@ -7,6 +7,7 @@ class User extends Spine.Model
 
 
   @fetch_current_user :->
+    console.log("grabbing current user")
     $.getJSON '/current_user.json', (data) =>
       data.favourites = data.favourite_ids
       u = User.create(data)
@@ -50,4 +51,12 @@ class User extends Spine.Model
       level= item.level if item.id==badge.id and item.level >level
     level
 
+  addFavourite:(subject)=>
+    $.ajax 
+      type: 'POST'
+      url: '/favourites'
+      data: subject.id
+      dataType: 'json'
+      success: (response)->
+        console.log("badge ",response)
 window.User = User
