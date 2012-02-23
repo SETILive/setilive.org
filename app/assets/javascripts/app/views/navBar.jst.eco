@@ -1,4 +1,3 @@
-
 <a href='/' id='logo'>SETI<span class='green live'>LIVE</span></a>
 <ul id='nav'>
   <li class='telescope_status'>
@@ -15,8 +14,14 @@
       </ul> 
     </li>
   <%end%>
-  <li><a href='/about'>about</a> </li>
-  <li><a href='/classify'>classify</a> </li>
-  <li><a href='/sources'>targets</a> </li>
-  <li><a href='http://talk.setilive.org'>talk</a> </li>
+  <li>
+    <a href='/about'>about</a>
+    <ul class="nav_submenu">
+      <li><a href="/team">Team</a></li>
+      <li><a href="/gallery">Signals gallery</a></li>
+    </ul>
+  </li>
+  <li><a href='/classify'>classify</a></li>
+  <li><a href='/sources'>targets</a></li>
+  <li><a href='http://talk.setilive.org' target='_blank'>talk</a></li>
 </ul>

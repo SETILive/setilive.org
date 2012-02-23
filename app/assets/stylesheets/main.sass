@@ -173,24 +173,37 @@ body
       font-size: 15px
       margin-left: 45px
       text-transform: uppercase
+      position: relative
       .nav_submenu
         display: none
-        position: relative
+        position: absolute
+        left: 0px
+        li
+          position: absolute
+          font-size: 10px
+          margin-top: 10px
+          padding: 0px
+          left: -45px
+          top: -8px
       a
         color: #e5e5e5
+        display: block
+
         &:hover
           color: #ffffff
     li:hover 
       .nav_submenu
         display: block
         position: relative
+        
         li
-          position: relative
+          position: absolute
           font-size: 10px
           margin-top: 10px
           padding: 0px
-          width: auto
-          text-align: center
+          left: -45px
+          top: -8px
+          
     .telescope_status
       width: 70px
       margin-right: 30px
@@ -776,6 +789,8 @@ form p
                 
   ul#pagination
     list-style: none
+    width: 800px
+    margin: 0px auto
     li
       display: inline-block
       .pagination_active
@@ -1219,10 +1234,11 @@ ul.pagination
 
 #telescopeStatus
   width: 815px
-  height: 250px
+  height: 240px
   padding: 75px 92px 75px 92px
   @include gradient-bg(#ECEAEA, #B3B3B3)
   @include round-corners(2px)
+  margin-top: 50px
   .telescopeStatusVis
     display: inline-block
     vertical-align: top
