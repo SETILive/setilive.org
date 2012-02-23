@@ -28,7 +28,9 @@
   <%else: %>
     <li><a href='/profile'><%-@user.name%></a>
       <ul class='nav_submenu'>
-        <li><a href='/logout'>logout </a> </li>
+        <li><a href='/profile'>Profile</a> </li>
+
+        <li><a href='/logout'>Logout </a> </li>
       </ul> 
     </li>
   <%end%>
