@@ -2,6 +2,7 @@ class Notifications extends Spine.Controller
 
   elements :
     '.notification' : 'notifications'
+    '.notification_count' : 'notificationCount'
 
   events:
     'click .dismiss_button' : 'removeNotification'
@@ -22,6 +23,7 @@ class Notifications extends Spine.Controller
     super
     @setupLocal()
     @setupPusher() if Pusher?
+    # @append "<div class='notification_count'></div>"
 
   openPusher:->
     if @pusherKey
@@ -81,14 +83,23 @@ class Notifications extends Spine.Controller
       data: data
       notificationTemplate : notificationTemplate
     
-    @append $(notification)
+    @prepend $(notification)
+    @updateNotificationCount()
+    @notifications.fadeIn 1000
 
-    @notifications.slideDown 1000
-
-  removeNotification: (e)->
-    console.log e
+  removeNotification: (e)=>
+    @updateNotificationCount()
     $(e.currentTarget).parent().fadeOut 1000, ->
-      @.remove()
-  
+      $(e.currentTarget).parent().remove()
+
+  updateNotificationCount: =>
+    if @notifications.length > 1
+      @notificationCount.show()
+      @notificationCount.html 0
+    else
+      @notificationCount.hide()
+
+  removeAllNotifications: ->
+    $(notifications).remove()
 
 window.Notifications= Notifications
