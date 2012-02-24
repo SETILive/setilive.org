@@ -34,7 +34,7 @@ class Classification extends Spine.Model
     @currentSignal.save()
 
   @fetchRecent:(callback)->
-    $.getJSON "/recent_classificaitons.json", (data)=>
+    $.getJSON "/recent_classifications.json", (data)=>
       callback(data)
 
 

@@ -51,12 +51,26 @@ class User extends Spine.Model
       level= item.level if item.id==badge.id and item.level >level
     level
 
-  addFavourite:(subject)=>
+  addFavourite:(observation_id, callback=null)=>
     $.ajax 
       type: 'POST'
-      url: '/favourites'
-      data: subject.id
+      url: '/favourites/'
+      data: {observation_id : observation_id}
       dataType: 'json'
-      success: (response)->
-        console.log("badge ",response)
+      success: (response)=>
+        @favourites.push(observation_id)
+        @save()
+        callback() if callback?
+
+  removeFavourite:(observation_id, callback=null)=>
+    console.log "deleteing ",observation_id
+    $.ajax 
+      type: 'DELETE'
+      url: "/favourites/#{observation_id}"
+      dataType: 'json'
+      success: (response)=>
+        @favourites.splice( @favourites.indexOf( observation_id),1)
+        @save()
+        callback() if callback?
+
 window.User = User
