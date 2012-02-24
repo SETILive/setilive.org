@@ -22,6 +22,10 @@ Marv::Application.routes.draw do
 
   match '*all' => 'application#cor', :constraints => {:method => 'OPTIONS'}
 
+  match '/user_favourites' => 'ZooniverseUsers#favourites'
+  match '/user_recents' => 'ZooniverseUsers#recents'
+
+
   match '/login'   => 'accounts#login', :as => 'login'
   match '/logout'  => 'accounts#logout', :as => 'logout'
   match '/signup'  => 'accounts#signup', :as => 'signup'

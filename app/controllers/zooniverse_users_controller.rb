@@ -37,7 +37,13 @@ class ZooniverseUsersController < ApplicationController
 
   def favourites 
     respond_to do |format|
-      format.json { render json: current_user.badges.to_json }
+      format.json { render json: current_user.favourites.to_json }
+    end
+  end
+
+  def favourites 
+    respond_to do |format|
+      format.json { render json: current_user.favourites.to_json }
     end
   end
 
