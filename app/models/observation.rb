@@ -31,4 +31,8 @@ class Observation
     ObservationUploader.perform_async self.id
   end
 
+  def processNow 
+    ObservationUploader.new.perform self.id
+  end
+
 end
