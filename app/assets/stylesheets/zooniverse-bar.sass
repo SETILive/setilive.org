@@ -1,0 +1,105 @@
+$base: transparentize(black, 0.2)
+$color: white
+$border: transparentize($color, 0.8)
+
+#zooniverse-bar
+	background: $base
+	border-bottom: 1px solid $border
+	color: $color
+	font-size: 14px
+	height: 40px
+	padding: 0 20px
+	position: relative
+	z-index: 10
+
+	> ul
+		margin: 0
+		padding: 0
+
+		&.leading
+			float: left
+
+			> li
+				border-right: 1px solid $border
+
+				> ul
+					left: 0
+					right: auto
+
+		&.trailing
+			float: right
+
+			> li
+				border-left: 1px solid $border
+
+				> ul
+					left: auto
+					right: 0
+
+		> li
+			display: inline-block
+			font-family: TitilliumText22LRegular, sans-serif
+			height: 40px
+			letter-spacing: 1px
+			line-height: 44px
+			position: relative
+			text-transform: uppercase
+			white-space: nowrap
+
+			> :first-child
+				color: transparentize($color, 0.2)
+				display: inline-block
+				padding: 0 15px
+				text-decoration: none
+
+				&:hover
+					color: $color
+
+			> ul
+				background: $base
+				border: 1px solid $border
+					bottom: 0
+				display: none
+				line-height: normal
+				margin: 0
+				padding: 0
+				position: absolute
+				top: 100%
+
+				> li
+					> label
+						border-bottom: 1px solid $border
+						cursor: pointer
+						display: block
+						font-family: TitilliumText22LThin, sans-serif
+						font-size: 22px
+						padding: 10px 0 5px
+						text-align: center
+
+					> input[type="checkbox"]
+						display: none
+
+						&:checked
+							+ ul
+								border-color: $border
+								max-height: 1000px
+								opacity: 1
+
+					> ul
+						border-bottom: 1px solid transparent
+						margin: 0
+						max-height: 0
+						opacity: 0
+						overflow: hidden
+						padding: 0
+						-webkit-transition: max-height 0.25s ease-in-out, opacity 0.5s ease-in-out
+						-moz-transition: max-height 0.25s ease-in-out, opacity 0.5s ease-in-out
+						transition: max-height 0.25s ease-in-out, opacity 0.5s ease-in-out
+
+						> li
+							padding: 5px 15px
+							white-space: nowrap
+
+			&:hover
+				> ul
+					display: block
