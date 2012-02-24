@@ -63,15 +63,34 @@ class HomePage extends SetiLiveController
     @stats = new Stats({el:$("#global_stats")})
     @home_content.html @view('home_main_content')()
     
+    User.bind 'refresh', =>
+      @renderObservations()
+
     Classification.fetchRecent (observations)=>
-      $("#subjects").html @view('observation')(observations)
+      @observations= observations
+      @renderObservations()
 
     @home_badge.html @view('home_badge')
-    
+  
     User.bind 'create', (user)=>
       @home_badge.html @view('home_badge')
         user: user
-    
+
+  renderObservations:=>
+    self= @
+    $("#subjects").html @view('observation')
+        observations: @observations
+        user: User.first()
+
+    $("#subjects .favourite").click ->
+        observation_id = $(@).data().id 
+        User.first().addFavourite observation_id, =>
+          self.renderObservations()
+            # @.find("img").attr("src", "favorited_button.png")
+    $("#subjects .favourited").click ->
+        observation_id = $(@).data().id 
+        User.first().removeFavourite observation_id, =>
+          self.renderObservations()
 
 class ClassificationPage extends SetiLiveController
   constructor: ->

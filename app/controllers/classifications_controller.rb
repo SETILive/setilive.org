@@ -1,5 +1,5 @@
 class ClassificationsController < ApplicationController
-  before_filter CASClient::Frameworks::Rails::GatewayFilter 
+  before_filter CASClient::Frameworks::Rails::GatewayFilter , :except =>[:recent]
   before_filter :check_login
 
   def show
