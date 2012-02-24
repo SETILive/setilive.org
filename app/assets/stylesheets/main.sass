@@ -1382,11 +1382,12 @@ ul.pagination
     margin-top : 20px
     padding: 0px
   #gallery_title 
-    font-size: 50px
-    margin-bottom: 20px
-    padding-bottom: 0px
-    color: #F2F2F2
+    font-family: TitilliumText22LThin, Sans-serif
+    line-height: 40px
+    font-size: 30px
     text-align: center
+    padding: 0px 20px
+
   #gallery_blurb
     padding-top: 0px
     margin-top: 0px
@@ -1396,19 +1397,39 @@ ul.pagination
     text-align: center
     font-family: TitilliumText22LThin, Sans-serif
   #gallery
+    padding-top: 20px
     li 
       width: 100%
-      margin-top: 20px
+      margin-top: 10px
       img 
         display: inline-block 
-        vertical-align: middle
       p
         display: inline-block 
         width: 400px
         margin-left: 20px
         vertical-align: middle
         font-family: TitilliumText22LThin, Sans-serif
-        text-align: center 
+        text-align: left 
+
+.galleryWaterfall
+  display: block
+  clear: both
+  margin-bottom: 10px
+  min-height: 300px
+  img
+    border: 3px solid #F2F2F2
+    width: 500px
+    height: 272px
+    float: left
+  .gallery_heading
+    font-size: 20px
+    margin: 0px 0px 10px 0px
+    display: inline-block
+    float: left
+  p
+    font-size: 14px
+    display: inline-block
+    float: left
 
 .observation
   border: #F1F1F1 solid 3px 
