@@ -33,7 +33,7 @@ class SetiLiveController extends Spine.Controller
 
   constructor:->
     super 
-    @prepend new NavBar()
+    @prepend new NavBar(el:$("#top"))
     if @starFieldOn
       @stars = new Stars(el:$("#star_field"))
       Source.fetch()

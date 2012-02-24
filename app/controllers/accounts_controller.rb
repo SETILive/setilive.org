@@ -18,7 +18,11 @@ class AccountsController < ApplicationController
     @current_user = current_user
     # if the current user hasnt signed up or opted out of the sweeps 
     if current_user.sweeps_status != 'none' 
-      redirect_to root_path
+      if current_user.seen_tutorial
+        redirect_to '/classify'
+      else 
+        redirect_to '/tutorial'
+      end
     end
   end
 

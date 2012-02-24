@@ -45,6 +45,7 @@ Marv::Application.routes.draw do
 
   match '/recent_classifications'  => 'classifications#recent'
 
+  match '/seen_tutorial' => 'ZooniverseUsers#seen_tutorial'
   match '/team' => 'home#team'
   match '/ted' => 'home#ted'
 

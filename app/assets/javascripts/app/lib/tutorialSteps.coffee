@@ -115,6 +115,7 @@ window.tutorialSteps = [
           location: [530,20]
           indicatorPos: "top right"
           onLeave: ->
-               window.location = '/classify'
+            $.getJSON '/seen_tutorial', ->
+              window.location = '/classify'
           speed:400
 ]
