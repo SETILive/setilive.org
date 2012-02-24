@@ -4,7 +4,6 @@ class NavBar extends Spine.Controller
 
   constructor: ->
     super
-    @el.attr("id", "top")
     @telescope_status = 'unknown'
     @render()
 
