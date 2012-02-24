@@ -18,6 +18,7 @@ class Notifications extends Spine.Controller
   localEvents:
     "User":
       "badge_awarded" :  "badgeAwarded"
+      "tutorial_badge_awarded" : "tutorialBadgeAwarded"
 
   constructor: ->
     super
@@ -75,6 +76,24 @@ class Notifications extends Spine.Controller
       badgeTemplate : @view('badge')(data)
       facebookTemplate : @view('facebookBadge')(data)
       twitterTemplate  : @view('twitterBadge')(data)
+
+  tutorialBadgeAwarded:=>
+    data = 
+      'size' : "50"
+      badge :
+        'id' : 0
+        "title": "Tutorial"
+        "description": "Classify level number of waterfalls"
+        "logo_url": "assets/badges/200px/aliens-200.png"
+        "large_logo_url": "assets/badges/250px/aliens-250.png"
+        "type": "oneoff"
+        "post_text": "just compleated the tutorial on SETILive"
+      
+    @addNotification 'badge_awarded',
+      data : data
+      badgeTemplate : @view('badge')(data)
+      # facebookTemplate : @view('facebookBadge')(data)
+      # twitterTemplate  : @view('twitterBadge')(data)
 
 
   addNotification:(type, data)=>

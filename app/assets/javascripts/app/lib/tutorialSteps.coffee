@@ -14,7 +14,6 @@ window.tutorialSteps = [
           indicatorPos: "left top"
           location: [660,-185]
           speed:400
-
         ,
           title: "Current Targets"
           text: "You can see deatils of the current targets here and if you click on them you can see even more info"
@@ -35,29 +34,46 @@ window.tutorialSteps = [
           speed:400
         ,
           title: "Waterfalls"
-          text: "The data is in the form of a waterfall plot. This shows how strong a signal is at a given frequency and time. We need you to mark anything that looks like a signal on this plot"
+          text: "The data is in the form of a waterfall plot. It shows the strength of the signal is at a given frequency and time. "
           location: [24,126]
           speed:400
         ,
+          title: "Waterfalls"
+          text: " We need you to mark anything that looks like a signal on this plot "
+          location: [24,126]
+          speed:400
+       ,
           title: "Markers"
           text: "Start by clicking anwhere along the bright signal you can see here"
+          prompt: "Click a  point"
+          triggers: [{elements : ".large-waterfall", action: "click"}]
+          disableControls: true
           location: [24,126]
           speed:400
         ,
-          title: "Lines"
-          text: "Great! you can move this marker around by grabbing it with your mouse. Next cick a second point along the signal."
-          location: [520,24]
+          title: "Lines",
+          text: "Great! you can move this marker around by grabbing it with your mouse. Next cick a second point along the signal.",
+          location: [360,-40]
           indicatorPos: "bottom left"
+          triggers: [{elements : ".large-waterfall", action: "click"}]
+          disableControls: true
+          prompt: "Click a seccond point"
           speed:400
         ,
-          title: "Dragging"
-          text: "You can addjust the line showing where the signal is by moving either marker. We will ask you to descibe the signal now. Give it a try"
+          title: "Describe",
+          text: "You can addjust the line showing where the signal is by moving either marker. We will ask you to descibe the signal now. Give it a try",
+          triggers: [{elements : ".answer", action: "click"}]
+          disableControls: true
           location: [520,24]
+          prompt: "Describe the signal"
           speed:400
         ,
           title: "Repeat"
-          text: "Do this for each signal you can see in the data and then  once your done click here to move on"
+          text: "Do this for each signal you can see in the data and then  once your done click here to move on",
           location: [544,304]
+          disableControls: true
+          triggers: [{elements : "#next_beam", action: "click"}]
+          prompt: "Click next beam"
           indicatorPos: "right bottom "
           speed:400
         ,
@@ -68,6 +84,9 @@ window.tutorialSteps = [
         ,
           title: "Done"
           text: "Once your done click here. "
+          disableControls: true
+          triggers: [{elements : "#done", action: "click"}]
+          prompt: "Click to finish"
           location: [544,304]
           indicatorPos: "bottom right"
           speed:400
@@ -78,9 +97,13 @@ window.tutorialSteps = [
           speed:400
         ,
           title: "Badges"
+          onShow: ->
+               User.trigger("tutorial_badge_awarded")
           text: "You can earn badges for various things on the site. These along with other notifications of what the telescope is doing will appear here"
           location: [780,-80]
           speed:400
+          indicatorPos: "top left"
+
         ,
           title: "Profile"
           text: "You can check out every signal you have seen , your badges and your SETILive history on your profile page"
@@ -89,7 +112,9 @@ window.tutorialSteps = [
         ,
           title: "Time"
           text: "So thats it, time to get classifying, but be quick because we only have a short peroid of time before the telescope moves on to look at new things!"
-          location: [780,-50]
+          location: [530,20]
           indicatorPos: "top right"
+          onLeave: ->
+               window.location = '/classify'
           speed:400
 ]
