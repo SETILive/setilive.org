@@ -21,7 +21,6 @@ class Info extends Spine.Controller
     @resetTime()
     setInterval @updateTime, 100
     Subject.bind('create', @setupTargets)
-    Source.bind('refresh', @setupTargets)
 
   setupTargets:() =>
     subject = Subject.first()
@@ -59,10 +58,13 @@ class Info extends Spine.Controller
   dontTalk :(e)=>
     Subject.trigger "done"    
   
-  favourite:=>
-    u= User.first()
-    u.addFavourite Subject.first
-
+  favourite:(e)=>
+    unless $(e.currentTarget).hasClass('favourited')
+      u= User.first()
+      for observation in Subject.first().observations
+        u.addFavourite observation.id 
+      $(e.currentTarget).html("<span style='color:white'>✓</span>")
+      $(e.currentTarget).addClass('favourited')
   nextBeam:=>
     @nextBeam.replaceWith("<div class='extra_button' id='done'>Done</div>")
     Spine.trigger("nextBeam")
