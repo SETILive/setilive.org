@@ -69,12 +69,16 @@ $border: transparentize($color, 0.8)
 				> li
 					> label
 						border-bottom: 1px solid $border
+						color: transparentize($color, 0.2)
 						cursor: pointer
 						display: block
 						font-family: TitilliumText22LThin, sans-serif
 						font-size: 22px
 						padding: 10px 0 5px
 						text-align: center
+
+						&:hover
+							color: $color
 
 					> input[type="checkbox"]
 						display: none
@@ -99,6 +103,9 @@ $border: transparentize($color, 0.8)
 						> li
 							padding: 5px 15px
 							white-space: nowrap
+
+							> a
+								display: block
 
 			&:hover
 				> ul
