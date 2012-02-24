@@ -18,7 +18,7 @@ class FavouritesController < ApplicationController
     user = current_user
     observation = Observation.find(params[:id])
     respond_to do |format|
-      if observation and user.pop(:favourite_ids=>observation.id)
+      if observation and user.pull(:favourite_ids=>observation.id)
         format.json {render json: user, status: '200' }
       else
         format.json { render json: '', status: :unprocessable_entity }
