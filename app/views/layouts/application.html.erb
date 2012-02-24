@@ -39,6 +39,59 @@
   </script>
 </head>
 <body>
+  <div id="zooniverse-bar">
+    <ul class="leading">
+      <li class="home item"><a href="#">Zooniverse</a></li>
+      <!--<li class="language item">EN</li>-->
+    </ul>
+
+    <ul class="trailing">
+      <li class="about item"><a href="#">About</a></li>
+
+      <li class="projects item">
+        <a href="#">Projects</a>
+        <ul>
+          <li>
+            <label for="zooniverse-project-space">Space</label>
+            <input type="checkbox" id="zooniverse-project-space" name="zooniverse-project" checked="checked" />
+            <ul>
+              <li><a href="#">Galaxy Zoo</a></li>
+              <li><a href="#">Moon Zoo</a></li>
+              <li><a href="#">Solar Stormwatch</a></li>
+              <li><a href="#">Galaxy Zoo: Mergers</a></li>
+              <li><a href="#">Galaxy Zoo: Supernovae</a></li>
+              <li><a href="#">Planet Hunters</a></li>
+              <li><a href="#">The Milky Way Project</a></li>
+              <li><a href="#">Ice Hunters</a></li>
+            </ul>
+          </li>
+          <li>
+            <label for="zooniverse-project-climate">Climate</label>
+            <input type="checkbox" id="zooniverse-project-climate" name="zooniverse-project" />
+            <ul>
+              <li><a href="#">Old Weather</a></li>
+            </ul>
+          </li>
+          <li>
+            <label for="zooniverse-project-humanities">Humanities</label>
+            <input type="checkbox" id="zooniverse-project-humanities" name="zooniverse-project" />
+            <ul>
+              <li><a href="#">Ancient Lives</a></li>
+            </ul>
+          </li>
+          <li>
+            <label for="zooniverse-project-nature">Nature</label>
+            <input type="checkbox" id="zooniverse-project-nature" name="zooniverse-project" />
+            <ul>
+              <li><a href="#">Whale FM</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <!--<li class="sign-in item">Sign in</li>-->
+    </ul>
+  </div>
+
     <div id='top'></div>
     <div id='star_field' class= <%= @small_star_field ? 'small_field' : "big_field"%>></div>
     <ul id='notification_bar'>

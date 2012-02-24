@@ -34,15 +34,29 @@ window.tutorialSteps = [
           speed:400
         ,
           title: "Waterfalls"
-          text: "The data is in the form of a waterfall plot. It shows the strength of the signal is at a given frequency and time. "
+          text: "The data is in the form of a waterfall plot. It shows the strength of the radio waves at a given frequency and time. "
           location: [24,126]
           speed:400
         ,
           title: "Waterfalls"
-          text: " We need you to mark anything that looks like a signal on this plot "
+          text: " We need you to mark anything that looks like a signal on this plot. Signals are bright patterns on the waterfall like the one you can see here."
           location: [24,126]
           speed:400
+          indicatorPos: "top right"
        ,
+          title: "More examples"
+          text: "You can see more examples of interesting signals by clicking 'signals' at any time."
+          onShow: ->
+               $("#nav li.nav_about").addClass("tutorial_select")
+               $("#nav li.tutorial_signals").addClass("tutorial_item_selected ")
+
+          onLeave: ->
+               $("#nav li.nav_about").removeClass("tutorial_select")
+               $("#nav li.tutorial_signals").removeClass("tutorial_item_selected")
+
+          location: [400,-270]
+          speed:400
+       , 
           title: "Markers"
           text: "Start by clicking anwhere along the bright signal you can see here"
           prompt: "Click a  point"
@@ -107,8 +121,35 @@ window.tutorialSteps = [
         ,
           title: "Profile"
           text: "You can check out every signal you have seen , your badges and your SETILive history on your profile page"
+          onShow: ->
+            $("#nav li.nav_user").addClass("tutorial_select")
+            $("#nav li.tutorial_profile").addClass("tutorial_item_selected ")
+          onLeave: ->
+            $("#nav li.nav_user").removeClass("tutorial_select")
+            $("#nav li.tutorial_profile").removeClass("tutorial_item_selected")
+          indicatorPos: "top right"
+          location: [500,-330]
+          speed: 400
+        ,
+          title: "More info"
+          onShow: ->
+            $("#nav li.nav_about").addClass("tutorial_select")
+          onLeave: ->
+            $("#nav li.nav_about").removeClass("tutorial_select")
+          text: "For more info you can check out the about pages to learn about the science and background to SETILive"
+          location: [760,-330]
+          speed: 400
+        ,
+          title: "Tutorial Rerun"
+          text: "At any time you can also review this tutorial by clicking here"
+          onShow: ->
+            $("#nav li.nav_classify").addClass("tutorial_select")
+            $("#nav li.tutorial_tutorial").addClass("tutorial_item_selected ")
+          onLeave: ->
+            $("#nav li.nav_classify").removeClass("tutorial_select")
+            $("#nav li.tutorial_tutorial").removeClass("tutorial_item_selected")
           location: [660,-330]
-          speed:400
+          speed: 400
         ,
           title: "Time"
           text: "So thats it, time to get classifying, but be quick because we only have a short peroid of time before the telescope moves on to look at new things!"

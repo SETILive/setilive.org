@@ -9,26 +9,26 @@
   <li><a href='http://talk.setilive.org' target='_blank'>talk</a></li>
   
   <li><a href='/sources'>targets</a></li>
-  <li><a href='/classify'>classify</a>
+  <li class='nav_classify'><a href='/classify'>classify</a>
      <ul class="nav_submenu">
-        <li><a href='/tutorial'>Tutorial</a> </li>
+        <li class='tutorial_tutorial'><a href='/tutorial'>Tutorial</a> </li>
      </ul>
   </li>
-  <li>
+  <li class='nav_about'>
     <a href='/about'>about</a>
     <ul class="nav_submenu">
       <li><a href='/about'>Science</a> </li>
       <li><a href="/ted">TED</a></li>
       <li><a href="/team">Team</a></li>
-      <li><a href="/gallery">Signals</a></li>
+      <li class='tutorial_signals'><a href="/gallery">Signals</a></li>
     </ul>
   </li>
   <%unless @user?: %>
-    <li><a href='/login'>login / signup</a> </li>
+    <li class='nav_user'><a href='/login'>login / signup</a> </li>
   <%else: %>
-    <li><a href='/profile'><%-@user.name%></a>
+    <li class='nav_user'><a href='/profile'><%-@user.name%></a>
       <ul class='nav_submenu'>
-        <li><a href='/profile'>Profile</a> </li>
+        <li class='tutorial_profile'><a class='tutorial_profile' href='/profile'>Profile</a> </li>
 
         <li><a href='/logout'>Logout </a> </li>
       </ul> 
