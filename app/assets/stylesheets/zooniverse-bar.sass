@@ -58,7 +58,7 @@ $border: transparentize($color, 0.8)
 			> ul
 				background: $base
 				border: 1px solid $border
-					bottom: 0
+					radius: 0 0 5px 5px
 				display: none
 				line-height: normal
 				margin: 0
@@ -68,7 +68,7 @@ $border: transparentize($color, 0.8)
 
 				> li
 					> label
-						border-bottom: 1px solid $border
+						border-top: 1px solid $border
 						color: transparentize($color, 0.2)
 						cursor: pointer
 						display: block
@@ -80,29 +80,34 @@ $border: transparentize($color, 0.8)
 						&:hover
 							color: $color
 
-					> input[type="checkbox"]
+					> input[type="radio"]
 						display: none
 
 						&:checked
 							+ ul
 								border-color: $border
-								max-height: 1000px
-								opacity: 1
+								max-height: 250px
 
 					> ul
-						border-bottom: 1px solid transparent
+						border-top: 1px solid transparent
 						margin: 0
 						max-height: 0
-						opacity: 0
 						overflow: hidden
 						padding: 0
-						-webkit-transition: max-height 0.25s ease-in-out, opacity 0.5s ease-in-out
-						-moz-transition: max-height 0.25s ease-in-out, opacity 0.5s ease-in-out
-						transition: max-height 0.25s ease-in-out, opacity 0.5s ease-in-out
+						-webkit-transition: max-height 0.5s ease-in-out
+						-moz-transition: max-height 0.5s ease-in-out
+						transition: max-height 0.5s ease-in-out
 
 						> li
+							font-size: 12px
 							padding: 5px 15px
 							white-space: nowrap
+
+							&:first-child
+								padding-top: 15px
+
+							&:last-child
+								padding-bottom: 15px
 
 							> a
 								display: block
