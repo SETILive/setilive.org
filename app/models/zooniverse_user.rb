@@ -16,6 +16,7 @@ class ZooniverseUser
   key :signal_count, Hash
   key :follow_up_count, Hash
   key :last_login, Date 
+  key :seen_tutorial, Boolean, :default => false
   key :sweeps_status, String, :in =>['none', 'in','out'], :default=>'none'
   key :seen_subjects, Array
 
@@ -42,10 +43,12 @@ class ZooniverseUser
     puts self.favourite_ids
     save
   end
+
+
  
   def update_classification_stats(classification)
      update_classification_count classification
-     # update_signal_count         classification
+     update_signal_count         classification
      # award_badges                classification
      RedisConnection.setex "online_#{self.id}", 10*60, 1
   end

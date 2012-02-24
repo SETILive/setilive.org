@@ -35,7 +35,7 @@ class ZooniverseUsersController < ApplicationController
     end
   end
 
-  def favourites 
+  def recents 
     respond_to do |format|
       format.json { render json: current_user.favourites.to_json }
     end
@@ -44,6 +44,14 @@ class ZooniverseUsersController < ApplicationController
   def favourites 
     respond_to do |format|
       format.json { render json: current_user.favourites.to_json }
+    end
+  end
+
+  def seen_tutorial
+    current_user.seen_tutorial=true
+    current_user.save
+    respond_to do |format|
+      format.json { render json: "" }
     end
   end
 
