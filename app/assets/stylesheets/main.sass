@@ -190,11 +190,13 @@ body
           margin: 3px 0px 0px 2px
           cursor: pointer
           text-align: center
+          text-transform: none
+          font-size: 13px
       a
         color: #f2f2f2
         &:hover
-          color: #ffffff
-          text-decoration: underline
+          color: #CDDC28
+          text-decoration: none
     li:hover
       .nav_submenu
         display: block
@@ -580,16 +582,17 @@ p.title
   h1
     width: 840px
     text-align: center
-    font-family: TitilliumText22LRegular, Sans-serif
+    font-family: TitilliumText22LMedium, Sans-serif
+    font-weight: normal
     font-size: 40px
     line-height: 60px
     text-align: center
     margin: 0px auto
   p.blurb
     width: 840px
-    font-family: TitilliumText22LThin, Sans-serif     
+    font-family: TitilliumText22LRegular, Sans-serif     
     text-align: center
-    font-size: 15px
+    font-size: 14px
     line-height: 20px
     margin: 0px auto
     
@@ -619,7 +622,9 @@ p.title
     h2
       font-size: 15px
       line-height: 20px
-      font-family: TitilliumText22LRegular, Sans-serif
+      font-weight: normal
+      font-family: TitilliumText22LBold, Sans-serif
+      text-shadow: 0px 1px 0px #f2f2f2
   .sweeps_section_header
     @include gradient-bg(#ECEAEA, #DFDEDE)
     font-size: 15px
@@ -637,7 +642,9 @@ p.title
     h2
       font-size: 15px
       line-height: 20px
-      font-family: TitilliumText22LRegular, Sans-serif
+      font-weight: normal
+      font-family: TitilliumText22LBold, Sans-serif
+      text-shadow: 0px 1px 0px #f2f2f2
   .login_section_lower
     text-align: left
     height: 225px
@@ -784,14 +791,16 @@ form p
   padding-bottom: 0px
   color: #F2F2F2
   text-align: center
+  font-weight: normal
+  font-family: TitilliumText22lBold, Sans-serif
 #sources_blurb
   padding-top: 0px
   margin-top: 0px
-  font-size: 14px
+  font-size: 15px
   line-height: 20px
   color: #F2F2F2
   text-align: center
-  font-family: TitilliumText22LThin, Sans-serif
+  font-family: TitilliumText22LMedium, Sans-serif
 
 
 #sources 
@@ -811,12 +820,14 @@ form p
       margin-bottom: 20px
       cursor: pointer
       p
-        font-family: TittilliumText22LBold, Sans-serif
+        font-family: TitilliumText22LMedium, Sans-serif
         text-shadow: 0px 1px 0px #d4d4d4
         text-transform: uppercase 
         letter-spacing: 0px
-        color : #12161A
+        color : #12161b
         font-size: 14px
+    li.source:hover p
+      color: #0a7590
                 
   ul#pagination
     list-style: none
@@ -838,7 +849,7 @@ form p
     vertical-align: middle
   #star_details
     width: 220px
-    height: 220px
+    height: 280px
     @include gradient-bg(#ECEAEA, #B3B3B3)
     @include round-corners(2px)
     text-align: center
@@ -849,40 +860,62 @@ form p
     vertical-align: middle
     margin-left: 40px
     h1
-      font-size: 12px
+      font-size: 13px
+      font-weight: normal
+      font-family: TitilliumText22LMedium, Sans-serif
       text-transform: uppercase
       margin: 0px
       padding: 0px
-      margin-top: 27px
+      margin-top: 20px
     h2
       margin: 0px
       padding: 0px
       margin-top: 20px
-      font-size: 17px
+      font-size: 25px
+      font-family: TitilliumText22LRegular, Sans-serif
+      font-weight: normal
       text-transform: uppercase
+    li
+      font-size: 13px
+      font-family: TitilliumText22LMedium, Sans-serif
+      line-height: 16px
   #buttons
     margin-left: auto
     margin-right: auto
     #back_button
-      width: 80px
+      width: 82px
       height: 25px
-      line-height: 25px
-      @include gradient-bg(#EBF767, #989F41)
+      line-height: 27px
+      margin-right: 2px
+      font-size: 13px
+      @include gradient-bg(#14acd1, #0b7994)
+      @include round-corners(3px)
+      border: 1px solid #095e73
+      box-shadow: 0px 1px 0px #f2f2f2
       color: white
       display: inline-block
       vertical-align: top
       cursor: pointer
+    #back_button:hover
+      background: #0a7590
 
     #planethunters_button
-      width: 80px
+      width: 82px
       height: 25px
       line-height: 25px
       font-size: 10px
-      @include gradient-bg(#EBF767, #989F41)
+      margin-left: 2px
+      @include gradient-bg(#14acd1, #0b7994)
+      @include round-corners(3px)
+      border: 1px solid #095e73
+      box-shadow: 0px 1px 0px #f2f2f2
       color: white
       display: inline-block
       vertical-align: top
       cursor: pointer
+    #planethunters_button:hover
+      background: #0a7590
+      
  
 #user_stats
   width: 940px
@@ -1085,21 +1118,8 @@ ul.pagination
       border: 1px solid #095e73
       @include box-shadow(0px, 1px, 0px, #f2f2f2)
     #start_searching_button:hover
-      @include round-corners(3px)
-      @include gradient-bg(#14acd1, #0b7994)
-      margin-left: 80px 
-      margin-top: 25px
-      width: 120px
-      height: 33px
-      color: #12161b
-      font-size: 13px
-      line-height: 33px
-      text-align: center
-      cursor: pointer
-      display: inline-block
-      vertical-align: middle
-      border: 1px solid #095e73
-      @include box-shadow(0px, 1px, 0px, #f2f2f2)
+      background: #0a7590
+      
    
   #home_content_bottom
     #subjects 
@@ -1189,6 +1209,8 @@ ul.pagination
         @include gradient-bg(#14ACD1, #0B7994)
         box-shadow: (0px 1px 0px #095e73)
         cursor: pointer
+      #sign_in_button:hover
+        background: #095e73
       #view_all_button
         color: white
         text-align: center
@@ -1201,6 +1223,8 @@ ul.pagination
         border: 1px solid #095E73
         @include box-shadow(0px, 1px, 0px, #f2f2f2)
         cursor: pointer
+      #view_all_button:hover
+        background: #0a7590
      
   
   #discovery_logo
