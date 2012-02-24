@@ -44,6 +44,15 @@ a
   &:hover
     color: #f0f0f0
 
+input[type=text] , input[type=password]
+  @include box-shadow(0px, 1px, 0px, #f2f2f2)
+  border: 1px solid #b4b4b4
+  @include round-corners(3px)
+  
+
+
+
+  
 #footer
   width: 100%
   border-top: 1px #191F26 solid
@@ -420,34 +429,37 @@ body
       width: 100%
       border-top: 1px solid #9C9B9B
       .dot
-        width: 10px
-        height: 10px
+        width: 8px
+        height: 8px
         margin-top: 6px
         @include round-corners(10px)
-        background-color : #545454
+        background-color : #12161b
         display: inline-block
         vertical-align : top
         cursor: pointer
+        box-shadow: 0px 1px 0px #f2f2f2
       .selected
-        background: #E2E2E2
+        background-color: #0a7590
+        box-shadow: 0px 0px 0px black
 
 #countdown #time
   color: #cddc28
   font-family: TitilliumText22LThin, Sans-serif
   font-size: 25pt
   text-align: center
-  line-height: 45pt
+  line-height: 42pt
   width: 214px
   height: 50px
-  background-image: url("gradient_background.png")
   margin: 0px
   border: 3px #BBBBBB solid
 
 p.title
-  font-family: TitilliumText22LBold, Sans-serif
-  font-size: 9pt
+  font-weight: normal
+  font-family: TitilliumText22LMedium, Sans-serif
+  font-size: 8pt
   color: #BBBBBB
   text-transform: uppercase
+  letter-spacing: 1px
 
 #current_targets
   margin-top: 25px
@@ -526,7 +538,7 @@ p.title
     width: 100%
     height: 60px
     line-height: 60px
-    margin-top: 4px
+    margin-top: -10px
   #done
     width: 100%
     height: 60px
@@ -612,7 +624,6 @@ p.title
     margin: 0px
     padding: 0px
     height: 23px
-    @include round-corners(2px)
   .login_section_header
     @include gradient-bg(#ECEAEA, #DFDEDE)
     font-size: 15px
@@ -692,7 +703,6 @@ p.title
           
       input[type=text]
         width: 100%
-        @include round-corners(3px)
         padding: 3px 0px 3px 3px
       input[type=checkbox]
         width: 3%
@@ -719,7 +729,6 @@ p.title
           padding: 8px 0px 0px 0px
       input
         width: 100%
-        @include round-corners(3px)
         padding: 3px 0px 3px 3px
       
     .user_info_region
@@ -744,7 +753,6 @@ p.title
     input
       width: 217px
       height: 30px
-      @include round-corners(3px)
       font-size: 14px
       padding: 3px 0px 0px 3px
       margin-bottom: 3px
@@ -763,7 +771,6 @@ p.title
     input
       width: 217px
       height: 30px
-      @include round-corners(3px)
       font-size: 14px
       padding: 3px 0px 0px 3px
       margin-bottom: 3px
@@ -1531,5 +1538,4 @@ ul.pagination
 
   .favourite
     display: block
-
 
