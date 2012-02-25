@@ -11,7 +11,10 @@ class Source extends Spine.Model
   @find_by_seti_id:(id)->
     @select (item) ->
       item.seti_id==id
-       
+  
+  @kepler_planets:->
+    @select (item) ->
+      item.type=="kepler_planet"
 
   kepler_no:->
     @name.replace('kplr',"")

@@ -37,8 +37,8 @@ class TargetsIndex extends Spine.Controller
     Source.bind('refresh', @render)
 
   render:=>
-    sources = Source.all()
-    @pages = Source.count()/@perPage
+    sources = Source.kepler_planets()
+    @pages = sources.length/@perPage
     @html @view('target_index')
       page    : @page
       pages   : @pages
