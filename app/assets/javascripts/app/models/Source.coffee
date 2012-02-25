@@ -20,7 +20,7 @@ class Source extends Spine.Model
     @name.replace('kplr',"")
 
   planetHuntersLink :->
-    sph = @zooniverse_id.replace("SSL","SPH")
+    sph = @zooniverse_id.replace("TSL","SPH")
     "http://www.planethunters.org/sources/#{sph}"
 
 window.Source = Source
