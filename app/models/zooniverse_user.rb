@@ -19,6 +19,8 @@ class ZooniverseUser
   key :seen_tutorial, Boolean, :default => false
   key :sweeps_status, String, :in =>['none', 'in','out'], :default=>'none'
   key :seen_subjects, Array
+  key :agreed_to_sweeps_rules, Boolean, :default => false
+  key :agreed_to_email, Boolean, :default => false
 
   timestamps! 
   

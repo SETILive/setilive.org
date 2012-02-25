@@ -29,8 +29,12 @@ class AccountsController < ApplicationController
   def sweeps_submit
     @current_user = current_user
 
-    if (params['register.x'])
+    if (params['register.x'] and params['offical-rules-agree']=='on')
       @current_user.sweeps_status = 'in'
+      @current_user.agreed_to_sweeps_rules = true
+      @current_user.agreed_to_email = (params['email-opt-out'] == 'on')
+
+
       extra_info = ZooniverseUserExtraInfo.new
       extra_info.first_name = params[:first_name]
       extra_info.last_name = params[:last_name]
