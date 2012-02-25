@@ -19,7 +19,7 @@
         <p class='sweeps_opt'> You are currently opted in to the Discovery Channel sweeps. Click <a href='sweeps_opt_out'> here</a> to opt out
           or <a href='sweeps_change'>here</a> to change your details.</p>
       <%end%>
-      <%if @user.sweeps_status =='out': %>
+      <%if @user.sweeps_status =='out' or @user.sweeps_status =='none': %>
         <p class='sweeps_opt'> You are currently opted out of the descovery sweeps. Click <a href='sweeps_change'> here</a> to sign up</p>
     <%end%>
 
