@@ -22,6 +22,8 @@ task :update_frank_targets => :environment do
   targets.each do |target|
     name = target['target_name']
     target_id = target['target_id']
+    ra = target['ra']
+    dec = target['dec']
 
     if name.match(/KOI/)
       kio = name.match(/KOI\s\d*\.\d*/).to_s.match(/\d*\.\d*/).to_s
@@ -29,6 +31,7 @@ task :update_frank_targets => :environment do
       source = Source.where("meta.planets.kio" => kio).first
       if source
         source.seti_id = target_id 
+        source.coords = [ra,dec]
         source.save
       else
         puts "couldnt find kepler source for #{kio}"
