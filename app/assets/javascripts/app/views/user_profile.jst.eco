@@ -14,6 +14,15 @@
         </li>
       <%end%>
     </ul>
+
+    <%if @user.sweeps_status =='in': %>
+        <p class='sweeps_opt'> You are currently opted in to the Discovery Channel sweeps. Click <a href='sweeps_opt_out'> here</a> to opt out
+          or <a href='sweeps_change'>here</a> to change your details.</p>
+      <%end%>
+      <%if @user.sweeps_status =='out': %>
+        <p class='sweeps_opt'> You are currently opted out of the descovery sweeps. Click <a href='sweeps_change'> here</a> to sign up</p>
+    <%end%>
+
   </div>
   <div id='profile_bottom'>
     <div id='view_selection'>

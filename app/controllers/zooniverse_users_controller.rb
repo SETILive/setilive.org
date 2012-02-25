@@ -69,6 +69,27 @@ class ZooniverseUsersController < ApplicationController
   end 
 
 
+  def sweeps_change 
+    user = current_user
+    user.sweeps_status='none'
+    user.agreed_to_sweeps_rules= false
+    user.agreed_to_email = false
+    user.zooniverse_user_extra_info.delete if user.zooniverse_user_extra_info
+    user.save
+    redirect_to '/sweeps'
+  end
+
+  def sweeps_out
+    user = current_user
+    user.sweeps_status='out'
+    user.agreed_to_sweeps_rules= false
+    user.agreed_to_email = false
+    user.zooniverse_user_extra_info.delete if user.zooniverse_user_extra_info
+    user.save
+    redirect_to '/profile'
+  end
+
+
   def register_talk_click
     if current_user
       current_user.increment(:talk_click_count => 1)
