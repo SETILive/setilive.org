@@ -28,9 +28,9 @@
   <%else: %>
     <li class='nav_user'><a href='/profile'><%-@user.name%></a>
       <ul class='nav_submenu'>
-        <li class='tutorial_profile'><a class='tutorial_profile' href='/profile'>Profile</a> </li>
+        <li class='tutorial_profile'><a class='tutorial_profile' href='/profile'>Profile</a></li>
 
-        <li><a href='/logout'>Logout </a> </li>
+        <li><a href='/logout'>Logout</a></li>
       </ul> 
     </li>
   <%end%>
