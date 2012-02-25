@@ -13,7 +13,7 @@ class ClassificationsController < ApplicationController
 
   def create
 
-    signals  = params.delete(:signals).values
+    signals  = params.delete(:signals).try(:values)
     subject  = Subject.find(params.delete(:subject_id))
     
     @classification = Classification.new(:subject=>subject, :zooniverse_user => current_user)
