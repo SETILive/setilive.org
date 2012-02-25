@@ -22,7 +22,6 @@
     })();
   </script>
 
-  <%= yield :head%>
   
   
 </head>
@@ -94,5 +93,10 @@
         <p class="right"><%= link_to "ABOUT", "/about" %></p>
       </div>
     </div>
+
+      <%= yield :head%>
+
   </body>
+
+
 </html>
