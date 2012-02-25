@@ -4,7 +4,7 @@
     var exports = this;
     jQuery(function(){
         new LoginPage({el: $("body"), get_user: true});      
-
+        User.fetch_current_user()
         $("input").focus(function(){
           $(this).attr("data-val", $(this).val())
           $(this).val("");
