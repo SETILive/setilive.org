@@ -28,5 +28,23 @@ class Source
     RedisConnection.key("current_target*")
   end
 
+  def self.create_with_seti_id(seti_id)
+    puts "Creating from the redis definition #{seti_id}"
+    s = Source.new(name: seti_id, seti_id: seti_id)
+
+    if RedisConnection.keys("target_#{seti_id}").count > 0
+      details = JSON.parse(RedisConnection.get "target_#{seti_id}")
+      if details["target_name"].match(/KOI/)
+        type = 'kepler_planet'
+      else
+        type = 'other'
+      end
+      s.name = details["target_name"].split(" ")[0].strip
+      s.ra = details["ra"]
+      s.dec = details["dec"]
+    end 
+    s.save
+  end
+
 
 end
