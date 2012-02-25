@@ -15,6 +15,7 @@ class Source
   many :observations 
   many :classifications 
 
+  after_create :cache_sources
 
   def planet_hunters_id
     zooniverse_id.gsub("SSL","SPH") if type=="kepler_planet" 
@@ -46,5 +47,18 @@ class Source
     s.save
   end
 
+  def self.get_cached_sources
+    if RedisConnection.exists("cached_sources")
+      sources = RedisConnection.get "cached_sources"
+    else 
+      sources = cache_sources
+    end
+    sources 
+  end
 
+  def self.cache_sources
+    sources = Source.all.to_json
+    RedisConnection.set "cached_sources", sources
+    sources
+  end
 end

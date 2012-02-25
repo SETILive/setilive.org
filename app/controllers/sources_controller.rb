@@ -2,7 +2,7 @@ class SourcesController < ApplicationController
   
   def index
     @small_star_field = true  
-    sources = Rails.cache.fetch('sources', :expires_in => 1.day){ Source.all.to_json }
+    sources = Source.get_cached_sources
     
     respond_to do |format|
       format.html # index.html.erb
