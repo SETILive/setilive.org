@@ -30,6 +30,7 @@ class SetiLiveController extends Spine.Controller
   notificationsOn : true
   starFieldOn : true
   badgesOn : true
+  getUser : true
 
   constructor:->
     super 
@@ -49,7 +50,8 @@ class SetiLiveController extends Spine.Controller
     if @badgesOn
       Badge.fetch()
 
-    User.fetch_current_user()
+    if @getUser
+      User.fetch_current_user()
 
 
 class HomePage extends SetiLiveController
@@ -119,9 +121,11 @@ class LoginPage extends SetiLiveController
 
   notificationsOn : false 
   badgesOn : false 
+  getUser : false
+  
   constructor:->
     super 
-
+    
     $("span").click ->
         $(@).hide()
         $(@).parent().find('input').focus()
