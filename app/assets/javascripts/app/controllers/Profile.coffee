@@ -8,24 +8,35 @@ class Profile extends Spine.Controller
 
   constructor: ->
     super
-    User.bind('refresh',@gotUser)
+    User.bind('refresh', @gotUser)
     Badge.bind('refresh', @gotUser)
     @collectionType='favourites'
+
 
   gotUser:=>
     @user= User.first()
     @collectionType= @inital_collection_type
+    @collection = []
     @paginate()
+
+    @fetchType @collectionType, (collection)=>
+      @collection = collection
+      @paginate()
+      @render()
+      
     @render()
 
   render:=> 
     @html ""
     @append @view('user_stats')(@user)
+    
+
     @append @view('user_profile')
       user: @user
       pagination : @pagination
-      subjects : [1..20] #@user[@collectionType]
+      subjects : @collection
       collectionType: @collectionType
+      itemTemplate: @view('waterfallCollectionItem')
       badgeTemplate: @view('badge')
   
   selectPage:(e)=>
@@ -34,16 +45,35 @@ class Profile extends Spine.Controller
     @render()
 
   selectCollectionType:(e)=>
-    e.preventDefault()
-    @collectionType =  $(e.currentTarget).data().collection_type
-    @paginate()
-    @render()
+
+    @collectionType =  $(e.currentTarget).data().id 
+    @fetchType @collectionType, (collection)=>
+      @collection = collection
+      @paginate()
+      @render()
+  
+  fetchType:(type, callback=null)=>
+    console.log "selected #{type}, favourites"
+    if type =='favourites'
+      console.log "fetching favourites",@favourites
+      return callback(@favourites) if @favourites
+      $.getJSON '/user_favourites', (data)=>
+        @favourites = data
+        return callback(@favourites)
+      
+    else if type =='recents'
+      return callback(@recents) if @recents
+      $.getJSON '/user_recents', (data)=>
+        @recents = data
+        return callback(@recents)
+
+    callback([])
 
   paginate:=>
-    collection = [1..20] #@user[@collectionType]
+    
     @pagination =
       page : 0
-      pages: collection.length/@pagination_no
+      pages: @collection.length/@pagination_no
       noPerPage: @pagination_no
       start: ->
         @page*@noPerPage
