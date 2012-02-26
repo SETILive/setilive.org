@@ -101,6 +101,7 @@ class Notifications extends Spine.Controller
     notification = @view('notifications/notification')
       data: data
       notificationTemplate : notificationTemplate
+      notificationType : type
     
     @prepend $(notification)
     @updateNotificationCount()
