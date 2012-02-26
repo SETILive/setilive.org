@@ -5,6 +5,8 @@ class Profile extends Spine.Controller
   events:
     'click .page' : 'selectPage'
     'click .collectionType' : 'selectCollectionType'
+    'click .favourite'  :  'addFavourite'
+    'click .favourited' :  'removeFavourite'
 
   constructor: ->
     super
@@ -12,6 +14,16 @@ class Profile extends Spine.Controller
     Badge.bind('refresh', @gotUser)
     @collectionType='favourites'
 
+
+  addFavourite:(e)=>
+    observation_id = $(e.currentTarget).data().id 
+    User.first().addFavourite observation_id, =>
+      @render()
+
+  removeFavourite:(e)=>
+    observation_id = $(e.currentTarget).data().id 
+    User.first().removeFavourite observation_id, =>
+      @render()
 
   gotUser:=>
     @user= User.first()
