@@ -1,6 +1,8 @@
-<%console.log "page", @%>
-<ul class='pagination'>
-  <%for page in [0..@pages]:%>
-    <li class='page <%= "selected_page" if page == @page%>' data-id='<%=page%>' ><%=page%></li>
-  <%end%>
-</ul>
+
+<%if @pages.length >1 : %>
+  <ul class='pagination'>
+    <%for page in [0..@pages]:%>
+      <li class='page <%= "selected_page" if page == @page%>' data-id='<%=page%>' ><%=page%></li>
+    <%end%>
+  </ul>
+<%end%>
