@@ -30,14 +30,15 @@
       <ul id='view_selection'>
         <li  class= 'collectionType <%= "catagory_selection" if @collectionType=='recents'%>' data-id="recents" >Recents / </li>
         <li class= 'collectionType <%= "catagory_selection" if @collectionType=='followups'%>' data-id="Followups">Followups /</li> 
-        <li class= 'collectionType <%= "catagory_selection" if @collectionType=='favorites'%>' data-id="favorites">Favorites</li> 
+        <li class= 'collectionType <%= "catagory_selection" if @collectionType=='favourites'%>' data-id="favourites">Favourites</li> 
       </ul>
     </div>
 
     <div id='subjects'>
-      <% for subject in @subjects[@pagination.start()...@pagination.end()]: %>
-        <div class='waterfall' data-id='<%=subject.id%>' >
-        </div>
+      <%if @collectionType=='Followups': %>
+        <h2 style='color:black; text-align:center'> We are currently operating in a mode where we are not triggering followups from the telescope. Keep comming back to help us direct the telescope</h2>
+      <%else : %>
+        <%- @itemTemplate({user:@user, items: @subjects})%>
       <%end%>
     </div>
     <%- @pagination.menu()%>
