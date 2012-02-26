@@ -47,6 +47,10 @@ class ZooniverseUser
     save
   end
 
+  def seen_observations
+    seen_subjects.collect{|s| s.observations}.flatten
+  end
+
   def update_classification_stats(classification)
      update_classification_count classification
      update_signal_count         classification
