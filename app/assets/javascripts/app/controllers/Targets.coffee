@@ -2,6 +2,7 @@ class TargetsShow extends Spine.Controller
   events:
     'click #back_button' : 'goBack'
     'click #planethunters_button' : 'openPlanetHunters'
+    'click #talk_button' : 'openTalk'
   elements:
     '#star_vis' : "visualization"
 
@@ -22,7 +23,10 @@ class TargetsShow extends Spine.Controller
     new SystemViewer({el: @visualization, source: @source })
 
   openPlanetHunters:=>
-    window.open(@source.planetHuntersLink(),'_newtab');
+    window.open(@source.planetHuntersLink(),'_newtab')
+
+  openTalk:=>
+    window.open(@source.talkLink(),'_newtab');
 
 
 class TargetsIndex extends Spine.Controller 
