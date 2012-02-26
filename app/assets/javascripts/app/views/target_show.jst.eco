@@ -35,6 +35,8 @@
       <div id='back_button'>Back</div>
       <div id='planethunters_button'>Planet Hunters
       </div>
+      <div id='talk_button'>Discusss this target
+      </div>
     </div>
   </div>
 </div>
