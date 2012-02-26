@@ -20,7 +20,7 @@ gem 'bson'
 gem 'bson_ext'
 gem 'state_machine'
 gem 'redis'
-
+gem 'airbrake'
 gem 'multi_json', '1.0.4'
 gem 'pusher'
 gem 'ezcrypto'

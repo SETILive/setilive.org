@@ -171,6 +171,7 @@ class BadgePage extends SetiLiveController
 class GenericAboutPage extends SetiLiveController
   starFieldOn : false
   badgesOn: false
+  notificationsOn: false 
 
   constructor:->
     super
