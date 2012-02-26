@@ -46,8 +46,6 @@ class ZooniverseUser
     save
   end
 
-
- 
   def update_classification_stats(classification)
      update_classification_count classification
      update_signal_count         classification
@@ -63,10 +61,12 @@ class ZooniverseUser
   end
 
   def update_signal_count(classification)
-    source = classification.subject.source 
-    signal_count = classification.subject_signals.count
-    self.signal_count[source.id] ||=0
-    self.signal_count[source.id] += signal_count
+
+    classification.subject.observations.each do |observation|
+      signal_count = observation.subject_signals.count
+      self.signal_count[observation.id] ||=0
+      self.signal_count[observation.id] += signal_count
+    end
   end
 
   def badgeDetails
