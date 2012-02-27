@@ -30,7 +30,7 @@ class Source
   end
 
   def self.create_with_seti_id(seti_id)
-    puts "Creating from the redis definition #{seti_id}"
+    # puts "Creating from the redis definition #{seti_id}"
     s = Source.new(name: seti_id, seti_id: seti_id)
 
     if RedisConnection.keys("target_#{seti_id}").count > 0

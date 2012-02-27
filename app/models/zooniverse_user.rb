@@ -42,9 +42,9 @@ class ZooniverseUser
   end
 
   def remove_favourite(subject)
-    puts self.favourite_ids
+    # puts self.favourite_ids
     self.favourites.delete!(subject)
-    puts self.favourite_ids
+    # puts self.favourite_ids
     save
   end
 

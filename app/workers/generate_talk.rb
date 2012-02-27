@@ -15,7 +15,7 @@ class GenerateTalk
                        } 
       end
       post = {  zooniverse_id:subject.zooniverse_id, observations: observations}
-      puts JSON.pretty_generate post
+      # puts JSON.pretty_generate post
 
       TalkCreator.talk_create(post)
     else
