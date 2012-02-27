@@ -56,7 +56,7 @@ class Source
     sources 
   end
 
-  def self.cache_sources
+  def cache_sources
     sources = Source.all.to_json
     RedisConnection.set "cached_sources", sources
     sources
