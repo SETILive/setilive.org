@@ -18,7 +18,7 @@ class Notifications extends Spine.Controller
   localEvents:
     "User":
       "badge_awarded" :  "badgeAwarded"
-      "tutorial_badge_awarded" : "tutorialBadgeAwarded"
+      # "tutorial_badge_awarded" : "tutorialBadgeAwarded"
 
   constructor: ->
     super

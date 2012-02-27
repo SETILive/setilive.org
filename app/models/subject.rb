@@ -80,13 +80,10 @@ class Subject
 
   def self.random_frank_subject 
     keys = RedisConnection.keys 'subject_*'
-    puts keys.count
     return nil if keys.empty?
     key = keys.sample
     subject  = BSON.deserialize(RedisConnection.get key)
     RedisConnection.del key
-        keys = RedisConnection.keys 'subject_*'
-    puts RedisConnection.keys('subject_*')
 
     generate_subject_from_frank(subject, key)
   end

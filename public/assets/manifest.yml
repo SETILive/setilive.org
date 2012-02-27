@@ -135,7 +135,9 @@ tarter_interview.jpg: tarter_interview-85c5a5351337315e23f1126484d8a6fb.jpg
 team/circle_arfon.png: team/circle_arfon-5dc2e52b9e3a75a091c3da8f31142bb8.png
 team/circle_brian.png: team/circle_brian-33c550d5b690df84860abf83718fcbff.png
 team/circle_dave.png: team/circle_dave-d31ff9f2f5f1bcb7d707881d5ee3365e.png
+team/circle_jill.png: team/circle_jill-a2217b3ed014c40f6cb7973c88b465c9.png
 team/circle_lou.png: team/circle_lou-a3ef338ddfdb12b344e3435bf5d8a3b0.png
+team/circle_michael.png: team/circle_michael-049d7aa21ee44e9d092a68d5d97cddea.png
 team/circle_stuart.png: team/circle_stuart-d8a969a3d4a239a26dd89309cc07374e.png
 team/logo_adler.png: team/logo_adler-9d09d2235ac5fac47dee6dbc455f80a5.png
 team/logo_discovery.png: team/logo_discovery-3d6f091651829b491a11372ece93d10b.png
@@ -152,5 +154,5 @@ transGreen.png: transGreen-72c13d976eaf105bec578696a79093c4.png
 twitter.png: twitter-22277ce7c5958df9fd46799b483d50bc.png
 twitter_active.png: twitter_active-82dc474aa93c3e91bba89427f7e458a5.png
 webcam.jpg: webcam-15c27302571bf846db6fe81ada2a884a.jpg
-application.js: application-37e4a3899e557640661c30c3663877c7.js
-application.css: application-8eee8429ae6b3cab4259888908d17532.css
+application.js: application-1099bac813ebddc3b875c45cf490f403.js
+application.css: application-cfd1601e738a12d90607def945bf7e4c.css
