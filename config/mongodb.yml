@@ -8,8 +8,10 @@ test:
   <<: *global_settings
 
 production:
-  host: arrow.mongohq.com
+  host: mongodb.setilive.org
   database: setilive
-  port: 27017
+  port: 27188
   username: stuartlynn
-  password: astr0Talk_#!
+  password: ***REMOVED***
+
+
