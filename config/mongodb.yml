@@ -9,9 +9,9 @@ test:
 
 production:
   host: mongodb.setilive.org
-  database: setilive
+  database: ***REMOVED***
   port: 27188
-  username: stuartlynn
+  username: setilive
   password: ***REMOVED***
 
 
