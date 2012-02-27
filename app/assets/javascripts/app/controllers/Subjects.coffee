@@ -57,6 +57,11 @@ class Subjects extends Spine.Controller
     @drawBeam @main_beam.find("canvas"), @current_subject, @current_beam
     $("#main-waterfall .signal_beam_#{@current_beam}").show()
 
+    Spine.trigger "beamChange"
+      observation: @current_subject.observations[beamNo]
+      beamNo: beamNo
+      totalBeams: @current_subject.observations.length
+
   enableSignalDraw :=>
     @canDrawSignal = true 
 

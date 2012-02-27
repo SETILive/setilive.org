@@ -56,7 +56,6 @@ class ZooniverseUsersController < ApplicationController
   end
 
   def current_logged_in_user 
-
     if current_user 
       respond_to do |format|
         format.json {render json: current_user.to_json(:except=>[:email, :zooniverse_user_extra_info])}

@@ -6,6 +6,7 @@ class Info extends Spine.Controller
     "#done" : "done"
     "#current_targets" : "targets"
     "#next_beam" : "nextBeam"
+    "#talk" : "talk"
 
   events:
     "click #done " : "doneClassification"
@@ -21,6 +22,7 @@ class Info extends Spine.Controller
     @resetTime()
     setInterval @updateTime, 100
     Subject.bind('create', @setupTargets)
+    Spine.bind("beamChange", @beamChange)
 
   setupTargets:() =>
     subject = Subject.first()
@@ -46,11 +48,9 @@ class Info extends Spine.Controller
   doneClassification :=>
     Spine.trigger "dissableSignalDraw" 
     Spine.trigger 'doneClassification'
-    console.log "rendering talk prompt "
-    # console.log   @view("talk_prompt")()
-    # console.log   @done
-    # @done.replaceWith( @view("talk_prompt")())
-
+    @done.hide()
+    @talk.show()
+    
   talk :=>
     window.open 'http://talk.setilive.org'
     Subject.trigger "done"
@@ -65,9 +65,19 @@ class Info extends Spine.Controller
         u.addFavourite observation.id 
       $(e.currentTarget).html("<span style='color:white'>✓</span>")
       $(e.currentTarget).addClass('favourited')
+  
   nextBeam:=>
-    @nextBeam.replaceWith("<div class='extra_button' id='done'>Done</div>")
     Spine.trigger("nextBeam")
+
+  beamChange:(data)=>
+    console.log data
+    if data.beamNo == data.totalBeams-1
+      @done.show()
+      @nextBeam.hide() 
+    else
+      @done.hide()
+      @nextBeam.show()
+      
 
 window.Info = Info
   

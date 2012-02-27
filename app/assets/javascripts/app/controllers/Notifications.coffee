@@ -66,6 +66,7 @@ class Notifications extends Spine.Controller
     @addNotification('new_data',data)
 
   telescopeStatusChange: (data)=> 
+    notification.remove() for notificaiton in @notifications when notification.hasClass("telescope_status_changed")
     Spine.trigger('target_status_changed', data)
     @addNotification('telescope_status_changed',data)
   

@@ -26,7 +26,7 @@ class Classification extends Spine.Model
       data: result
       dataType: 'json'
       success: (response)->
-        window.location='/classify'
+        Spine.trigger("classificationSaved")
 
   updateSignal:(x,y) =>
     @currentSignal.timeEnd= y

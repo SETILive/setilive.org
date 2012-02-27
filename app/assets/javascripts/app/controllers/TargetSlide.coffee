@@ -8,6 +8,7 @@ class TargetsSlide extends Spine.Controller
     super
     @targets = args.targets 
     @current_target= @targets[0]
+    Spine.bind "beamChange", @selectTarget
     @render()
 
   render:=>
@@ -16,7 +17,11 @@ class TargetsSlide extends Spine.Controller
       current_target : @current_target
 
   selectTarget:(e)=>
-    targetId = $(e.currentTarget).data().id 
+    if e.current_target?
+      targetId = $(e.currentTarget).data().id 
+    else 
+      targetId = e.observation.source_id 
+      
     @current_target = (target for target in @targets when target.id == targetId)[0]
     @render()
 
