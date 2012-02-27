@@ -208,7 +208,7 @@ body
 #top
   margin-left: auto
   margin-right: auto
-  width: 1000px
+  width: 980px
   height: 100px
   padding-top: 0px
   position: relative
@@ -261,7 +261,6 @@ body
           text-decoration: none
     li:hover
       color: #ffffff
-      text-decoration: none
     li:hover , .tutorial_select
       .nav_submenu
         display: block
@@ -935,6 +934,11 @@ form p
       display: inline-block
       .pagination_active
         text-decoration: underline   
+
+      &.ellipsis
+        + .ellipsis
+          display: none
+
 #source
   width: 940px
   height: 540px
@@ -980,60 +984,33 @@ form p
   #buttons
     margin-left: auto
     margin-right: auto
-    #back_button
-      width: 82px
+
+    > div
+      @include gradient-bg(#14acd1, #0b7994)
+      @include round-corners(3px)
+      background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#14ACD1), to(#0B7994))
+      border: 1px solid #095E73
+      box-shadow: 0px 1px 0px #F2F2F2
+      color: white
+      cursor: pointer
+      display: inline-block
+      font-size: 13px
       height: 25px
       line-height: 27px
-      margin-right: 2px
-      font-size: 13px
-      @include gradient-bg(#14acd1, #0b7994)
-      @include round-corners(3px)
-      border: 1px solid #095e73
-      box-shadow: 0px 1px 0px #f2f2f2
-      color: white
-      display: inline-block
+      margin-bottom: 4px
       vertical-align: top
-      cursor: pointer
-    #back_button:hover
-      background: #0a7590
+      width: 87px
 
-    #planethunters_button
-      width: 82px
-      height: 25px
-      line-height: 25px
-      font-size: 10px
-      margin-left: 2px
-      @include gradient-bg(#14acd1, #0b7994)
-      @include round-corners(3px)
-      border: 1px solid #095e73
-      box-shadow: 0px 1px 0px #f2f2f2
-      color: white
-      display: inline-block
-      vertical-align: top
-      cursor: pointer
-    #planethunters_button:hover
-      background: #0a7590
+      &:hover
+        background: #0a7590
+
+    #back_button
 
     #talk_button
-      width: 120px
-      height: 25px
-      line-height: 25px
-      font-size: 10px
-      margin-left: 2px
-      margin-top: 10px
 
-      @include gradient-bg(#14acd1, #0b7994)
-      @include round-corners(3px)
-      border: 1px solid #095e73
-      box-shadow: 0px 1px 0px #f2f2f2
-      color: white
-      display: inline-block
-      vertical-align: top
-      cursor: pointer
-    #talk_button:hover
-      background: #0a7590
-      
- 
+    #planethunters_button
+      width: 180px
+
 #user_stats
   width: 940px
   height: 80px
@@ -1419,6 +1396,14 @@ ul.pagination
   top: 0px
   left: 0px
 
+  .non-badge
+    background: #b4b4b4
+    box-shadow: 0px 1px 0px #f2f2f2
+    border-radius: 25px
+    display: inline-block
+    height: 50px
+    width: 50px
+
 .badge_container 
   position: relative
   img.badge_holder
@@ -1429,6 +1414,7 @@ ul.pagination
     position: absolute
     top: 0px
     left: 1px
+
 .badge_level 
   width: 20px
   height: 20px

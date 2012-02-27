@@ -76,9 +76,9 @@ $.widget "ui.inlineTutorial",
     self = this
     op = self.options
     current_step = op.current_step
-    console.log "triggers are", current_step.triggers
+   #console.log "triggers are", current_step.triggers
     if current_step.triggers?
-      console.log "triggers are", current_step.triggers
+     #console.log "triggers are", current_step.triggers
       $.each current_step.triggers, (index, trigger) ->
         $(trigger.elements).live trigger.action + ".inlineTutorial", ->
           self.next_step()

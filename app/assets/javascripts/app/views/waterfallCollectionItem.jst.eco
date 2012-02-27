@@ -1,5 +1,4 @@
 <% for item in @items : %>
-  <%console.log item%>
   <%if item.uploaded : %>
     <div class='observation'>
       <img width=215  src='<%=item.image_url%>' />

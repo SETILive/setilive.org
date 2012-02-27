@@ -19,6 +19,10 @@
 
 <ul id='pagination'>
   <% for i in [0..@sources.length/@perPage]: %>
-    <li data-id='<%=i%>' class='page_link'> <a  <%= "class='pagination_active'" if @page==i %> href='#'><%=i%></a></li>
-  <%end%>
+    <% if i < 5 or @page - 3 < i < @page + 3 or i > Math.floor(@sources.length/@perPage) - 5: %>
+      <li data-id='<%= i %>' class='page_link'> <a <%= "class='pagination_active'" if @page == i %> href='#'><%= i %></a></li>
+    <% else if i is 5 or i is (Math.floor(@sources.length/@perPage) - 5): %>
+      <li class="ellipsis">&hellip;</li>
+    <% end %>
+  <% end %>
 </ul>

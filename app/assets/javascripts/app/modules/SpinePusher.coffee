@@ -15,7 +15,7 @@ SpinePusher =
         @setupPusherBindings channel, method
   
   openPusher:->
-    console.log("opening pusher connection")
+    #console.log("opening pusher connection")
     if @pusherKey
       @pusherConnection = new Pusher(@pusherKey) 
       @defaultChannel   = @openChannel @pusherChannel
@@ -23,7 +23,7 @@ SpinePusher =
       throw "You need to specify a pusher key"
   
   openChannel :(channelName)->
-    console.log "opening channel ",channelName
+    #console.log "opening channel ",channelName
     @pusherChannels[channelName] = @pusherConnection.subscribe channelName 
     
   closeChannel :(channelName)->
