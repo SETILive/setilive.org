@@ -13,7 +13,8 @@ class Doppler extends Scene
 		'.tower': 'tower'
 		'.waves.for-tower': 'towerWaves'
 		'.telescope': 'telescope'
-
+		'h1': 'title'
+		
 	reset: =>
 		@mountain.add(@tower).add(@towerWaves).css
 			opacity: 0
@@ -26,11 +27,17 @@ class Doppler extends Scene
 		@satelliteGroup.css
 			left: ''
 			opacity: 0
+		
+		@title.css
+			left: ''
+			opacity: 0
 
 	enter: =>
 		@mountain.add(@tower).add(@towerWaves).add(@telescope).animate
 			opacity: 1
 			transform: ''
+			
+		@title.animate opacity: 1, transform: 'translateX(0)', 1000
 
 		@towerPulse()
 
@@ -84,5 +91,6 @@ class Doppler extends Scene
 		@mountain.add(@tower).add(@towerWaves).animate opacity: 0, transform: 'translateX(-200px)', 1000
 		@telescope.animate opacity: 0, transform: 'translateX(-800px)', 1000
 		@satelliteGroup.css opacity: 0
+		@title.animate opacity: 0, transform: 'translateX(-800px)', 1000
 
 window.Doppler = Doppler

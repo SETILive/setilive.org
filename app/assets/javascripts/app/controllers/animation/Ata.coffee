@@ -10,7 +10,8 @@ class Ata extends Scene
 		'.first.far.scope': 'firstFarScope'
 		'.second.far.scope': 'secondFarScope'
 		'.third.far.scope': 'thirdFarScope'
-
+		'h1': 'title'
+		
 		'.near.scope': 'nearScopes'
 		'.first.near.scope': 'firstNearScope'
 		'.second.near.scope': 'secondNearScope'
@@ -19,15 +20,18 @@ class Ata extends Scene
 		@mountain.css   opacity: 0, transform: 'translateX(200px)', 2000
 		@farScopes.css  opacity: 0, transform: 'translateX(400px)', 2000
 		@nearScopes.css opacity: 0, transform: 'translateX(800px)', 2000
+		@title.css opacity: 0, transform: 'translateX(200px)', 1000
 
 	enter: =>
 		@mountain.animate   opacity: 1, transform: 'translateX(0)', 1000
 		@farScopes.animate  opacity: 1, transform: 'translateX(0)', 1000
 		@nearScopes.animate opacity: 1, transform: 'translateX(0)', 1000
-
+		@title.animate opacity: 1, transform: 'translateX(0)', 1000
+		
 	exit: =>
 		@mountain.animate   opacity: 0, transform: 'translateX(-200px)', 1000
 		@farScopes.animate  opacity: 0, transform: 'translateX(-400px)', 1000
 		@nearScopes.animate opacity: 0, transform: 'translateX(-800px)', 1000
+		@title.animate opacity: 0, transform: 'translateX(-800px)', 1000
 
 window.Ata = Ata

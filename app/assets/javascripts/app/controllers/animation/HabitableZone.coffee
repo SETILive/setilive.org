@@ -12,6 +12,7 @@ class HabitableZone extends Scene
 		'.flag.for-star': 'starFlag'
 		'.flag.for-planet': 'planetFlag'
 		'.flag.for-zone': 'zoneFlag'
+		'h1': 'title'
 
 	reset: =>
 		@outerRing.add(@innerRing).add(@star).css
@@ -42,6 +43,8 @@ class HabitableZone extends Scene
 		@planetFlag.delay(1500).animate opacity: 1, transform: ''
 		@zoneFlag.delay(2000).animate opacity: 1, transform: ''
 
+		@title.delay(2500).animate opacity: 1, transform: ''
+
 	exit: =>
 		@outerRing.add(@zoneFlag).animate
 			opacity: 0
@@ -54,5 +57,7 @@ class HabitableZone extends Scene
 		@planet.add(@planetFlag).delay(600).animate
 			opacity: 0
 			transform: 'translateY(200%)'
+
+		@title.animate opacity: 0, transform: 'translateX(-800px)', 1000
 
 window.HabitableZone = HabitableZone
