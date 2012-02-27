@@ -106,8 +106,11 @@ window.tutorialSteps = [
           speed:400
         ,
           title: "Talk"
-          text: "If you have seem anything unusual and want to talk about it or see what other people have said, click yes. "
-          location: [640,100]
+          text: "If you have seem anything unusual and want to talk about it or see what other people have said, click yes."
+          onShow: ->
+            $("#talkYes").unbind('click')
+            $("#talkNo").unbind('click')
+          location: [544,304]
           speed:400
         ,
           title: "Badges"
