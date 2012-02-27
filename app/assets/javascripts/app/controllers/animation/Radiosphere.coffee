@@ -15,6 +15,7 @@ class Radiosphere extends Scene
 		'.tiny.planet': 'tinyPlanet'
 		'.small.planet': 'smallPlanet'
 		'.other.planet': 'otherPlanet'
+		'h1': 'title'
 
 	reset: =>
 		@el.css opacity: 0
@@ -30,6 +31,8 @@ class Radiosphere extends Scene
 
 		@radio.css opacity: 0, transform: 'scale(1, 0.01)'
 		@radioWaves.css opacity: 0
+		@title.css opacity: 1, transform: 'translate(-10%, -10%) scale(0.01)'
+		
 
 	enter: =>
 		@el.css opacity: 1
@@ -44,6 +47,9 @@ class Radiosphere extends Scene
 		@tinyPlanet.animate transform: '', 2000, @loop
 		@smallPlanet.animate transform: '', 667
 		@otherPlanet.animate transform: '', 333
+		
+		@title.animate opacity: 1, transform: '', 1000
+		
 
 	loop: =>
 		@radioWaves.animate(opacity: 1, 250).animate opacity: 0, 250
@@ -67,5 +73,7 @@ class Radiosphere extends Scene
 		@tinyPlanet.animate opacity: 0, transform: 'translate(100%, -100%%) scale(3)', 2500
 		@smallPlanet.animate opacity: 0, transform: 'translate(-500%, 350%) scale(3)', 1500
 		@otherPlanet.animate opacity: 0, transform: 'translate(1000%, 600%) scale(3)', 1000
+		
+		@title.animate opacity: 0, transform: 'translate(100%, -100%%) scale(3)', 500		
 
 window.Radiosphere = Radiosphere
