@@ -9,7 +9,7 @@
           <%if @user.hasBadge(badge): %>
             <%- @badgeTemplate({badge:badge, size: 50, level: @user.maxLevelForBadge(badge)})  %>
           <%else: %>
-            <%- @badgeTemplate({size: 50})  %>
+            <span class="non-badge"></span>
           <%end%>
         </li>
       <%end%>
