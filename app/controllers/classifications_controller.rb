@@ -1,6 +1,6 @@
 class ClassificationsController < ApplicationController
   before_filter CASClient::Frameworks::Rails::GatewayFilter , :except =>[:recent]
-  before_filter :check_login
+  before_filter :check_login, :except =>[:recent]
 
   def show
     @classification = Classification.find(params[:id])

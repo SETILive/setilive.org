@@ -18,14 +18,15 @@ class ZooniverseUser
   key :last_login, Date 
   key :seen_tutorial, Boolean, :default => false
   key :sweeps_status, String, :in =>['none', 'in','out'], :default=>'none'
-  key :seen_subjects, Array
+  key :seen_subject_ids, Array
   key :agreed_to_sweeps_rules, Boolean, :default => false
   key :agreed_to_email, Boolean, :default => false
 
   timestamps! 
   
   one :zooniverse_user_extra_info
-  has_many :classifications 
+  has_many :classifications
+  has_many :seen_subjects, :in => :seen_subject_ids, :class_name => "Subject"
   has_many :favourites, :in => :favourite_ids, :class_name => "Observation"
 
   def award_badges 
@@ -46,12 +47,21 @@ class ZooniverseUser
     save
   end
 
+  def seen_observations
+    seen_subjects.collect{|s| s.observations}.flatten
+  end
+
   def update_classification_stats(classification)
      update_classification_count classification
      update_signal_count         classification
+     update_seen                 classification.subject
      # award_badges                classification
      RedisConnection.setex "online_#{self.id}", 10*60, 1
   end
+
+  def update_seen(subject)
+    self.add_to_set(:seen_subject_ids => subject.id )
+  end 
 
   def update_classification_count (clasificaiton)
     puts "updating classificaiton count"

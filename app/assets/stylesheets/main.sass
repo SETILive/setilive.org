@@ -950,6 +950,25 @@ form p
       cursor: pointer
     #planethunters_button:hover
       background: #0a7590
+
+    #talk_button
+      width: 120px
+      height: 25px
+      line-height: 25px
+      font-size: 10px
+      margin-left: 2px
+      margin-top: 10px
+
+      @include gradient-bg(#14acd1, #0b7994)
+      @include round-corners(3px)
+      border: 1px solid #095e73
+      box-shadow: 0px 1px 0px #f2f2f2
+      color: white
+      display: inline-block
+      vertical-align: top
+      cursor: pointer
+    #talk_button:hover
+      background: #0a7590
       
  
 #user_stats
@@ -1167,8 +1186,7 @@ ul.pagination
     #subjects 
       margin-left: 20px
       margin-top: 40px
-      margin-bottom: 300px
-      height: 130px
+      min-height: 130px
       overflow-y: hidden
       .waterfall
         display: inline-block
@@ -1542,6 +1560,13 @@ ul.pagination
   .classification_details
     position: absolute
     top: 85px
+    left: 0px
+    width: 100%
+    text-align: center
+    font-size: 9px
+  .discuss
+    position: absolute
+    top: 90px
     left: 0px
     width: 100%
     text-align: center

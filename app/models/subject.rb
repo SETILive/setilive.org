@@ -20,6 +20,7 @@ class Subject
   key :pol , Integer 
   key :sub_channel, Integer 
   key :observation_id, Integer 
+  key :original_redis_key, String
 
   key :classification_count, Integer, :default => 0 
 
@@ -30,7 +31,6 @@ class Subject
 
   # validates_presence_of  :observation_id
   #after_save :store_in_redis
-  # after_save :persist_on_s3
 
 
   scope :paused,             where(:status=>'paused')
@@ -80,10 +80,14 @@ class Subject
 
   def self.random_frank_subject 
     keys = RedisConnection.keys 'subject_*'
+    puts keys.count
     return nil if keys.empty?
     key = keys.sample
     subject  = BSON.deserialize(RedisConnection.get key)
-    RedisConnection.del key 
+    RedisConnection.del key
+        keys = RedisConnection.keys 'subject_*'
+    puts RedisConnection.keys('subject_*')
+
     generate_subject_from_frank(subject, key)
   end
 
@@ -105,7 +109,9 @@ class Subject
                       :pol => details[:pol],
                       :activity_id => details[:activity_id],
                       :sub_channel => details[:sub_channel],
-                      :observation_id => details[:observation_id]}
+                      :observation_id => details[:observation_id],
+                      :original_redis_key => key
+                      }
                       )    
 
     if s 

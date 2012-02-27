@@ -62,7 +62,7 @@ class AccountsController < ApplicationController
 
     unless params[:password] == params[:password_confirmation]
       @messages << "Password and password confirmation don't match"
-      flash.now[:error] = @message['error']    
+      flash.now[:error] = @message   
       @cas_client = CASClient::Frameworks::Rails::Filter.client
       render :login
       return

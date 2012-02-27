@@ -1,0 +1,23 @@
+<% for item in @items : %>
+  <%console.log item%>
+  <%if item.uploaded : %>
+    <div class='observation'>
+      <img width=215  src='<%=item.image_url%>' />
+      <%if @user : %>
+        <% if @user.favourites.indexOf(item.id)  != -1: %>
+          <div class='favourited' title='unfavourite' data-id= '<%=item.id%>'>
+            <img src='/assets/favorited_button.png' />
+          </div>
+        <%else : %>
+          <div class='favourite' title='favourite' data-id= '<%=item.id%>'>
+            <img src='/assets/favourite_button.png' />
+          </div>
+        <%end%>
+      <%end%>
+      <span  class='classification_details'>
+        Signal from <a href= "/sources/<%=item.source.id%>" ><%=item.source.name%> </a>
+      </span>
+      <p class='discuss'> <a href="http://talk.setilive.org/observation_groups/<%=item.subject.zooniverse_id%>">  Discuss this signal </a> </p>
+    </div>
+  <%end%>
+<%end%>

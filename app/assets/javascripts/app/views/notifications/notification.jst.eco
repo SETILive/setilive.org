@@ -1,4 +1,4 @@
-<li class='notification' >
+<li class='notification <%=@notificaitonType%>' >
   <img class='dismiss_button' width=18 height=18 src='/assets/dismiss_button.png'></img>
   <%- @notificationTemplate(@data)%>
 </li>
