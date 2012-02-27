@@ -15,7 +15,7 @@ class Stars extends Spine.Controller
     alert(data)
 
   drawField:=>
-    @stars = Source.all()
+    @stars = Source.kepler_planets()
     
     @drawStar(star) for star in @stars 
 
@@ -34,10 +34,13 @@ class Stars extends Spine.Controller
     maxRa  = 0
     maxDec = 0
     for star in @stars
-      minRa  = star.coords[0] if star.coords[0] < minRa and star.coords[0]>0
+
+      minRa  = star.coords[0] if star.coords[0] < minRa and star.coords[0]>25
       maxRa  = star.coords[0] if star.coords[0] > maxRa
       minDec = star.coords[1] if star.coords[1] < minDec and star.coords[1]>0
       maxDec = star.coords[1] if star.coords[1] > maxDec
+    
+
     @bounds = [minRa, minDec, maxRa, maxDec]
 
   convertRaDec:(pos)->
