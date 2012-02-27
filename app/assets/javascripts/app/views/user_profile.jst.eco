@@ -33,12 +33,12 @@
         <li class= 'collectionType <%= "catagory_selection" if @collectionType=='favourites'%>' data-id="favourites">Favourites</li> 
       </ul>
     </div>
-
     <div id='subjects'>
+      <%-console.log @pagination.pages%>
       <%if @collectionType=='Followups': %>
         <h2 style='color:black; text-align:center'> We are currently operating in a mode where we are not triggering followups from the telescope. Keep comming back to help us direct the telescope</h2>
       <%else : %>
-        <%- @itemTemplate({user:@user, items: @subjects})%>
+        <%- @itemTemplate({user:@user, items: @subjects[@pagination.start()...@pagination.end()]})%>
       <%end%>
     </div>
     <%- @pagination.menu()%>
