@@ -25,6 +25,7 @@ class ZooniverseUsersController < ApplicationController
     @current_user = current_user
     if @current_user
       @current_user.badges.push({ :id => params[:id], :level => params[:level] })
+      @current_user.total_badge_count= @current_user.total_badge_count+1
       @current_user.save
 
       respond_to do |format|

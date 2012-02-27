@@ -21,7 +21,8 @@ class ZooniverseUser
   key :seen_subject_ids, Array
   key :agreed_to_sweeps_rules, Boolean, :default => false
   key :agreed_to_email, Boolean, :default => false
-
+  key :came_from_discovery, Boolean, :default=>false
+  
   timestamps! 
   
   one :zooniverse_user_extra_info

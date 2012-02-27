@@ -4,7 +4,7 @@ class AccountsController < ApplicationController
   def login
     @cas_client = CASClient::Frameworks::Rails::Filter.client
     @return_to = "http://#{request.host}:#{request.port}/sweeps"
-    puts @return_to
+    @from_discovery=true if params['discovery']
     @small_star_field = true  
   end
   
