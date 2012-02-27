@@ -20,7 +20,7 @@
           or <a href='sweeps_change'>here</a> to change your details.</p>
       <%end%>
       <%if @user.sweeps_status =='out' or @user.sweeps_status =='none': %>
-        <p class='sweeps_opt'> You are currently opted out of the descovery sweeps. Click <a href='sweeps_change'> here</a> to sign up</p>
+        <p class='sweeps_opt'> You are currently opted out of the Discovery Channel sweeps. Click <a href='sweeps_change'> here</a> to sign up</p>
     <%end%>
 
   </div>
@@ -36,7 +36,7 @@
     <div id='subjects'>
       <%-console.log @pagination.pages%>
       <%if @collectionType=='Followups': %>
-        <h2 style='color:black; text-align:center'> We are currently operating in a mode where we are not triggering followups from the telescope. Keep comming back to help us direct the telescope</h2>
+        <h2 style='color:black; text-align:center'>We are currently operating in a mode where we are not triggering followups at the telescope.</h2>
       <%else : %>
         <%- @itemTemplate({user:@user, items: @subjects[@pagination.start()...@pagination.end()]})%>
       <%end%>
