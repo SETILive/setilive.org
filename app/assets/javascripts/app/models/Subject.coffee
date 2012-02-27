@@ -95,6 +95,8 @@ class Subject extends Spine.Model
     bounds = @calcBounds()
     (val-bounds[beamNo][0])*255/(bounds[beamNo][1]-bounds[beamNo][0])
 
+  talkURL :->
+    "http://talk.setilive.org/observation_groups/#{@zooniverse_id}"
 
   @setPixel:(imageData, width,x, y, r, g, b, a) ->
     index = (x + y * width) * 4;

@@ -10,8 +10,8 @@ class Info extends Spine.Controller
 
   events:
     "click #done " : "doneClassification"
-    "click #talk_yes" : "talk"
-    "click #talk_no" : "dontTalk"
+    "click #talkYes" : "talk"
+    "click #talkNo" : "dontTalk"
     "click #favourite" : "favourite"
     "click #next_beam" : "nextBeam"
     "click #clear_signal" : "clearSignals"
@@ -52,12 +52,13 @@ class Info extends Spine.Controller
     @talk.show()
     
   talk :=>
-    window.open 'http://talk.setilive.org'
-    Subject.trigger "done"
+    subject = Subject.first()
+    window.open subject.talkURL()
+    window.location ='/classify'
 
   dontTalk :(e)=>
-    Subject.trigger "done"    
-  
+    window.location ='/classify'  
+
   favourite:(e)=>
     unless $(e.currentTarget).hasClass('favourited')
       u= User.first()
