@@ -53,31 +53,28 @@ class ZooniverseUser
   end
 
   def update_classification_stats(classification)
-     update_classification_count classification
-     update_signal_count         classification
-     update_seen                 classification.subject
-     # award_badges                classification
+     updater = update_classification_count(classification)
+     updater.deep_merge! update_signal_count(classification)
+     updater.deep_merge! update_seen(classification.subject)
+     collection.update({ :_id => id }, updater)
      RedisConnection.setex "online_#{self.id}", 10*60, 1
   end
-
+  
   def update_seen(subject)
-    self.add_to_set(:seen_subject_ids => subject.id )
+    { :$addToSet => { 'seen_subject_ids' => subject.id } }
   end 
-
-  def update_classification_count (clasificaiton)
-    puts "updating classificaiton count"
-    self.total_classifications=  self.total_classifications+1
-    self.save
-     # classification.subject.classification_count.
+  
+  def update_classification_count(clasificaiton)
+     { :$inc => { 'total_classifications' => 1 } }
   end
-
+  
   def update_signal_count(classification)
-
+    updater = { :$inc => { } }
+    
     classification.subject.observations.each do |observation|
-      signal_count = observation.subject_signals.count
-      self.signal_count[observation.id] ||=0
-      self.signal_count[observation.id] += signal_count
+      updater[:$inc]["signal_count.#{ observation.id }"] = observation.subject_signals.count
     end
+    updater
   end
 
   def badgeDetails

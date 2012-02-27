@@ -44,7 +44,7 @@ class ClassificationsController < ApplicationController
   end
 
   def recent 
-    c = Classification.all(:limit=>4).to_json(:include=>{:zooniverse_user=>{:only=>:name}, :subject=>{:include => {:observations=>{:except=>:data,:include=>:source}}}})
+    c = Classification.sort(:created_at.desc).limit(4).all.to_json(:include=>{:zooniverse_user=>{:only=>:name}, :subject=>{:include => {:observations=>{:except=>:data,:include=>:source}}}})
     respond_to do |format|
        format.json { render json: c }
     end 

@@ -56,7 +56,7 @@ require 'casclient/frameworks/rails/filter'
 
 require "zooniverse"
 require "zooniverse_id"
-
+require 'randomizer'
 
 CASClient::Frameworks::Rails::Filter.configure(
     :cas_base_url => "https://login.zooniverse.org"
