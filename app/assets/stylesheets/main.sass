@@ -58,7 +58,7 @@ input[type=text] , input[type=password]
   border-top: 1px #191F26 solid
   height: 50px
   background: #0E1216
-  color: #b2b2b2  
+  color: #f6f6f6  
   margin: 0px
   padding: 0px
   .container
@@ -74,7 +74,7 @@ input[type=text] , input[type=password]
       margin-left: 30px
 
     p, a
-      font-family: TitilliumText22LThin, Sans-serif
+      font-family: TitilliumText22LRegular, Sans-serif
       font-size: 12px
       line-height: 50px
       text-decoration: none
@@ -118,11 +118,12 @@ body
 
 #aboutpage
   h1
-    font-family: TitilliumText22LThin, Sans-serif
+    font-family: TitilliumText22LBold, Sans-serif
+    font-weight: normal
     line-height: 40px
     font-size: 30px
     text-align: center
-    padding: 0px 20px
+    padding: 50px 20px 50px
   
   .section_title
     padding-top: 50px
@@ -132,19 +133,32 @@ body
     clear: both
     width: 900px
     margin: 0px auto 40px auto
+    min-height: 146px
     .team_logo
       width: 180px
-      display: inline
-      float: left
+      height: 150px
+      padding: 0px
+
+      display: inline-block 
+      vertical-align: top
+      
     .team_text
       width: 620px
       display: inline-block
+      vertical-align: top
       padding-left: 45px    
+      font-family: TitilliumText22LRegular, Sans-serif
+      font-weight: normal
+      font-size: 13px
+      line-height: 18px
     .team_name
       font-size: 20px
       margin: 10px 0px
+      font-family: TitilliumText22LBold, Sans-serif
+      font-weight: normal
   .ted_section_title
-    font-family: TitilliumText22LThin, Sans-serif
+    font-family: TitilliumText22LBold, Sans-serif
+    font-weight: normal
     line-height: 40px
     font-size: 20px
     text-align: left
@@ -158,13 +172,15 @@ body
     text-align: left
     font-family: TitilliumText22LThin, Sans-serif
     img
-      border: 3px solid #F2F2F2
+      border: none
       float: right
-      margin-left: 20px 
+      margin-left: 30px 
+      margin-bottom: 0px
       
 #about_menu
   @include round-corners(2px)
   @include gradient-bg(#ECEAEA, #B3B3B3)
+  text-shadow: 0px 1px 0px #f2f2f2
   width: 1000px
   margin-left: auto
   margin-right: auto
@@ -176,12 +192,13 @@ body
     font-size: 20px
     line-height: 30px
     padding: 0px 35px
-    font-family: TitilliumText22LRegular, Sans-serif
+    font-family: TitilliumText22LMedium, Sans-serif
     color: black
     text-decoration: none
   a:hover
     text-decoration: none
     color: #ffffff
+    text-shadow: 0px -1px 0px #b4b4b4
 
 #top
   margin-left: auto
@@ -239,7 +256,7 @@ body
           text-decoration: none
     li:hover
       color: #ffffff
-      text-decoration: underline
+      text-decoration: none
     li:hover , .tutorial_select
       .nav_submenu
         display: block
@@ -1524,11 +1541,12 @@ ul.pagination
     margin-top : 20px
     padding: 0px
   #gallery_title 
-    font-family: TitilliumText22LThin, Sans-serif
+    font-family: TitilliumText22LBold, Sans-serif
+    font-weight: normal
     line-height: 40px
     font-size: 30px
     text-align: center
-    padding: 0px 20px
+    padding: 50px 20px 50px
 
   #gallery_blurb
     padding-top: 0px
@@ -1539,14 +1557,16 @@ ul.pagination
     text-align: center
     font-family: TitilliumText22LThin, Sans-serif
   .waterfall_plot_title 
-    font-family: TitilliumText22LThin, Sans-serif
-    line-height: 40px
+    font-family: TitilliumText22LMedium, Sans-serif
+    font-weight: normal
+    line-height: 20px
     font-size: 20px
     text-align: left
     padding: 0px
 
   .waterfall_blurb
     padding-top: 0px
+    padding-bottom: 30px
     margin-top: 0px
     font-size: 14px
     line-height: 20px
@@ -1566,7 +1586,7 @@ ul.pagination
         width: 400px
         margin-left: 20px
         vertical-align: middle
-        font-family: TitilliumText22LThin, Sans-serif
+        font-family: TitilliumText22LMedium, Sans-serif
         text-align: left 
 
 .galleryWaterfall
