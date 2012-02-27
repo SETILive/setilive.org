@@ -1,10 +1,6 @@
 <% for classification in @observations : %>
-  <%console.log "doing ", classification%>
   <%for observation in classification.subject.observations: %> 
     <%if observation.uploaded :%>
-      <%console.log "doing  classificaiton", classification%>
-      <%console.log "doing  observation", observation%>
-
       <div class='observation'>
         <img width=215  src='<%=observation.image_url%>' />
 

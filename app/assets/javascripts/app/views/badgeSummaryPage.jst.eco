@@ -4,7 +4,6 @@
       Welcome back, <%=@user.name%>.
     </h1>
     <ul id='user_badges'>
-      <%console.log "badges are ", Badge.all() %>
       <% for badge in Badge.all() :%>
         <li  class='badge'>
           <%- @badgeTemplate({badge:badge, size: 50, level:10})  %>

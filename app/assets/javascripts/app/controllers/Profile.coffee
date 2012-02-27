@@ -65,9 +65,9 @@ class Profile extends Spine.Controller
       @render()
   
   fetchType:(type, callback=null)=>
-    console.log "selected #{type}, favourites"
+    #console.log "selected #{type}, favourites"
     if type =='favourites'
-      console.log "fetching favourites",@favourites
+      #console.log "fetching favourites",@favourites
       return callback(@favourites) if @favourites
       $.getJSON '/user_favourites', (data)=>
         @favourites = data
