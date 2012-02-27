@@ -11,18 +11,18 @@ class SubjectsController < ApplicationController
   def next_subject_for_user
     subject = nil
      
-    # if [1,1].sample ==1
-    #   subject = get_seen_subject
-    # else
-    #   subject = get_new_subject
-    #   if subject
-    #     subject.save
-    #   else
-    #     subject = get_seen_subject
-    #   end
-    # end
+    if [1,2].sample ==1
+      subject = get_seen_subject
+      subject = get_new_subject unless subject
+    else
+      subject = get_new_subject
+      if subject
+        subject.save
+      else
+        subject = get_seen_subject
+      end
+    end
 
-    subject= Subject.first
 
     if subject 
       respond_to do |format|
