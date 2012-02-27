@@ -41,6 +41,8 @@ class SubjectsController < ApplicationController
 
   def get_seen_subject
     # Subject.unseen_for_user(current_user)
-    Subject.first
+    no=Subject.count
+    Subject.first(:skip=>rand(no))
+    # Subject.first
   end
 end
