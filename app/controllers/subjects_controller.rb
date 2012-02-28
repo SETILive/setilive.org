@@ -10,20 +10,20 @@ class SubjectsController < ApplicationController
 
   def next_subject_for_user
     subject = nil
-     
-    if [2,2].sample ==1
-      subject = get_seen_subject
+
+    if [1,2].sample ==1
+      subject = get_recent_subject
       subject = get_new_subject unless subject
     else
       subject = get_new_subject
       if subject
         subject.save
       else
-        # subject = get_seen_subject
+        subject = get_recent_subject
       end
     end
     
-    # subject =Subject.first(:skip=>0)
+    subject = Subject.random unless subject
 
     if subject 
       respond_to do |format|
@@ -40,6 +40,9 @@ class SubjectsController < ApplicationController
     Subject.random_frank_subject
   end
 
+  def get_recent_subject
+    Subject.random_recent
+  end
   def get_seen_subject
     # Subject.unseen_for_user(current_user)
     Subject.random.first

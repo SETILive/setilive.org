@@ -32,6 +32,8 @@ class Subject
   has_many :observations 
   has_many :classifications
 
+  after_create :pop_in_redis_temp
+
   # validates_presence_of  :observation_id
   #after_save :store_in_redis
 
@@ -73,12 +75,21 @@ class Subject
     @data ||= fetch_persisted_data
   end
 
+  def pop_in_redis_temp
+    RedisConnection.setex("subject_recent_#{self.id}", 180 ,  self.id)
+  end
+
   def persist_on_s3
     self.observations.each.processNow
   end
 
   def self.tutorial_subject
     Subject.where(:activity_id=>'tutorial').first
+  end
+
+  def self.random_recent
+    key = RedisConnection.keys("subject_recent_*").sample
+    Subject.find(RedisConnection.get key)
   end
 
   def self.random_frank_subject 
