@@ -33,10 +33,12 @@ class SystemViewer extends Spine.Controller
     @cent_x = @el.width()/2 #@context.canvas.offsetWidth/2.0
     @cent_y = @el.height()/2 #@context.canvas.offsetWidth/2.0
 
-    @drawStar()
     
     for planet in @system.planets
       @drawPlanet planet
+
+    @drawStar()
+
 
   drawPlanet:(planet) ->
     r = planet.radius*@localSizeScale/5.0
