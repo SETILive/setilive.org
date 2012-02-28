@@ -12,12 +12,13 @@ gem 'pusher', '0.9.2'
 gem 'ezcrypto', '0.7.2'
 gem 'sidekiq', '0.6.0'
 gem 'chunky_png', '1.2.5'
-gem "bcrypt-ruby", '3.0.1', :require => "bcrypt"
-gem "aws-sdk", "~> 1.3.3"
+gem 'bcrypt-ruby', '3.0.1', :require => 'bcrypt'
+gem 'aws-sdk', '~> 1.3.3'
 gem 'libxml-ruby', '2.2.2'
 gem 'httparty', '0.8.1'
 gem 'multi_xml', '0.4.1' # dependency of HTTParty, but also used directly
-gem 'rubycas-client', :path => "vendor/gems/rubycas-client/"
+gem 'rubycas-client', :path => 'vendor/gems/rubycas-client/'
+gem 'newrelic_rpm', '3.3.2'
 
 group :assets do
   gem 'sass-rails', '3.2.4'
@@ -27,7 +28,7 @@ group :assets do
 end
 
 group :production do
-  gem "therubyracer", '0.9.9'
+  gem 'therubyracer', '0.9.9'
 end
 
 group :development, :test do
