@@ -29,12 +29,12 @@ class Info extends Spine.Controller
 
   setupTargets:() =>
     subject = Subject.first()
+    console.log subject
     if subject?  and Source.count() > 0
       # target_ids = ( targets for targets in subject.beam ) 
       targets = []
       for observation in subject.observations
-        source = Source.find(observation.source_id)
-        targets.push(source ) if source?
+        targets.push(new Source(observation.source )) if observation.source?
       new TargetsSlide(el:@targets , targets: targets)
 
 
@@ -45,7 +45,8 @@ class Info extends Spine.Controller
     @time.html "#{if mins<10 then "0" else ""}#{mins}:#{if secs<10 then "0"  else ""}#{secs}"
     if timeRemaining <= 0
       clearInterval @timeInterval
-      @tile.html "New data expected"
+      @time.css("font-size","20px")
+      @time.html "New data expected"
 
   resetTime:=>
     @targetTime = (1).minutes().fromNow()

@@ -1,4 +1,6 @@
 <div id='targets'>
+
+  <%console.log "current_targets is", @current_target%>
   <%if @current_target.type=='kepler_planet': %>
    <p>Kepler <%=@current_target.kepler_no()%></p>
   <%else: %>

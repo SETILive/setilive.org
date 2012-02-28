@@ -8,7 +8,7 @@ class TargetsSlide extends Spine.Controller
     super
     @targets = args.targets 
     @current_target= @targets[0]
-    Spine.bind "beamChange", @selectTarget
+    Spine.bind("beamChange", @selectTarget)
     @render()
 
   render:=>
@@ -17,8 +17,10 @@ class TargetsSlide extends Spine.Controller
       current_target : @current_target
 
   selectTarget:(e)=>
-    if e.current_target?
+    console.log("events is " , e)
+    if e.currentTarget?
       targetId = $(e.currentTarget).data().id 
+      console.log("here from button ",targetId )
     else 
       targetId = e.observation.source_id 
       
