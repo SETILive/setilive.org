@@ -25,6 +25,8 @@ class Workflows extends Spine.Controller
       left : x
     @el.show()
     @currentSignal = signal
+    @currentSignal.characterisations =[]
+    @currentSignal.save()
     @setUpQuestion(Workflow.first().questions[0]._id)
 
 

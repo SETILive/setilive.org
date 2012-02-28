@@ -20,7 +20,7 @@ class Info extends Spine.Controller
   constructor: ->
     super
     @resetTime()
-    setInterval @updateTime, 100
+    @timeInterval = setInterval @updateTime, 100
     Subject.bind('create', @setupTargets)
     Spine.bind("beamChange", @beamChange)
 
@@ -43,8 +43,9 @@ class Info extends Spine.Controller
     mins          = Math.floor timeRemaining/60
     secs          = Math.floor timeRemaining-mins*60
     @time.html "#{if mins<10 then "0" else ""}#{mins}:#{if secs<10 then "0"  else ""}#{secs}"
-    @resetTime() if timeRemaining <= 0
-    
+    if timeRemaining <= 0
+      @timeInterval=nil
+      @tile.html "New data expected"
   resetTime:=>
     @targetTime = (1).minutes().fromNow()
 

@@ -78,7 +78,7 @@ class Subjects extends Spine.Controller
     $(".signal_line_#{signal.id}").attr("opacity","0.2")
     $(".signal_line_#{signal.id}").attr("data-id",signal.id)
     $(".signal_#{signal.id}").removeClass("draggable")
-    $(".signal_#{signal.id}").removeClass("signal_selected")
+    $(".signal").removeClass("signal_selected")
     
     $(".signal").mouseenter (e) =>
       signal_id = $(e.currentTarget).data().id
@@ -94,7 +94,7 @@ class Subjects extends Spine.Controller
     $(".signal_#{signal.id}").click (e)=>
       e.stopPropagation()
       signal_id = $(e.currentTarget).data().id
-      
+      @current_classification.setSignal(signal_id)
       unless $(".signal_#{signal_id}").hasClass("signal_selected")
         $(".signal_#{signal_id}").attr("opacity","1.0")
         $(".signal_#{signal_id}").addClass("signal_selected")
