@@ -44,8 +44,9 @@ class Info extends Spine.Controller
     secs          = Math.floor timeRemaining-mins*60
     @time.html "#{if mins<10 then "0" else ""}#{mins}:#{if secs<10 then "0"  else ""}#{secs}"
     if timeRemaining <= 0
-      @timeInterval=nil
+      clearInterval @timeInterval
       @tile.html "New data expected"
+
   resetTime:=>
     @targetTime = (1).minutes().fromNow()
 
@@ -70,6 +71,7 @@ class Info extends Spine.Controller
         u.addFavourite observation.id 
       $(e.currentTarget).html("<span style='color:white'>✓</span>")
       $(e.currentTarget).addClass('favourited')
+      User.trigger("favourited")
   
   nextBeam:=>
     Spine.trigger("nextBeam")
