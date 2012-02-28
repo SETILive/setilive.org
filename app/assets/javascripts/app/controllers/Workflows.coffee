@@ -13,7 +13,7 @@ class Workflows extends Spine.Controller
   render:=>
     @html @view('workflow')
       question : @current_question
-      helpers : @helpers
+      answerHelper : @answer_icon
 
   startWorkflow:(signal)=>
     x = @el.parent().width()*(Math.max(signal.freqEnd, signal.freqStart) ) + 20
@@ -55,17 +55,12 @@ class Workflows extends Spine.Controller
     @el.hide()
     Workflow.trigger 'workflowDone','done'
   
-  helpers:
-    answer_icon:(answer)->
-      lookup=
-        "red"      : "<div class='answer-icon' style='display:inline-block; width:10px; height:10px; background-color: red'></div>"
-        "white"    : "<div class='answer-icon' style='display:inline-block; width:10px; height:10px; background-color:white'></div>"
-        "blue"     : "<div class= 'answer-icon' style='display:inline-block; width:10px; height:10px; background-color:blue'></div>"
-        "green"    : "<div class= 'answer-icon' style='display:inline-block; width:10px; height:10px; background-color:green'></div>"
-        "spiral"   : "<img src='assets/question_icons/spiral.png' class ='answer-icon' style='display: inline-block'></img>"
-        "diagonal" : "<img src='assets/question_icons/diagonal.png' class ='answer-icon' style='display: inline-block'></img>"
-        "broken"   : "<img src='assets/question_icons/broken.png' class ='answer-icon' style='display: inline-block'></img>"
-        "straight" : "<img src='assets/question_icons/straight.png' class ='answer-icon' style='display: inline-block'></img>"
-      lookup[answer.name.toLowerCase()]
+  answer_icon:(answer)->
+    lookup=
+      "spiral"   : "<img src='assets/question_icons/spiral.png' class ='answer-icon' style='display: inline-block'></img>"
+      "diagonal" : "<img src='assets/question_icons/diagonal.png' class ='answer-icon' style='display: inline-block'></img>"
+      "broken"   : "<img src='assets/question_icons/broken.png' class ='answer-icon' style='display: inline-block'></img>"
+      "straight" : "<img src='assets/question_icons/straight.png' class ='answer-icon' style='display: inline-block'></img>"
+    lookup[answer.name.toLowerCase()]
     
 window.Workflows = Workflows

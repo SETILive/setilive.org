@@ -530,7 +530,7 @@ p.title
   font-size: 10pt
 
 #workflow
-  width: 100px
+  width: 130px
   height: 175px
   z-index: 10000
   @include gradient-bg(#ECEAEA, #B3B3B3)
@@ -545,6 +545,13 @@ p.title
     line-height: 28px
     font-size: 12pt
     border-top: 1px solid #D7D6D6
+
+    .answer_text
+      float: left
+      margin-left: 10px
+    img.answer-icon
+      float: left
+      margin-left: 10px
         
   #question_text
     font-size: 12pt
@@ -552,8 +559,9 @@ p.title
     width: 100%
     padding: 0px
     margin: 0px
-    padding-top: 20px
+    padding-top: 10px
     text-transform: uppercase
+
   ul li:hover
     cursor: pointer
     color: #383838
