@@ -29,7 +29,9 @@ class Info extends Spine.Controller
 
   setupTargets:() =>
     subject = Subject.first()
-    console.log subject
+    if subject.observations.count ==1 
+      @done.show()
+      @nextBeam.hide() 
     if subject?  and Source.count() > 0
       # target_ids = ( targets for targets in subject.beam ) 
       targets = []
@@ -78,7 +80,6 @@ class Info extends Spine.Controller
     Spine.trigger("nextBeam")
 
   beamChange:(data)=>
-   #console.log data
     if data.beamNo == data.totalBeams-1
       @done.show()
       @nextBeam.hide() 

@@ -85,6 +85,7 @@ class Subject
     keys = RedisConnection.keys 'subject_*'
     return nil if keys.empty?
     key = keys.sample
+    puts("getting #{key}")
     subject  = BSON.deserialize(RedisConnection.get key)
     RedisConnection.del key
     generate_subject_from_frank(subject, key)
@@ -92,10 +93,10 @@ class Subject
 
   def self.parse_key_details(key)
      data = key.split("_")
-     {observation_id: data[1],
-      activity_id: data[2],
-      pol: data[3].to_i,
-      sub_channel: data[4].to_i
+     {observation_id: data[2],
+      activity_id: data[3],
+      pol: data[4].to_i,
+      sub_channel: data[5].to_i
      }
   end
 
@@ -117,16 +118,22 @@ class Subject
 
     if s 
       subject['beam'].each_with_index do |beam,index|
+        beam_no = beam['beam']
+        seti_id =  beam['target']
+        beam_data =  beam['data'].to_a
+ 
+        puts "beam no is #{beam_no}, seti id is #{seti_id}"
         
-        beam['data'] =  beam['data'].to_a.to_json
-        unless beam['data'].empty?
-          source = Source.find_by_seti_id beam['target_id']
-          source = Source.create_with_seti_id beam['target_id'] unless source 
+        unless beam_data.empty?
+          beam_data=beam_data.to_json
+
+          source = Source.find_by_seti_id(seti_id.to_s)
+          source = Source.create_with_seti_id(seti_id) unless source 
          
           if source
-            s.observations.create( :data    => beam['data'], 
+            s.observations.create( :data    => beam_data, 
                                                   :source  => source,
-                                                  :beam_no => index,
+                                                  :beam_no => beam_no,
                                                   :width => subject['width'],
                                                   :height => subject['height']
                                                   )
@@ -137,6 +144,7 @@ class Subject
         end
       end
     end
+    
     GenerateTalk.perform_async s.id
     s
   end

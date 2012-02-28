@@ -11,7 +11,7 @@ class Subject extends Spine.Model
         @trigger('got')
     
   @fetch_next_for_user: ->
-    $.getJSON "next_subject.json", (data)->
+    $.getJSON "next_subject.json", (data)=>
       Subject.dataifyData(data)
       subject=  Subject.create(data)
       Subject.trigger('next_subject', subject)
@@ -23,10 +23,22 @@ class Subject extends Spine.Model
       Subject.trigger('next_subject', subject)
   
   @dataifyData:(data)->
-    for observation in data.observations
+    for observation, index in data.observations
       observation.data = JSON.parse(observation.data) unless observation.uploaded
-    console.log "origonal data", data
 
+
+  observationForId:(id)=>
+    for observation in @observations
+      return observation if observation.beam_no
+
+  lastObservation:=>
+    max_index = 0
+    max_beam_no = 0
+    for observation,index in @observations
+      if observation.beam_no > max_beam_no
+        max_beam_no = observation.beam_no 
+        max_index = index
+    return @observations[max_index]
   imageDataForBeam:(beamNo,targetWidth,targetHeight)->
     imageData=[]
     imageData[i] =0 for i in [0..targetWidth*targetHeight]
