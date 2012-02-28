@@ -2,31 +2,39 @@
 class Subject extends Spine.Model
   @configure 'Subject','observations','activityId', 'bandwidthMhz', 'bitPix', 'centerFreqMhz', 'endTimeNanos', 'uploaded', 'image_url', 'thumb_url','data_url', 'zooniverse_id'
   @extend Spine.Events
-
+  
   
   @fetch_from_url: (url) ->
     $.getJSON url, (data)->
+      Subject.datifyData(data)
       subject=  Subject.create(data)
       unless subject.uploaded
-       @trigger('got')
+        @trigger('got')
     
   @fetch_next_for_user: ->
     $.getJSON "next_subject.json", (data)->
+      Subject.datifyData(data)
       subject=  Subject.create(data)
       Subject.trigger('next_subject', subject)
   
   @get_tutorial_subject: ->
     $.getJSON "tutorial_subject.json", (data)->
+      Subject.datifyData(data)
       subject=  Subject.create(data)
       Subject.trigger('next_subject', subject)
-    
+  
+  @datifyData:(data)->
+    for observation in data.observations
+      observation.data = JSON.parse(observation.data)
+    console.log "origonal data", data
+
   imageDataForBeam:(beamNo,targetWidth,targetHeight)->
     imageData=[]
     imageData[i] =0 for i in [0..targetWidth*targetHeight]
-    data = @observations[beamNo].data
     bounds = @calcBounds()
     width = @observations[beamNo].width
     height = @observations[beamNo].height
+    data = @observations[beamNo].data
     for x in [0..targetWidth]
       for y in [0..targetHeight]
         imagePos = (y+x*targetWidth)*4

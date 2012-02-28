@@ -2,7 +2,6 @@ task :create_lots_of_subject => :environment do
   Dir.glob("/Users/stuartlynn/Desktop/zoo-test-bson/act7.1.1").each do |file|
     subject = Subject.generate_subject_from_frank(BSON.deserialize(IO.read(file)))
     filename = file.split("/").last
-    console.log subject.to_json
     subject.observations.each_with_index do |obs,index|
       png = ObservationUploader.new.make_png obs, 758, 410
       png.save("#{filename.gsub('.bson',index.to_s)}.png")
