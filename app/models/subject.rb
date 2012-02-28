@@ -126,7 +126,6 @@ class Subject
                       }
                     ) 
    
-
     if s 
       subject['beam'].each_with_index do |beam,index|
         beam_no = beam['beam']
@@ -143,14 +142,14 @@ class Subject
          
           if source
             s.observations.create( :data    => beam_data, 
-                                                  :source  => source,
-                                                  :beam_no => beam_no,
-                                                  :width => subject['width'],
-                                                  :height => subject['height']
-                                                  )
-            
+                                   :source  => source,
+                                   :beam_no => beam_no,
+                                   :width => subject['width'],
+                                   :height => subject['height']
+                                   )
+
           else 
-            throw "Could not find Source for observation #{beam['target_id']}"
+            throw "Could not find or create Source for observation #{beam['target_id']}"
           end
         end
       end

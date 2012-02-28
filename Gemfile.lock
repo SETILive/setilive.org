@@ -101,6 +101,7 @@ GEM
       plucky (~> 0.4.0)
     multi_json (1.0.4)
     multi_xml (0.4.1)
+    newrelic_rpm (3.3.2)
     nokogiri (1.5.0)
     plucky (0.4.4)
       mongo (~> 1.5)
@@ -202,6 +203,7 @@ DEPENDENCIES
   mongo_mapper
   multi_json (= 1.0.4)
   multi_xml (= 0.4.1)
+  newrelic_rpm
   pry
   pry-rails
   pusher

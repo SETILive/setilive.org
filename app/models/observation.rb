@@ -21,8 +21,6 @@ class Observation
   before_create :create_zooniverse_id
   after_create :process
 
-
-
   def create_zooniverse_id
     self.zooniverse_id = "OSL#{ beam_no || 0 }#{ subject.zooniverse_id[4..-1] }"
   end
@@ -34,5 +32,4 @@ class Observation
   def processNow 
     ObservationUploader.new.perform self.id
   end
-
 end
