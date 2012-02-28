@@ -4,12 +4,14 @@ class Workflows extends Spine.Controller
     ".question" : "question"
   events:
     "click .answer" : 'selectAnswer'
+    "click #delete_signal" : 'deleteSignal'
     
   constructor: ->
     super
     Spine.bind("startWorkflow", @startWorkflow)
     @render()
     @el.hide()
+
   render:=>
     @html @view('workflow')
       question : @current_question
@@ -23,7 +25,18 @@ class Workflows extends Spine.Controller
       left : x
     @el.show()
     @currentSignal = signal
+    @currentSignal.characterisations =[]
+    @currentSignal.save()
     @setUpQuestion(Workflow.first().questions[0]._id)
+
+
+  deleteSignal:(e)=>
+    e.stopPropagation()
+    @currentSignal.destroy()
+    $(".signal_#{@currentSignal.id}").remove()
+    @el.hide()
+    Workflow.trigger 'workflowDone','done'
+
 
   setUpQuestion: (question_id=-1) ->
     workflow = Workflow.first()
@@ -36,8 +49,6 @@ class Workflows extends Spine.Controller
     
   selectAnswer: (event)=>
     answer= $(event.currentTarget).data()
-
-   
 
     @currentSignal.characterisations.push 
       question_id: @current_question._id

@@ -10,6 +10,8 @@ class Classification extends Spine.Model
   newSignal: (x,y,id)=>
     @currentSignal  = @signals().create({timeStart: y, freqStart : x, observation_id: id})
 
+  setSignal:(id)=>
+    @currentSignal= Signal.find(id)
   persist:=>    
     window.classificaiton=@
     signals = (signal.toJSON() for signal in @signals().all())

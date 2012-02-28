@@ -5,7 +5,7 @@ class Subjects extends Spine.Controller
     "#main-waterfall"  : "main_beam"
     ".small-waterfall" : "sub_beams"
     ".waterfall"       : "beams"
-    "#workflow"   : 'workflowArea'
+    "#workflow"         : 'workflowArea'
      
   events:
     'click #main-waterfall' : 'markerPlaced'
@@ -23,6 +23,7 @@ class Subjects extends Spine.Controller
 
     Spine.bind("enableSignalDraw", @enableSignalDraw)
     Spine.bind("dissableSignalDraw", @dissableSignalDraw)
+    Spine.bind("clearSignals", @deleteAllSignals)
     Workflow.bind("workflowDone", @enableSignalDraw)
     Workflow.bind("workflowDone", @finalizeSignal)
   
@@ -40,7 +41,8 @@ class Subjects extends Spine.Controller
       start_time : new Date()
     
     @setUpBeams()
-     
+
+
   selectBeam:(beamNo)=>
     if typeof beamNo == 'object'
       beamNo.preventDefault()
@@ -62,14 +64,42 @@ class Subjects extends Spine.Controller
       beamNo: beamNo
       totalBeams: @current_subject.observations.length
 
+  deleteAllSignals:=>
+    signal.destroy() for signal in @current_classification.signals()
+    $(".signal").remove()
+
   enableSignalDraw :=>
     @canDrawSignal = true 
 
   finalizeSignal :=>
     signal = @current_classification.currentSignal
-    $(".signal_#{signal.id}").attr("opacity","0.8")
-    $(".signal_line_#{signal.id}").attr("opacity","0.8")
+
+    $(".signal_#{signal.id}.signal_circle").attr('opacity', '0.2')
+    $(".signal_line_#{signal.id}").attr("opacity","0.2")
+    $(".signal_line_#{signal.id}").attr("data-id",signal.id)
     $(".signal_#{signal.id}").removeClass("draggable")
+    $(".signal").removeClass("signal_selected")
+    
+    $(".signal").mouseenter (e) =>
+      signal_id = $(e.currentTarget).data().id
+      unless $(e.currentTarget).hasClass("signal_selected")
+        $(".signal_#{signal_id}").attr("opacity","1.0")
+      
+    $(".signal").mouseleave (e) =>
+      signal_id = $(e.currentTarget).data().id
+      unless $(".signal_#{signal_id}").hasClass("signal_selected")
+        $(".signal_#{signal_id}").attr("opacity","0.2")
+
+
+    $(".signal_#{signal.id}").click (e)=>
+      e.stopPropagation()
+      signal_id = $(e.currentTarget).data().id
+      @current_classification.setSignal(signal_id)
+      unless $(".signal_#{signal_id}").hasClass("signal_selected")
+        $(".signal_#{signal_id}").attr("opacity","1.0")
+        $(".signal_#{signal_id}").addClass("signal_selected")
+        $(".signal_#{signal.id}.signal_circle").addClass("draggable")
+        Spine.trigger("startWorkflow", signal)
 
   dissableSignalDraw :=>
     @canDrawSignal = false 
@@ -138,7 +168,7 @@ class Subjects extends Spine.Controller
       dy  = (e.pageY*1.0-$(e.currentTarget).offset().top)/ @main_beam.height()*1.0
         
       if(@stage==0)
-        @current_classification.newSignal(dx, dy, @current_subject.observations[@current_beam].id )
+        signal = @current_classification.newSignal(dx, dy, @current_subject.observations[@current_beam].id )
       else 
         @current_classification.updateSignal(dx,dy)
 
@@ -157,7 +187,7 @@ class Subjects extends Spine.Controller
         "stroke-width":"2"
         "fill": "purple"
         "fill-opacity": "1"
-        "cursor" : "move"
+        
 
       self = this
       circle.drag(
@@ -181,6 +211,11 @@ class Subjects extends Spine.Controller
             this.startY= this.attr("cy")
         )
         
+      $(circle.node).addClass("signal")
+      $(circle.node).addClass("signal_selected")
+
+      $(circle.node).attr("data-id", signal.id)
+      $(circle.node).addClass("signal_circle")
 
       $(circle.node).addClass("signal_#{signal.id}")
       $(circle.node).addClass("stage_#{@stage}")
@@ -214,7 +249,11 @@ class Subjects extends Spine.Controller
         stroke : "#CDDC28"
         "stroke-width"   : 2
         "stroke-opacity" : 1
+
+      $(line.node).addClass("signal")
+      $(line.node).addClass("signal_#{signal.id}")
       $(line.node).addClass("signal_line_#{signal.id}")
+      $(line.node).addClass("signal_selected")
       $(line.node).addClass("signal_beam_#{@current_beam}")
 
     @stage=0
