@@ -3,7 +3,6 @@ class Subject extends Spine.Model
   @configure 'Subject','observations','activityId', 'bandwidthMhz', 'bitPix', 'centerFreqMhz', 'endTimeNanos', 'uploaded', 'image_url', 'thumb_url','data_url', 'zooniverse_id'
   @extend Spine.Events
   
-  
   @fetch_from_url: (url) ->
     $.getJSON url, (data)->
       Subject.dataifyData(data)
@@ -25,7 +24,7 @@ class Subject extends Spine.Model
   
   @dataifyData:(data)->
     for observation in data.observations
-      observation.data = JSON.parse(observation.data)
+      observation.data = JSON.parse(observation.data) unless observation.uploaded
     console.log "origonal data", data
 
   imageDataForBeam:(beamNo,targetWidth,targetHeight)->
