@@ -13,6 +13,8 @@ group :assets do
   gem 'spine-rails'
 end
 
+gem 'rpm'
+
 gem 'coffee-rails'
 
 gem 'mongo_mapper'
