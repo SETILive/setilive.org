@@ -18,7 +18,8 @@ class Notifications extends Spine.Controller
   localEvents:
     "User":
       "badge_awarded" :  "badgeAwarded"
-      # "tutorial_badge_awarded" : "tutorialBadgeAwarded"
+      "tutorial_badge_awarded" : "tutorialBadgeAwarded"
+      "favourited" : "favourited"
 
   constructor: ->
     super
@@ -58,10 +59,14 @@ class Notifications extends Spine.Controller
   updateStats:(data)=>
     Spine.trigger('updateStats',data)  
 
+  favourited: => 
+    alert("here")
+    @addNotification('favourited',{})
+
+
   sourceChange: (data)=> 
     Spine.trigger('target_target_changed', data)
     @addNotification('source_change',data)
-
   newData: (data)=>
     @addNotification('new_data',data)
 

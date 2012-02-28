@@ -2,9 +2,11 @@
     <canvas style='width:100%;height:100%;position:absolute; top:0px; left:0px'></canvas>
     <div id='workflow' class='workflow_area'></div>
 </div>
-
 <% for beam,index in @:%>
-  <div class='waterfall small-waterfall' id='waterfall-<%-index%>' data-id='<%-index%>' style='position:relative'>
-    <canvas style='width:100%;height:100%;position:absolute; top:0px; left:0px'></canvas>
-  </div>
+
+  <% if beam.data.length > 0 : %>
+    <div class='waterfall small-waterfall <%-"waterfall-first" if index==0%>' id='waterfall-<%-index%>' data-id='<%-index%>' style='position:relative'>
+      <canvas style='width:100%;height:100%;position:absolute; top:0px; left:0px'></canvas>
+    </div>
+  <%end%>
 <%end%>
