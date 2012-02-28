@@ -72,9 +72,19 @@ class Subjects extends Spine.Controller
 
   finalizeSignal :=>
     signal = @current_classification.currentSignal
-    $(".signal_#{signal.id}").attr("opacity","0.8")
-    $(".signal_line_#{signal.id}").attr("opacity","0.8")
+
+    
+    $(".signal_#{signal.id}.signal_circle").attr('opacity', '0.3')
+    $(".signal_line_#{signal.id}").attr("opacity","0.3")
+    $(".signal_line_#{signal.id}").attr("data-id",signal.id)
     $(".signal_#{signal.id}").removeClass("draggable")
+    $(".signal").mouseenter (e) =>
+      signal_id = $(e.currentTarget).data().id
+      $(".signal_#{signal_id}").attr("opacity","1.0")
+      
+    $(".signal").mouseleave (e) =>
+      signal_id = $(e.currentTarget).data().id
+      $(".signal_#{signal_id}").attr("opacity","0.3")
 
   dissableSignalDraw :=>
     @canDrawSignal = false 
@@ -187,6 +197,8 @@ class Subjects extends Spine.Controller
         )
         
       $(circle.node).addClass("signal")
+      $(circle.node).attr("data-id", signal.id)
+      $(circle.node).addClass("signal_circle")
 
       $(circle.node).addClass("signal_#{signal.id}")
       $(circle.node).addClass("stage_#{@stage}")
