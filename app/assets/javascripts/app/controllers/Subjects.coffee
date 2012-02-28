@@ -23,6 +23,7 @@ class Subjects extends Spine.Controller
 
     Spine.bind("enableSignalDraw", @enableSignalDraw)
     Spine.bind("dissableSignalDraw", @dissableSignalDraw)
+    Spine.bind("clearSignals", @deleteAllSignals)
     Workflow.bind("workflowDone", @enableSignalDraw)
     Workflow.bind("workflowDone", @finalizeSignal)
   
@@ -61,6 +62,10 @@ class Subjects extends Spine.Controller
       observation: @current_subject.observations[beamNo]
       beamNo: beamNo
       totalBeams: @current_subject.observations.length
+
+  deleteAllSignals:=>
+    signal.destroy() for signal in @current_classification.signals()
+    $(".signal").remove()
 
   enableSignalDraw :=>
     @canDrawSignal = true 
@@ -138,7 +143,7 @@ class Subjects extends Spine.Controller
       dy  = (e.pageY*1.0-$(e.currentTarget).offset().top)/ @main_beam.height()*1.0
         
       if(@stage==0)
-        @current_classification.newSignal(dx, dy, @current_subject.observations[@current_beam].id )
+        signal = @current_classification.newSignal(dx, dy, @current_subject.observations[@current_beam].id )
       else 
         @current_classification.updateSignal(dx,dy)
 
@@ -181,6 +186,7 @@ class Subjects extends Spine.Controller
             this.startY= this.attr("cy")
         )
         
+      $(circle.node).addClass("signal")
 
       $(circle.node).addClass("signal_#{signal.id}")
       $(circle.node).addClass("stage_#{@stage}")
@@ -214,6 +220,9 @@ class Subjects extends Spine.Controller
         stroke : "#CDDC28"
         "stroke-width"   : 2
         "stroke-opacity" : 1
+
+      $(line.node).addClass("signal")
+      $(line.node).addClass("signal_#{signal.id}")
       $(line.node).addClass("signal_line_#{signal.id}")
       $(line.node).addClass("signal_beam_#{@current_beam}")
 

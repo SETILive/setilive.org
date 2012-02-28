@@ -24,6 +24,9 @@ class Info extends Spine.Controller
     Subject.bind('create', @setupTargets)
     Spine.bind("beamChange", @beamChange)
 
+  clearSignals:()=>
+    Spine.trigger("clearSignals")
+
   setupTargets:() =>
     subject = Subject.first()
     if subject?  and Source.count() > 0

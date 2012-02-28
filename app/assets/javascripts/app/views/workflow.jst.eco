@@ -4,13 +4,16 @@
     <%end%>
   </div>
   <ul class='answer_list'>
-    <% if @question? :%>
-      <%for answer in @question.answers:%>
-        <li id='answer_<%=answer._id%>' class='answer' data-id ='<%=answer._id%>' data-leads_to='<%=answer.leads_to%>'' >
+    <% if @question? : %>
+      <%for answer in @question.answers : %>
+        <li id='answer_<%=answer._id%>' class='answer' data-id ='<%=answer._id%>' data-leads_to='<%=answer.leads_to%>' >
           <%@helpers.answer_icon(answer)%>
           <%-answer.name%>
         </li>      
       <%end%>
+      <li id='delete_signal'  data-id ="2" >
+        delete 
+      </li>      
     <%end%>
 
   </ul>
