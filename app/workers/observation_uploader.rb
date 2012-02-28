@@ -60,14 +60,15 @@ class ObservationUploader
     png = ChunkyPNG::Image.new(img_width, img_height, ChunkyPNG::Color.rgba(255, 0, 0, 255))
     width  = observation.width
     height = observation.height
-    beam = observation.data
-
+    beam =  JSON.parse(observation.data)
+    max = beam.max 
+    min = beam.min
     (0..(img_width-1)).each do |xpos|
       (0..(img_height-1)).each do |ypos|
         x= xpos*width/img_width
         y= ypos*height/img_height
         pos = x + width*y
-        val = beam[pos]
+        val = (beam[pos]- min) * 255 / (max-min)
         png[xpos,ypos] = ChunkyPNG::Color.rgba(val, val, val, 255)
       end
     end    

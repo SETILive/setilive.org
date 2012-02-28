@@ -32,6 +32,8 @@ class Subject
   has_many :observations 
   has_many :classifications
 
+  after_create :pop_in_redis_temp
+
   # validates_presence_of  :observation_id
   #after_save :store_in_redis
 
@@ -73,6 +75,10 @@ class Subject
     @data ||= fetch_persisted_data
   end
 
+  def pop_in_redis_temp
+    RedisConnection.setex("subject_recent_#{self.id}", 180 ,  self.id)
+  end
+
   def persist_on_s3
     self.observations.each.processNow
   end
@@ -81,10 +87,16 @@ class Subject
     Subject.where(:activity_id=>'tutorial').first
   end
 
+  def self.random_recent
+    key = RedisConnection.keys("subject_recent_*").sample
+    Subject.find(RedisConnection.get key)
+  end
+
   def self.random_frank_subject 
     keys = RedisConnection.keys 'subject_*'
     return nil if keys.empty?
     key = keys.sample
+    puts("getting #{key}")
     subject  = BSON.deserialize(RedisConnection.get key)
     RedisConnection.del key
     generate_subject_from_frank(subject, key)
@@ -92,10 +104,10 @@ class Subject
 
   def self.parse_key_details(key)
      data = key.split("_")
-     {observation_id: data[1],
-      activity_id: data[2],
-      pol: data[3].to_i,
-      sub_channel: data[4].to_i
+     {observation_id: data[2],
+      activity_id: data[3],
+      pol: data[4].to_i,
+      sub_channel: data[5].to_i
      }
   end
 
@@ -114,29 +126,35 @@ class Subject
                       }
                     ) 
    
-
     if s 
       subject['beam'].each_with_index do |beam,index|
+        beam_no = beam['beam']
+        seti_id =  beam['target']
+        beam_data =  beam['data'].to_a
+ 
+        puts "beam no is #{beam_no}, seti id is #{seti_id}"
         
-        beam['data'] =  beam['data'].to_a.to_json
-        unless beam['data'].empty?
-          source = Source.find_by_seti_id beam['target_id']
-          source = Source.create_with_seti_id beam['target_id'] unless source 
+        unless beam_data.empty?
+          beam_data=beam_data.to_json
+
+          source = Source.find_by_seti_id(seti_id.to_s)
+          source = Source.create_with_seti_id(seti_id) unless source 
          
           if source
-            s.observations.create( :data    => beam['data'], 
-                                                  :source  => source,
-                                                  :beam_no => index,
-                                                  :width => subject['width'],
-                                                  :height => subject['height']
-                                                  )
-            
+            s.observations.create( :data    => beam_data, 
+                                   :source  => source,
+                                   :beam_no => beam_no,
+                                   :width => subject['width'],
+                                   :height => subject['height']
+                                   )
+
           else 
-            throw "Could not find Source for observation #{beam['target_id']}"
+            throw "Could not find or create Source for observation #{beam['target_id']}"
           end
         end
       end
     end
+    
     GenerateTalk.perform_async s.id
     s
   end
