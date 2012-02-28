@@ -1,62 +1,38 @@
 source 'http://rubygems.org'
 gem 'rails', '3.2.1'
-
-# Bundle edge Rails instead:
-# gem 'rails',     :git => 'git://github.com/rails/rails.git'
-# gem 'sqlite3'
-# Gems used only for assets and not required
-# in production environments by default.
-group :assets do
-  gem 'sass-rails'
-  gem 'uglifier'
-  gem 'eco' 
-  gem 'spine-rails'
-end
-
-gem 'coffee-rails'
-
-gem 'mongo_mapper'
-gem 'bson'
-gem 'bson_ext'
-gem 'state_machine'
-gem 'redis'
-gem 'airbrake'
+gem 'coffee-rails', '3.2.2'
+gem 'mongo_mapper', '0.11.0'
+gem 'bson', '1.5.2'
+gem 'bson_ext', '1.5.2'
+gem 'state_machine', '1.1.2'
+gem 'redis', '2.2.2'
+gem 'airbrake', '3.0.9'
 gem 'multi_json', '1.0.4'
-gem 'pusher'
-gem 'ezcrypto'
-
-gem 'sidekiq'
-
-gem 'pry'
-gem 'pry-rails'
-
-gem 'chunky_png'
-
-gem "bcrypt-ruby", :require => "bcrypt"
-
-gem "therubyracer"
-
+gem 'pusher', '0.9.2'
+gem 'ezcrypto', '0.7.2'
+gem 'sidekiq', '0.6.0'
+gem 'chunky_png', '1.2.5'
+gem "bcrypt-ruby", '3.0.1', :require => "bcrypt"
 gem "aws-sdk", "~> 1.3.3"
-
 gem 'libxml-ruby', '2.2.2'
 gem 'httparty', '0.8.1'
 gem 'multi_xml', '0.4.1' # dependency of HTTParty, but also used directly
 gem 'rubycas-client', :path => "vendor/gems/rubycas-client/"
 
-# To use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
+group :assets do
+  gem 'sass-rails', '3.2.4'
+  gem 'uglifier', '1.2.3'
+  gem 'eco', '1.0.0'
+  gem 'spine-rails', '0.1.0'
+end
 
-# Use unicorn as the web server
-# gem 'unicorn'
+group :production do
+  gem "therubyracer", '0.9.9'
+end
 
-# Deploy with Capistrano
-# gem 'capistrano'
-
-# To use debugger
-# gem 'ruby-debug19', :require => 'ruby-debug'
-
-group :test do
-  # Pretty printed test output
+group :development, :test do
+  gem 'pry'
+  gem 'pry-rails'
   gem 'turn', :require => false 
   gem 'shoulda'
   gem 'factory_girl_rails'

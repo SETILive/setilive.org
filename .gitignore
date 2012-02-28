@@ -8,3 +8,4 @@ config/site_settings.yml
 ruby*
 dump*
 public/assets
+vendor/cache
