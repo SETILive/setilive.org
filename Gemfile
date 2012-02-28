@@ -13,7 +13,7 @@ group :assets do
   gem 'spine-rails'
 end
 
-gem 'rpm'
+gem 'newrelic_rpm'
 
 gem 'coffee-rails'
 

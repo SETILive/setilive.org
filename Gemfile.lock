@@ -77,7 +77,6 @@ GEM
     factory_girl_rails (1.6.0)
       factory_girl (~> 2.5.0)
       railties (>= 3.0.0)
-    ffi (1.0.11)
     hike (1.2.1)
     httparty (0.8.1)
       multi_json
@@ -102,6 +101,7 @@ GEM
       plucky (~> 0.4.0)
     multi_json (1.0.4)
     multi_xml (0.4.1)
+    newrelic_rpm (3.3.2)
     nokogiri (1.5.0)
     plucky (0.4.4)
       mongo (~> 1.5)
@@ -144,8 +144,6 @@ GEM
     redis (2.2.2)
     redis-namespace (1.1.0)
       redis (< 3.0.0)
-    rpm (0.0.2)
-      ffi
     ruby-hmac (0.4.0)
     sass (3.1.15)
     sass-rails (3.2.4)
@@ -205,12 +203,12 @@ DEPENDENCIES
   mongo_mapper
   multi_json (= 1.0.4)
   multi_xml (= 0.4.1)
+  newrelic_rpm
   pry
   pry-rails
   pusher
   rails (= 3.2.1)
   redis
-  rpm
   rubycas-client!
   sass-rails
   shoulda
