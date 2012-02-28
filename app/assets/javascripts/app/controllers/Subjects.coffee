@@ -5,7 +5,7 @@ class Subjects extends Spine.Controller
     "#main-waterfall"  : "main_beam"
     ".small-waterfall" : "sub_beams"
     ".waterfall"       : "beams"
-    "#workflow"   : 'workflowArea'
+    "#workflow"         : 'workflowArea'
      
   events:
     'click #main-waterfall' : 'markerPlaced'
@@ -41,7 +41,8 @@ class Subjects extends Spine.Controller
       start_time : new Date()
     
     @setUpBeams()
-     
+
+
   selectBeam:(beamNo)=>
     if typeof beamNo == 'object'
       beamNo.preventDefault()
@@ -73,18 +74,32 @@ class Subjects extends Spine.Controller
   finalizeSignal :=>
     signal = @current_classification.currentSignal
 
-    
-    $(".signal_#{signal.id}.signal_circle").attr('opacity', '0.3')
-    $(".signal_line_#{signal.id}").attr("opacity","0.3")
+    $(".signal_#{signal.id}.signal_circle").attr('opacity', '0.2')
+    $(".signal_line_#{signal.id}").attr("opacity","0.2")
     $(".signal_line_#{signal.id}").attr("data-id",signal.id)
     $(".signal_#{signal.id}").removeClass("draggable")
+    $(".signal_#{signal.id}").removeClass("signal_selected")
+    
     $(".signal").mouseenter (e) =>
       signal_id = $(e.currentTarget).data().id
-      $(".signal_#{signal_id}").attr("opacity","1.0")
+      unless $(e.currentTarget).hasClass("signal_selected")
+        $(".signal_#{signal_id}").attr("opacity","1.0")
       
     $(".signal").mouseleave (e) =>
       signal_id = $(e.currentTarget).data().id
-      $(".signal_#{signal_id}").attr("opacity","0.3")
+      unless $(".signal_#{signal_id}").hasClass("signal_selected")
+        $(".signal_#{signal_id}").attr("opacity","0.2")
+
+
+    $(".signal_#{signal.id}").click (e)=>
+      e.stopPropagation()
+      signal_id = $(e.currentTarget).data().id
+      
+      unless $(".signal_#{signal_id}").hasClass("signal_selected")
+        $(".signal_#{signal_id}").attr("opacity","1.0")
+        $(".signal_#{signal_id}").addClass("signal_selected")
+        $(".signal_#{signal.id}.signal_circle").addClass("draggable")
+        Spine.trigger("startWorkflow", signal)
 
   dissableSignalDraw :=>
     @canDrawSignal = false 
@@ -172,7 +187,7 @@ class Subjects extends Spine.Controller
         "stroke-width":"2"
         "fill": "purple"
         "fill-opacity": "1"
-        "cursor" : "move"
+        
 
       self = this
       circle.drag(
@@ -197,6 +212,8 @@ class Subjects extends Spine.Controller
         )
         
       $(circle.node).addClass("signal")
+      $(circle.node).addClass("signal_selected")
+
       $(circle.node).attr("data-id", signal.id)
       $(circle.node).addClass("signal_circle")
 
@@ -236,6 +253,7 @@ class Subjects extends Spine.Controller
       $(line.node).addClass("signal")
       $(line.node).addClass("signal_#{signal.id}")
       $(line.node).addClass("signal_line_#{signal.id}")
+      $(line.node).addClass("signal_selected")
       $(line.node).addClass("signal_beam_#{@current_beam}")
 
     @stage=0
