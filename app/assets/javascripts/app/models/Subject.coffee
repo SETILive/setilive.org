@@ -24,7 +24,6 @@ class Subject extends Spine.Model
       Subject.trigger('next_subject', subject)
   
   @dataifyData:(data)->
-    console.log "running dataify"
     for observation in data.observations
       observation.data = JSON.parse(observation.data)
     console.log "origonal data", data
