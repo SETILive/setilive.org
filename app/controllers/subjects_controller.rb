@@ -22,6 +22,8 @@ class SubjectsController < ApplicationController
         subject = get_seen_subject
       end
     end
+    
+    subject =Subject.first(:skip=>0)
 
     if subject 
       respond_to do |format|

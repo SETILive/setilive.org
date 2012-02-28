@@ -31,7 +31,7 @@ Marv::Application.configure do
   # In production, Apache or nginx will already do this
   # config.serve_static_assets = false
   
-  config.serve_static_assets = true
+  config.serve_static_assets = false
   config.assets.compress = true
   config.assets.compile = true
   config.assets.digest = true
