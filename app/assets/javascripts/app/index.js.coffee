@@ -52,6 +52,17 @@ class SetiLiveController extends Spine.Controller
 
     if @getUser
       User.fetch_current_user()
+  
+  activatePlaceholders: ->
+    $('span.placeholder').click ->
+        $(@).hide()
+        $(@).parent().find('input').focus()
+    
+    $('input').focus ->
+        $(@).parent().find('span.placeholder').hide()
+    
+    $('input').blur ->
+        $(@).parent().find('span.placeholder').show() if $(@).val() is ''
 
 
 class HomePage extends SetiLiveController
@@ -123,20 +134,10 @@ class LoginPage extends SetiLiveController
   badgesOn : false 
   getUser : false
   
-  constructor:->
-    super 
-    
-    $("span").click ->
-        $(@).hide()
-        $(@).parent().find('input').focus()
-    
-    $("input").focus ->
-        $(@).parent().find('span').hide()
-    
-    $("input").blur ->
-        $(@).parent().find('span').show() if $(@).val()==""
-     
-    
+  constructor: ->
+    super
+    @activatePlaceholders()
+
 class AboutPage extends SetiLiveController
   starFieldOn: false
   badgesOn: false
