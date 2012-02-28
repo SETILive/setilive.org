@@ -114,17 +114,17 @@ class Subject
                       }
                     ) 
    
-
     if s 
       subject['beam'].each_with_index do |beam,index|
         
-        beam['data'] =  beam['data'].to_a.to_json
-        unless beam['data'].empty?
+        beam =  beam['data'].to_a
+        if beam.length > 0 
+          beam = beam.to_json 
           source = Source.find_by_seti_id beam['target_id']
           source = Source.create_with_seti_id beam['target_id'] unless source 
          
           if source
-            s.observations.create( :data    => beam['data'], 
+            s.observations.create( :data    => beam, 
                                                   :source  => source,
                                                   :beam_no => index,
                                                   :width => subject['width'],

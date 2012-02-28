@@ -15,7 +15,7 @@ class Source
   many :observations 
   many :classifications 
 
-  after_create{ Source.cache_sources }
+  after_create{ Source.cache_sources unless BOOTSTRAP }
 
   def planet_hunters_id
     zooniverse_id.gsub("SSL","SPH") if type=="kepler_planet" 
