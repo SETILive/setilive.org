@@ -7,7 +7,6 @@ class User extends Spine.Model
 
 
   @fetch_current_user :->
-    #console.log("grabbing current user")
     $.getJSON '/current_user.json', (data) =>
       data.favourites = data.favourite_ids
       u = User.create(data)
@@ -31,8 +30,6 @@ class User extends Spine.Model
       url: '/awardBadge'
       data: data
       dataType: 'json'
-      success: (response)->
-        #console.log("badge ",response)
 
   hasBadge:(testBadge,level...)=>
     for badge in @badges 
@@ -63,7 +60,6 @@ class User extends Spine.Model
         callback() if callback?
 
   removeFavourite:(observation_id, callback=null)=>
-    #console.log "deleteing ",observation_id
     $.ajax 
       type: 'DELETE'
       url: "/favourites/#{observation_id}"

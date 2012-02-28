@@ -3,7 +3,7 @@ class SubjectsController < ApplicationController
 
   def tutorial_subject 
     respond_to do |format|
-      format.json { render json: Subject.tutorial_subject.to_json(:include => :observations), :status => '200' }
+      format.json { render json: Subject.tutorial_subject.to_json(:include => {:observations=>{:include=>:source}}), :status => '200' }
     end
   end
 
@@ -23,10 +23,9 @@ class SubjectsController < ApplicationController
       end
     end
 
-
     if subject 
       respond_to do |format|
-        format.json { render json: subject.to_json(:include => :observations), :status => '200' }
+        format.json { render json: subject.to_json(:include =>{:observations=>{:include=>:source} }), :status => '200' }
       end
     else
       respond_to do |format|

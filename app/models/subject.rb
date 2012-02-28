@@ -87,7 +87,6 @@ class Subject
     key = keys.sample
     subject  = BSON.deserialize(RedisConnection.get key)
     RedisConnection.del key
-
     generate_subject_from_frank(subject, key)
   end
 
@@ -102,6 +101,7 @@ class Subject
 
   def self.generate_subject_from_frank(subject,key)
     details = parse_key_details(key)
+
     s=Subject.create( :activity_id => subject["activityId"],
                       :time_range  => subject["endTimeNanos"].to_i-subject["startTimeNanos"].to_i,
                       :freq_range  => subject["bandwidthMhz"].to_f,
@@ -112,15 +112,17 @@ class Subject
                       :observation_id => details[:observation_id],
                       :original_redis_key => key
                       }
-                      )    
+                    ) 
+   
 
     if s 
       subject['beam'].each_with_index do |beam,index|
-        beam['data'] = beam['data'].to_a
+        
+        beam['data'] =  beam['data'].to_a.to_json
         unless beam['data'].empty?
           source = Source.find_by_seti_id beam['target_id']
           source = Source.create_with_seti_id beam['target_id'] unless source 
-
+         
           if source
             s.observations.create( :data    => beam['data'], 
                                                   :source  => source,
@@ -128,15 +130,14 @@ class Subject
                                                   :width => subject['width'],
                                                   :height => subject['height']
                                                   )
+            
           else 
             throw "Could not find Source for observation #{beam['target_id']}"
           end
         end
       end
     end
-
     GenerateTalk.perform_async s.id
-
     s
   end
 

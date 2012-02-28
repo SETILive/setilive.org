@@ -132,15 +132,10 @@ class Subjects extends Spine.Controller
   # interaction with the beams! 
   
   markerPlaced:(e)=>
-    #console.log e 
-    #console.log "current target",$(e.currentTarget)
+
     if @canDrawSignal and not @dragging
       dx  = (e.pageX*1.0-$(e.currentTarget).offset().left) / @main_beam.width()*1.0
       dy  = (e.pageY*1.0-$(e.currentTarget).offset().top)/ @main_beam.height()*1.0
-
-      #console.log "dx is ",dx," dy is ",dy
-      #console.log "dx is ",e.pageX," dy is ",$(e.currentTarget).outerWidth()
-      #console.log "dx is ",e.pageY," dy is ",$(e.currentTarget).outerWidth()
         
       if(@stage==0)
         @current_classification.newSignal(dx, dy, @current_subject.observations[@current_beam].id )
@@ -154,7 +149,6 @@ class Subjects extends Spine.Controller
     for beam in [@overlays[0]]
       canvas = $(beam.canvas)
       radius = canvas.parent().height()*0.017
-      #console.log "!!!!!!!dx ",x," ",y," ",canvas.parent().height(), " ",canvas.parent().width()
 
       window.clickcanvas = canvas
       circle=beam.circle(x*canvas.parent().width(), y*canvas.parent().height(), radius)
@@ -224,7 +218,7 @@ class Subjects extends Spine.Controller
       $(line.node).addClass("signal_beam_#{@current_beam}")
 
     @stage=0
-    
+
   saveClassification:=>
     @current_classification.persist()
 

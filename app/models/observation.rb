@@ -2,7 +2,7 @@ class Observation
   include MongoMapper::Document
 
   key :type , String, :validate_in => ['inital','on','off','tutorial']
-  key :data , Array 
+  key :data , String 
   key :data_url, String
   key :image_url, String
   key :thumb_url, String
