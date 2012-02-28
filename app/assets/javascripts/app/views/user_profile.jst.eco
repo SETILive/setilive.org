@@ -9,7 +9,7 @@
           <%if @user.hasBadge(badge): %>
             <%- @badgeTemplate({badge:badge, size: 50, level: @user.maxLevelForBadge(badge)})  %>
           <%else: %>
-            <%- @badgeTemplate({size: 50})  %>
+            <span class="non-badge"></span>
           <%end%>
         </li>
       <%end%>
@@ -34,7 +34,6 @@
       </ul>
     </div>
     <div id='subjects'>
-      <%-console.log @pagination.pages%>
       <%if @collectionType=='Followups': %>
         <h2 style='color:black; text-align:center'>We are currently operating in a mode where we are not triggering followups at the telescope.</h2>
       <%else : %>

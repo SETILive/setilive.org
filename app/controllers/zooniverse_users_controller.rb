@@ -20,7 +20,7 @@ class ZooniverseUsersController < ApplicationController
   end
 
   def awardBadge 
-    puts params
+    # puts params
 
     @current_user = current_user
     if @current_user

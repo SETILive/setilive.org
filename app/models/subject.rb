@@ -1,7 +1,10 @@
 class Subject
   include MongoMapper::Document
   include ZooniverseId
-
+  include Randomizer
+  
+  randomize_with :random_number
+  key :random_number, Float
   zoo_id :prefix => 'G', :sub_id => '0'
   key :data_url, String 
   key :activity_id, String, :requited=>true

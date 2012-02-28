@@ -7,19 +7,19 @@ class ObservationUploader
 
 
   def perform(observation_id)
-    puts "uploading observation #{observation_id}"
+    # puts "uploading observation #{observation_id}"
     @observation  = Observation.find(observation_id)
     
     if @observation.uploaded 
-      puts "Observation already uploaded nothing to be done"
+      # puts "Observation already uploaded nothing to be done"
       return false
     end
     @path_to_data = upload_to_s3
-    puts 'generating images'
+    # puts 'generating images'
     @image_urls = generate_images
-    puts 'updating observation'
+    # puts 'updating observation'
     update_observation
-    puts 'done'
+    # puts 'done'
   end
 
   def update_observation

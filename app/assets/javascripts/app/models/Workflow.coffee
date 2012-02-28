@@ -10,6 +10,6 @@ class Workflow extends Spine.Model
 
 
   @fetch: ->
-    @fetch_from_url("workflow.json")
+    @fetch_from_url("workflows.json")
   
 window.Workflow = Workflow

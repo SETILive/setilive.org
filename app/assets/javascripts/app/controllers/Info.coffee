@@ -71,7 +71,7 @@ class Info extends Spine.Controller
     Spine.trigger("nextBeam")
 
   beamChange:(data)=>
-    console.log data
+   #console.log data
     if data.beamNo == data.totalBeams-1
       @done.show()
       @nextBeam.hide() 

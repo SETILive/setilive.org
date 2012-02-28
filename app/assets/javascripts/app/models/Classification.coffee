@@ -18,7 +18,6 @@ class Classification extends Spine.Model
       signals : signals
       subject_id : @subject_id
 
-
     $.ajax
       type: 'POST'
       url: '/classifications/'

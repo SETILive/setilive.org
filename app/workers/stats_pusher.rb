@@ -8,7 +8,7 @@ class StatsPusher
              :classification_rate => RedisConnection.keys("recent_classification_*").count
            }
 
-    puts "pusing #{JSON.pretty_generate stats}"
+    # puts "pusing #{JSON.pretty_generate stats}"
 
     Pusher['telescope'].trigger('stats_update', stats)
 

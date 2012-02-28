@@ -30,7 +30,7 @@ class Radiosphere extends Scene
 		@otherPlanet.css opacity: 1, transform: 'translate(-200%, -150%) scale(0.01)'
 
 		@radio.css opacity: 0, transform: 'scale(1, 0.01)'
-		@radioWaves.css opacity: 0
+		@radioWaves.css opacity: 0, transform: ''
 		@title.css opacity: 1, transform: 'translate(-10%, -10%) scale(0.01)'
 		
 
@@ -62,7 +62,8 @@ class Radiosphere extends Scene
 		@defer 'loop', 3000, @loop
 
 	exit: =>
-		@radio.animate opacity: 0, 250
+		@radio.animate opacity: 0, transform: 'scale(1, 0.01)', 250
+		@radioWaves.animate opacity: 0, transform: 'scale(0.01)', 250
 
 		@outerRing.animate opacity: 0, transform: 'translateY(170%) scale(3)', 500
 		@middleRing.animate opacity: 0, transform: 'translateY(175%) scale(3)', 1000
