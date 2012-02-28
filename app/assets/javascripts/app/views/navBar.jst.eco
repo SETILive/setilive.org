@@ -1,13 +1,6 @@
 <a href='/' id='logo'>SETI<span class='green live'>LIVE</span></a>
 <ul id='nav'>
-  
-  
-
-  
-  
- 
   <li><a href='http://talk.setilive.org' target='_blank'>talk</a></li>
-  
   <li><a href='/sources'>targets</a></li>
   <li class='nav_classify'><a href='/classify'>classify</a>
      <ul class="nav_submenu">
@@ -23,6 +16,7 @@
       <li class='tutorial_signals'><a href="/gallery">Signals</a></li>
     </ul>
   </li>
+  <li><a href='http://blogs.zooniverse.org/seti' target='_blank'>blog</a></li>
   <%unless @user?: %>
     <li class='nav_user'><a href='/login'>login / signup</a> </li>
   <%else: %>
