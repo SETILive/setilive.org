@@ -46,8 +46,8 @@ class Stars extends Spine.Controller
       maxDec = star.coords[1] if star.coords[1] > maxDec
     
 
-    @bounds = [minRa, minDec, maxRa, maxDec]
-
+    # @bounds = [minRa, minDec, maxRa, maxDec]
+    @bounds = [280.641, 37.84073829650879, 301.721, 52.1491]
   convertRaDec:(pos)->
     @calcBounds() unless @bounds?
     new_ra  = (pos[0]-@bounds[0])*@el.width()/(@bounds[2]-@bounds[0])
