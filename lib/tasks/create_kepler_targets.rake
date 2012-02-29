@@ -1,6 +1,4 @@
 task :create_kepler_targets => :environment do
-  Source.delete_all
-
   kepler_sources = JSON.parse(IO.read("data/kepler_planets_data/setiKeplerTargets.json"))
   Source::BOOTSTRAP =true
 
