@@ -1,38 +1,49 @@
-
-desc "Bundle application to S3"
-task :bundle_app => :environment do
-  puts "Bundling application to S3"
+desc 'Bundle application and upload it to S3'
+task bundle_app: :environment do
+  require 'aws-sdk'
+  AWS.config access_key_id: '***REMOVED***', secret_access_key: '***REMOVED***'
+  
+  # hang onto the working branch
+  working_branch = `git rev-parse --abbrev-ref HEAD`.chomp
+  
+  # switch to the deploy branch
+  `git checkout -b bundled_deploy`
+  
+  # precompile assets
+  `rm -rf public/assets`
+  `rake assets:precompile`
+  
+  # package the gems
+  `bundle package`
+  
+  # commit the changes
+  `git add -f public/assets`
+  `git add -f vendor/cache`
+  `git commit -a -m "deploying"`
+  
+  # export the app
   `git archive -o marv.tar HEAD`
   `gzip marv.tar`
   
-  require 'rubygems'
-  require 'aws-sdk'
-  
-  AWS.config :access_key_id=>'***REMOVED***', :secret_access_key => '***REMOVED***'
-
-  # upload the new one
-
+  # S3 setup
   s3 = AWS::S3.new
   bucket = s3.buckets['***REMOVED***']
-  object = bucket.objects['marv.tar.gz']
-  object_persits = bucket.objects["marv-#{Time.now.strftime('%H%M-%d%m%y')}.tar.gz"]
-
-  data = File.read('marv.tar.gz')
+  old_bundle = bucket.objects['marv.tar.gz']
   
-  print "Uploading new one..."
-
-  object.write(data)
-  print "done\n"
-
-
-  print "Uploading archive one..."
-
-  object_persits.write(data)
-  print "done\n"
+  # move the old bundle if it exists
+  if old_bundle.exists?
+    timestamp = old_bundle.last_modified.strftime('%H%M-%d%m%y')
+    old_bundle.move_to "marv-#{ timestamp }.tar.gz"
+  end
   
-  # clean up
+  # upload the new bundle
+  print 'Uploading...'
+  new_bundle = bucket.objects['marv.tar.gz']
+  new_bundle.write file: 'marv.tar.gz'
+  puts '...done'
+  `rm -f marv.tar.gz`
   
-  puts "Cleaning up"
-  `rm marv.tar.gz`
-  puts "Done"
+  # checkout the working branch
+  `git checkout #{ working_branch }`
+  `git branch -D bundled_deploy`
 end

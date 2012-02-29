@@ -2,7 +2,7 @@
   <div class='stats_box'>
     <p><%=@people_online%></p>
   </div> 
-  <p>People Classifying</p>
+  <p>People classifying</p>
 </li>
 <li>
   <div class='stats_box'>
@@ -14,11 +14,11 @@
   <div class='stats_box'>
     <p><%=@total_users%></p>
   </div> 
-  <p>Total Users</p>
+  <p>Total People</p>
 </li>
 <li>
   <div class='stats_box'>
     <p><%=@classification_rate%></p>
   </div> 
-  <p>Classifications per min</p>
+  <p>Classifications per minute</p>
 </li>

@@ -5,18 +5,8 @@
 
     var exports = this;
     jQuery(function(){
-        new LoginPage({el: $("body"), get_user: true});      
+        new LoginPage({el: $("body"), get_user: true});
         User.fetch_current_user()
-        $("input").focus(function(){
-          $(this).attr("data-val", $(this).val())
-          $(this).val("");
-        });
-
-        $("input").blur(function(){
-          if($(this).val()==""){
-            // $(this).val($(this).attr("data-val"));
-          }
-        });
     });     
   </script>
 <%end%>
@@ -41,21 +31,64 @@
           <div id='extra_signup_info' class='user_info_region'>
             <table>
               <tr>
-                <td class="first"><%= text_field_tag "first_name", "First Name", :tabindex => 1, :class => 'validate[required]' %></td>
-                <td colspan="2"><%= text_field_tag "last_name", "Last Name", :tabindex => 2, :class => 'validate[required]' %></td>
+                <td class="first">
+                  <div style="position: relative;">
+                    <%= text_field_tag "first_name", nil, :tabindex => 1, :class => 'validate[required]' %>
+                    <span class="placeholder">First Name</span>
+                  </div>
+                </td>
+                <td colspan="2">
+                  <div style="position: relative;">
+                    <%= text_field_tag "last_name", nil, :tabindex => 2, :class => 'validate[required]' %>
+                    <span class="placeholder">Last Name</span>
+                  </div>
+                </td>
               </tr>
               <tr>
-                <td colspan="3"><%= text_field_tag "address_1", "Address 1", :tabindex => 3, :class => 'validate[required]' %></td>
+                <td colspan="3">
+                  <div style="position: relative;">
+                    <%= text_field_tag "address_1", nil, :tabindex => 3, :class => 'validate[required]' %>
+                    <span class="placeholder">Address 1</span>
+                  </div>
+                </td>
               </tr>
               <tr>
-                <td colspan="2" class="first"><%= text_field_tag "address_2", "Address 2", :tabindex => 4, :class => 'validate[required]' %></td>
-                <td><%= text_field_tag "telephone", "Telephone", :class => 'validate[required]' %></td>
+                <td colspan="2" class="first">
+                  <div style="position: relative;">
+                    <%= text_field_tag "address_2", nil, :tabindex => 4, :class => 'validate[required]' %>
+                    <span class="placeholder">Address 2</span>
+                  </div>
+                </td>
+                
+                <td>
+                  <div style="position: relative;">
+                    <%= text_field_tag "telephone", nil, :class => 'validate[required]' %>
+                    <span class="placeholder">Telephone</span>
+                  </div>
+                </td>
               
               </tr>
               <tr>
-                <td widht="50%" class="first"><%= text_field_tag "city", "City", :tabindex => 5, :class => 'validate[required]'  %></td>
-                <td width="20%" class="first"><%= text_field_tag "state", "State", :tabindex => 6, :class => 'validate[required]'  %></td>
-                <td width="30%"><%= text_field_tag "zipcode", "Zipcode", :tabindex => 7, :class => 'validate[required]'  %></td>
+                <td width="50%" class="first">
+                  <div style="position: relative;">
+                    <%= text_field_tag "city", nil, :tabindex => 5, :class => 'validate[required]' %>
+                    <span class="placeholder">City</span>
+                  </div>
+                </td>
+                
+                <td width="20%" class="first">
+                  <div style="position: relative;">
+                    <%= text_field_tag "state", nil, :tabindex => 6, :class => 'validate[required]' %>
+                    <span class="placeholder">State</span>
+                  </div>
+                </td>
+                
+                <td width="30%">
+                  <div style="position: relative;">
+                    <%= text_field_tag "zipcode", nil, :tabindex => 7, :class => 'validate[required]' %>
+                    <span class="placeholder">Zip Code</span>
+                  </div>
+                </td>
               </tr>
               <tr>
                 <td colspan="3">

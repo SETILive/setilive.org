@@ -7,3 +7,5 @@ config/database.yml
 config/site_settings.yml
 ruby*
 dump*
+public/assets
+vendor/cache
