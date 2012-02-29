@@ -9,6 +9,8 @@ task :bundle_app do
   # switch to the deploy branch
   `git checkout -b bundled_deploy`
   
+  `bundle install --local --without test development`
+  
   # precompile assets
   `rm -rf public/assets`
   `rake assets:precompile`
@@ -42,6 +44,8 @@ task :bundle_app do
   new_bundle.write file: 'marv.tar.gz'
   puts '...done'
   `rm -f marv.tar.gz`
+  
+  `rm -rf .bundle`
   
   # checkout the working branch
   `git checkout #{ working_branch }`
