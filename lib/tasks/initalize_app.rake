@@ -5,6 +5,15 @@ task :load_workflow => :environment do
   workflow.save
 end
 
+
+task :update_workflow => :environment do
+  data = JSON.parse(IO.read("data/workflow.json"))
+  workflow = Workflow.first
+  workflow.questions = data['questions']
+  workflow.save
+end
+
+
 task :boot_app => :environment do
   BOOTSTRAP = true
   Rake::Task['load_workflow'].execute
