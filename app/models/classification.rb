@@ -8,7 +8,7 @@ class Classification
   
   has_many :subject_signals
 
-  after_create :update_zooniverse_user, :update_source, :update_redis, :push_global_stats,:push_classification
+  after_create :update_zooniverse_user, :update_source, :update_redis, :push_global_stats, :push_classification
 
   def update_zooniverse_user 
     zooniverse_user.update_classification_stats(self)
@@ -21,11 +21,10 @@ class Classification
   def update_redis 
     RedisConnection.setex "recent_classification_#{self.id}", 10*60, 1
     RedisConnection.incr "total_classifications"  
-
   end
 
   def push_global_stats
-    StatsPusher.perform_async
+    StatsPusher.new.perform
   end
 
   def push_classification
