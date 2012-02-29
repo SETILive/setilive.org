@@ -53,8 +53,6 @@ class Source
     s
   end
 
-  format.json {render :json =>Rails.cache.fetch(:counter_count, :expires_in => 10.minutes) {  {:classification_count=>Classification.count, :users_count=>ZooniverseUser.count}.to_json }
-
   def self.get_cached_sources
     Rails.cache.fetch(:cached_sources, :expires_in => 1.hour) { Source.cache_sources }
   end
