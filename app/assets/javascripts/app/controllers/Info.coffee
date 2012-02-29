@@ -32,8 +32,7 @@ class Info extends Spine.Controller
     if subject.observations.count ==1 
       @done.show()
       @nextBeam.hide() 
-    if subject?  and Source.count() > 0
-      # target_ids = ( targets for targets in subject.beam ) 
+    if subject?
       targets = []
       for observation in subject.observations
         targets.push(new Source(observation.source )) if observation.source?

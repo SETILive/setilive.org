@@ -1,6 +1,6 @@
 <div id='targets'>
-  <%if @currnet_target? : %>
-    <%if @current_target.type=='kepler_planet': %>
+  <%if @current_target? : %>
+    <%if @current_target.type=='kepler_planet' or @current_target.type=='tutorial': %>
      <p>Kepler <%=@current_target.kepler_no()%></p>
     <%else: %>
       <p> <%=@current_target.meta.full_name%> </p>
@@ -24,15 +24,13 @@
              <circle r = 20  cx="105" cy="50" fill="#A8A8A8" />
         </svg>
       <%end%>
-
-      
     </div>
+   <%end%>
     <ul id='controls'>
         <% for source in @targets: %>
           <li class='dot <%= "selected" if source.id==@current_target.id%>' data-id='<%=source.id%>'></li>
         <%end%>
       </ul>
-  <%end%>
 </div>
 
 <p class='title'>Targets Currently in View</p>
