@@ -3,7 +3,7 @@
     <%if @current_target.type=='kepler_planet' or @current_target.type=='tutorial': %>
      <p>Kepler <%=@current_target.kepler_no()%></p>
     <%else: %>
-      <p> <%=@current_target.meta.full_name%> </p>
+      <p> <%=@current_target.meta.full_name or @current_target.name %> </p>
     <%end%>
     <%details = @current_target.meta%>
     <div id='target'>
