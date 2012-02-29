@@ -15,12 +15,7 @@ class Notifications extends Spine.Controller
       "status_changed" : "telescopeStatusChange"
       "stats_update" : "updateStats"
 
-  localEvents:
-    "User":
-      "badge_awarded" :  "badgeAwarded"
-      "tutorial_badge_awarded" : "tutorialBadgeAwarded"
-      "favourited" : "favourited"
-
+   
   constructor: ->
     super
     @setupLocal()
@@ -51,10 +46,16 @@ class Notifications extends Spine.Controller
     @setupPusherBindings(@defaultChannel, @pusher)
 
   setupLocal:=>
-    for model, events of @localEvents
-      for trigger, response of events
-        window[model].bind trigger, (data)=>
-          @[response](data)
+    User.bind("badge_awarded", @badgeAwarded)
+    User.bind("tutorial_badge_awarded", @tutorialBadgeAwarded)
+    User.bind("favourited", @favourited)
+ 
+
+    # for model, events of @localEvents
+    #   for trigger, response of events
+    #     window[model].bind trigger, (data)=>
+    #       rp = response
+    #       @[rp](data)
 
   updateStats:(data)=>
     Spine.trigger('updateStats',data)  
