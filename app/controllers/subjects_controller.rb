@@ -23,7 +23,7 @@ class SubjectsController < ApplicationController
       end
     end
     
-    subject = Subject.random unless subject
+    subject = Subject.random.first unless subject
 
     if subject 
       respond_to do |format|
