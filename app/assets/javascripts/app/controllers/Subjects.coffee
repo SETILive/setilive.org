@@ -259,6 +259,6 @@ class Subjects extends Spine.Controller
     @stage=0
 
   saveClassification:=>
-    @current_classification.persist()
+    @current_classification.persist() unless window.tutorial
 
 window.Subjects = Subjects

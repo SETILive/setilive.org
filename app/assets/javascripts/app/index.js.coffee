@@ -110,6 +110,7 @@ class ClassificationPage extends SetiLiveController
     super  
     @subjects = new Subjects({el:$("#waterfalls")})
     @info = new Info({el: $("#info")})
+    window.tutorial = false
 
     Workflow.fetch_from_url("/workflows.json")
     Subject.fetch_next_for_user()
@@ -119,7 +120,7 @@ class TutorialPage extends SetiLiveController
     super  
     @subjects = new Subjects({el:$("#waterfalls")})
     @info = new Info({el: $("#info")})
-
+    window.tutorial = true
     $("#classify-area").inlineTutorial 
       steps: window.tutorialSteps
 
