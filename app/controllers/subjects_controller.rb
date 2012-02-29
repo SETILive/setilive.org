@@ -41,7 +41,7 @@ class SubjectsController < ApplicationController
   end
 
   def get_recent_subject
-    Subject.random_recent
+    Subject.random_recent(current_user)
   end
   def get_seen_subject
     # Subject.unseen_for_user(current_user)
