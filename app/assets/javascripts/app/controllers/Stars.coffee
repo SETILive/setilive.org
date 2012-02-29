@@ -9,7 +9,7 @@ class Stars extends Spine.Controller
     super
     @paper = Raphael("star_field","100%","100%")
     Source.bind("refresh", @drawField)
-
+    @indicators={}
 
   updateTarget: (data) ->
     alert(data)
@@ -22,10 +22,16 @@ class Stars extends Spine.Controller
     stars_with_coords = Source.select (s)=>
       s.coords[0] !=0 and s.coords[1] !=0
 
+    @current_indicators=[stars_with_coords[2],stars_with_coords[1],stars_with_coords[10]]
+    @drawIndicator(0,"#CDDC28")
+    @drawIndicator(1,"red")
+    @drawIndicator(2,"blue")
+
     
-    @drawIndicator(stars_with_coords[2],"#CDDC28")
-    @drawIndicator(stars_with_coords[1],"red")
-    # @drawIndicator(@stars[44],"blue")
+    Spine.bind "update_indicators",(data)=>
+      @current_indicators[data.beamNo] = data.source
+
+    
     
 
   calcBounds:->
@@ -60,30 +66,33 @@ class Stars extends Spine.Controller
       circle = @paper.circle(pos[0], pos[1], mag)
       circle.attr "fill", "white"
 
-  drawIndicator:(star, color)->
-    pos = @convertRaDec(star.coords)
-    mag = @convertMag(star.meta.kepler_mag)
+  drawIndicator:(beamNo, color)->
+    star = @current_indicators[beamNo]
 
-    indicators = ( @paper.circle(pos[0], pos[1], mag) for i in [1..3])    
-    for indicator in indicators
-      $(indicator.node).addClass("star_indicator")
-    self= this
+    if star?
+      pos = @convertRaDec(star.coords)
+      mag = @convertMag(star.meta.kepler_mag)
+      
+      indicators = ( @paper.circle(pos[0], pos[1], mag) for i in [1..3])    
+      for indicator in indicators
+        $(indicator.node).addClass("star_indicator")
+      self= this
 
-    $.each indicators, (index,indicator) =>
-      indicator.attr("stroke-width","3") 
-      indicator.attr("stroke", color)
-      indicator.attr("opacity", 0.75)
-      indicator.node.setAttribute("class", "indi")
+      $.each indicators, (index,indicator) =>
+        indicator.attr("stroke-width","3") 
+        indicator.attr("stroke", color)
+        indicator.attr("opacity", 0.75)
+        indicator.node.setAttribute("class", "indi")
 
-      if index == indicators.length-1
-        anim = Raphael.animation {"r":"50", "stroke-opacity":"0", "stroke-width":0}, 2000, =>
-          indicator.remove()
-          self.drawIndicator(star,color)
-      else
-        anim = Raphael.animation {"r":"50", "stroke-opacity":"0", "stroke-width":0}, 2000, =>
-          indicator.remove()
+        if index == indicators.length-1
+          anim = Raphael.animation {"r":"50", "stroke-opacity":"0", "stroke-width":0}, 2000, =>
+            indicator.remove()
+            self.drawIndicator(beamNo,color)
+        else
+          anim = Raphael.animation {"r":"50", "stroke-opacity":"0", "stroke-width":0}, 2000, =>
+            indicator.remove()
 
-      indicator.animate anim.delay(index*400)
+        indicator.animate anim.delay(index*400)
   
 
 
