@@ -10,7 +10,7 @@ test:
 
 production:
   host: mongodb.setilive.org
-  database: ***REMOVED***
+  database: ***REMOVED***-final
   port: 27188
   username: setilive
   password: ***REMOVED***
