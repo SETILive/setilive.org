@@ -87,9 +87,10 @@ class Subject
     Subject.where(:activity_id=>'tutorial').first
   end
 
-  def self.random_recent
-    key = RedisConnection.keys("subject_recent_*").sample
-    Subject.find(RedisConnection.get key)
+  def self.random_recent(user)
+    list = RedisConnection.keys("subject_recent*")
+    id = (list - user.seen_subject_ids.map(&:to_s)).sample
+    Subject.find id
   end
 
   def self.random_frank_subject 
