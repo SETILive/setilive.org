@@ -71,7 +71,7 @@ class Workflows extends Spine.Controller
       "spiral"   : "<img src='assets/question_icons/spiral.png' class ='answer-icon' style='display: inline-block'></img>"
       "diagonal" : "<img src='assets/question_icons/diagonal.png' class ='answer-icon' style='display: inline-block'></img>"
       "broken"   : "<img src='assets/question_icons/broken.png' class ='answer-icon' style='display: inline-block'></img>"
-      "straight" : "<img src='assets/question_icons/straight.png' class ='answer-icon' style='display: inline-block'></img>"
+      "vertical" : "<img src='assets/question_icons/straight.png' class ='answer-icon' style='display: inline-block'></img>"
     lookup[answer.name.toLowerCase()]
     
 window.Workflows = Workflows
