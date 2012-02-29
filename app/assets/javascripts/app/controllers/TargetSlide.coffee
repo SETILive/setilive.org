@@ -17,10 +17,10 @@ class TargetsSlide extends Spine.Controller
       current_target : @current_target
 
   selectTarget:(e)=>
-    console.log("events is " , e)
+    # console.log("events is " , e)
     if e.currentTarget?
       targetId = $(e.currentTarget).data().id 
-      console.log("here from button ",targetId )
+      # console.log("here from button ",targetId )
     else 
       targetId = e.observation.source_id 
       
