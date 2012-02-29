@@ -196,9 +196,11 @@ class TelescopePage extends SetiLiveController
     super
     new Stats({el:$("#global_stats")})
     $.getJSON '/telescope_status.json', (status)=>
+      status='training' if status='active'
       @telescopeStatus.html @view('telescopeStatusExplination')
         status: status.status
     Spine.bind 'target_status_changed',(status)=>
+      status='training' if status='active'
       @telescopeStatus.html @view(telescopeStatusExplination)
         status: status.status
   
