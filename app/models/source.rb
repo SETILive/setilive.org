@@ -15,7 +15,10 @@ class Source
   many :observations 
   many :classifications 
 
+  BOOTSTRAP ||= false
+
   after_create{ Source.cache_sources unless BOOTSTRAP }
+
 
   def planet_hunters_id
     zooniverse_id.gsub("SSL","SPH") if type=="kepler_planet" 
@@ -26,25 +29,25 @@ class Source
   end
 
   def active 
-    RedisConnection.key("current_target*")
+    RedisConnection.keys("current_target*")
   end
 
   def self.create_with_seti_id(seti_id)
     # puts "Creating from the redis definition #{seti_id}"
-    s = Source.new(name: seti_id, seti_id: seti_id)
-
-    if RedisConnection.keys("target_#{seti_id}").count > 0
+    s = Source.new(name: seti_id.to_s, seti_id: seti_id.to_s, type: "other")
+    if RedisConnection.exists("target_#{seti_id}")
       details = JSON.parse(RedisConnection.get "target_#{seti_id}")
       if details["target_name"].match(/KOI/)
-        type = 'kepler_planet'
+        s.type = 'kepler_planet'
       else
-        type = 'other'
+        s.type = 'other'
       end
       s.name = details["target_name"].split(" ")[0].strip
-      s.ra = details["ra"]
-      s.dec = details["dec"]
-    end 
+      s.coords[0] = details["ra"]
+      s.coords[1] = details["dec"]
+    end
     s.save
+    s
   end
 
   def self.get_cached_sources
@@ -57,8 +60,10 @@ class Source
   end
 
   def self.cache_sources
+    puts "caching sources "
     sources = Source.all.to_json
     RedisConnection.set "cached_sources", sources
+    puts "cached sources "
     sources
   end
 end

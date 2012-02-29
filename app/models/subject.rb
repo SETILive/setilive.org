@@ -96,7 +96,6 @@ class Subject
     keys = RedisConnection.keys 'subject_*'
     return nil if keys.empty?
     key = keys.sample
-    puts("getting #{key}")
     subject  = BSON.deserialize(RedisConnection.get key)
     RedisConnection.del key
     generate_subject_from_frank(subject, key)
@@ -131,15 +130,11 @@ class Subject
         beam_no = beam['beam']
         seti_id =  beam['target']
         beam_data =  beam['data'].to_a
- 
-        puts "beam no is #{beam_no}, seti id is #{seti_id}"
-        
+    
         unless beam_data.empty?
           beam_data=beam_data.to_json
-
           source = Source.find_by_seti_id(seti_id.to_s)
           source = Source.create_with_seti_id(seti_id) unless source 
-         
           if source
             s.observations.create( :data    => beam_data, 
                                    :source  => source,
