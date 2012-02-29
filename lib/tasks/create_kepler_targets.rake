@@ -11,13 +11,16 @@ task :create_kepler_targets => :environment do
 
     s=Source.new( :name => kepler_id, 
                 :coords=> [info.delete("ra"),info.delete("dec")],
-                :zooniverse_id => info.delete("zooniverse_id").gsub("SPH","SSL"),
                 :type => "kepler_planet",
                 :meta => info,
                 :seti_ids => details['seti_ids']
               )
 
+
+
     "problem saving #{kepler_id}" unless s.save
+    s.zooniverse_id =  info.delete("zooniverse_id").gsub("SPH","TSL")
+    s.save
   end
   Source.cache_sources
   puts "done"
