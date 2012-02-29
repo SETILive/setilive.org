@@ -54,12 +54,7 @@ class Source
   end
 
   def self.get_cached_sources
-    if RedisConnection.exists("cached_sources")
-      sources = RedisConnection.get "cached_sources"
-    else 
-      sources = cache_sources
-    end
-    sources 
+    Rails.cache.fetch(:cached_sources, :expires_in => 1.hour) { Source.cache_sources }
   end
 
   def self.cache_sources
