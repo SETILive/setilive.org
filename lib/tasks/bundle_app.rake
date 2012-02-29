@@ -9,6 +9,25 @@ task :bundle_app do
   # switch to the deploy branch
   `git checkout -b bundled_deploy`
   
+  root = Dir.pwd
+  `mkdir -p vendor/cache`
+  
+  # find all gemspecs in vendor, build them, cache them, and add to the commit
+  Dir['vendor/gems/**/*.gemspec'].each do |gemspec|
+    dirname = File.dirname gemspec
+    specname = File.basename gemspec
+    name = specname.sub /\.gemspec$/, ''
+    
+    Dir.chdir dirname
+    `gem build #{ specname }`
+    
+    gemfile = Dir["#{ name }*.gem"][0]
+    Dir.chdir root
+    gempath = File.join(dirname, gemfile)
+    `mv #{ gempath } vendor/cache`
+    `git add -f vendor/cache/#{ gemfile }`
+  end
+  
   `bundle install --local --without test development`
   
   # precompile assets
@@ -46,6 +65,7 @@ task :bundle_app do
   `rm -f marv.tar.gz`
   
   `rm -rf .bundle`
+  `rm -rf vendor/cache`
   
   # checkout the working branch
   `git checkout #{ working_branch }`
