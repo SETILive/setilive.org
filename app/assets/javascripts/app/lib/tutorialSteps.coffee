@@ -5,7 +5,7 @@ window.tutorialSteps = [
           speed:400
         ,
           title: "Real Time"
-          text: "The data you can see here is coming directly from the ATA in California. We need your help to try and discover interesting signals in that data."
+          text: "The data you can see here is coming directly from the ATA (a telescope in California). We need your help to try and discover interesting signals in that data."
           location: [270,130]
           speed:400 
         ,
@@ -34,12 +34,7 @@ window.tutorialSteps = [
           speed:400
         ,
           title: "Waterfalls"
-          text: "The data is in the form of a waterfall plot. It shows the strength of the radio waves at a given frequency and time."
-          location: [24,126]
-          speed:400
-        ,
-          title: "Waterfalls"
-          text: "We need you to mark anything that looks like a signal on this plot. Signals are bright patterns on the waterfall like the one you can see here."
+          text: "We need you to mark anything that looks like a signal on this plot. Signals are distinct patterns on the waterfall like the one you can see here."
           location: [24,126]
           speed:400
           indicatorPos: "top right"
@@ -93,7 +88,8 @@ window.tutorialSteps = [
         ,
           title: "Repeat"
           text: "This will move you on to the seccond beam. You can always go back to the first by clicking on it."
-          location: [544,304]
+          location: [60,304]
+          indicatorPos: "right bottom "
           speed:400
         ,
           title: "Done"
