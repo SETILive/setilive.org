@@ -55,7 +55,7 @@ class SystemViewer extends Spine.Controller
       "stroke-width": 3
 
 
-    $(circle.node).attr("id","planet_#{planet.kio.replace('.','_')}")
+    $(circle.node).attr("id","planet_#{planet.koi.replace('.','_')}")
 
     orbit.attr
       stroke : "white"
@@ -74,7 +74,7 @@ class SystemViewer extends Spine.Controller
       x = @cent_x + planet.x*@localDistScale
       y = @cent_y + planet.y*@localDistScale
 
-      $("#planet_#{planet.kio.replace('.','_')}").attr 
+      $("#planet_#{planet.koi.replace('.','_')}").attr 
         cx : x
         cy : y
 
