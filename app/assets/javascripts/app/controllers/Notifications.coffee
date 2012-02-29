@@ -60,7 +60,6 @@ class Notifications extends Spine.Controller
     Spine.trigger('updateStats',data)  
 
   favourited: => 
-    alert("here")
     @addNotification('favourited',{})
 
 

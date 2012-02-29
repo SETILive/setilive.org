@@ -12,7 +12,6 @@ class Stars extends Spine.Controller
     @indicators={}
 
   updateTarget: (data) ->
-    alert(data)
 
   drawField:=>
     @stars = Source.kepler_planets()

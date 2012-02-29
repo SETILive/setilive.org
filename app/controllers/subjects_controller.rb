@@ -10,19 +10,20 @@ class SubjectsController < ApplicationController
 
   def next_subject_for_user
     subject = nil
-
-    if [1,2].sample ==1
-      subject = get_recent_subject
-      subject = get_new_subject unless subject
-    else
-      subject = get_new_subject
-      if subject
-        subject.save
-      else
-        subject = get_recent_subject
-      end
-    end
+    # 
+    # if [1,2].sample ==1
+    #   subject = get_recent_subject
+    #   subject = get_new_subject unless subject
+    # else
+    #   subject = get_new_subject
+    #   if subject
+    #     subject.save
+    #   else
+    #     subject = get_recent_subject
+    #   end
+    # end
     
+
     subject = Subject.random.first unless subject
 
     if subject 
