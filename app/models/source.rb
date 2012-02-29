@@ -53,13 +53,10 @@ class Source
     s
   end
 
+  format.json {render :json =>Rails.cache.fetch(:counter_count, :expires_in => 10.minutes) {  {:classification_count=>Classification.count, :users_count=>ZooniverseUser.count}.to_json }
+
   def self.get_cached_sources
-    if RedisConnection.exists("cached_sources")
-      sources = RedisConnection.get "cached_sources"
-    else 
-      sources = cache_sources
-    end
-    sources 
+    Rails.cache.fetch(:cached_sources, :expires_in => 1.hour) { Source.cache_sources }
   end
 
   def self.cache_sources
