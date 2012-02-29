@@ -93,7 +93,7 @@ class Subject
   end
 
   def self.random_frank_subject 
-    keys = RedisConnection.keys 'subject_*'
+    keys = RedisConnection.keys 'subject_new*'
     return nil if keys.empty?
     key = keys.sample
     subject  = BSON.deserialize(RedisConnection.get key)
