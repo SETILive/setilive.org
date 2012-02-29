@@ -49,8 +49,7 @@ $.widget "ui.inlineTutorial",
     self = this
     op = self.options
     speed = op.current_step.speed or op.speed
-    $(".inline-indicator").fadeOut 2000, ->
-      $(".inline-indicator").remove()
+    $(".inline-indicator").remove()
 
     @setUpExternalTriggers()
     $("#inline_tutorial_outer").animate
