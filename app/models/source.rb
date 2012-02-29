@@ -8,7 +8,7 @@ class Source
   key :coords, Array  
   key :description, String
   key :zooniverse_id, String 
-  key :seti_id, String
+  key :seti_ids, Array
   key :type, String 
   key :meta, Hash
 
@@ -19,6 +19,9 @@ class Source
 
   after_create{ Source.cache_sources unless BOOTSTRAP }
 
+  def self.find_by_seti_id(seti_id)
+    Source.where(:seti_ids => seti_id).first
+  end
 
   def planet_hunters_id
     zooniverse_id.gsub("SSL","SPH") if type=="kepler_planet" 
@@ -34,7 +37,7 @@ class Source
 
   def self.create_with_seti_id(seti_id)
     # puts "Creating from the redis definition #{seti_id}"
-    s = Source.new(name: seti_id.to_s, seti_id: seti_id.to_s, type: "other")
+    s = Source.new(name: seti_id.to_s, seti_ids: [seti_id.to_s], type: "other")
     if RedisConnection.exists("target_#{seti_id}")
       details = JSON.parse(RedisConnection.get "target_#{seti_id}")
       if details["target_name"].match(/KOI/)

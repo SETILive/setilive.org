@@ -23,7 +23,7 @@ task :ensure_indexes => :environment do
   puts "Building indexes for Source"
   drop_indexes_on(Source)
   Source.ensure_index [['zooniverse_id', 1]]
-  Source.ensure_index [['seti_id', 1]]
+  Source.ensure_index [['seti_ids', 1]]
   
   puts "Building indexes for Subject"
   drop_indexes_on(Subject)
