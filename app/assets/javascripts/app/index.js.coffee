@@ -201,7 +201,7 @@ class TelescopePage extends SetiLiveController
         status: status.status
     Spine.bind 'target_status_changed',(status)=>
       status='training' if status=='active'
-      @telescopeStatus.html @view(telescopeStatusExplination)
+      @telescopeStatus.html @view("telescopeStatusExplination")
         status: status.status
   
 window.HomePage = HomePage

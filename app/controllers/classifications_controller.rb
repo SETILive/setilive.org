@@ -20,7 +20,10 @@ class ClassificationsController < ApplicationController
 
     if signals 
       signals.each do |signal|
-        characteristics  = signal['characterisations'].values
+
+        characteristics = []
+        characteristics = signal['characterisations'].values if signal['characterisations']
+
         observation = Observation.find(signal['observation_id'])
         start_coords = [signal['freqStart'],signal['timeStart']]
         end_coords   = [signal['freqEnd'],signal['timeEnd']]
