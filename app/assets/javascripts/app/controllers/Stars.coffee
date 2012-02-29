@@ -16,7 +16,9 @@ class Stars extends Spine.Controller
   drawField:=>
     @stars = Source.kepler_planets()
     
-    @drawStar(star) for star in @stars 
+    for star,index in @stars 
+      if index%10==0
+        @drawStar(star)
 
     stars_with_coords = Source.select (s)=>
       s.coords[0] !=0 and s.coords[1] !=0
