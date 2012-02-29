@@ -1,4 +1,3 @@
-<%console.log "workflow area", @%>
 <div class='question'>
   <% if @question? :%>
     <p id='question_text'><%=@question.name%></p>

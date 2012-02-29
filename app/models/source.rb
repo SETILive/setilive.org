@@ -58,10 +58,10 @@ class Source
   end
 
   def self.cache_sources
-    puts "caching sources "
+    # puts "caching sources "
     sources = Source.all.to_json
     RedisConnection.set "cached_sources", sources
-    puts "cached sources "
+    # puts "cached sources "
     sources
   end
 end
