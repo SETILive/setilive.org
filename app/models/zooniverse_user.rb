@@ -51,23 +51,30 @@ class ZooniverseUser
   def seen_observations(opts = { })
     opts = { page: 1, per_page: 8 }.merge opts.symbolize_keys
     offset = opts[:per_page] * (opts[:page] - 1)
+    json = {
+      page: opts[:page],
+      pages: (seen_subject_ids / opts[:per_page].to_f).ceil,
+      per_page: opts[:per_page]
+    }
     
     observation_fields = [:image_url, :uploaded, :source_id, :subject_id]
     observation_options = { fields: observation_fields, skip: offset, limit: opts[:per_page], sort: [:$natural, -1] }
     observation_selector = { :subject_id => { :$in => seen_subject_ids } }
     
-    Observation.collection.find(observation_selector, observation_options).to_a.tap do |results|
-      source_ids = results.collect{ |result| result['source_id'] }
-      subject_ids = results.collect{ |result| result['subject_id'] }
-      
-      sources = Hash[ *Source.collection.find({ :_id => { :$in => source_ids } }, { fields: [:name] }).to_a.collect(&:values).flatten ]
-      subjects = Hash[ *Subject.collection.find({ :_id => { :$in => subject_ids } }, { fields: [:zooniverse_id] }).to_a.collect(&:values).flatten ]
-      
-      results.each do |result|
-        result['source_name'] = sources[result['source_id']]
-        result['subject_id'] = subjects[result['subject_id']]
-      end
+    results = Observation.collection.find(observation_selector, observation_options).to_a
+    source_ids = results.collect{ |result| result['source_id'] }
+    subject_ids = results.collect{ |result| result['subject_id'] }
+    
+    sources = Hash[ *Source.collection.find({ :_id => { :$in => source_ids } }, { fields: [:name] }).to_a.collect(&:values).flatten ]
+    subjects = Hash[ *Subject.collection.find({ :_id => { :$in => subject_ids } }, { fields: [:zooniverse_id] }).to_a.collect(&:values).flatten ]
+    
+    results.each do |result|
+      result['source_name'] = sources[result['source_id']]
+      result['subject_id'] = subjects[result['subject_id']]
     end
+    
+    json[:collection] = results
+    json
   end
   
   def update_classification_stats(classification)
