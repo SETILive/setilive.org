@@ -29,6 +29,8 @@ class ZooniverseUser
   has_many :classifications
   has_many :seen_subjects, :in => :seen_subject_ids, :class_name => "Subject"
   has_many :favourites, :in => :favourite_ids, :class_name => "Observation"
+  
+  after_create :increment_count
 
   def award_badges 
     Badge.not_awarded(self).each do |badge|
@@ -71,6 +73,10 @@ class ZooniverseUser
   
   def recent_favourites(opts = { })
     _paginated_recents favourite_ids, opts
+  end
+  
+  def increment_count
+    RedisConnection.incr 'zooniverse_user_count'
   end
   
   private
