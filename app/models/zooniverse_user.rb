@@ -35,47 +35,6 @@ class ZooniverseUser
       badge.award_to self if badge.award?(self)
     end
   end
-
-  def add_favourite(subject)
-    self.favourites <<  subject
-    save
-  end
-
-  def remove_favourite(subject)
-    # puts self.favourite_ids
-    self.favourites.delete!(subject)
-    # puts self.favourite_ids
-    save
-  end
-  
-  def seen_observations(opts = { })
-    opts = { page: 1, per_page: 8 }.merge opts.symbolize_keys
-    offset = opts[:per_page] * (opts[:page] - 1)
-    json = {
-      page: opts[:page],
-      pages: (seen_subject_ids / opts[:per_page].to_f).ceil,
-      per_page: opts[:per_page]
-    }
-    
-    observation_fields = [:image_url, :uploaded, :source_id, :subject_id]
-    observation_options = { fields: observation_fields, skip: offset, limit: opts[:per_page], sort: [:$natural, -1] }
-    observation_selector = { :subject_id => { :$in => seen_subject_ids } }
-    
-    results = Observation.collection.find(observation_selector, observation_options).to_a
-    source_ids = results.collect{ |result| result['source_id'] }
-    subject_ids = results.collect{ |result| result['subject_id'] }
-    
-    sources = Hash[ *Source.collection.find({ :_id => { :$in => source_ids } }, { fields: [:name] }).to_a.collect(&:values).flatten ]
-    subjects = Hash[ *Subject.collection.find({ :_id => { :$in => subject_ids } }, { fields: [:zooniverse_id] }).to_a.collect(&:values).flatten ]
-    
-    results.each do |result|
-      result['source_name'] = sources[result['source_id']]
-      result['subject_id'] = subjects[result['subject_id']]
-    end
-    
-    json[:collection] = results
-    json
-  end
   
   def update_classification_stats(classification)
      updater = update_classification_count(classification)
@@ -105,5 +64,43 @@ class ZooniverseUser
   def badgeDetails
     self.badges.collect{|b| { badge: Badge.find(b['id']), level: b['level'] } }
   end
-
+  
+  def recent_observations(opts = { })
+    _paginated_recents seen_subject_ids, opts
+  end
+  
+  def recent_favourites(opts = { })
+    _paginated_recents favourite_ids, opts
+  end
+  
+  private
+  
+  def _paginated_recents(observation_ids, opts = { })
+    opts = { page: 1, per_page: 8 }.merge opts.symbolize_keys
+    offset = opts[:per_page] * (opts[:page] - 1)
+    json = {
+      page: opts[:page],
+      pages: (observation_ids.length / opts[:per_page].to_f).ceil,
+      per_page: opts[:per_page]
+    }
+    
+    observation_fields = [:image_url, :uploaded, :source_id, :subject_id]
+    observation_options = { fields: observation_fields, skip: offset, limit: opts[:per_page], sort: [:$natural, -1] }
+    observation_selector = { :subject_id => { :$in => observation_ids } }
+    
+    results = Observation.collection.find(observation_selector, observation_options).to_a
+    source_ids = results.collect{ |result| result['source_id'] }
+    subject_ids = results.collect{ |result| result['subject_id'] }
+    
+    sources = Hash[ *Source.collection.find({ :_id => { :$in => source_ids } }, { fields: [:name] }).to_a.collect(&:values).flatten ]
+    subjects = Hash[ *Subject.collection.find({ :_id => { :$in => subject_ids } }, { fields: [:zooniverse_id] }).to_a.collect(&:values).flatten ]
+    
+    results.each do |result|
+      result['source_name'] = sources[result['source_id']]
+      result['subject_id'] = subjects[result['subject_id']]
+    end
+    
+    json[:collection] = results
+    json
+  end
 end
