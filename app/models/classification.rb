@@ -42,7 +42,7 @@ class Classification
   end
   
   def push_global_stats
-    StatsPusher.perform
+    StatsPusher.perform_async
   end
   
   # def push_classification
