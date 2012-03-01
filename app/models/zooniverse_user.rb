@@ -64,8 +64,8 @@ class ZooniverseUser
       subjects = Hash[ *Subject.collection.find({ :_id => { :$in => subject_ids } }, { fields: [:zooniverse_id] }).to_a.collect(&:values).flatten ]
       
       results.each do |result|
-        result['source'] = sources[result.delete 'source_id']
-        result['subject'] = subjects[result.delete 'subject_id']
+        result['source_name'] = sources[result['source_id']]
+        result['subject_id'] = subjects[result['subject_id']]
       end
     end
   end
