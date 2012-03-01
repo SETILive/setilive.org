@@ -1,4 +1,5 @@
 <% for classification in @observations: %>
+
   <div class='observation'>
     <img width=215  src='<%= classification.image_url %>' />
     

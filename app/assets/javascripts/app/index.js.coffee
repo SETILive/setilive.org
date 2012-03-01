@@ -77,10 +77,10 @@ class HomePage extends SetiLiveController
     @home_content.html @view('home_main_content')()
     
     User.bind 'refresh', =>
-      @renderObservations()
-
+      @renderObservations() if @observations
+    
     Classification.fetchRecent (observations)=>
-      @observations= observations
+      @observations = observations
       @renderObservations()
 
     @home_badge.html @view('home_badge')
