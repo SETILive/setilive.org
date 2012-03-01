@@ -1,45 +1,48 @@
-<div id='user_profile'>
-  <div id='profile_top'>
-    <h1 id='user_welcome'>
-      Welcome back, <%=@user.name%>.
+<div id="user_profile">
+  <div id="profile_top">
+    <h1 id="user_welcome">
+      <% if @user: %>
+        Welcome back, <%= @user.name %>.
+      <% end %>
     </h1>
-    <ul id='user_badges'>
+    <ul id="user_badges">
       <% for badge in Badge.all(): %>
-        <li  class='badge'>
-          <%if @user.hasBadge(badge): %>
-            <%- @badgeTemplate({badge:badge, size: 50, level: @user.maxLevelForBadge(badge)})  %>
-          <%else: %>
+        <li class="badge">
+          <% if @user and @user.hasBadge(badge): %>
+            <%- @badgeTemplate badge: badge, size: 50, level: @user.maxLevelForBadge(badge) %>
+          <% else: %>
             <span class="non-badge"></span>
-          <%end%>
+          <% end %>
         </li>
-      <%end%>
+      <% end %>
     </ul>
-
-    <%if @user.sweeps_status =='in': %>
-        <p class='sweeps_opt'> You are currently opted in to the Discovery Channel sweeps. Click <a href='sweeps_opt_out'> here</a> to opt out
-          or <a href='sweeps_change'>here</a> to change your details.</p>
-      <%end%>
-      <%if @user.sweeps_status =='out' or @user.sweeps_status =='none': %>
-        <p class='sweeps_opt'> You are currently opted out of the Discovery Channel sweeps. Click <a href='sweeps_change'> here</a> to sign up</p>
-    <%end%>
-
+    
+    <p class="sweeps_opt">
+      <% if @user and @user.sweeps_status is 'in': %>
+        You are currently opted in to the Discovery Channel sweeps. Click <a href="sweeps_opt_out"> here</a> to opt out or <a href="sweeps_change">here</a> to change your details.
+      <% else if @user: %>
+        You are currently opted out of the Discovery Channel sweeps. Click <a href="sweeps_change"> here</a> to sign up.
+      <% end %>
+    </p>
   </div>
-  <div id='profile_bottom'>
-    <div id='view_selection'>
-      <span> View </span>
-      <ul id='view_selection'>
-        <li  class= 'collectionType <%= "catagory_selection" if @collectionType=='recents'%>' data-id="recents" >Recents / </li>
-        <li class= 'collectionType <%= "catagory_selection" if @collectionType=='followups'%>' data-id="Followups">Followups /</li> 
-        <li class= 'collectionType <%= "catagory_selection" if @collectionType=='favourites'%>' data-id="favourites">Favourites</li> 
+  <div id="profile_bottom">
+    <div id="view_selection">
+      <span>View</span>
+      <ul id="view_selection">
+        <li class="collectionType <%= 'catagory_selection' if @collectionType is 'recents'%>" data-id="recents">Recents / </li>
+        <li class="collectionType <%= 'catagory_selection' if @collectionType is 'followups'%>" data-id="Followups">Followups /</li>
+        <li class="collectionType <%= 'catagory_selection' if @collectionType is 'favourites'%>" data-id="favourites">Favourites</li>
       </ul>
     </div>
-    <div id='subjects'>
-      <%if @collectionType=='Followups': %>
-        <h2 style='color:black; text-align:center'>We are currently operating in a mode where we are not triggering followups at the telescope.</h2>
-      <%else : %>
-        <%- @itemTemplate({user:@user, items: @subjects})%>
-      <%end%>
+    
+    <div id="subjects">
+      <% if @collectionType is 'followups': %>
+        <h2 style="color:black; text-align:center">We are currently operating in a mode where we are not triggering followups at the telescope.</h2>
+      <% else if @user: %>
+        <%- @itemTemplate user: @user, items: @subjects %>
+      <% end %>
     </div>
-    <%- @pagination.menu()%>
+    
+    <%- @pagination.menu() %>
   </div>
 </div>

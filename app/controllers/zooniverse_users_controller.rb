@@ -38,13 +38,13 @@ class ZooniverseUsersController < ApplicationController
 
   def recents 
     respond_to do |format|
-      format.json { render json: current_user.recent_observations(page: params[:page]).as_json }
+      format.json { render json: current_user.recent_observations(page: params[:page].to_i).as_json }
     end
   end
 
   def favourites 
     respond_to do |format|
-      format.json { render json: current_user.recent_favourites(page: params[:page]).as_json }
+      format.json { render json: current_user.recent_favourites(page: params[:page].to_i).as_json }
     end
   end
 
