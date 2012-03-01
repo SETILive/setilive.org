@@ -1,6 +1,4 @@
 class FavouritesController < ApplicationController
-  before_filter CASClient::Frameworks::Rails::Filter
-
   def create
     user = current_user
     observation = Observation.find(params[:observation_id])

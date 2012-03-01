@@ -1,6 +1,4 @@
 class SubjectsController < ApplicationController
-  before_filter CASClient::Frameworks::Rails::Filter
-
   def tutorial_subject 
     respond_to do |format|
       format.json { render json: Subject.tutorial_subject.to_json(:include => {:observations=>{:include=>:source}}), :status => '200' }

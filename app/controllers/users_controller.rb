@@ -1,7 +1,4 @@
 class UsersController < ApplicationController
-  before_filter CASClient::Frameworks::Rails::Filter 
-
-
   def badges 
     if current_user 
       respond_to do |format|
