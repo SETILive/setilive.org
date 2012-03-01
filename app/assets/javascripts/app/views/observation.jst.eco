@@ -1,26 +1,21 @@
-<% for classification in @observations : %>
-  <%for observation in classification.subject.observations: %> 
-    <%if observation.uploaded :%>
-      <div class='observation'>
-        <img width=215  src='<%=observation.image_url%>' />
-
-        <%if @user : %>
-         
-            <% if @user.favourites.indexOf(observation.id)  != -1: %>
-             <div class='favourited' title='unfavourite' data-id= '<%=observation.id%>'>
-                <img src='/assets/favorited_button.png' />
-             </div>
-
-            <%else : %>
-              <div class='favourite' title='favourite' data-id= '<%=observation.id%>'>
-                <img src='/assets/favourite_button.png' />
-              </div>
-            <%end%>
-        <%end%>
-        <span  class='classification_details'>
-          <%=classification.zooniverse_user.name%> classified <%=observation.source.name%>
-        </span>
-      </div>
-    <%end%>
-  <%end%>
-<%end%>
+<% for classification in @observations: %>
+  <div class='observation'>
+    <img width=215  src='<%= classification.image_url %>' />
+    
+    <% if @user: %>
+      <% if @user.favourites.indexOf(classification.observation_id) isnt -1: %>
+       <div class='favourited' title='unfavourite' data-id= '<%= classification.observation_id %>'>
+          <img src='/assets/favorited_button.png' />
+       </div>
+      <% else: %>
+        <div class='favourite' title='favourite' data-id= '<%= classification.observation_id %>'>
+          <img src='/assets/favourite_button.png' />
+        </div>
+      <% end %>
+    <% end %>
+    
+    <span class='classification_details'>
+      <%= classification.user_name %> classified <%= classification.source_name %>
+    </span>
+  </div>
+<% end %>
