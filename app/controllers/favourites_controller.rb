@@ -5,7 +5,7 @@ class FavouritesController < ApplicationController
 
     respond_to do |format|
       if observation and user.add_to_set(:favourite_ids=>observation.id)
-        format.json { render json: user, status: :created}
+        format.json { render json: user.as_json, status: :created}
       else
         format.json { render json: '', status: :unprocessable_entity }
       end
@@ -17,7 +17,7 @@ class FavouritesController < ApplicationController
     observation = Observation.find(params[:id])
     respond_to do |format|
       if observation and user.pull(:favourite_ids=>observation.id)
-        format.json {render json: user, status: '200' }
+        format.json {render json: user.as_json, status: '200' }
       else
         format.json { render json: '', status: :unprocessable_entity }
       end

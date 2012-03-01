@@ -79,6 +79,21 @@ class ZooniverseUser
     RedisConnection.incr 'zooniverse_user_count'
   end
   
+  def as_json
+    {
+      name: name,
+      zooniverse_user_id: zooniverse_user_id,
+      favourite_ids: favourite_ids,
+      badges: badges,
+      total_classifications: total_classifications,
+      total_follow_ups: total_follow_ups,
+      total_signals: total_signals,
+      total_logins: total_logins,
+      talk_click_count: talk_click_count,
+      sweeps_status: sweeps_status
+    }
+  end
+  
   private
   
   def _paginated_recents(observation_ids, opts = { })
