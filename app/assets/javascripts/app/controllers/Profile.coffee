@@ -8,11 +8,24 @@ class Profile extends Spine.Controller
     'click .favourite'  :  'addFavourite'
     'click .favourited' :  'removeFavourite'
 
+  
+  
+  favourites: []
+  recents: []
+  
+
   constructor: ->
     super
     User.bind('refresh', @gotUser)
     Badge.bind('refresh', @gotUser)
     @collectionType='favourites'
+
+    @pagination =
+    page : 0
+    pages: 0
+    noPerPage: @pagination_no
+    menu:->
+      JST["app/views/pagination"](@)
 
 
   addFavourite:(e)=>
@@ -29,20 +42,18 @@ class Profile extends Spine.Controller
     @user= User.first()
     @collectionType= @inital_collection_type
     @collection = []
-    @paginate()
-
-    @fetchType @collectionType, (collection)=>
-      @collection = collection
-      @paginate()
+    console.log @pagination
+    if @user
+      @fetchType @collectionType, 0, (collection)=>
+        @collection = collection
+        @render()
+        
       @render()
-      
-    @render()
 
   render:=> 
     @html ""
     @append @view('user_stats')(@user)
-    
-
+  
     @append @view('user_profile')
       user: @user
       pagination : @pagination
@@ -50,48 +61,45 @@ class Profile extends Spine.Controller
       collectionType: @collectionType
       itemTemplate: @view('waterfallCollectionItem')
       badgeTemplate: @view('badge')
-  
+
+
   selectPage:(e)=>
     e.preventDefault()
-    @pagination.page = $(e.currentTarget).data().id
-    @render()
+    pageNo = $(e.currentTarget).data().id
+    fetchType @collectionType, pageNo, =>
+      @render()
 
   selectCollectionType:(e)=>
-
     @collectionType =  $(e.currentTarget).data().id 
-    @fetchType @collectionType, (collection)=>
+    @fetchType @collectionType, 0, (collection)=>
       @collection = collection
-      @paginate()
       @render()
   
-  fetchType:(type, callback=null)=>
-
+  fetchType:(type, page, callback=null)=>
+    console.log type
     if type =='favourites'
-      return callback(@favourites) if @favourites
-      $.getJSON '/user_favourites', (data)=>
-        @favourites = data
-        return callback(@favourites)
+      return callback(@favourites[page]) if @favourites[page]
+      $.getJSON "/user_favourites?page=#{page+1}", (data)=>
+        console.log data
+        @pagination.page = data.page 
+        @pagination.pages= data.pages
+        @pagination.noPerPage= data.per_page
+        @favourites[page] = data.collection
+        return callback(@favourites[page])
       
     else if type =='recents'
-      return callback(@recents) if @recents
-      $.getJSON '/user_recents', (data)=>
-        @recents = data
-        return callback(@recents)
+      return callback(@recents[page]) if @recents[page]
+      $.getJSON "/user_recents?page=#{page+1}", (data)=>
+        console.log data  
+        @pagination.page = data.page 
+        @pagination.pages= data.pages
+        @pagination.noPerPage= data.per_page
+        @recents[page] = data.collection
+        return callback(@recents[page])
 
     callback([])
 
-  paginate:=>
     
-    @pagination =
-      page : 0
-      pages: @collection.length/@pagination_no
-      noPerPage: @pagination_no
-      start: ->
-        @page*@noPerPage
-      end: ->
-        (@page+1)*@noPerPage
-      menu:->
-        JST["app/views/pagination"](@)
       
   
 window.Profile = Profile

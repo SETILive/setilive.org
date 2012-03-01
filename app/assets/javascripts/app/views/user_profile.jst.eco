@@ -37,7 +37,7 @@
       <%if @collectionType=='Followups': %>
         <h2 style='color:black; text-align:center'>We are currently operating in a mode where we are not triggering followups at the telescope.</h2>
       <%else : %>
-        <%- @itemTemplate({user:@user, items: @subjects[@pagination.start()...@pagination.end()]})%>
+        <%- @itemTemplate({user:@user, items: @subjects})%>
       <%end%>
     </div>
     <%- @pagination.menu()%>
