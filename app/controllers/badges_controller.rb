@@ -1,7 +1,7 @@
 class BadgesController < ApplicationController
 
   def index
-    @badges = Badge.all
+    @badges = Rails.cache.fetch('all_badges', expires_in: 1.hour){ Badge.all }
 
     respond_to do |format|
       format.html # index.html.erb
