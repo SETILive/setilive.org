@@ -19,7 +19,7 @@ class Observation
   
   # belongs_to :follow_up
   before_create :create_zooniverse_id
-  after_create :process
+  after_create :processNow
 
   def create_zooniverse_id
     self.zooniverse_id = "OSL#{ beam_no || 0 }#{ subject.zooniverse_id[4..-1] }"
