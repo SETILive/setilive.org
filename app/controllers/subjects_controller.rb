@@ -23,6 +23,8 @@ class SubjectsController < ApplicationController
       end
     end
     
+
+    
     subject = Subject.random.first unless subject
 
     if subject 
