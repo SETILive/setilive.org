@@ -15,7 +15,6 @@ class NavBar extends Spine.Controller
 
     $.getJSON '/telescope_status.json', (data)=>
       @telescope_status = data.status
-      @telescope_status = 'training' if @telescope_status=='active'
       @render()
   
   render:=>
