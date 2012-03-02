@@ -18,7 +18,7 @@ class HomeController < ApplicationController
         reply = { total_classifications: RedisConnection.get("total_classifications"),
                   people_online: RedisConnection.keys("online_*").count,
                   total_users: ZooniverseUser.count,
-                  classification_rate: RedisConnection.keys("recent_classification_*").count }
+                  classification_rate: RedisConnection.keys("recent_classification_*").count/10.0 }
         render :json=>reply
       end
     end
