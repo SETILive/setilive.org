@@ -46,7 +46,6 @@ task :ensure_indexes => :environment do
   drop_indexes_on(ZooniverseUser)
   ZooniverseUser.ensure_index [['zooniverse_user_id', 1]]
   ZooniverseUser.ensure_index [['favourite_ids', 1]]
-  ZooniverseUser.ensure_index [['total_classifications', 1], ['signal_count', 1], ['seen_subject_ids', 1]]
   
   puts "Building indexes for ZooniverseUserExtraInfo"
   drop_indexes_on(ZooniverseUserExtraInfo)

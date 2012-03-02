@@ -37,7 +37,7 @@ class Classification
   end
   
   def update_redis 
-    RedisConnection.setex "recent_classification_#{self.id}", 10 * 60, 1
+    RedisConnection.setex "recent_classification_#{self.id}", 60, 1
     RedisConnection.incr "total_classifications"
   end
   
