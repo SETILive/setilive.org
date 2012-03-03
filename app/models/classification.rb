@@ -42,7 +42,7 @@ class Classification
   end
   
   def push_global_stats
-    StatsPusher.perform_async
+    StatsPusher.perform_async if (RedisConnection.get("total_classifications").to_i % 500) ==0
   end
   
   # def push_classification
