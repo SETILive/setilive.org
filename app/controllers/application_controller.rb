@@ -34,7 +34,7 @@ class ApplicationController < ActionController::Base
   end
   
   def signed_id 
-    respond_with 403 unless currnet_user 
+    respond_with 403 unless current_user 
   end
     
 
