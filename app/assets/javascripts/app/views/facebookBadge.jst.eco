@@ -1,7 +1,7 @@
 <div class='facebook_button' style='display:inline-block;' >
   <a target="_blank" href="https://www.facebook.com/dialog/feed?
     app_id=310507282327045&
-    link=<%=encodeURI("http://www.setilive.org/badge/#{@badge.id}")%>&
+    link=<%=encodeURI("http://www.setilive.org/badges/#{@badge.id}")%>&
     picture=<%= encodeURI("http://www.setilive.org/#{@badge.logo_url}") %>&
     name=<%=encodeURI(@badge.facebookString(@level))%>&
     caption=<%=encodeURI("SETILive allows users to help in the hunt for aliens by analysing data from the Allen telescope array in real time")%>&

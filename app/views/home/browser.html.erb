@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset=utf-8>
+  <title>SETILive</title>
+  <%= stylesheet_link_tag    "application" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+  <script src="http://js.pusher.com/1.11/pusher.min.js" type=
+  "text/javascript" charset="utf-8"></script>
+
+  <script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-1224199-29']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>  
+  
+  <style>
+  ul.browsers {
+      position: relative;
+      width: 960px;
+      padding-left: 280px;
+      text-align: center;
+  }
+  ul.browsers li {
+      display: block;
+      float: left;
+      margin: 20px 5px;
+      height: 90px;
+      width: 90px;
+      text-align: center;
+      color: #999;
+  }
+  ul.browsers li:hover {
+      color: #fff;
+  }
+  
+  h2.browser_warning {
+      font-size: 30px;
+      font-family: TitilliumText22LMedium, Sans-serif;
+      font-weight: normal;
+  }   
+  
+  </style>
+</head>
+<body>
+    <%= render :partial=>'shared/zooniverse_bar'%>
+  
+  
+    <div id='top'>
+      <a href='/' id='logo'>SETI<span class='green live'>LIVE</span></a>
+      
+    </div>
+
+  
+  <div id="content">
+      <div id="home" style="text-align:center;margin-top:80px;">
+        <ul class="browsers">
+          <li><%= link_to(image_tag("browsers/firefox.png"),"http://www.mozilla.com/firefox") %><span>Firefox</span></li>
+          <li style="position:relative;top:-2px;"><%= link_to(image_tag("browsers/safari.png"),"http://www.apple.com/safari/download") %><span>Safari</span></li>
+          <li><%= link_to(image_tag("browsers/chrome.png"),"http://www.google.com/chrome") %><span>Chrome</span></li>
+          <li style="position:relative;top:2px;"><%= link_to(image_tag("browsers/opera.png"),"http://www.opera.com/") %><span>Opera</span></li>
+        </ul>
+        <div style="clear:both;"></div>
+        <h2 class="browser_warning">We're sorry - you need the latest version of Internet Explorer to view this site. Alternatively you can download one of these web browsers</h2>
+      </div>
+  </div>
+  
+  <div id="footer"></div>
+  
+</body>
+</html>

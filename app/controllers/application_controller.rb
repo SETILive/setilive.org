@@ -1,7 +1,15 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-
   before_filter :cor
+  before_filter :browser
+  
+  def browser
+    case request.user_agent
+    when /(gecko|opera|webkit|Trident\/5.0)/i
+    else
+       render :template => "home/browser", :layout => false
+    end
+  end
 
   def cor
     headers['Access-Control-Allow-Origin']  = Rails.env.production? ? 'our.app.whitelist' : '*'
@@ -13,8 +21,6 @@ class ApplicationController < ActionController::Base
   def application_identifier
     "SETILive: en"
   end
-  
-
 
   def check_login
     unless current_user 
@@ -64,7 +70,6 @@ class ApplicationController < ActionController::Base
   end
   
   def create_or_update_zooniverse_user
-
     user = ZooniverseUser.where(zooniverse_user_id: zooniverse_user_id.to_i ).first
     user ||= ZooniverseUser.new 
     user.name = zooniverse_user
@@ -76,11 +81,9 @@ class ApplicationController < ActionController::Base
     user
   end
 
-
   def authenticate
     authenticate_or_request_with_http_basic do |username, password|
       username == "science" && password == "channel"
     end
   end
-  
 end
