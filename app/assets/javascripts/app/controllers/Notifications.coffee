@@ -10,7 +10,7 @@ class Notifications extends Spine.Controller
   pusherKey     : "***REMOVED***"
   pusherChannel : 'telescope'
   pusher: 
-      # "target_changed" : "sourceChange"
+      "target_changed" : "sourceChange"
       # "new_data" : "newData"
       "status_changed" : "telescopeStatusChange"
       "stats_update" : "updateStats"

@@ -5,7 +5,7 @@ class StatsPusher
     stats = {:total_classifications=>RedisConnection.get("total_classifications"),
              :people_online=> RedisConnection.keys("online_*").count,
              :total_users => RedisConnection.get('zooniverse_user_count'),
-             :classification_rate => RedisConnection.keys("recent_classification_*").count
+             :classification_rate => RedisConnection.keys("recent_classification_*").count/10.0
            }
 
     # puts "pusing #{JSON.pretty_generate stats}"
