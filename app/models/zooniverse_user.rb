@@ -68,10 +68,12 @@ class ZooniverseUser
   end
   
   def recent_observations(opts = { })
+    opts[:type] = 'recents'
     _paginated_recents seen_subject_ids, opts
   end
   
   def recent_favourites(opts = { })
+    opts[:type] = 'favourites'
     _paginated_recents favourite_ids, opts
   end
   
@@ -107,8 +109,14 @@ class ZooniverseUser
     
     observation_fields = [:image_url, :uploaded, :source_id, :subject_id]
     observation_options = { fields: observation_fields, skip: offset, limit: opts[:per_page], sort: [:$natural, -1] }
-    observation_selector = { :subject_id => { :$in => observation_ids } }
+    if opts[:type] == "favourites"
+      observation_selector = { :_id => { :$in => observation_ids } }  
+    else
+      observation_selector = { :subject_id => { :$in => observation_ids } }  
+    end
     
+    
+
     results = Observation.collection.find(observation_selector, observation_options).to_a
     source_ids = results.collect{ |result| result['source_id'] }
     subject_ids = results.collect{ |result| result['subject_id'] }
