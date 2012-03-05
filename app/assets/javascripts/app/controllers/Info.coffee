@@ -61,7 +61,8 @@ class Info extends Spine.Controller
   talk :=>
     subject = Subject.first()
     window.open subject.talkURL()
-    window.location ='/classify'
+    $.getJSON "/register_talk_click", =>
+      window.location ='/classify'
 
   dontTalk :(e)=>
     window.location ='/classify'  
