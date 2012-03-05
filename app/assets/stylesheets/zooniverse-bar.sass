@@ -67,6 +67,18 @@ $border: transparentize($color, 0.8)
 				position: absolute
 				top: 100%
 
+				&:after
+					content: " "
+					display: block
+					height: 100%
+					left: 0
+					margin: 0 0 0 -20px
+					padding: 0 20px 200px
+					position: absolute
+					top: 0
+					width: 100%
+					z-index: -1 // This is a little weird, but it seems to work fine.
+
 				> li
 					> label
 						border-top: 1px solid $border

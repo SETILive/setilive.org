@@ -88,7 +88,7 @@ class Stars extends Spine.Controller
         if index == indicators.length-1
           anim = Raphael.animation {"r":"50", "stroke-opacity":"0", "stroke-width":0}, 2000, =>
             indicator.remove()
-            self.drawIndicator(beamNo,color)
+            setTimeout (=>self.drawIndicator(beamNo,color)), 2000
         else
           anim = Raphael.animation {"r":"50", "stroke-opacity":"0", "stroke-width":0}, 2000, =>
             indicator.remove()
