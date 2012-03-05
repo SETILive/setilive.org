@@ -56,10 +56,13 @@ class ZooniverseUser
   
   def update_signal_count(classification)
     updater = { :$inc => { } }
-    
-    classification.subject.observations.each do |observation|
-      updater[:$inc]["signal_count.#{ observation.id }"] = observation.subject_signals.count
+    total_signals = 0
+    classification.subject_signals.each do |signal|
+      total_signals += 1
+      updater[:$inc]["signal_count.#{ signal.observation_id }"] ||= 0 
+      updater[:$inc]["signal_count.#{ signal.observation_id }"] += 1 
     end
+    updater[:$inc]["total_signals"] = total_signals
     updater
   end
 
