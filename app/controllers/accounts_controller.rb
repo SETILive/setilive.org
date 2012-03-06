@@ -16,6 +16,7 @@ class AccountsController < ApplicationController
 
   def sweeps 
     @current_user = current_user
+    @current_user.increment(total_logins: 1)
     # if the current user hasnt signed up or opted out of the sweeps 
     if current_user.sweeps_status != 'none' 
       if current_user.seen_tutorial

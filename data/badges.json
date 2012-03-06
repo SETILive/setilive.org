@@ -43,12 +43,12 @@
     {
     "title": "returner",
     "description": "Returned to SETILive",
-    "condition": "user.login_count > level",
+    "condition": "user.total_logins >= level",
     "logo_url": "assets/badges/200px/return-200.png",
     "large_logo_url": "assets/badges/250px/return-250.png",
     "post_text": " is now a SETI Seeker",
-    "type": "one_off",
-    "levels":[]
+    "type": "cumulative",
+    "levels":[2,5,10,100]
     },
     {
     "title": "signals_marked",
