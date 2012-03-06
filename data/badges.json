@@ -23,10 +23,9 @@
     {
     "title": "trigger_followup",
     "description": "Trigger a number of followups",
-    "condition": " user.total_signals > level ",
+    "condition": " false ",
     "logo_url": "assets/badges/200px/signals-marked-200.png",
     "large_logo_url": "assets/badges/250px/signals-marked-250.png",
-
     "post_text": " just triggered a SETILive telescope followup",
     "type": "cumulative",
     "levels":[5,10,25,50,75,100,250,500,750,1000]
@@ -37,7 +36,6 @@
     "condition": "user.talk_click_count > 1 ",
     "logo_url": "assets/badges/200px/talk-200.png",
     "large_logo_url": "assets/badges/250px/talk-250.png",
-
     "post_text": " is discussing the possibility of life beyond Earth",
     "type": "one_off",
     "levels":[]
@@ -58,7 +56,6 @@
     "condition": "user.total_signals > level",
     "logo_url": "assets/badges/200px/signals-marked-200.png",
     "large_logo_url": "assets/badges/250px/signals-marked-250.png",
-
     "post_text": " has marked (n) signals from the ATA",
     "type": "cumulative",
     "levels":[5,10,25,50,75,100,250,500,750,1000]
@@ -66,10 +63,9 @@
     {
     "title": "found_paul",
     "description": "J",
-    "condition": "user.found_aliens == true",
+    "condition": "false",
     "logo_url": "assets/badges/200px/aliens-200.png",
     "large_logo_url": "assets/badges/250px//aliens-250.png",
-
     "post_text": " has found Aliens. What else do you need to know?",
     "type": "one_off",
     "levels":[]
