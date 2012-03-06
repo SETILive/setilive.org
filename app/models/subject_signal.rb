@@ -8,4 +8,5 @@ class SubjectSignal
   
   belongs_to :classification
   belongs_to :observation
+  belongs_to :workflow
 end

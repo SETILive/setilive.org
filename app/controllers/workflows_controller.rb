@@ -9,6 +9,12 @@ class WorkflowsController < ApplicationController
     end
   end
 
+  def active_workflow 
+    respond_to do |format|
+      format.json { render json: Workflow.active_workflow }
+    end
+  end
+
   def show
     @workflow = Workflow.find(params[:id])
 

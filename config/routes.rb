@@ -19,6 +19,7 @@ Marv::Application.routes.draw do
   match '/current_user' => "ZooniverseUsers#current_logged_in_user"
   match '/about'  => 'about#index'
 
+  match '/active_workflow' => 'workflows#active_workflow'
 
   match '*all' => 'application#cor', :constraints => {:method => 'OPTIONS'}
 

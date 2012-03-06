@@ -7,5 +7,10 @@ class Workflow
   key :version, String 
   key :questions, Array
 
-  many :classifications
+  many :subject_signals
+
+  def self.active_workflow 
+    Workflow.where(:primary=>true).first  
+  end
+
 end
