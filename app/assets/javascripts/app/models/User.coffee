@@ -13,12 +13,12 @@ class User extends Spine.Model
       User.trigger('refresh', u )
     
   award:(badge,level...)=>
-    unless @hasBadge(badge,level)
-      if level.length>0
-        level = level[level.length-1] 
-      else 
-        level = null
+    if level.length>0
+      level = level[level.length-1] 
+    else 
+      level = null
 
+    unless @hasBadge(badge,level)
       data= {id: badge.id, level:level, name: badge.title}
       @badges.push data
       User.trigger "badge_awarded", {badge: badge, level: level }
@@ -32,13 +32,14 @@ class User extends Spine.Model
       dataType: 'json'
 
   hasBadge:(testBadge,level...)=>
+    level = level[0]
     for badge in @badges 
       if testBadge.id == badge.id 
-        if level.length>0 and badge.levels?
-          if badge.levels.indexOf(level[0])
+        if level?
+          if badge.level >= level
             return true
         else 
-          return true 
+          return true
     return false
 
   maxLevelForBadge:(badge)=>
