@@ -403,6 +403,7 @@ body
   top: 0px
   left: 0px
 
+
 #waterfalls
   width: 820px
   margin: 0px
@@ -458,6 +459,7 @@ body
 
   #current_targets
     width: 100%
+    margin-top: 42px
     #targets
       width: 220px
       height: 200px
@@ -574,41 +576,44 @@ p.title
     color: #0A7590 
     text-align: center
 
+#talk
+  display: none
+  margin-top: 30px
+#talkYes
+  width: 104px
+  height: 42px
+#talkNo
+  width: 104px
+  height: 42px 
+  margin-left: 8px
+.talk_prompt
+  width: 191px
+  height: 36px
+  font-size: 12px 
+  line-height: 20px
+  text-align: center
+  padding: 20px
+
+.extra_button
+  color: white
+  text-align: center
+  @include gradient-bg(#ECF96B, #90991F)
+  @include round-corners(2px)
+  height: 42px
+  line-height: 42px
+  margin: 0px
+  padding: 0px
+  margin-bottom: 20px
+  display: inline-block
+  vertical-align: bottom
+  cursor: pointer
+  &:hover
+    background-color: #90991F
 #extra_controlls
   width: 100%
   height: 189px
-  margin-top: -10px
+  margin-top: 19px
 
-  .extra_button
-    color: white
-    text-align: center
-    @include gradient-bg(#ECF96B, #90991F)
-    @include round-corners(2px)
-    height: 42px
-    line-height: 42px
-    margin: 0px
-    padding: 0px
-    margin-bottom: 20px
-    display: inline-block
-    vertical-align: bottom
-    cursor: pointer
-    &:hover
-      background-color: #90991F
-  #talkYes
-    width: 104px
-    height: 42px
-  #talkNo
-    width: 104px
-    height: 42px 
-    margin-left: 8px
-  .talk_prompt
-    width: 191px
-    height: 36px
-    font-size: 12px 
-    line-height: 20px
-    text-align: center
-    padding: 20px
-  #talkNo
   #clear_signal
     width: 163px
     margin-right: 5px
@@ -675,6 +680,14 @@ p.title
 #target_content
   width: 1100px
   height: 690px
+
+#target_details 
+  font-weight: normal
+  font-family: TitilliumText22LMedium, Sans-serif
+  font-size: 8pt
+  color: #BBBBBB
+  text-transform: uppercase
+  letter-spacing: 1px
 
 #target_button
   display: inline-block

@@ -8,7 +8,8 @@ class SubjectsController < ApplicationController
 
   def next_subject_for_user
     subject = nil
-    
+    @subjectType="new"
+
     if [1,2].sample ==1
       subject = get_recent_subject
       subject = get_new_subject unless subject
@@ -22,12 +23,16 @@ class SubjectsController < ApplicationController
     end
     
 
-    
-    subject = Subject.random.first unless subject
+    unless subject
+      subject = Subject.random.first 
+      @subjectType="archive" 
+    end
 
     if subject 
       respond_to do |format|
-        format.json { render json: subject.to_json(:include =>{:observations=>{:include=>:source} }), :status => '200' }
+        subject  = subject.as_json(:include =>{:observations=>{:include=>:source} })
+        subject['subjectType']= @subjectType
+        format.json { render json: subject.to_json , :status => '200' }
       end
     else
       respond_to do |format|

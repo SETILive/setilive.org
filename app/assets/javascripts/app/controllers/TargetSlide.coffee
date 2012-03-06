@@ -7,6 +7,7 @@ class TargetsSlide extends Spine.Controller
   constructor:(args)->
     super
     @targets = args.targets 
+    @dateTaken = args.dateTaken
     @current_target= @targets[0]
     Spine.bind("beamChange", @selectTarget)
     @render()
@@ -15,7 +16,7 @@ class TargetsSlide extends Spine.Controller
     @html @view('targets_slide_show')
       targets : @targets
       current_target : @current_target
-
+      dateTaken: @dateTaken
   selectTarget:(e)=>
     if e.currentTarget?
       targetId = $(e.currentTarget).data().id 

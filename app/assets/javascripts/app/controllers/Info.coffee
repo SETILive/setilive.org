@@ -1,4 +1,3 @@
-
 class Info extends Spine.Controller
   elements:
     "#time" : "time"
@@ -20,10 +19,16 @@ class Info extends Spine.Controller
   constructor: ->
     super
     @resetTime()
-    @timeInterval = setInterval @updateTime, 100
     Subject.bind('create', @setupTargets)
     Spine.bind("beamChange", @beamChange)
 
+    Subject.bind 'create', =>
+      if Subject.first().subjectType=='live'
+        @timeInterval = setInterval @updateTime, 100
+      else 
+        @time.css("font-size","20px")
+        @time.html("Archive Data")
+        
   clearSignals:()=>
     Spine.trigger("clearSignals")
 
@@ -36,7 +41,7 @@ class Info extends Spine.Controller
       targets = []
       for observation in subject.observations
         targets.push(new Source(observation.source )) if observation.source?
-      new TargetsSlide(el:@targets , targets: targets)
+      new TargetsSlide(el:@targets , targets: targets, dateTaken: subject.created_at)
 
 
   updateTime:=>
@@ -55,7 +60,7 @@ class Info extends Spine.Controller
   doneClassification :=>
     Spine.trigger "dissableSignalDraw" 
     Spine.trigger 'doneClassification'
-    @done.hide()
+    @controls.hide()
     @talk.show()
     
   talk :=>

@@ -1,4 +1,7 @@
+<%console.log @%>
+<h3 class='title' id='target_details'> This data was taken by the telescope at <%=(new Date(@dateTaken)).toString("mm:ss on dd-MM-yyyy")%></h3> 
 <div id='targets'>
+
   <%if @current_target? : %>
     <%if @current_target.type=='kepler_planet' or @current_target.type=='tutorial': %>
      <p>Kepler <%=@current_target.kepler_no()%></p>
@@ -6,6 +9,8 @@
       <p> <%=@current_target.meta.full_name or @current_target.name %> </p>
     <%end%>
     <%details = @current_target.meta%>
+
+
     <div id='target'>
       <%if @current_target.type=='kepler_planet': %>    
         <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width = 100% height=100>
