@@ -23,7 +23,7 @@ class Info extends Spine.Controller
     Spine.bind("beamChange", @beamChange)
 
     Subject.bind 'create', =>
-      if Subject.first().subjectType=='live'
+      if Subject.first().subjectType=='live' or window.tutorial==true
         @timeInterval = setInterval @updateTime, 100
       else 
         @time.css("font-size","20px")
