@@ -88,7 +88,7 @@ class Subject
   end
 
   def self.random_recent(user)
-    list = RedisConnection.keys("subject_recent*")
+    list = RedisConnection.keys("subject_recent*").map{|r| r.gsub("subject_recent_","") }
     id = (list - user.seen_subject_ids.map(&:to_s)).sample
     Subject.find id
   end
