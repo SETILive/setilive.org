@@ -14,6 +14,14 @@ class Badge
     MongoMapper.connection(condition > 1 )
   end
 
+  def details 
+    {
+      title: self.title,
+      description: self.description,
+      type: self.type
+    }
+  end
+
   def award_to (user)
     user.badges << self 
     PusherConnection.send("badges", "awarded", self.to_json)

@@ -82,7 +82,7 @@ class ZooniverseUser
   end
 
   def badgeDetails
-    self.badges.collect{|b| { badge: Badge.find(b['id']), level: b['level'] } }
+    self.badges.collect{|b| { badge: Badge.find(b['id']).details, level: b['level'] } }
   end
   
   def recent_observations(opts = { })
@@ -99,7 +99,7 @@ class ZooniverseUser
     RedisConnection.incr 'zooniverse_user_count'
   end
   
-  def as_json
+  def as_json()
     {
       name: name,
       zooniverse_user_id: zooniverse_user_id,
@@ -112,6 +112,25 @@ class ZooniverseUser
       talk_click_count: talk_click_count,
       sweeps_status: sweeps_status
     }
+  end
+
+  def json_for_discovery
+    {
+      name: name,
+      zooniverse_user_id: zooniverse_user_id,
+      total_classifications: total_classifications,
+      total_follow_ups: total_follow_ups,
+      total_signals: total_signals,
+      total_logins: total_logins,
+      talk_click_count: talk_click_count,
+      sweeps_status: sweeps_status,
+      badgeDetails: self.badgeDetails
+    }.as_json
+    
+  end
+
+  def self.science_report 
+    Rails.cache.fetch(:cached_sources, :expires_in => 1.day) { (ZooniverseUser.where(:sweeps_status=>"in").collect{|z| z.json_for_discovery}).to_json}
   end
   
   private

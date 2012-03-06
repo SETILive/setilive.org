@@ -1,6 +1,6 @@
 development: &global_settings
   host: localhost
-  database: marv
+  database: ***REMOVED***-final
   port: 27017
 
 

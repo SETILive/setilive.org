@@ -5,9 +5,10 @@ class ZooniverseUsersController < ApplicationController
 
   def index 
     respond_to do |format|
-      format.json { render json: ZooniverseUser.all.to_json({:except=>[:api_key,:email,:badges], :methods=>:badgeDetails}) }
+      format.json {render json: ZooniverseUser.science_report}
     end
   end
+
 
   def badges 
     if current_user 
