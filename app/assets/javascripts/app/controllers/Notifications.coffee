@@ -77,6 +77,7 @@ class Notifications extends Spine.Controller
   
   badgeAwarded:(data)=>
     data['size'] = "50"
+    data['user'] = User.first().name
     @addNotification 'badge_awarded',
       data : data
       badgeTemplate : @view('badge')(data)

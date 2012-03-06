@@ -3,9 +3,9 @@
     app_id=310507282327045&
     link=<%=encodeURI("http://www.setilive.org/badges/#{@badge.id}")%>&
     picture=<%= encodeURI("http://www.setilive.org/#{@badge.logo_url}") %>&
-    name=<%=encodeURI(@badge.facebookString(@level))%>&
+    name=<%=encodeURI(@badge.facebookString(@user,@level))%>&
     caption=<%=encodeURI("SETILive allows users to help in the hunt for aliens by analysing data from the Allen telescope array in real time")%>&
-    description=<%=encodeURI(@badge.description)%>&
+    description=<%=encodeURI(@badge.description.replace(/level/g,@level))%>&
     message=<%= encodeURI("I just earned a badge on SETI LIVE")%>&
     redirect_uri=http://www.setilive.org"> <div id='facebook_button'></div></a>
 </div>

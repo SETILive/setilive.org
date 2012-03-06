@@ -6,7 +6,7 @@ class Badge
   key :condition, String , :required => true 
   key :logo_url , String,  :required => true
   key :large_logo_url , String,  :required => true
-
+  key :post_text, String
   key :type   , String , :required => true , :validate_in => ['one_off', 'cumulative']
   key :levels, Array 
 

@@ -1,5 +1,5 @@
 class Badge extends Spine.Model
-  @configure 'Badge', 'title', 'description', 'condition', 'logo_url','large_logo_url', 'type', 'levels'  
+  @configure 'Badge', 'title', 'description', 'condition', 'logo_url','large_logo_url', 'type', 'levels', 'post_text'
 
   constructor:->
     super 
@@ -25,18 +25,21 @@ class Badge extends Spine.Model
   maxLevel:=>
     @levels[@levels.length-1]
 
-  facebookString:(level=null)=>
-    reply= ""
+
+  facebookString:(username, level=null)=>
+    reply= @post_text
     if(level?)
-      reply+= "Level #{level} of the "
-    reply += "#{@title} Badge acquired on SETILive"
+      reply = reply.replace(/level/g,level)
+    reply = reply.trim()
+    reply = "#{username} #{reply}"
     reply
     
-  twitterString:(level=null)=>
-    reply= "I just earned  "
+  twitterString:(username,level=null)=>
+    reply= @post_text
     if(level?)
-      reply+= " level #{level} of  "
-    reply += "the #{@title} Badge on www.SETILive.org"
+      reply = reply.replace(/level/g,level)
+    reply = reply.trim()
+    reply = "#{username} #{reply}."
     reply
     
   check_condition:(user,level...)=>

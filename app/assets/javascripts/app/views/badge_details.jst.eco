@@ -23,12 +23,10 @@
     </div>
     <div id='badge_profile_right'>
       <%if @mainBadge? and @user?.hasBadge(@mainBadge) : %>
-        <h1>You’ve earned the <%-@mainBadge?.title%> Badge! </h1>
-        <p> You’ve earned this badge by registering for SETI Live. This is 
-important information about why you received this amazing
-badge. How cool is this? Extremely cool. Tell your friends.</p>
-         <%-@twitterTemplate({ badge: @mainBadge, level: @user?.maxLevelForBadge(@mainBadge)}) %>
-         <%-@facebookTemplate({badge: @mainBadge, level: @user?.maxLevelForBadge(@mainBadge)}) %>
+        <h1>You’ve earned the <%-@mainBadge?.title.replace("_"," ")%> Badge! </h1>
+        <p> <%=@mainBadge.facebookString("You",@user?.maxLevelForBadge(@mainBadge)).replace("their","your").replace("is","are")%>. Tell your friends.</p>
+         <%-@twitterTemplate({ user: @user.name, badge: @mainBadge, level: @user?.maxLevelForBadge(@mainBadge)}) %>
+         <%-@facebookTemplate({user: @user.name, badge: @mainBadge, level: @user?.maxLevelForBadge(@mainBadge)}) %>
          <a href='/profile'><div id='badge_profile_return'>Return to Profile</div></a>
       <%else : %>
         <h1>You have yet to earn this badge</h1>
