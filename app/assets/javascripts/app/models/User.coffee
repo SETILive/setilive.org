@@ -46,7 +46,9 @@ class User extends Spine.Model
     return null if badge.type=='one_off'
     level=0
     for item in @badges
-      level= item.level if item.id==badge.id and item.level >level
+      if item.id==badge.id
+       if item.level*1 >=level*1
+        level = item.level  
     level
 
   addFavourite:(observation_id, callback=null)=>
