@@ -33,7 +33,7 @@
     {
     "title": "post_to_talk",
     "description": "Post waterfall to Talk",
-    "condition": "user.talk_click_count > 1 ",
+    "condition": "user.talk_click_count >= 1 ",
     "logo_url": "assets/badges/200px/talk-200.png",
     "large_logo_url": "assets/badges/250px/talk-250.png",
     "post_text": " is discussing the possibility of life beyond Earth",
