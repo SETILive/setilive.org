@@ -1,7 +1,7 @@
 <div id="user_profile">
   <div id="profile_top">
     <h1 id="user_welcome">
-      <% if @user: %>
+      <% if @user?: %>
         Welcome back, <%= @user.name %>.
       <% end %>
     </h1>

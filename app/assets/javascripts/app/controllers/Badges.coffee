@@ -8,14 +8,19 @@ class Badges extends Spine.Controller
   constructor: ->
     super
     User.bind('refresh',@gotUser)
-    Badge.bind('refresh', @gotUser)
+    Badge.bind('refresh', @gotBadge)
     @collectionType='favourites'
 
   gotUser:=>
     @user= User.first()
+    if @user and Badge.count()>0
+      @render()
+
+
+  gotBadge:=>
     @mainBadge = Badge.find(window.location.pathname.split("/")[2])
- 
-    @render()
+    if @user and Badge.count()>0
+      @render()
 
   render:=> 
     @html ""
