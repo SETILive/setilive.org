@@ -9,7 +9,6 @@
   </p>
   
   <div class='badge_social_buttons'>
-
-    <%=@facebookTemplate if @facebookTemplate%>
-    <%=@twitterTemplate  if @twitterTemplate%>
+    <%-@facebookTemplate if @facebookTemplate?%>
+    <%-@twitterTemplate  if @twitterTemplate?%>
   </div>
