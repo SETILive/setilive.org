@@ -46,6 +46,21 @@ class ZooniverseUser
      RedisConnection.setex "online_#{self.id}", 10*60, 1
   end
   
+  def recalculate_signal_stats
+    self.signal_count  = {}
+    self.total_signals = 0
+    self.save
+    updater = {}
+    total = 0 
+    self.classifications.each do |classification|
+      total += classification.subject_signals.count 
+      updater.deep_merge! update_signal_count(classification)
+    end
+    updater[:$inc]["total_signals"] = total if total >0
+    collection.update({ :_id => id }, updater)
+  end
+
+
   def update_seen(subject)
     { :$addToSet => { 'seen_subject_ids' => subject.id } }
   end 
