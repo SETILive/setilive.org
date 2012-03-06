@@ -10,18 +10,21 @@ class SubjectsController < ApplicationController
     subject = nil
     @subjectType="new"
 
-    if [1,2].sample ==1
-      subject = get_recent_subject
-      subject = get_new_subject unless subject
+    if ['stuart.lynn','lnigra'].include? current_user.name and params[:subject_id]
+      subject = Subject.find(params[:subject_id])
     else
-      subject = get_new_subject
-      if subject
-        subject.save
-      else
+      if [1,2].sample ==1
         subject = get_recent_subject
+        subject = get_new_subject unless subject
+      else
+        subject = get_new_subject
+        if subject
+          subject.save
+        else
+          subject = get_recent_subject
+        end
       end
     end
-    
 
     unless subject
       subject = Subject.random.first 

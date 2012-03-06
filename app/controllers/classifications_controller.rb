@@ -5,6 +5,7 @@ class ClassificationsController < ApplicationController
   def show
     @classification = Classification.find(params[:id])
 
+ 
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @classification }
@@ -17,6 +18,7 @@ class ClassificationsController < ApplicationController
     subject  = Subject.find(params.delete(:subject_id))
     
     @classification = Classification.new(:subject=>subject, :zooniverse_user => current_user)
+    
 
     if signals 
       signals.each do |signal|
@@ -44,6 +46,9 @@ class ClassificationsController < ApplicationController
 
   def classify 
     @small_star_field = true  
+    if ['stuart.lynn','lnigra'].include? current_user.name and params[:subject_id]
+      @subject_id = params[:subject_id]
+    end
   end
 
   def recent 

@@ -11,7 +11,11 @@ class Subject extends Spine.Model
         @trigger('got')
     
   @fetch_next_for_user: ->
-    $.getJSON "next_subject.json", (data)=>
+    url = "next_subject.json"
+    if window.subject_id?
+      url += "?subject_id=#{window.subject_id}"
+
+    $.getJSON url, (data)=>
       Subject.dataifyData(data)
       subject=  Subject.create(data)
       Subject.trigger('next_subject', subject)

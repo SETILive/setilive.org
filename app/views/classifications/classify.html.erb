@@ -3,6 +3,9 @@
 
     var exports = this;
     jQuery(function(){
+        <%if @subject_id %>
+          window.subject_id="<%=@subject_id%>"
+        <%end%>
         <%if @tutorial%>
           new TutorialPage({el: $("body")});      
         <%else%>
