@@ -76,7 +76,7 @@ class Subject
   end
 
   def pop_in_redis_temp
-    RedisConnection.setex("subject_recent_#{self.id}", 180 ,  self.id)
+    RedisConnection.setex("subject_recent_#{self.id}", 10*60 ,  self.id)
   end
 
   def persist_on_s3
