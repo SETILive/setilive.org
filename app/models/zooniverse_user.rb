@@ -130,7 +130,7 @@ class ZooniverseUser
   end
 
   def self.science_report 
-    Rails.cache.fetch(:cached_sources, :expires_in => 1.day) { (ZooniverseUser.where(:sweeps_status=>"in").collect{|z| z.json_for_discovery}).to_json}
+    Rails.cache.fetch(:science_report, :expires_in => 1.day) { (ZooniverseUser.where(:sweeps_status=>"in").collect{|z| z.json_for_discovery}).to_json}
   end
   
   private
