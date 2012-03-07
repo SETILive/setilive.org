@@ -24,7 +24,7 @@
     <div id='badge_profile_right'>
       <%if @mainBadge? and @user?.hasBadge(@mainBadge) : %>
         <h1>You’ve earned the <%-@mainBadge?.title.replace("_"," ")%> Badge! </h1>
-        <p> <%=@mainBadge.facebookString("You",@user?.maxLevelForBadge(@mainBadge)).replace("their","your").replace("is","are")%>. Tell your friends.</p>
+        <p> <%=@mainBadge.facebookString("You",@user?.maxLevelForBadge(@mainBadge)).replace("their","your").replace("is","are").replace("has","have")%>. Tell your friends.</p>
          <%-@twitterTemplate({ user: @user.name, badge: @mainBadge, level: @user?.maxLevelForBadge(@mainBadge)}) %>
          <%-@facebookTemplate({user: @user.name, badge: @mainBadge, level: @user?.maxLevelForBadge(@mainBadge)}) %>
          <a href='/profile'><div id='badge_profile_return'>Return to Profile</div></a>
