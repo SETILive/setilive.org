@@ -1,0 +1,49 @@
+{
+  "description": "The first iteration on the zooniverse interface for the seti data",
+  "primary": true,
+  "type": "decision_tree",
+  "name": "zooniverse_interface2",
+  "project": "seti",
+  "version": "1.1",
+  "questions": [
+    {
+      "_id": "4ecbcc1f40af4716ef000006",
+      "name": "Describe the signal",
+      "answers": [
+        {
+          "_id": "4ecbcc1f40af4716ef000020",
+          "name": "broken",
+          "leads_to": "4ecbcc1f40af4716ef000007"
+        },
+        {
+          "_id": "4ecbcc1f40af4716ef000021",
+          "name": "continuous",
+          "leads_to": "4ecbcc1f40af4716ef000007"
+        },
+        {
+          "_id": "4ecbcc1f40af4716ef000022",
+          "leads_to": "4ecbcc1f40af4716ef000007",
+          "name": "parallel"
+        }
+      ]
+    },
+    {
+     "_id": "4ecbcc1f40af4716ef000007",
+      "name": "Describe the signal",
+      "answers": [
+        {
+          "_id": "4ecbcc1f40af4716ef000023",
+          "name": "erratic"
+        },
+        {
+          "_id": "4ecbcc1f40af4716ef000024",
+          "name": "wide"
+        },
+        {
+          "_id": "4ecbcc1f40af4716ef000024",
+          "name": "narrow"
+        }
+      ]
+    }
+  ]
+}

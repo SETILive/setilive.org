@@ -1,6 +1,6 @@
 task :load_workflow => :environment do
-  Workflow.delete_all
-  data = JSON.parse(IO.read("data/workflow.json"))
+  puts "loading workflow "
+  data = JSON.parse(IO.read("data/workflow2.json"))
   workflow = Workflow.new data
   workflow.save
 end

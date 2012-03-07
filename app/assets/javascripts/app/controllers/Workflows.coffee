@@ -70,9 +70,13 @@ class Workflows extends Spine.Controller
     lookup=
       "spiral"   : "<img src='assets/question_icons/spiral.png' class ='answer-icon' style='display: inline-block'></img>"
       "diagonal" : "<img src='assets/question_icons/diagonal.png' class ='answer-icon' style='display: inline-block'></img>"
-      "broken"   : "<img src='assets/question_icons/broken.png' class ='answer-icon' style='display: inline-block'></img>"
+      "broken"   : "<img src='assets/question_icons/signal_broken.png' class ='answer-icon' style='display: inline-block'></img>"
+      "continuous"   : "<img src='assets/question_icons/signal_continuous.png' class ='answer-icon' style='display: inline-block'></img>"
+      "parallel"   : "<img src='assets/question_icons/signal_parallel.png' class ='answer-icon' style='display: inline-block'></img>"
+      "wide"   : "<img src='assets/question_icons/signal_broad.png' class ='answer-icon' style='display: inline-block'></img>"
+      "narrow"   : "<img src='assets/question_icons/signal_continuous.png' class ='answer-icon' style='display: inline-block'></img>"  
       "vertical" : "<img src='assets/question_icons/straight.png' class ='answer-icon' style='display: inline-block'></img>"
-      "erratic" : "<img src='assets/question_icons/erratic.png' class ='answer-icon' style='display: inline-block'></img>"
+      "erratic" : "<img src='assets/question_icons/signal_erratic.png' class ='answer-icon' style='display: inline-block'></img>"
     lookup[answer.name.toLowerCase()]
     
 window.Workflows = Workflows

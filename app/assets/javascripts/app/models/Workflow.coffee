@@ -6,7 +6,7 @@ class Workflow extends Spine.Model
   
   @fetch_from_url: (url) ->
     $.getJSON url, (data)=>
-      Workflow.create(data[0])
+      Workflow.create(data)
 
 
   @fetch: ->

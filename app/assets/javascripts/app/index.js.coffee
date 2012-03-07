@@ -112,7 +112,7 @@ class ClassificationPage extends SetiLiveController
     @info = new Info({el: $("#info")})
     window.tutorial = false
 
-    Workflow.fetch_from_url("/workflows.json")
+    Workflow.fetch()
     Subject.fetch_next_for_user()
 
 class TutorialPage extends SetiLiveController
@@ -126,7 +126,7 @@ class TutorialPage extends SetiLiveController
 
     setTimeout((->$("#classify-area").inlineTutorial("start")),200)
       
-    Workflow.fetch_from_url("/workflows.json")
+    Workflow.fetch()
     Subject.get_tutorial_subject()
 
 class LoginPage extends SetiLiveController
