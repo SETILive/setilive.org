@@ -1630,8 +1630,7 @@ ul.pagination
     li
       width: 940px
       margin: 10px auto
-      img 
-        display: inline-block 
+
       p
         display: inline-block 
         width: 400px
@@ -1646,12 +1645,30 @@ ul.pagination
   display: block
   clear: both
   margin-bottom: 10px
-  min-height: 300px
-  img
+  min-height: 360px
+  .exampleHolder
     border: 3px solid #F2F2F2
     width: 500px
     height: 272px
     float: left
+    position: relative
+    img 
+      width: 500px
+      height: 272px
+      position: absolute
+      top: 0px
+      left: 0px
+    .waterfallExample
+      display: block 
+    .waterfallExampleRollover
+      display: none
+
+  .exampleHolder:hover
+    .waterfallExample
+      display: none 
+    .waterfallExampleRollover
+      display: block
+
   .gallery_heading
     font-size: 20px
     margin: 0px 0px 10px 0px
