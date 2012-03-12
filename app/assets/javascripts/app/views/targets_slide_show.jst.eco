@@ -1,4 +1,4 @@
-<%console.log @%>
+
 <h3 class='title' id='target_details'> This data was taken by the telescope at <%=(new Date(@dateTaken)).toString("mm:ss on dd-MM-yyyy")%></h3> 
 <div id='targets'>
 
