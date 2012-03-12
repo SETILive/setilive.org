@@ -18,6 +18,8 @@ Marv::Application.routes.draw do
   match '/next_subject' => 'subjects#next_subject_for_user'
   match '/current_user' => "ZooniverseUsers#current_logged_in_user"
   match '/about'  => 'about#index'
+  match '/video_tutorial'  => 'about#video_tutorial'
+
 
   match '/active_workflow' => 'workflows#active_workflow'
 

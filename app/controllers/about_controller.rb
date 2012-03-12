@@ -4,4 +4,8 @@ class AboutController < ApplicationController
 	def index
 		# render layout: false
 	end
+
+  def video_tutorial
+
+  end
 end

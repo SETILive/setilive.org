@@ -6,6 +6,8 @@
      <ul class="nav_submenu">
         <li class='tutorial_tutorial'><a href='/tutorial'>Tutorial</a> </li>
         <li class='tutorial_signals'><a href="/gallery">Signals</a></li>
+        <li class='tutorial_video'><a href="/video_tutorial">Video</a></li>
+
      </ul>
   </li>
   <li class='nav_about'>

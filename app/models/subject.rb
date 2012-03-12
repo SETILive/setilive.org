@@ -125,6 +125,7 @@ class Subject
                       :original_redis_key => key
                       }
                     ) 
+    binding.pry
    
     if s 
       subject['beam'].each_with_index do |beam,index|
