@@ -189,7 +189,13 @@ class GalleryPage extends SetiLiveController
   constructor:->
     super  
     @gallery.html @view('galleryWaterfalls')(window.galleryWaterfalls)
-    
+    $(".exampleHolder").hover ->
+      $(this).parent().find(".gallery_explination").hide()
+      $(this).parent().find(".gallery_explination2").show()
+    , ->
+      $(this).parent().find(".gallery_explination").show()
+      $(this).parent().find(".gallery_explination2").hide()
+
 class TelescopePage extends SetiLiveController
   elements :
     '#telescopeStatus' : "telescopeStatus"

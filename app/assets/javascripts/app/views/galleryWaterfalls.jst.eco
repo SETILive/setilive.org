@@ -1,7 +1,13 @@
-<% for waterfall in @ :%>
+<% for waterfall in @ : %>
   <li class='galleryWaterfall'>
-    <img src='<%-waterfall.url%>' />
+    <div class='exampleHolder'>
+      <img class='waterfallExample' src='<%-waterfall.url%>' />
+      <img class='waterfallExampleRollover' src='<%-waterfall.rollover%>' />
+    </div>
     <p class="gallery_heading"><%-waterfall.title%></p>
-    <p><%-waterfall.description%></p>  
+    <div class='explinationHolder '>
+      <p class='gallery_explination'><%-waterfall.description%></p>  
+      <p class='gallery_explination2' style='display:none'><%-waterfall.rolloverDescription%></p>  
+    </div>
   </li>
 <%end%>
