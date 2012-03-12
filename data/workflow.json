@@ -11,20 +11,34 @@
       "name": "Describe the signal",
       "answers": [
         {
-          "_id": "4ecbcc1f40af4716ef000007",
-          "name": "vertical"
+          "_id": "4ecbcc1f40af4716ef000020",
+          "name": "broken"
         },
         {
-          "_id": "4ecbcc1f40af4716ef000008",
-          "name": "diagonal"
+          "_id": "4ecbcc1f40af4716ef000021",
+          "name": "continuos"
         },
         {
-          "_id": "4ecbcc1f40af4716ef000009",
+          "_id": "4ecbcc1f40af4716ef000022",
+          "name": "parallel"
+        }
+      ]
+    },
+    {
+     "_id": "4ecbcc1f40af4716ef000007",
+      "name": "Describe the signal",
+      "answers": [
+        {
+          "_id": "4ecbcc1f40af4716ef000023",
           "name": "erratic"
         },
         {
-          "_id": "4ecbcc1f40af4716ef00000a",
-          "name": "broken"
+          "_id": "4ecbcc1f40af4716ef000024",
+          "name": "wide"
+        },
+        {
+          "_id": "4ecbcc1f40af4716ef000024",
+          "name": "narrow"
         }
       ]
     }
