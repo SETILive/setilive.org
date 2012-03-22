@@ -5,16 +5,31 @@ class GenerateTalk
     subject = Subject.find(subject_id)
     if subject
       observations =[]
+      has_simulation = false 
+
       subject.observations.each do |observation|
+        
+        if observation.has_simulation 
+          has_simulation = true 
+          location = observation.simulation_url
+          thumb_location = observation.simulation_thumb_url
+        else
+          location = observation.image_url
+          thumb_location = observation.thumb_url
+        end
+
+
+
         observations<< { 
                          zooniverse_id: observation.zooniverse_id,
-                         location: "https://zooniverse-seti.s3.amazonaws.com/images/observation_#{observation.zooniverse_id}.png",
-                         thumbnail_location: "https://zooniverse-seti.s3.amazonaws.com/thumbs/observation_#{observation.zooniverse_id}.png",
+                         location: location,
+                         thumbnail_location: thumb_location,
                          size: [observation.width, observation.height],
-                         target: { zooniverse_id: observation.source.zooniverse_id }
+                         target: { zooniverse_id: observation.source.zooniverse_id },
+                         simulation:  observation.has_simulation,
                        } 
       end
-      post = {  zooniverse_id:subject.zooniverse_id, observations: observations}
+      post = {  zooniverse_id:subject.zooniverse_id, observations: observations, simulation: has_simulation}
       # puts JSON.pretty_generate post
 
       TalkCreator.talk_create(post)

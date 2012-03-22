@@ -10,10 +10,17 @@ class SubjectsController < ApplicationController
     subject = nil
     @subjectType="new"
 
+
     if ['stuart.lynn','lnigra'].include? current_user.name and params[:subject_id]
       subject = Subject.find(params[:subject_id])
-    else
-      if [1,2].sample ==1
+    end
+
+    if rand() < 2000 and subject==nil
+      subject = get_simulation_subject
+    end
+
+    if subject==nil
+      if [2,1].sample ==1
         subject = get_recent_subject
         subject = get_new_subject unless subject
       else
@@ -33,7 +40,7 @@ class SubjectsController < ApplicationController
 
     if subject 
       respond_to do |format|
-        subject  = subject.as_json(:include =>{:observations=>{:include=>:source} })
+        subject  = subject.as_json(:include =>{:observations=>{:include=>:source, :methods=>:data} })
         subject['subjectType']= @subjectType
         format.json { render json: subject.to_json , :status => '200' }
       end
@@ -46,6 +53,10 @@ class SubjectsController < ApplicationController
 
   def get_new_subject
     Subject.random_frank_subject
+  end
+
+  def get_simulation_subject
+    Subject.random_simulation(current_user)
   end
 
   def get_recent_subject

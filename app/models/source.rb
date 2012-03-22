@@ -35,6 +35,18 @@ class Source
     RedisConnection.keys("current_target*")
   end
 
+  def as_geo_json
+    result = {type: "Feature"}
+    result[:geometry] = {coordinates: self.coords , type: 'Point'}
+    result[:properties]= self.as_json
+    result  
+  end
+
+  def to_geo_json
+    result.to_json
+  end
+
+
   def self.create_with_seti_id(seti_id)
     # puts "Creating from the redis definition #{seti_id}"
     s = Source.new(name: seti_id.to_s, seti_ids: [seti_id.to_s], type: "other")

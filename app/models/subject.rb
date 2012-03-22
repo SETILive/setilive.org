@@ -5,6 +5,7 @@ class Subject
   
   randomize_with :random_number
   key :random_number, Float
+
   zoo_id :prefix => 'G', :sub_id => '0'
   key :data_url, String 
   key :activity_id, String, :requited=>true
@@ -25,7 +26,12 @@ class Subject
   key :observation_id, Integer 
   key :original_redis_key, String
 
+  key :has_simulation, Boolean, :default=>false
+
   key :classification_count, Integer, :default => 0 
+
+  scope :simulation , where(:has_simulation=>true)
+  scope :real , where(:has_simulation=>false)
 
   timestamps!
 
@@ -60,7 +66,6 @@ class Subject
     end
   end
 
-
   def activate
     status = "active"
     store_in_redis
@@ -79,6 +84,10 @@ class Subject
     RedisConnection.setex("subject_recent_#{self.id}", 10*60 ,  self.id)
   end
 
+  def pop_in_redis
+    RedisConnection.set(self.redis_key,  self.id)
+  end
+
   def persist_on_s3
     self.observations.each.processNow
   end
@@ -93,11 +102,18 @@ class Subject
     Subject.find id
   end
 
+  def self.random_simulation(user)
+    list = RedisConnection.keys("subject_simulation*").map{|r| r.gsub("subject_simulation_","")}
+    puts " active keys are #{list.to_json}"
+    id = (list - user.seen_subject_ids.map(&:to_s)).sample
+    Subject.find id 
+  end
+
   def self.random_frank_subject 
     keys = RedisConnection.keys 'subject_new*'
     return nil if keys.empty?
     key = keys.sample
-    subject  = BSON.deserialize(RedisConnection.get key)
+    subject  = JSON.parse(RedisConnection.get key)
     RedisConnection.del key
     generate_subject_from_frank(subject, key)
   end
@@ -110,6 +126,51 @@ class Subject
       sub_channel: data[5].to_i
      }
   end
+
+
+  def generate_simulation
+
+    subject_attributes = self.attributes.dup
+    subject_attributes.delete("_id") 
+    subject_attributes.delete("random_number") 
+    subject_attributes.delete("scores") 
+    simulation_subject = Subject.new(subject_attributes)
+
+    simulation_subject.has_simulation=true
+    simulation_subject.zooniverse_id = nil
+
+    simulation_subject.save
+
+    puts " duplicated subject "
+    puts simulation_subject.to_json
+
+    simulation_observation_no = rand(self.observations.count)
+
+    self.observations.each_with_index do |observation, index|
+      attributes = observation.attributes.dup
+
+      attributes.delete("uploaded")
+      attributes.delete("zooniverse_id") 
+      new_obs = Observation.new(attributes)
+      puts "new obs is "
+      puts new_obs
+      puts new_obs.to_json
+      
+      new_obs.subject_id = simulation_subject.id
+
+      if index == simulation_observation_no
+        new_obs.has_simulation=true 
+        sim_id = Simulation.random(:selector=>{:active=>true}).first.id
+        new_obs.simulation_ids << sim_id
+      end
+      puts "saving observation "
+      puts new_obs.to_json
+      new_obs.save
+    end
+
+  end
+
+
 
   def self.generate_subject_from_frank(subject,key)
     details = parse_key_details(key)
@@ -128,20 +189,22 @@ class Subject
    
     if s 
       subject['beam'].each_with_index do |beam,index|
-        beam_no = beam['beam']
-        seti_id =  beam['target']
-        beam_data =  beam['data'].to_a
-    
-        unless beam_data.empty?
-          beam_data=beam_data.to_json
+        beam_no  = beam['beam']
+        seti_id  = beam['target']
+        data_key = key.gsub("subject_new", "subject_data_new")+"_#{beam_no}"
+
+        unless JSON.parse(RedisConnection.get(data_key)).empty?
           source = Source.find_by_seti_id(seti_id.to_s)
           source = Source.create_with_seti_id(seti_id) unless source 
+
           if source
-            s.observations.create( :data    => beam_data, 
+            s.observations.create( :data_key => data_key,
                                    :source  => source,
                                    :beam_no => beam_no,
                                    :width => subject['width'],
-                                   :height => subject['height']
+                                   :height => subject['height'],
+                                   :has_simulation => true,
+                                   :simulation_ids => [Simulation.find("4f63689940af47566700034e").id]
                                    )
 
           else 
@@ -151,14 +214,18 @@ class Subject
       end
     end
     
-    GenerateTalk.perform_async s.id
+    # GenerateTalk.perform_async s.id
     s
   end
 
 
   def redis_key 
-    # Subject.redis_key(activity_id,location)
-     "subject_#{self.id}"
+    if has_simulation
+      key = "subject_simulation_#{self.id}"
+    else
+      key = "subject_#{self.id}"
+    end
+    key 
   end
   
   # def self.redis_key(activity_id,location)
@@ -171,6 +238,7 @@ class Subject
     list = RedisConnection.keys("subject_new*")
     with_key list[rand(list.count)]
   end
+
 
   # #revisit when rules need tweeking
   # def self.get_high_ranked_seen(user)

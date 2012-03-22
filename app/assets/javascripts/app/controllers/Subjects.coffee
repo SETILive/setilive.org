@@ -26,7 +26,9 @@ class Subjects extends Spine.Controller
     Spine.bind("clearSignals", @deleteAllSignals)
     Workflow.bind("workflowDone", @enableSignalDraw)
     Workflow.bind("workflowDone", @finalizeSignal)
-  
+    
+    @showSimulation = false 
+
     Spine.bind 'nextBeam', =>
       @selectBeam @current_beam+1
     
@@ -134,14 +136,21 @@ class Subjects extends Spine.Controller
     target[0].height = targetHeight
     
     if subject.observations[beamNo].uploaded 
-      imgObj = new Image targetWidth, targetHeight
-      imgObj.src= subject.observations[beamNo].image_url
-      $(imgObj).load =>
-        ctx.drawImage imgObj, 0, 0, targetWidth,targetHeight
+      obsImg = new Image targetWidth, targetHeight
+      unless subject.observations[beamNo].has_simulation
+        obsImg.src = subject.observations[beamNo].image_url
+      else
+        if @showSimulation
+          obsImg.src = subject.observations[beamNo].simulation_reveal_url
+        else 
+          obsImg.src = subject.observations[beamNo].simulation_url
+
+      $(obsImg).load =>
+        ctx.drawImage obsImg, 0, 0, targetWidth,targetHeight
     else
       imageData = ctx.getImageData(0,0,targetWidth,targetHeight)
       data = subject.imageDataForBeam(beamNo,targetWidth,targetHeight)
-      imageData.data[i]=data[i] for i in [0..data.length]    
+      imageData.data[i]=data[i] for i in [0..data.length]
       ctx.putImageData(imageData,0,0)
 
 
@@ -259,6 +268,11 @@ class Subjects extends Spine.Controller
     @stage=0
 
   saveClassification:=>
+    if @current_subject.has_simulation
+      @showSimulation = true
+      for observation, index in @current_subject.observations
+        @selectBeam index if observation.has_simulation
+
     @current_classification.persist() unless window.tutorial
 
 window.Subjects = Subjects

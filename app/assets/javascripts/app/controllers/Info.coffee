@@ -6,6 +6,8 @@ class Info extends Spine.Controller
     "#current_targets" : "targets"
     "#next_beam" : "nextBeam"
     "#talk" : "talk"
+    "#simulation_notification" : "simulation_notification"
+    "#thankyou": "thankyou"
 
   events:
     "click #done " : "doneClassification"
@@ -62,7 +64,10 @@ class Info extends Spine.Controller
     Spine.trigger 'doneClassification'
     @controls.hide()
     @talk.show()
-    
+    if Subject.first().has_simulation
+      @simulation_notification.show() 
+    else
+      @thankyou.show()
   talk :=>
     subject = Subject.first()
     window.open subject.talkURL()
