@@ -15,7 +15,7 @@ class SubjectsController < ApplicationController
       subject = Subject.find(params[:subject_id])
     end
 
-    if rand() < 2000 and subject==nil
+    if rand() < 0 and subject==nil
       subject = get_simulation_subject
     end
 
