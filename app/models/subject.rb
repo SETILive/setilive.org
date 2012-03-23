@@ -168,6 +168,8 @@ class Subject
       new_obs.save
     end
 
+    GenerateTalk.perform_async simulation_subject.id
+
   end
 
 
@@ -192,19 +194,16 @@ class Subject
         beam_no  = beam['beam']
         seti_id  = beam['target']
         data_key = key.gsub("subject_new", "subject_data_new")+"_#{beam_no}"
-
         unless JSON.parse(RedisConnection.get(data_key)).empty?
           source = Source.find_by_seti_id(seti_id.to_s)
           source = Source.create_with_seti_id(seti_id) unless source 
-
           if source
             s.observations.create( :data_key => data_key,
                                    :source  => source,
                                    :beam_no => beam_no,
                                    :width => subject['width'],
                                    :height => subject['height'],
-                                   :has_simulation => true,
-                                   :simulation_ids => [Simulation.find("4f63689940af47566700034e").id]
+                                   :has_simulation => false
                                    )
 
           else 
@@ -214,7 +213,7 @@ class Subject
       end
     end
     
-    # GenerateTalk.perform_async s.id
+    GenerateTalk.perform_async s.id
     s
   end
 
