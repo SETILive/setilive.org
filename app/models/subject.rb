@@ -194,7 +194,9 @@ class Subject
         beam_no  = beam['beam']
         seti_id  = beam['target']
         data_key = key.gsub("subject_new", "subject_data_new")+"_#{beam_no}"
-        unless JSON.parse(RedisConnection.get(data_key)).empty?
+        if JSON.parse(RedisConnection.get(data_key)).empty?
+          RedisConnection.del data_key 
+        else 
           source = Source.find_by_seti_id(seti_id.to_s)
           source = Source.create_with_seti_id(seti_id) unless source 
           if source
