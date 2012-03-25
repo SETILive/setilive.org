@@ -114,6 +114,7 @@ class ClassificationPage extends SetiLiveController
 
     Workflow.fetch()
     Subject.fetch_next_for_user()
+    window.location.hash='notification_bar'
 
 class TutorialPage extends SetiLiveController
   constructor: ->
