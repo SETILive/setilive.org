@@ -8,6 +8,7 @@ class Info extends Spine.Controller
     "#talk" : "talk"
     "#simulation_notification" : "simulation_notification"
     "#thankyou": "thankyou"
+    "#social" : "social"
 
   events:
     "click #done " : "doneClassification"
@@ -30,6 +31,8 @@ class Info extends Spine.Controller
       else 
         @time.css("font-size","20px")
         @time.html("Archive Data")
+
+
         
   clearSignals:()=>
     Spine.trigger("clearSignals")
@@ -64,6 +67,14 @@ class Info extends Spine.Controller
     Spine.trigger 'doneClassification'
     @controls.hide()
     @talk.show()
+    
+    @social.append @view("facebookWaterfall")
+      subject: Subject.first()
+
+    @social.append @view("twitterWaterfall")
+      subject: Subject.first()
+      
+
     if Subject.first().has_simulation
       @simulation_notification.show() 
     else
