@@ -5,9 +5,15 @@ class Source extends Spine.Model
 
 
   @fetch:->
-    $.getJSON '/sources.json', (data)=>
-      Source.create(source) for source in data
-      Source.trigger('refresh',Source.all())
+    $.ajax
+      url: 'http://zooniverse-seti.s3.amazonaws.com/sourcesStatic.json',
+      dataType: 'jsonp',
+      jsonpCallback: 'staticSources',
+      cache: true,
+      success: (data)=>
+        Source.create(source) for source in data
+        Source.trigger('refresh',Source.all())
+
 
   @find_by_seti_id:(id)->
     @select (item) ->
