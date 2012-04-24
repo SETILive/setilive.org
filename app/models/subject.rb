@@ -175,7 +175,9 @@ class Subject
 
   end
 
-
+  def is_followup?
+    self.follow_up_id > 0
+  end
 
   def self.generate_subject_from_frank(subject,key)
     details = parse_key_details(key)
