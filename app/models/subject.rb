@@ -35,6 +35,7 @@ class Subject
 
   scope :simulation , where(:has_simulation=>true)
   scope :real , where(:has_simulation=>false)
+  scope :followups, where(:follow_up_id =>{"$gt"=>0})
 
   timestamps!
 
@@ -183,7 +184,7 @@ class Subject
     details = parse_key_details(key)
 
     s=Subject.create( :activity_id => subject["activityId"],
-                      :follow_up_id => subject["followupId"]
+                      :follow_up_id => subject["followupId"],
                       :time_range  => subject["endTimeNanos"].to_i-subject["startTimeNanos"].to_i,
                       :freq_range  => subject["bandwidthMhz"].to_f,
                       :location    => {:time=>subject["startTimeNanos"], :freq=>subject["centerFreqMhz"],
