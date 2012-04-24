@@ -12,8 +12,8 @@ class Subject
   key :location, Hash
   key :time_range, Float
   key :freq_range, Float 
-  key :start_time, Time 
-  key :end_time  , Time 
+  key :start_time, Integer 
+  key :end_time  , Integer
   key :bandwidth_range, Float
   key :central_freq , Float
   key :status, String, :default =>"inactive"
@@ -187,13 +187,12 @@ class Subject
                       :follow_up_id => subject["followupId"],
                       :time_range  => subject["endTimeNanos"].to_i-subject["startTimeNanos"].to_i,
                       :freq_range  => subject["bandwidthMhz"].to_f,
-                      :location    => {:time=>subject["startTimeNanos"], :freq=>subject["centerFreqMhz"],
+                      :location    => {:time=>subject["startTimeNanos"], :freq=>subject["centerFreqMhz"]},
                       :pol => details[:pol],
                       :activity_id => details[:activity_id],
                       :sub_channel => details[:sub_channel],
                       :observation_id => details[:observation_id],
                       :original_redis_key => key
-                      }
                     ) 
    
     if s 
