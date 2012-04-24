@@ -25,6 +25,9 @@ class Subject
   key :sub_channel, Integer 
   key :observation_id, Integer 
   key :original_redis_key, String
+  key :rendering, Integer, :default=>0
+  key :follow_up_id, Integer, :default => 0
+
 
   key :has_simulation, Boolean, :default=>false
 
@@ -178,6 +181,7 @@ class Subject
     details = parse_key_details(key)
 
     s=Subject.create( :activity_id => subject["activityId"],
+                      :follow_up_id => subject["followupId"]
                       :time_range  => subject["endTimeNanos"].to_i-subject["startTimeNanos"].to_i,
                       :freq_range  => subject["bandwidthMhz"].to_f,
                       :location    => {:time=>subject["startTimeNanos"], :freq=>subject["centerFreqMhz"],
@@ -240,6 +244,36 @@ class Subject
     with_key list[rand(list.count)]
   end
 
+  def beam_to_dx(beam_no)
+    {1 => 1900, 2=> 2900, 3=>3900}[beam_no]
+  end
+
+  def trigger_follow_up
+    beam_no = 1
+
+    reply = { signalIdNumber: 1,
+              activityId: self.activity_id, 
+              targetId: self.observations.first.source.seti_ids.first,
+              beamNumber: beam_no,
+              pol: (self.pol==0 ? "right" : "left"),
+              subchanNumber: self.location['sub_channel'],
+              type: "CwP",
+              rfFreq: self.location["freq"],
+              drift: 3.2,
+              width: 5,
+              sigClass: "Cand",
+              reason: "Confrm",
+              containsBadbands: "no",
+              activityStartTime: Time.at(self.location["time"]/1_000_000_000).strftime("%Y-%m-%d %H:%M:%S"),
+              origDxNumber: -1, #beam_to_dx(beam_no),
+              origActivityId: -1, #self.orig_activity_id,
+              origActivityStartTime: -1,# self.orig_activity_start_time,
+              origSignalIdNumber: 1
+             }
+
+    RedisConnection.setex "follow_up_#{self.id}", 10*60, reply.to_json
+    # puts  reply.to_json
+  end
 
   # #revisit when rules need tweeking
   # def self.get_high_ranked_seen(user)
