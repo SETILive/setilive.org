@@ -267,7 +267,7 @@ class Subject
               reason: "Confrm",
               containsBadbands: "no",
               activityStartTime: Time.at(self.location["time"]/1_000_000_000).strftime("%Y-%m-%d %H:%M:%S"),
-              origDxNumber: -1, #beam_to_dx(beam_no),
+              origDxNumber: beam_to_dx(beam_no),
               origActivityId: -1, #self.orig_activity_id,
               origActivityStartTime: -1,# self.orig_activity_start_time,
               origSignalIdNumber: 1
