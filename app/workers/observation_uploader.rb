@@ -98,8 +98,8 @@ class ObservationUploader
     height = observation.height
 
     beam = data
-    max = beam.max 
-    min = beam.min
+    max = 255 # beam.max 
+    min = 0  #beam.min
     
     (0..(img_width-1)).each do |xpos|
       (0..(img_height-1)).each do |ypos|

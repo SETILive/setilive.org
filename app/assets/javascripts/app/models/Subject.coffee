@@ -107,11 +107,13 @@ class Subject extends Spine.Model
     unless @bounds?
       @bounds = []
       for beam, beamNo in @observations
-        max = 0
-        min = 100000000
-        for val in beam.data
-          max = val if val > max
-          min = val if val < min
+        # max = 0
+        # min = 100000000
+        # for val in beam.data
+        #   max = val if val > max
+        #   min = val if val < min
+        min = 0
+        max = 255
         @bounds[beamNo] = [min- (max-min)*0.0,max]
     @bounds 
 
