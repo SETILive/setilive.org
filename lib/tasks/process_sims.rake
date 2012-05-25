@@ -32,6 +32,16 @@ task :add_sims_to_db => :environment do
 end
 
 
+task :make_sim_subjects => :environment do
+  sim_ids=[]
+  Simulation.find_each |sim|
+    s=Subject.random().first.generate_simulation sim
+    sim_ids<< s.id
+  end
+  File.open("simlist.json","w"){|f| f.puts JSON.pretty_generate(s)}
+end
+
+
 def make_png(observation, img_width,img_height)
   png = ChunkyPNG::Image.new(img_width, img_height, ChunkyPNG::Color.rgba(255, 0, 0, 255))
   width  = observation['width']

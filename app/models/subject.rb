@@ -166,9 +166,10 @@ class Subject
       new_obs.subject_id = simulation_subject.id
       new_obs.type = 'simulation'
 
-      simulation ||= Simulation.random(:selector=>{:active=>true}).first
 
       if index == simulation_observation_no
+        simulation ||= Simulation.random(:selector=>{:active=>true}).first
+
         new_obs.has_simulation=true 
         sim_id = simulation.id
         puts  "simulation id is #{sim_id}"
@@ -177,13 +178,10 @@ class Subject
       
       puts "saving observation "
       new_obs.save
- 
-      puts new_obs.to_json
-      
-      puts "saved observation"
     end
-
-    # GenerateTalk.perform_async simulation_subject.id
+    simulation_subject        
+    
+    GenerateTalk.perform_async simulation_subject.id
 
   end
 
