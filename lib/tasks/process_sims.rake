@@ -33,12 +33,12 @@ end
 
 
 task :make_sim_subjects => :environment do
-  sim_ids=[]
+  sims=[]
   Simulation.find_each |sim|
     s=Subject.random().first.generate_simulation sim
-    sim_ids<< s.id
+    sims<< s.as_json
   end
-  File.open("simlist.json","w"){|f| f.puts JSON.pretty_generate(s)}
+  File.open("simlist.json","w"){|f| f.puts JSON.pretty_generate(sims)}
 end
 
 

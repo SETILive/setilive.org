@@ -179,9 +179,9 @@ class Subject
       puts "saving observation "
       new_obs.save
     end
-    simulation_subject        
-    
+
     GenerateTalk.perform_async simulation_subject.id
+    simulation_subject        
 
   end
 
