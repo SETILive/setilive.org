@@ -66,7 +66,7 @@ window.tutorialSteps = [
           indicatorPos: "bottom left"
           triggers: [{elements : ".large-waterfall", action: "click"}]
           disableControls: true
-          prompt: "Click a seccond point"
+          prompt: "Click a second point"
           speed:400
         ,
           title: "Describe",
@@ -87,7 +87,7 @@ window.tutorialSteps = [
           speed:400
         ,
           title: "Repeat"
-          text: "This will move you on to the seccond beam. You can always go back to the first by clicking on it."
+          text: "This will move you on to the second beam. You can always go back to the first by clicking on it."
           location: [60,304]
           indicatorPos: "right bottom "
           speed:400
