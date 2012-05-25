@@ -1,4 +1,3 @@
-
 class Subject extends Spine.Model
   @configure 'Subject','observations','activityId', 'bandwidthMhz', 'bitPix', 'centerFreqMhz', 'endTimeNanos', 'uploaded', 'image_url', 'thumb_url','data_url', 'zooniverse_id', "subjectType", "created_at", "has_simulation","simulation_reveal_url", "simulation_url"
   @extend Spine.Events
@@ -16,6 +15,7 @@ class Subject extends Spine.Model
       url += "?subject_id=#{window.subject_id}"
 
     $.getJSON url, (data)=>
+      console.log "getting data ",data
       Subject.dataifyData(data)
       subject=  Subject.create(data)
       Subject.trigger('next_subject', subject)
@@ -28,7 +28,7 @@ class Subject extends Spine.Model
   
   @dataifyData:(data)->
     for observation, index in data.observations
-      observation.data = JSON.parse(observation.data) unless observation.uploaded
+      observation.data = observation.data unless observation.uploaded
 
 
   observationForId:(id)=>

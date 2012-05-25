@@ -1,7 +1,7 @@
 class Observation
   include MongoMapper::Document
 
-  key :type , String, :validate_in => ['inital','on','off','tutorial']
+  key :type , String, :validate_in => ['inital','on','off','tutorial', 'simulation']
   key :data_key, String
   key :data_url, String
   key :image_url, String
@@ -20,14 +20,17 @@ class Observation
   
   belongs_to :source 
   belongs_to :subject
-  has_many   :subject_signals
+  many       :subject_signals
+  has_one    :signal_finder
 
   many :simulations, :in => :simulation_ids
+  many :signal_groups
   
   scope :simulation , where(:has_simulation=>true)
   scope :real       , where(:has_simulation=>false)
   
   # belongs_to :follow_up
+  # before_save :update_signal_groups
   before_create :create_zooniverse_id
   after_create :processNow
 
@@ -47,9 +50,24 @@ class Observation
     if data_url?
       data = HTTParty.get data_url
       data= JSON.parse(data.match(/\[.*\]/).to_s)
-    else 
+    elsif RedisConnection.exists data_key
       data = JSON.parse(RedisConnection.get(data_key))
-    end
+    end 
     data
   end
+
+  def data
+    data = JSON.parse(RedisConnection.get(data_key)) unless uploaded
+  end
+
+  # def update_signal_groups
+  #   if subject.classification_count > 10
+  #     new_signals = self.subject_signals.where(:signal_group=>nil).collect{|ss| ss.to_fof}
+  #     groups  = self.signal_group.collect{ |signal_group| signal_group.to_fof }
+  #     groups  = groups + new_signals
+  #     fof_finder = FOFFinder.create_with_groups groups, 1
+  #     fof_finder.find_groups 
+  #   end
+  # end
+  
 end

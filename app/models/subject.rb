@@ -131,9 +131,8 @@ class Subject
      }
   end
 
-
   def generate_simulation
-
+    
     subject_attributes = self.attributes.dup
     subject_attributes.delete("_id") 
     subject_attributes.delete("random_number") 
@@ -145,6 +144,7 @@ class Subject
 
     simulation_subject.save
 
+
     puts " duplicated subject "
     puts simulation_subject.to_json
 
@@ -155,24 +155,33 @@ class Subject
 
       attributes.delete("uploaded")
       attributes.delete("zooniverse_id") 
+      attributes.delete("data") 
+
+      attributes.delete("_id") 
+
       new_obs = Observation.new(attributes)
       puts "new obs is "
       puts new_obs
-      puts new_obs.to_json
       
       new_obs.subject_id = simulation_subject.id
+      new_obs.type = 'simulation'
 
       if index == simulation_observation_no
         new_obs.has_simulation=true 
         sim_id = Simulation.random(:selector=>{:active=>true}).first.id
+        puts  "simulation id is #{sim_id}"
         new_obs.simulation_ids << sim_id
       end
+      
       puts "saving observation "
-      puts new_obs.to_json
       new_obs.save
+ 
+      puts new_obs.to_json
+      
+      puts "saved observation"
     end
 
-    GenerateTalk.perform_async simulation_subject.id
+    # GenerateTalk.perform_async simulation_subject.id
 
   end
 
@@ -253,15 +262,16 @@ class Subject
   def trigger_follow_up
     beam_no = 1
 
-    reply = { signalIdNumber: 1,
+    reply = { signalIdNumber: 2,
               activityId: self.activity_id, 
               targetId: self.observations.first.source.seti_ids.first,
               beamNumber: beam_no,
+              dxNumber: beam_to_dx(beam_no),
               pol: (self.pol==0 ? "right" : "left"),
               subchanNumber: self.sub_channel,
               type: "CwP",
               rfFreq: self.location["freq"],
-              drift: 3.2,
+              drift: 0.1,
               width: 5,
               sigClass: "Cand",
               power: 200,
@@ -274,8 +284,48 @@ class Subject
               origSignalIdNumber: 1
              }
 
-    RedisConnection.setex "follow_up_#{self.id}", 10*60, reply.to_json
+    RedisConnection.setex "follow_up_#{self.id}", 30, reply.to_json
     # puts  reply.to_json
+  end
+
+  def trigger_follow_up_off
+    beam_no = 1
+
+    reply = { signalIdNumber: 2,
+              activityId: self.activity_id, 
+              targetId: self.observations.first.source.seti_ids.first,
+              beamNumber: beam_no,
+              dxNumber: beam_to_dx(beam_no),
+              pol: (self.pol==0 ? "right" : "left"),
+              subchanNumber: self.sub_channel,
+              type: "CwP",
+              rfFreq: self.location["freq"],
+              drift: 0.1,
+              width: 5,
+              sigClass: "Cand",
+              power: 200,
+              reason: "RCnfrm",
+              containsBadbands: "no",
+              activityStartTime: (Time.at(self.location["time"]/1_000_000_000) + 5.hours).strftime("%Y-%m-%d %H:%M:%S") ,
+              origDxNumber: beam_to_dx(beam_no),
+              origActivityId: -1, #self.orig_activity_id,
+              origActivityStartTime: -1,# self.orig_activity_start_time,
+              origSignalIdNumber: 1
+             }
+
+    RedisConnection.setex "follow_up_#{self.id}", 30, reply.to_json
+    # puts  reply.to_json
+  end
+
+
+  def check_for_signals 
+    observations.each do |observation|
+      signalFinder = observation.signalFinder || SignalFinder.create_with_observation observation
+      signalFinder.find_groups
+    end
+
+    
+
   end
 
   # #revisit when rules need tweeking
