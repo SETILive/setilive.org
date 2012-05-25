@@ -32,14 +32,14 @@ task :add_sims_to_db => :environment do
 end
 
 
-task :make_sim_subjects => :environment do
-  sims=[]
-  Simulation.find_each |sim|
-    s=Subject.random().first.generate_simulation sim
-    sims<< s.as_json
-  end
-  File.open("simlist.json","w"){|f| f.puts JSON.pretty_generate(sims)}
-end
+# task :make_sim_subjects => :environment do
+#   sims=[]
+#   Simulation.find_each |sim|
+#     s=Subject.random().first.generate_simulation sim
+#     sims<< s.as_json
+#   end
+#   File.open("simlist.json","w"){|f| f.puts JSON.pretty_generate(sims)}
+# end
 
 
 def make_png(observation, img_width,img_height)
