@@ -131,7 +131,7 @@ class Subject
      }
   end
 
-  def generate_simulation
+  def generate_simulation(simulation=nil)
     
     subject_attributes = self.attributes.dup
     subject_attributes.delete("_id") 
@@ -166,9 +166,11 @@ class Subject
       new_obs.subject_id = simulation_subject.id
       new_obs.type = 'simulation'
 
+      simulation ||= Simulation.random(:selector=>{:active=>true}).first
+
       if index == simulation_observation_no
         new_obs.has_simulation=true 
-        sim_id = Simulation.random(:selector=>{:active=>true}).first.id
+        sim_id = simulation.id
         puts  "simulation id is #{sim_id}"
         new_obs.simulation_ids << sim_id
       end
@@ -318,15 +320,12 @@ class Subject
   end
 
 
-  def check_for_signals 
-    observations.each do |observation|
-      signalFinder = observation.signalFinder || SignalFinder.create_with_observation observation
-      signalFinder.find_groups
-    end
-
-    
-
-  end
+  # def check_for_signals 
+  #   observations.each do |observation|
+  #     signalFinder = observation.signalFinder || SignalFinder.create_with_observation observation
+  #     signalFinder.find_groups
+  #   end
+  # end
 
   # #revisit when rules need tweeking
   # def self.get_high_ranked_seen(user)

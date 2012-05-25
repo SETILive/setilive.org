@@ -40,6 +40,12 @@ class SignalFinder
     end
   end
 
+  # def interesting_signals 
+  #   total_signals = chain.
+  #   chains.each do |chain|
+  #     if chain.count >
+  # end
+
   def dist(point1,point2)
     val =0
 

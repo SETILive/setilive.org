@@ -42,7 +42,7 @@ class ObservationUploader
 
   def upload_to_s3
     data = @data
-    upload_file("development/data/observation_#{@observation.zooniverse_id}.jsonp", "observation(#{data});")
+    upload_file("data/observation_#{@observation.zooniverse_id}.jsonp", "observation(#{data});")
   end
 
   def upload_file(name , data)
@@ -71,9 +71,9 @@ class ObservationUploader
 
     main_image  = make_png(data, @observation, img_width,img_height)
     thumb_image = make_png(data, @observation, thumb_image_width,thumb_image_height)
-    image_url = upload_file("development/images/observation_s_#{@observation.zooniverse_id}_#{@observation.simulations.first.id}.png",main_image.to_s)
-    reveal_url = upload_file("development/images/observation_sr_#{@observation.zooniverse_id}_#{@observation.simulations.first.id}.png", make_sim_reveal_png.to_s)
-    thumb_url = upload_file("development/thumbs/observation_s_#{@observation.zooniverse_id}_#{@observation.simulations.first.id}.png",thumb_image.to_s)
+    image_url = upload_file("images/observation_s_#{@observation.zooniverse_id}_#{@observation.simulations.first.id}.png",main_image.to_s)
+    reveal_url = upload_file("images/observation_sr_#{@observation.zooniverse_id}_#{@observation.simulations.first.id}.png", make_sim_reveal_png.to_s)
+    thumb_url = upload_file("thumbs/observation_s_#{@observation.zooniverse_id}_#{@observation.simulations.first.id}.png",thumb_image.to_s)
     {image: image_url, thumb: thumb_url, reveal: reveal_url}
   end 
 
@@ -88,8 +88,8 @@ class ObservationUploader
     main_image  = make_png(data, @observation, img_width,img_height)
     thumb_image = make_png(data, @observation, thumb_image_width,thumb_image_height)
     
-    image_url = upload_file("development/images/observation_#{@observation.zooniverse_id}.png",main_image.to_s)
-    thumb_url = upload_file("development/thumbs/observation_#{@observation.zooniverse_id}.png",thumb_image.to_s)
+    image_url = upload_file("images/observation_#{@observation.zooniverse_id}.png",main_image.to_s)
+    thumb_url = upload_file("thumbs/observation_#{@observation.zooniverse_id}.png",thumb_image.to_s)
     {image: image_url, thumb: thumb_url}
   end 
 

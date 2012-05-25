@@ -19,7 +19,10 @@ class Simulation
   key :fstart, Float
   key :height, Integer
   key :xdelt, Float
-  key :simulation, String
+  key :simversion, String
+  key :erratic, Float 
+  key :truncated, String
+
   key :random_number, Float
 
   key :active, Boolean, :default => false 

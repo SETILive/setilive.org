@@ -9,10 +9,10 @@ class Followup
     signal_groups.first
   end
 
-  def trigger_next_stage 
-    current_stage = current_stage + 1
-    notify_someone if current_stage = 5 
-  end
+  # def trigger_next_stage 
+  #   current_stage = current_stage + 1
+  #   notify_someone if current_stage == 5 
+  # end
 
   def notify_someone
   end

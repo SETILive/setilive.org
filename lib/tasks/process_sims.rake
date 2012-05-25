@@ -1,7 +1,7 @@
 task :process_sims => :environment do
   simulations = []
   files = Dir.glob("setilive_sims_v1/*.json")
-  files[0..50].each_with_index do |file,index|
+  files.each_with_index do |file,index|
 
     name = file.split("/").last.split(".").first
     data =JSON.parse(IO.read(file))
@@ -20,13 +20,13 @@ task :process_sims => :environment do
     puts "done #{index} of #{files.count} }"
   end
   puts simulations
-  outfile = File.open("sim_upload_list.json","w")
+  outfile = File.open("sim_upload_list.json ","w")
   outfile.write(JSON.pretty_generate simulations)
 end
 
 
 task :add_sims_to_db => :environment do
-  JSON.parse(IO.read("data/sims/upload_list.json")).each do |simulation|
+  JSON.parse(IO.read("sim_upload_list.json")).each do |simulation|
     Simulation.create(simulation)
   end
 end
