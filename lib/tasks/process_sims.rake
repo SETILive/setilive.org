@@ -1,13 +1,13 @@
 task :process_sims => :environment do
   simulations = []
-  files = Dir.glob("data/sims/*.json")
+  files = Dir.glob("setilive_sims_v1/*.json")
   files[0..50].each_with_index do |file,index|
 
     name = file.split("/").last.split(".").first
     data =JSON.parse(IO.read(file))
     png = make_png(data,758,410)
-    data_url  = upload_file("development/simulations/simulation_#{name}.json", data.to_json)
-    image_url = upload_file("development/simulations/simulation_#{name}.png", png.to_s)
+    data_url  = upload_file("simulations/simulation_#{name}.json", data.to_json)
+    image_url = upload_file("simulations/simulation_#{name}.png", png.to_s)
     # data_url = "http://zooniverse-seti.s3.amazonaws.com/development/simulations/simulation_#{name}.json"
     # image_url = "http://zooniverse-seti.s3.amazonaws.com/development/simulations/simulation_#{name}.png"
 
@@ -20,7 +20,7 @@ task :process_sims => :environment do
     puts "done #{index} of #{files.count} }"
   end
   puts simulations
-  outfile = File.open("data/sims/upload_list.json","w")
+  outfile = File.open("sim_upload_list.json","w")
   outfile.write(JSON.pretty_generate simulations)
 end
 
