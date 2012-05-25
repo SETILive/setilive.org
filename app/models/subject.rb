@@ -108,7 +108,6 @@ class Subject
 
   def self.random_simulation(user)
     list = RedisConnection.keys("subject_simulation*").map{|r| r.gsub("subject_simulation_","")}
-    puts " active keys are #{list.to_json}"
     id = (list - user.seen_subject_ids.map(&:to_s)).sample
     Subject.find id 
   end
