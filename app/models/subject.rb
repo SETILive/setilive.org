@@ -202,30 +202,37 @@ class Subject
                       :observation_id => details[:observation_id],
                       :original_redis_key => key
                     ) 
-   
+    
     if s 
-      subject['beam'].each_with_index do |beam,index|
-        beam_no  = beam['beam']
-        seti_id  = beam['target']
-        data_key = key.gsub("subject_new", "subject_data_new")+"_#{beam_no}"
-        if JSON.parse(RedisConnection.get(data_key)).empty?
-          RedisConnection.del data_key 
-        else 
-          source = Source.find_by_seti_id(seti_id.to_s)
-          source = Source.create_with_seti_id(seti_id) unless source 
-          if source
-            s.observations.create( :data_key => data_key,
-                                   :source  => source,
-                                   :beam_no => beam_no,
-                                   :width => subject['width'],
-                                   :height => subject['height'],
-                                   :has_simulation => false
-                                   )
-
+      begin
+        subject['beam'].each_with_index do |beam,index|
+          beam_no  = beam['beam']
+          seti_id  = beam['target']
+          data_key = key.gsub("subject_new", "subject_data_new")+"_#{beam_no}"
+          if JSON.parse(RedisConnection.get(data_key)).empty?
+            RedisConnection.del data_key 
           else 
-            throw "Could not find or create Source for observation #{beam['target_id']}"
+            source = Source.find_by_seti_id(seti_id.to_s)
+            source = Source.create_with_seti_id(seti_id) unless source 
+            if source
+              s.observations.create( :data_key => data_key,
+                                     :source  => source,
+                                     :beam_no => beam_no,
+                                     :width => subject['width'],
+                                     :height => subject['height'],
+                                     :has_simulation => false
+                                     )
+
+            else 
+              throw "Could not find or create Source for observation #{beam['target_id']}"
+            end
           end
         end
+      rescue
+        puts "could not create subject"
+        s.observation.delete_all
+        s.delete
+        return nil
       end
     end
     
