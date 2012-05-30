@@ -118,6 +118,11 @@ class Subject
     key = keys.sample
     subject  = JSON.parse(RedisConnection.get key)
     RedisConnection.del key
+    subject['beam'].each do |beam|
+      beam_no  = beam['beam'] 
+      data_key = key.gsub("subject_new", "subject_data_new")+"_#{beam_no}"
+      RedisConnection.persist data_key
+    end
     generate_subject_from_frank(subject, key)
   end
 
