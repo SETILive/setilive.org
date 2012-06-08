@@ -9,6 +9,8 @@ class SubjectSignal
   belongs_to :observation
   belongs_to :workflow
 
+  timestamps! 
+  
   def start_point
     [start_coords[0].to_f, start_coords[1].to_f]
   end

@@ -13,6 +13,7 @@ Marv::Application.routes.draw do
   resources :workflows 
   resources :favourites 
   resources :badges 
+  resources :results
   
   match '/classify'  => 'classifications#classify'
   match '/next_subject' => 'subjects#next_subject_for_user'

@@ -35,6 +35,7 @@ class Simulation
   scope :active, where(:active=>true)
   scope :inactive, where(:active=>false)
 
+  timestamps! 
 
   def data 
     JSON.parse(HTTParty.get(data_url))

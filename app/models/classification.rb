@@ -7,7 +7,8 @@ class Classification
   has_many :subject_signals
   
   after_create :update_zooniverse_user, :update_redis, :push_global_stats
-  
+  timestamps! 
+
   def self.recent
     recents = RedisConnection.get 'recent_classifications'
     return JSON.load(recents) if recents

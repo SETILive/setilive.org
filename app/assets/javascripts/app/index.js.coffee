@@ -165,6 +165,15 @@ class ProfilePage extends SetiLiveController
   constructor:->
     super
     new Profile(el: $("#profile"))
+    
+class ResultsPage extends SetiLiveController
+  badgesOn: false
+  starFieldOn : false
+  notificationsOn: false 
+  
+  constructor:->
+    super
+    new Results(el: $("#results"))
 
 class BadgePage extends SetiLiveController
   constructor:->
@@ -223,5 +232,6 @@ window.BadgePage = BadgePage
 window.TelescopePage = TelescopePage
 window.GenericAboutPage = GenericAboutPage
 window.GalleryPage = GalleryPage
+window.ResultsPage = ResultsPage
 # Run jQuery animations at 20 FPS
 jQuery.fx.interval = 50

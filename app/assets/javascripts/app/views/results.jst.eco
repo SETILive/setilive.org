@@ -1,0 +1,19 @@
+<div id='subjectDetails'>
+	<% console.log %>
+	<h1> Subject id :  <%=@zooniverse_id %></h1>
+	<h2> Freq : <%=@location.freq%> </h2>
+	<h2> time : <%=@location.freq%> </h2>
+	
+	<p> <a href='http://talk.setilive.org/observation_groups/<%-@zooniverse_id%>'> View on talk </a></p>
+	<% for observation in @observations : %>
+		<div class='observationContainer'>
+			<svg>
+				<% for signalGroup in observation.signal_groups : %>
+					<path style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-opacity: 1; " fill="none" stroke="#cddc28" d="M<%=L " stroke-width="2" stroke-opacity="1" class="signal signal_c-0 signal_line_c-0 signal_selected signal_beam_0"></path>
+				
+				<%end%>
+			</svg>
+			<img src='<%=observation.image_url%>' />	
+		</div>
+	<%end%>
+</div>

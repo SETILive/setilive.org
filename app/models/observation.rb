@@ -29,10 +29,12 @@ class Observation
   scope :simulation , where(:has_simulation=>true)
   scope :real       , where(:has_simulation=>false)
   
-  # belongs_to :follow_up
-  # before_save :update_signal_groups
+  belongs_to :follow_up
   before_create :create_zooniverse_id
   after_create :processNow
+  
+  timestamps! 
+
 
   def create_zooniverse_id
     self.zooniverse_id = "OSL#{ beam_no || 0 }#{ subject.zooniverse_id[4..-1] }"

@@ -9,6 +9,9 @@ class Badge
   key :post_text, String
   key :type   , String , :required => true , :validate_in => ['one_off', 'cumulative']
   key :levels, Array 
+  
+  timestamps! 
+
 
   def award?(user,subject)
     MongoMapper.connection(condition > 1 )

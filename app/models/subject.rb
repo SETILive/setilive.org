@@ -134,6 +134,14 @@ class Subject
       sub_channel: data[5].to_i
      }
   end
+  
+  def start_freq
+    central_freq - freq_range*0.5
+  end
+  
+  def end_freq
+    central_freq + freq_range*0.5
+  end
 
   def generate_simulation(simulation=nil)
     
@@ -270,71 +278,18 @@ class Subject
     {1 => 1900, 2=> 2900, 3=>3900}[beam_no]
   end
 
-  def trigger_follow_up
-    beam_no = 1
-
-    reply = { signalIdNumber: 2,
-              activityId: self.activity_id, 
-              targetId: self.observations.first.source.seti_ids.first,
-              beamNumber: beam_no,
-              dxNumber: beam_to_dx(beam_no),
-              pol: (self.pol==0 ? "right" : "left"),
-              subchanNumber: self.sub_channel,
-              type: "CwP",
-              rfFreq: self.location["freq"],
-              drift: 0.1,
-              width: 5,
-              sigClass: "Cand",
-              power: 200,
-              reason: "Confrm",
-              containsBadbands: "no",
-              activityStartTime: (Time.at(self.location["time"]/1_000_000_000) + 5.hours).strftime("%Y-%m-%d %H:%M:%S") ,
-              origDxNumber: beam_to_dx(beam_no),
-              origActivityId: -1, #self.orig_activity_id,
-              origActivityStartTime: -1,# self.orig_activity_start_time,
-              origSignalIdNumber: 1
-             }
-
-    RedisConnection.setex "follow_up_#{self.id}", 30, reply.to_json
-    # puts  reply.to_json
+  def check_for_signals 
+    
+    signal_groups = observations.collect do |observation|
+      signalFinder = observation.signal_finder || SignalFinder.create_with_observation(observation)
+      signalFinder.generate_signal_groups  
+    end
+    
+    signal_groups.flatten.each {|signal_group| signal_group.check_real}
+    
   end
+  
 
-  def trigger_follow_up_off
-    beam_no = 1
-
-    reply = { signalIdNumber: 2,
-              activityId: self.activity_id, 
-              targetId: self.observations.first.source.seti_ids.first,
-              beamNumber: beam_no,
-              dxNumber: beam_to_dx(beam_no),
-              pol: (self.pol==0 ? "right" : "left"),
-              subchanNumber: self.sub_channel,
-              type: "CwP",
-              rfFreq: self.location["freq"],
-              drift: 0.1,
-              width: 5,
-              sigClass: "Cand",
-              power: 200,
-              reason: "RCnfrm",
-              containsBadbands: "no",
-              activityStartTime: (Time.at(self.location["time"]/1_000_000_000) + 5.hours).strftime("%Y-%m-%d %H:%M:%S") ,
-              origDxNumber: beam_to_dx(beam_no),
-              origActivityId: -1, #self.orig_activity_id,
-              origActivityStartTime: -1,# self.orig_activity_start_time,
-              origSignalIdNumber: 1
-             }
-
-    RedisConnection.setex "follow_up_#{self.id}", 30, reply.to_json
-    # puts  reply.to_json
-  end
-
-
-  # def check_for_signals 
-  #   observations.each do |observation|
-  #     signalFinder = observation.signalFinder || SignalFinder.create_with_observation observation
-  #     signalFinder.find_groups
-  #   end
-  # end
 
   # #revisit when rules need tweeking
   # def self.get_high_ranked_seen(user)
