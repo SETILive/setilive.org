@@ -6,7 +6,7 @@ class Classification
   belongs_to :subject
   has_many :subject_signals
   
-  after_create :update_zooniverse_user, :update_redis, :push_global_stats
+  after_create :update_zooniverse_user,:update_subject, :update_redis, :push_global_stats
   timestamps! 
 
   def self.recent
@@ -33,6 +33,9 @@ class Classification
     results.as_json
   end
   
+  def update_subject
+    self.subject.update_classification_count
+  end
   def update_zooniverse_user 
     zooniverse_user.update_classification_stats(self)
   end

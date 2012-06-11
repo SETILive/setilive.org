@@ -44,6 +44,7 @@ class Subject
 
   after_create :pop_in_redis_temp
 
+
   # validates_presence_of  :observation_id
   #after_save :store_in_redis
 
@@ -53,9 +54,9 @@ class Subject
   scope :done,               where(:status=>'done')
 
   state_machine :status, :initial=> 'active' do 
-    after_transition :on => :pause,        :do => :remove_from_redis
-    after_transition :on => :activate,     :do => :store_in_redis 
-    after_transition :on => :mark_as_done, :do => :remove_form_redis 
+    # after_transition :on => :pause,        :do => :remove_from_redis
+    # after_transition :on => :activate,     :do => :store_in_redis 
+    # after_transition :on => :mark_as_done, :do => :remove_form_redis 
       
     event :pause do
       transition :to => 'paused', :from =>'active'
@@ -68,6 +69,29 @@ class Subject
     event :done do
       transition :to => 'done', :from =>['paused','active']
     end
+  end
+  
+  
+  def update_classification_count 
+    self.increment :classification_count => 1 
+    check_retire 
+  end
+  
+
+  def check_retire 
+    if classification_count > 5
+      if suitable_for_folloup?
+        self.check_for_signals  
+      else 
+        self.remove_from_redis
+      end
+      
+      self.done
+    end
+  end
+  
+  def sutiable_for_folloup?
+    RedisConnection.exists "subject_recent_#{self.id}"
   end
 
   def activate
@@ -82,6 +106,10 @@ class Subject
 
   def data
     @data ||= fetch_persisted_data
+  end
+
+  def remove_from_redis
+    RedisConnection.del("subject_recent_#{self.id}")
   end
 
   def pop_in_redis_temp
