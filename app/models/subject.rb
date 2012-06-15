@@ -44,7 +44,6 @@ class Subject
 
   after_create :pop_in_redis_temp
 
-
   # validates_presence_of  :observation_id
   #after_save :store_in_redis
 
@@ -79,7 +78,7 @@ class Subject
   
 
   def check_retire 
-    if classification_count > 5
+    if classification_count >= 5
       if suitable_for_folloup?
         self.check_for_signals  
       else 
@@ -90,7 +89,7 @@ class Subject
     end
   end
   
-  def sutiable_for_folloup?
+  def suitable_for_folloup?
     RedisConnection.exists "subject_recent_#{self.id}"
   end
 
