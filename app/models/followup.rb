@@ -32,12 +32,12 @@ class Followup
     
     
     reply = { signalIdNumber: 2,
-              activityId: activity_id, 
+              activityId: subject.activity_id, 
               targetId: source.seti_ids.first,
               beamNumber: observation.beam_no,
               dxNumber: dx_no,
               pol: (subject.pol==0 ? "right" : "left"),
-              subchanNumber: observation.sub_channel,
+              subchanNumber: subject.sub_channel,
               type: "CwP",
               rfFreq: signal.calc_start_freq,
               drift: signal.calc_drift,
@@ -61,7 +61,7 @@ class Followup
     beam_no = 1
   
     reply = { signalIdNumber: 2,
-              activityId: self.activity_id, 
+              activityId: self.observations.first.subject.activity_id, 
               targetId: self.observations.first.source.seti_ids.first,
               beamNumber: beam_no,
               dxNumber: beam_to_dx(beam_no),

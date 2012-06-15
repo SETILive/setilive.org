@@ -301,7 +301,7 @@ class Subject
     with_key list[rand(list.count)]
   end
 
-  def beam_to_dx(beam_no)
+  def self.beam_to_dx(beam_no)
     {1 => 1900, 2=> 2900, 3=>3900}[beam_no]
   end
 
