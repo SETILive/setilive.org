@@ -30,7 +30,7 @@ class SignalGroup
       puts "trying to save"
       if f.save 
         puts "triggering "
-        f.trigger_next_stage
+        f.trigger_follow_up
       else
         puts "not triggered"
       end
