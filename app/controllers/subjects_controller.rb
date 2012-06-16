@@ -20,7 +20,7 @@ class SubjectsController < ApplicationController
     end
 
     if subject==nil
-      if [2,1].sample ==1
+      if rand()<0.8
         subject = get_recent_subject
         subject = get_new_subject unless subject
       else
