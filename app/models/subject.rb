@@ -276,7 +276,6 @@ class Subject
       end
     end
     
-    GenerateTalk.perform_async s.id
     s
   end
 

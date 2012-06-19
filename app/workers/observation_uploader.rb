@@ -15,13 +15,18 @@ class ObservationUploader
       return false
     end
     @path_to_data    = upload_to_s3
-    @image_urls      = generate_images
+    @image_urls      = generate_images  
 
     if @observation.has_simulation
       @simulation_urls = generate_simulations 
     end
 
     update_observation
+
+    unless @observation.subject.observations.collect{|o| o.is_uploaded}.include?(false)
+      GenerateTalk.new.perform s.id
+    end
+
   end
 
   def update_observation
