@@ -14,6 +14,9 @@ Marv::Application.routes.draw do
   resources :favourites 
   resources :badges 
   resources :results
+
+  require 'sidekiq/web'
+  mount Sidekiq::Web => '/sidekiq'
   
   match '/classify'  => 'classifications#classify'
   match '/next_subject' => 'subjects#next_subject_for_user'
