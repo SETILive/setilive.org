@@ -6,10 +6,19 @@ if Rails.env.development?
     config.redis = { :url => "redis://#{redis_config[:host]}:#{redis_config[:port]}/", :namespace => 'setiliveworkers' }
   end
 
+  Sidekiq.configure_client do |config|
+    config.redis = {  :url => "redis://#{redis_config[:host]}:#{redis_config[:port]}/", :namespace => 'setiliveworkers' , :size => 1 }
+  end
+
 elsif Rails.env.production?
   
   Sidekiq.configure_server do |config|
     config.redis = { :url =>  "redis://#{redis_config['username']}:#{redis_config[:password]}@#{redis_config[:host]}:#{redis_config[:port]}/", :namespace => 'setiliveworkers' }
+  end
+
+
+  Sidekiq.configure_client do |config|
+    config.redis = {  :url =>  "redis://#{redis_config['username']}:#{redis_config[:password]}@#{redis_config[:host]}:#{redis_config[:port]}/", :namespace => 'setiliveworkers', :size => 1 }
   end
 
 end
