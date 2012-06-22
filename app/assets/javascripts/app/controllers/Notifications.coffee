@@ -12,17 +12,20 @@ class Notifications extends Spine.Controller
   pusher: 
       "target_changed" : "sourceChange"
       # "new_data" : "newData"
+      "followUpTrigger" : "followUpTrigger"
       "status_changed" : "telescopeStatusChange"
       "stats_update" : "updateStats"
 
    
   constructor: ->
     super
+
     @setupLocal()
     @setupPusher() if Pusher?
     # @append "<div class='notification_count'></div>"
 
   openPusher:->
+
     if @pusherKey
       @pusherConnection = new Pusher(@pusherKey) 
       @defaultChannel   = @openChannel @pusherChannel
@@ -63,10 +66,10 @@ class Notifications extends Spine.Controller
   favourited: => 
     @addNotification('favourited',{})
 
-
   sourceChange: (data)=> 
     Spine.trigger('target_target_changed', data)
     @addNotification('source_change',data)
+
   newData: (data)=>
     @addNotification('new_data',data)
 
@@ -74,6 +77,10 @@ class Notifications extends Spine.Controller
     $(".telescope_status_changed").remove()
     Spine.trigger('target_status_changed', data)
     @addNotification('telescope_status_changed',data)
+
+  followUpTrigger:()=>
+    console.log("here")
+    @addNotification('followUpTriggered',{})
   
   badgeAwarded:(data)=>
     data['size'] = "50"

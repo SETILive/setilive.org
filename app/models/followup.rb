@@ -54,6 +54,7 @@ class Followup
              }
   
     RedisConnection.setex "follow_up_#{self.id}", 30, reply.to_json
+    PusherConnection.send("telescope", "followUpTrigger", "")
     # puts  reply.to_json
   end
   
