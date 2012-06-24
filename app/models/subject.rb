@@ -270,7 +270,8 @@ class Subject
         end
       rescue
         puts "could not create subject"
-        s.observation.delete_all
+        s.observations.each { |o| RedisConnection.del o.data_key}
+        s.observations.delete_all
         s.delete
         return nil
       end
