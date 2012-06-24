@@ -249,7 +249,9 @@ class Subject
           beam_no  = beam['beam']
           seti_id  = beam['target']
           data_key = key.gsub("subject_new", "subject_data_new")+"_#{beam_no}"
-          if JSON.parse(RedisConnection.get(data_key)).empty?
+          data = JSON.parse(RedisConnection.get(data_key))
+
+          if data.nil? or data.empty? or (data-[0]).empty?
             RedisConnection.del data_key 
           else 
             source = Source.find_by_seti_id(seti_id.to_s)
@@ -268,8 +270,9 @@ class Subject
             end
           end
         end
-      rescue
-        puts "could not create subject"
+      rescue exception  
+        puts "could not create subject "
+        puts exception
         s.observations.each { |o| RedisConnection.del o.data_key}
         s.observations.delete_all
         s.delete
