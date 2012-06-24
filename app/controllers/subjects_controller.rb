@@ -25,11 +25,7 @@ class SubjectsController < ApplicationController
         subject = get_new_subject unless subject
       else
         subject = get_new_subject
-        if subject
-          subject.save
-        else
-          subject = get_recent_subject
-        end
+        subject = get_recent_subject unless subject
       end
     end
 
