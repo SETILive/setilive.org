@@ -270,9 +270,9 @@ class Subject
             end
           end
         end
-      rescue exception  
+      rescue   Exception => e  
         puts "could not create subject "
-        puts exception
+        puts e
         s.observations.each { |o| RedisConnection.del o.data_key}
         s.observations.delete_all
         s.delete
