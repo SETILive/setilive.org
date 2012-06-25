@@ -49,6 +49,10 @@ class Observation
   end
 
   def get_data
+     data = JSON.parse(RedisConnection.get(data_key)) unless uploaded
+  end
+
+  def data
     if data_url?
       data = HTTParty.get data_url
       data= JSON.parse(data.match(/\[.*\]/).to_s)
@@ -56,10 +60,6 @@ class Observation
       data = JSON.parse(RedisConnection.get(data_key))
     end 
     data
-  end
-
-  def data
-    data = JSON.parse(RedisConnection.get(data_key)) unless uploaded
   end
 
   # def update_signal_groups
