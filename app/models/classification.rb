@@ -23,10 +23,12 @@ class Classification
       subject_id = result.delete 'subject_id'
       
       observation = Observation.collection.find_one({ uploaded: true, subject_id: subject_id }, { fields: [:image_url, :source_id ] })
-      result['observation_id'] = observation['_id']
-      result['user_name'] = ZooniverseUser.collection.find_one({ _id: user_id }, { fields: [:name] }).try :[], 'name'
-      result['image_url'] = observation['image_url']
-      result['source_name'] = Source.collection.find_one({ _id: observation['source_id'] }, { fields: [:name] }).try :[], 'name'
+      if observation
+        result['observation_id'] = observation['_id']
+        result['user_name'] = ZooniverseUser.collection.find_one({ _id: user_id }, { fields: [:name] }).try :[], 'name'
+        result['image_url'] = observation['image_url']
+        result['source_name'] = Source.collection.find_one({ _id: observation['source_id'] }, { fields: [:name] }).try :[], 'name'
+      end
     end
     
     RedisConnection.setex 'recent_classifications', 60, JSON.dump(results)
