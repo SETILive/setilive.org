@@ -75,7 +75,7 @@ class ApplicationController < ActionController::Base
     user.email = zooniverse_user_email
     user.api_key = zooniverse_user_api_key
     user.zooniverse_user_id = zooniverse_user_id
-    if user.updated_at < 1.hour.ago # only update subscription every hour
+    if user.updated_at && (user.updated_at < 1.hour.ago) # only update subscription every hour
       user.updated_at = Time.now
       update_event = {:event => {:kind => "workflow_activity", :zooniverse_user_id => "#{zooniverse_user_id}", :project => "SETILive", :project_id => "13", :count => "#{user.total_classifications}", :workflow => "Signal marking", :created_at => "#{Time.now}"}}
       RestClient.post 'https://zooniverse:events@events.zooniverse.org', update_event.to_json, :content_type => :json 
