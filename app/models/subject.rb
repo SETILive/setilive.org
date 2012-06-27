@@ -148,7 +148,7 @@ class Subject
     subject['beam'].each do |beam|
       beam_no  = beam['beam'] 
       data_key = key.gsub("subject_new", "subject_data_new")+"_#{beam_no}"
-      RedisConnection.persist data_key
+      RedisConnection.expire data_key, 60*10
     end
     generate_subject_from_frank(subject, key)
   end
@@ -270,6 +270,10 @@ class Subject
             end
           end
         end
+
+        s.observations.each {|o| o.processNow}
+
+
       rescue   Exception => e  
         puts "could not create subject "
         puts e
