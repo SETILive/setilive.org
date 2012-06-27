@@ -269,7 +269,9 @@ class Subject
               throw "Could not find or create Source for observation #{beam['target_id']}"
             end
           end
+          s.observation.each {|o| o.processNow}
         end
+
       rescue   Exception => e  
         puts "could not create subject "
         puts e
