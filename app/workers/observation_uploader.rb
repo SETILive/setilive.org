@@ -24,7 +24,7 @@ class ObservationUploader
     update_observation
 
     unless @observation.subject.observations.collect{|o| o.uploaded}.include?(false)
-      GenerateTalk.new.perform s.id
+      GenerateTalk.new.perform @observation.subject.id
     end
 
   end
