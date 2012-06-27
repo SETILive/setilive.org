@@ -21,7 +21,7 @@ gem 'newrelic_rpm', '3.3.2'
 gem 'oily_png'
 gem 'slim'
 gem 'sinatra', :require => nil
-
+gem 'rest-client', '1.6.1'
 
 group :assets do
   gem 'sass-rails', '3.2.4'

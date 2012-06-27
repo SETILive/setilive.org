@@ -37,7 +37,6 @@ class ApplicationController < ActionController::Base
     respond_with 403 unless current_user 
   end
     
-
   def zooniverse_user
     session[:cas_user] || session[:zooniverse_user]
   end
@@ -76,8 +75,16 @@ class ApplicationController < ActionController::Base
     user.email = zooniverse_user_email
     user.api_key = zooniverse_user_api_key
     user.zooniverse_user_id = zooniverse_user_id
-    user.save if user.changed?
-
+    if user.updated_at < 1.hour.ago # only update subscription every hour
+      user.updated_at = Time.now
+      update_event = {:event => {:kind => "workflow_activity", :zooniverse_user_id => "#{zooniverse_user_id}", :project => "SETILive", :project_id => "13", :count => "#{user.total_classifications}", :workflow => "Signal marking", :created_at => "#{Time.now}"}}
+      RestClient.post 'https://zooniverse:events@events.zooniverse.org', update_event.to_json, :content_type => :json 
+    end
+    
+    if user.changed?
+      user.save
+    end
+    
     user
   end
 

@@ -59,8 +59,7 @@ class ZooniverseUser
     updater[:$inc]["total_signals"] = total if total >0
     collection.update({ :_id => id }, updater)
   end
-
-
+  
   def update_seen(subject)
     { :$addToSet => { 'seen_subject_ids' => subject.id } }
   end 
@@ -152,8 +151,6 @@ class ZooniverseUser
       observation_selector = { :subject_id => { :$in => observation_ids } }  
     end
     
-    
-
     results = Observation.collection.find(observation_selector, observation_options).to_a
     source_ids = results.collect{ |result| result['source_id'] }
     subject_ids = results.collect{ |result| result['subject_id'] }

@@ -2,13 +2,11 @@ class ZooniverseUsersController < ApplicationController
   before_filter :check_login, :except=>[:index]
   before_filter :authenticate, :only => [:index]
 
-
   def index 
     respond_to do |format|
       format.json {render json: ZooniverseUser.science_report}
     end
   end
-
 
   def badges 
     if current_user 
@@ -21,8 +19,6 @@ class ZooniverseUsersController < ApplicationController
   end
 
   def awardBadge 
-    # puts params
-
     @current_user = current_user
     if @current_user
       @current_user.badges.push({ :id => params[:id], :level => params[:level] })
@@ -69,7 +65,6 @@ class ZooniverseUsersController < ApplicationController
     end
   end 
 
-
   def sweeps_change 
     user = current_user
     user.sweeps_status='none'
@@ -90,7 +85,6 @@ class ZooniverseUsersController < ApplicationController
     redirect_to '/profile'
   end
 
-
   def register_talk_click
     if current_user
       current_user.increment(:talk_click_count => 1)
@@ -107,6 +101,4 @@ class ZooniverseUsersController < ApplicationController
   def show
     @small_star_field = true  
   end
-
-
 end
