@@ -37,6 +37,7 @@ class ApplicationController < ActionController::Base
     respond_with 403 unless current_user 
   end
     
+
   def zooniverse_user
     session[:cas_user] || session[:zooniverse_user]
   end
