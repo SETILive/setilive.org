@@ -5,6 +5,16 @@ class SubjectsController < ApplicationController
     end
   end
 
+  def trigger_followup
+    s = Subject.random_recent ZooniverseUser.where(:name=>"stuart.lynn").first
+    s = Subject.skip(2000).first
+    if s 
+      Followup.trigger_fake_follow_up s
+      render :inline => "triggered followup"
+    else
+      render :inline => "no recent subjects" 
+    end
+  end
 
   def next_subject_for_user
     subject = nil

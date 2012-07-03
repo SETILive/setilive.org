@@ -24,7 +24,7 @@ Marv::Application.routes.draw do
   match '/about'  => 'about#index'
   match '/video_tutorial'  => 'about#video_tutorial'
 
-
+  match '/trigger_followup' => 'subjects#trigger_followup'
   match '/active_workflow' => 'workflows#active_workflow'
 
   match '*all' => 'application#cor', :constraints => {:method => 'OPTIONS'}
