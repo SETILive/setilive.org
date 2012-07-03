@@ -41,7 +41,7 @@ class Followup
               subchanNumber: subject.sub_channel,
               type: "CwP",
               rfFreq: subject.central_freq,
-              drift: 0.000001,
+              drift: 0.7,
               width: 5,
               sigClass: "Cand",
               power: 200,
