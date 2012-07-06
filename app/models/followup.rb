@@ -69,7 +69,7 @@ class Followup
     dx_no        = Subject.beam_to_dx beam_no
     
     
-    reply = { signalIdNumber: subject.location["time"]/10**9,
+    reply = { signalIdNumber: Time.now.to_i,
               activityId: subject.activity_id, 
               targetId: source.seti_ids.first,
               beamNumber: observation.beam_no,
@@ -99,7 +99,7 @@ class Followup
   def trigger_follow_up_off
     beam_no = 1
   
-    reply = { signalIdNumber: 2,
+    reply = { signalIdNumber: Time.now.to_i,
               activityId: self.observations.first.subject.activity_id, 
               targetId: self.observations.first.source.seti_ids.first,
               beamNumber: beam_no,
