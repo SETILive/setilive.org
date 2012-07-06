@@ -32,7 +32,7 @@ class Followup
     dx_no        = Subject.beam_to_dx beam_no
     
     
-    reply = { signalIdNumber: 2,
+    reply = { signalIdNumber: subject.location["time"]/10**9,
               activityId: subject.activity_id, 
               targetId: source.seti_ids.first,
               beamNumber: observation.beam_no,
@@ -51,7 +51,7 @@ class Followup
               origDxNumber: dx_no,
               origActivityId: -1, #self.orig_activity_id,
               origActivityStartTime: -1,# self.orig_activity_start_time,
-              origSignalIdNumber: 1
+              origSignalIdNumber: 0
              }
   
     RedisConnection.setex "follow_up_#{1234}", 30, reply.to_json
@@ -69,7 +69,7 @@ class Followup
     dx_no        = Subject.beam_to_dx beam_no
     
     
-    reply = { signalIdNumber: 2,
+    reply = { signalIdNumber: subject.location["time"]/10**9,
               activityId: subject.activity_id, 
               targetId: source.seti_ids.first,
               beamNumber: observation.beam_no,
@@ -88,7 +88,7 @@ class Followup
               origDxNumber: dx_no,
               origActivityId: -1, #self.orig_activity_id,
               origActivityStartTime: -1,# self.orig_activity_start_time,
-              origSignalIdNumber: 1
+              origSignalIdNumber: 0
              }
   
     RedisConnection.setex "follow_up_#{self.id}", 30, reply.to_json
