@@ -28,7 +28,7 @@ class Subject extends Spine.Model
   
   @dataifyData:(data)->
     for observation, index in data.observations
-      observation.data = observation.data unless observation.uploaded
+      observation.data = observation.data_for_display unless observation.uploaded
 
 
   observationForId:(id)=>

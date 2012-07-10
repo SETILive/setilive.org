@@ -45,7 +45,8 @@ class SubjectsController < ApplicationController
 
     if subject 
       respond_to do |format|
-        subject  = subject.as_json(:include =>{:observations=>{:include=>:source, :methods=>:data} })
+        subject  = subject.as_json(:include =>{:observations=>{:include=>:source, :methods=>:data_for_display, :except=>:data} })
+
         subject['subjectType']= @subjectType
         format.json { render json: subject.to_json , :status => '200' }
       end

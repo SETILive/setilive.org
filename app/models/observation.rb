@@ -61,6 +61,11 @@ class Observation
     data
   end
 
+
+  def data_for_display
+    JSON.parse(RedisConnection.get(data_key)) unless uploaded 
+  end
+
   # def update_signal_groups
   #   if subject.classification_count > 10
   #     new_signals = self.subject_signals.where(:signal_group=>nil).collect{|ss| ss.to_fof}
