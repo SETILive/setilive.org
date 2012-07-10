@@ -112,7 +112,7 @@ class Subject
   end
 
   def pop_in_redis_temp
-    RedisConnection.setex("subject_recent_#{self.id}", 10*60 ,  self.id)
+    RedisConnection.setex("subject_recent_#{self.id}", 3.5*60 ,  self.id)
   end
 
   def pop_in_redis
