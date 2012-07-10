@@ -271,7 +271,7 @@ class Subject
           end
         end
 
-        s.observations.each {|o| o.processNow}
+        s.observations.each {|o| o.process}
 
 
       rescue   Exception => e  
