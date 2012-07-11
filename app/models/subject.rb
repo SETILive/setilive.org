@@ -253,6 +253,9 @@ class Subject
 
           if data.nil? or data.empty? or (data-[0]).empty?
             RedisConnection.del data_key 
+            logger.error 'broken data'
+            logger.error subject
+            logger.error data
           else 
             source = Source.find_by_seti_id(seti_id.to_s)
             source = Source.create_with_seti_id(seti_id) unless source 
