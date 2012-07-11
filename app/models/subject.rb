@@ -278,13 +278,15 @@ class Subject
 
 
       rescue   Exception => e  
-        puts "could not create subject "
-        puts e
+        logger.fatal "could not create subject "
+        logger.fatal e
         s.observations.each { |o| RedisConnection.del o.data_key}
         s.observations.delete_all
-        s.delete
+        s.destroy
         return nil
       end
+    else
+      logger.fatal "could not create subject at line 289"
     end
     
     s
