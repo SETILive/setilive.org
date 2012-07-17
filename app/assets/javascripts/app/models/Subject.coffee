@@ -15,7 +15,10 @@ class Subject extends Spine.Model
       url += "?subject_id=#{window.subject_id}"
 
     $.getJSON url, (data)=>
-      console.log "getting data ",data
+      
+      if data.observations.length==0
+        window.location.reload()
+
       Subject.dataifyData(data)
       subject=  Subject.create(data)
       Subject.trigger('next_subject', subject)
