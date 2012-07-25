@@ -1,8 +1,8 @@
 class Followup
   include MongoMapper::Document
-  key :current_stage , Integer , :default => 0
-
-  has_many :signal_groups 
+  key :current_stage , Integer , :default => -1
+  key :signal_id_nums , Array
+  has_many :signal_groups
   has_many :observations
   
   belongs_to :source 
@@ -19,6 +19,7 @@ class Followup
   end
 
   def notify_someone
+    puts "NOTIFY SOMEONE"
   end
 
   def self.trigger_fake_follow_up(subject)
@@ -68,8 +69,7 @@ class Followup
     signal       = signal_groups.last
     dx_no        = Subject.beam_to_dx beam_no
     
-    
-    reply = { signalIdNumber: Time.now.to_i,
+    reply = { signalIdNumber: signal_id_nums.last,
               activityId: subject.activity_id, 
               targetId: source.seti_ids.first,
               beamNumber: observation.beam_no,
@@ -88,12 +88,17 @@ class Followup
               origDxNumber: dx_no,
               origActivityId: -1, #self.orig_activity_id,
               origActivityStartTime: -1,# self.orig_activity_start_time,
-              origSignalIdNumber: 0
+              origSignalIdNumber: signal_id_nums[0]
              }
   
     RedisConnection.setex "follow_up_#{self.id}", 30, reply.to_json
-    Pusher["telescope"].trigger( "followUpTrigger", "")
-    # puts  reply.to_json
+    if Rails.env.development?
+      #Fake followup substitute for ATA echoing last followup signalIdNumber
+      RedisConnection.setex "last_followup_signal_id", 600, signal_id_nums.last
+      puts  reply.to_json
+    else
+      Pusher["telescope"].trigger( "followUpTrigger", "")
+    end
   end
   
   def trigger_follow_up_off
