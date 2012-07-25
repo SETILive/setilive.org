@@ -23,10 +23,17 @@ class SignalGroup
 
   def check_real
     if is_real?
-      f = Followup.new()
+      subject = Subject.find(observation.subject_id)
+      signal_id_num = subject.follow_up_id
+      if signal_id_num > 0
+        f = Followup.where(:signal_id_nums => signal_id_num ).first
+      else
+        f = Followup.new()
+      end
       f.observations << observation  
       f.signal_groups << self
-      
+      f.signal_id_nums << Time.now.utc.to_i
+      f.trigger_next_stage
       puts "trying to save"
       if f.save 
         puts "triggering "
@@ -43,7 +50,7 @@ class SignalGroup
   end
   
   def calc_drift
-    Math.tan(angle)
+    Math.tan(angle)*( 410.0 / 93.0 ) /  (758 / 533 )
   end
   
   def calc_start_freq
@@ -76,7 +83,7 @@ class SignalGroup
   end
 
   def is_vertical?
-    angle > -2 and angle < 2
+    angle > -0.005 and angle < 0.005 # Two pixels
   end
 
   def trigger_followup?
