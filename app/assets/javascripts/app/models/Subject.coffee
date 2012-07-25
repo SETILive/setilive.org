@@ -15,7 +15,7 @@ class Subject extends Spine.Model
       url += "?subject_id=#{window.subject_id}"
 
     $.getJSON url, (data)=>
-      console.log "getting data ",data
+      console.log "getting data: activity", data.activity_id, "id", data.zooniverse_id, data
       if data.observations.length==0
         window.location.reload()
 
