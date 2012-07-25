@@ -14,7 +14,40 @@ class SubjectsController < ApplicationController
       render :inline => "no recent subjects" 
     end
   end
-
+  
+  def trigger_followup_2
+    #Get a subject
+    if Rails.env.development?
+      s = Subject.random.first
+    else
+      s = get_recent_subject
+    end
+    
+    if s
+      render :inline => "found subject: activity_id=" << s.activity_id
+      if Rails.env.development?
+        puts "subject", s.original_redis_key #Use to find subject in database
+        #Substitute for ATA echoing last followup signalIdNumber
+        last_followup_signal_id = RedisConnection.get "last_followup_signal_id"
+        if last_followup_signal_id
+          s.follow_up_id = last_followup_signal_id.to_i
+        else
+          s.follow_up_id = 0
+        end
+        s.save
+        puts "followup_signal_id", s.follow_up_id
+      end
+      obs = s.observations
+      puts "observations", obs.first
+      sig_group = SignalGroup.create( angle: 0.25,
+                                      observation: obs.first,
+                                      source: obs.first.source )
+      sig_group.check_real
+    else
+      render :inline => "no subject found"
+    end
+    
+  end
   def next_subject_for_user
     subject = nil
     @subjectType="new"
