@@ -39,7 +39,7 @@ class SubjectsController < ApplicationController
       end
       obs = s.observations
       puts "observations", obs.first
-      sig_group = SignalGroup.create( angle: 0.25,
+      sig_group = SignalGroup.create( angle: 0.20,
                                       observation: obs.first,
                                       source: obs.first.source )
       sig_group.check_real
