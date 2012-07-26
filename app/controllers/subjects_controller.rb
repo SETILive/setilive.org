@@ -20,7 +20,7 @@ class SubjectsController < ApplicationController
     if Rails.env.development?
       s = Subject.random.first
     else
-      s = get_recent_subject
+      s = Subject.random_recent ZooniverseUser.where(:name=>"stuart.lynn").first
     end
     
     if s
