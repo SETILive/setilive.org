@@ -62,18 +62,19 @@ class Followup
   
   def trigger_follow_up
     beam_no      = 1
-    source       = signal_groups.last.source
-    observation  = signal_groups.last.observation
+    sig_coll       = signal_groups.sort(:created_at)
+    signal       = sig_coll.last
+    source       = signal.source
+    observation  = signal.observation
     subject      = observation.subject
-    beam_no      = observation.beam_no
-    signal       = signal_groups.last
-    dx_no        = Subject.beam_to_dx beam_no
-    
+    sig_orig     = sig_coll.first
+    obs_orig     = sig_orig.observation
+    subj_orig    = obs_orig.subject
     reply = { signalIdNumber: signal_id_nums.last,
               activityId: subject.activity_id, 
               targetId: source.seti_ids.first,
               beamNumber: observation.beam_no,
-              dxNumber: dx_no,
+              dxNumber: Subject.beam_to_dx( observation.beam_no ),
               pol: (subject.pol==0 ? "right" : "left"),
               subchanNumber: subject.sub_channel,
               type: "CwP",
@@ -84,10 +85,10 @@ class Followup
               power: 200,
               reason: "Confrm",
               containsBadbands: "no",
-              activityStartTime: (Time.at(subject.location["time"]/1_000_000_000) + 5.hours).strftime("%Y-%m-%d %H:%M:%S") ,
-              origDxNumber: dx_no,
-              origActivityId: -1, #self.orig_activity_id,
-              origActivityStartTime: -1,# self.orig_activity_start_time,
+              activityStartTime: (Time.at(subject.location["time"]/1_000_000_000)).strftime("%Y-%m-%d %H:%M:%S") ,
+              origDxNumber: Subject.beam_to_dx( obs_orig.beam_no ),
+              origActivityId: subj_orig.activity_id,
+              origActivityStartTime: Time.at(subj_orig.location["time"]/1_000_000_000).strftime("%Y-%m-%d %H:%M:%S") ,
               origSignalIdNumber: signal_id_nums[0]
              }
   
