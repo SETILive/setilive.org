@@ -41,7 +41,11 @@ class ZooniverseUser
   def update_classification_stats(classification)
      updater = update_classification_count(classification)
      updater.deep_merge! update_signal_count(classification)
-     updater.deep_merge! update_seen(classification.subject)
+
+     # Call of update_seen and saving of seen_subjects moved to
+     # subjects_controller.next_subject_for_user:
+     #updater.deep_merge! update_seen(classification.subject)
+     
      collection.update({ :_id => id }, updater)
      RedisConnection.setex "online_#{self.id}", 10*60, 1
   end
