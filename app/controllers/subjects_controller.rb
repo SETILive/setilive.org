@@ -75,15 +75,16 @@ class SubjectsController < ApplicationController
       subject = Subject.random.first 
       @subjectType="archive" 
     end
-    
-    # Update user's seen_subject list here instead of after classification
-    # in zooniverse_user.update_classification_stats. Better here since at
-    # this point, the user will see the subject whether they classify or not.
-    # Also should eliminate repeated serving/refresh of a bad recent subject.
-    updater = current_user.update_seen(subject)
-    current_user.collection.update({ :_id => current_user.id }, updater)
-    
+   
     if subject 
+    
+      # Update user's seen_subject list here instead of after classification
+      # in zooniverse_user.update_classification_stats. Better here since at
+      # this point, the user will see the subject whether they classify or not.
+      # Also should eliminate repeated serving/refresh of a bad recent subject.
+      updater = current_user.update_seen(subject)
+      current_user.collection.update({ :_id => current_user.id }, updater)
+         
       respond_to do |format|
         subject  = subject.as_json(:include =>{:observations=>{:include=>:source, :methods=>:data_for_display, :except=>:data} })
 
