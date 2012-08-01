@@ -72,7 +72,7 @@ class SubjectsController < ApplicationController
     end
 
     unless subject
-      subject = Subject.random.first 
+      subject = Subject.random(:selector=>{:status=>"active"}).first 
       @subjectType="archive" 
     end
    
@@ -111,7 +111,7 @@ class SubjectsController < ApplicationController
   end
   def get_seen_subject
     # Subject.unseen_for_user(current_user)
-    Subject.random.first
+    Subject.random(:selector=>{:status=>"active"}).first 
     # Subject.first
   end
 end
