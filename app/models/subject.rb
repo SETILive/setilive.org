@@ -253,9 +253,9 @@ class Subject
 
           if data.nil? or data.empty? or (data-[0]).empty?
             RedisConnection.del data_key 
-            logger.error 'broken data'
-            logger.error subject
-            logger.error data
+            Rails.logger.error 'broken data'
+            Rails.logger.error subject
+            Rails.logger.error data
           else 
             source = Source.find_by_seti_id(seti_id.to_s)
             source = Source.create_with_seti_id(seti_id) unless source 
@@ -278,20 +278,21 @@ class Subject
 
 
       rescue   Exception => e  
-        logger.fatal "could not create subject "
-        logger.fatal e
+        Rails.logger.error "could not create subject "
+        Rails.logger.error e
         s.observations.each { |o| RedisConnection.del o.data_key}
         s.observations.delete_all
         s.destroy
         return nil
       end
     else
-      logger.fatal "could not create subject at line 289"
+      Rails.logger.error "could not create subject at line 289"
     end
     
     s
   end
 
+  
 
   def redis_key 
     if has_simulation
