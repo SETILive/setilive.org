@@ -1,0 +1,47 @@
+<% content_for :head do %>
+  <script type="text/javascript" charset="utf-8">
+
+    var exports = this;
+    jQuery(function(){
+        new SimulationsPage({el: $("body")});      
+    });     
+  </script>
+<%end%>
+
+<div id='content'>
+  <div id='galleryPage'>
+    <div id='gallery_header'>
+      <h1 id='gallery_title'>Simulations</h1>
+      <p class='waterfall_blurb'>Sometimes, after finishing a classification, 
+        you get a waterfall displayed with a signal highlighted in red. We're 
+        showing you where we added an artificial simulation to one of the 
+        waterfalls. We're doing that occasionally to see just
+        how weak a signal we are able to detect and do it in a controlled 
+        way to collect statistics for future published scientific results.
+        <br>
+        <br>
+        To see the simulated signal under the red trace,
+        just move your mouse over the waterfall. You can then judge for yourself
+        whether you think you should have caught it or it was just too faint.
+        <br>
+        <br>
+        We show you a bright red trace over the
+        simulated signal whenever one comes up whether it was strong or weak 
+        so you can see exactly where it is. We want to be sure you know
+        that it was artificial. We don't want to leave you with the impression 
+        that you found a real signal of interest.
+        <br>
+        <br>
+        Simulations also have the added benefit of 
+        keeping us sharp, so we continue to look out for faint signals. Don't 
+        feel badly if you've missed some. Many are so weak that no one can pick 
+        them out. We had to include some at the lowest brightness levels to 
+        make sure we find the sweet spot where people just start seeing them.
+        <br>
+        <br>
+        In addition to covering a range of brighness,
+        the simulations also vary in position and angle. The degree to which
+        they wander is also varied - from perfectly straight to very erratic.</p>
+    </div>
+  </div>
+</div>

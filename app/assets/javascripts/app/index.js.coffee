@@ -206,6 +206,17 @@ class GalleryPage extends SetiLiveController
       $(this).parent().find(".gallery_explination").show()
       $(this).parent().find(".gallery_explination2").hide()
 
+class SimulationsPage extends SetiLiveController
+  starFieldOn : false
+  badgesOn: false
+  notificationsOn: false 
+  
+  elements:
+    '#simulations': 'simulations'
+
+  constructor:->
+    super  
+    
 class TelescopePage extends SetiLiveController
   elements :
     '#telescopeStatus' : "telescopeStatus"
@@ -232,6 +243,7 @@ window.BadgePage = BadgePage
 window.TelescopePage = TelescopePage
 window.GenericAboutPage = GenericAboutPage
 window.GalleryPage = GalleryPage
+window.SimulationsPage = SimulationsPage
 window.ResultsPage = ResultsPage
 # Run jQuery animations at 20 FPS
 jQuery.fx.interval = 50

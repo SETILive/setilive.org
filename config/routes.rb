@@ -62,6 +62,7 @@ Marv::Application.routes.draw do
   match '/sweeps_opt_out' => 'ZooniverseUsers#sweeps_out'
 
   match '/gallery' => 'home#gallery'
+  match '/simulations' => 'home#simulations'
 
   root :to => 'home#index'
 end

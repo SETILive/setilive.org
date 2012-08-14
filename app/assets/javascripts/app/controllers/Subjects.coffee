@@ -10,6 +10,8 @@ class Subjects extends Spine.Controller
   events:
     'click #main-waterfall' : 'markerPlaced'
     'click .small-waterfall': 'selectBeam'
+    'mouseover #main-waterfall' : 'mainMouseOver'
+    'mouseleave #main-waterfall' : 'mainMouseLeave'
 
   canDrawSignal : true
   dragging : false
@@ -27,7 +29,8 @@ class Subjects extends Spine.Controller
     Workflow.bind("workflowDone", @enableSignalDraw)
     Workflow.bind("workflowDone", @finalizeSignal)
     
-    @showSimulation = false 
+    @showSimulation = false
+    @simBeam = 0 
 
     Spine.bind 'nextBeam', =>
       @selectBeam @current_beam+1
@@ -271,8 +274,43 @@ class Subjects extends Spine.Controller
     if @current_subject.has_simulation
       @showSimulation = true
       for observation, index in @current_subject.observations
-        @selectBeam index if observation.has_simulation
+        if observation.has_simulation
+          @selectBeam index
+          @simBeam = index
 
     @current_classification.persist() unless window.tutorial
+
+  mainMouseOver:=>
+    if @showSimulation && @current_beam == @simBeam
+      target = @main_beam.find("canvas")
+      subject = @current_subject
+      beamNo = @current_beam
+      ctx = target[0].getContext('2d')
+
+      targetWidth = $(target[0]).width()
+      targetHeight = $(target[0]).height()
+      target[0].width = targetWidth
+      target[0].height = targetHeight
+      obsImg = new Image targetWidth, targetHeight
+      obsImg.src = subject.observations[beamNo].simulation_url
+      $(obsImg).load =>
+        ctx.drawImage obsImg, 0, 0, targetWidth,targetHeight
+
+  mainMouseLeave:=>
+    if @showSimulation && @current_beam == @simBeam
+      target = @main_beam.find("canvas")
+      subject = @current_subject
+      beamNo = @current_beam
+      ctx = target[0].getContext('2d')
+
+      targetWidth = $(target[0]).width()
+      targetHeight = $(target[0]).height()
+      target[0].width = targetWidth
+      target[0].height = targetHeight
+      obsImg = new Image targetWidth, targetHeight
+      obsImg.src = subject.observations[beamNo].simulation_reveal_url
+      $(obsImg).load =>
+        ctx.drawImage obsImg, 0, 0, targetWidth,targetHeight
+
 
 window.Subjects = Subjects

@@ -6,7 +6,7 @@
     picture=<%= encodeURI(@subject.observations[0].thumb_url) %>&
     name= Classified&
     caption=I just classified <%=[observation.source.name for observation in @subject.observations].join(" ") %> on SETILive.&
-    description=<%=encodeURI("SETILive allows users to help in the hunt for aliens by analysing data from the Allen telescope array in real time")%>&
-    message=<%=encodeURI("SETILive allows users to help in the hunt for aliens by analysing data from the Allen telescope array in real time")%>&
+    description=<%=encodeURI("SETILive allows users to help search for extra-terrestrial civilisations by analysing live data from the Allen Telescope Array.")%>&
+    message=<%=encodeURI("SETILive allows users to help search for extra-terrestrial civilisations by analysing live data from the Allen Telescope Array.")%>&
     redirect_uri=http://www.setilive.org"> <div id='facebook_button'></div></a>
 </div>

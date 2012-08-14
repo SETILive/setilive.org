@@ -8,6 +8,7 @@ class Info extends Spine.Controller
     "#talk" : "talk"
     "#simulation_notification" : "simulation_notification"
     "#thankyou": "thankyou"
+    "#talk_fill": "talk_fill"
     "#social" : "social"
 
   events:
@@ -78,6 +79,7 @@ class Info extends Spine.Controller
     if Subject.first().has_simulation
       @simulation_notification.show() 
     else
+      @talk_fill.show()
       @thankyou.show()
   talk :=>
     subject = Subject.first()
