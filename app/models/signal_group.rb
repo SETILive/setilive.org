@@ -37,7 +37,7 @@ class SignalGroup
       puts "trying to save"
       if f.save 
         puts "triggering "
-        f.trigger_follow_up
+        f.trigger_follow_up(true)
       else
         puts "not triggered"
       end
@@ -50,17 +50,19 @@ class SignalGroup
   end
   
   def calc_drift
+    # In Hz / second
     Math.tan(angle)*( 410.0 / 93.0 ) /  (758 / 533 )
   end
   
   def calc_start_freq
-    mid 
+    # Relative to center frequency in Hz at start of waterfall (y=0)
+    ( mid - 758.0 / 2.0 ) * ( 533.0 / 2.0 ) - calc_drift * ( 93.0 / 2.0 )
   end
   
   def is_real?
     single_beam? and isnt_vertical?
   end
-  
+
   def single_beam?
     !multi_beam?
   end
@@ -73,7 +75,7 @@ class SignalGroup
     observation.subject.observations.each do |test_obs|
       unless test_obs.id == observation.id
         test_obs.signal_groups.each do |signal_group| 
-          if (signal_group.angle - angle).abs < 2 and (signal_group.mid - mid).abs < 2
+          if (signal_group.angle - angle).abs < 0.079 and (signal_group.mid - mid).abs < 10
             return true
           end 
         end
@@ -81,7 +83,7 @@ class SignalGroup
     end
     return false
   end
-
+  
   def is_vertical?
     angle > -0.005 and angle < 0.005 # Two pixels
   end

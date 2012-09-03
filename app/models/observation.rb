@@ -40,8 +40,8 @@ class Observation
   end
 
   def process 
-    ObservationUploader.perform_async self.id
-  end
+      ObservationUploader.perform_async self.id
+    end
 
   def processNow 
     ObservationUploader.new.perform self.id
@@ -64,6 +64,77 @@ class Observation
 
   def data_for_display
     JSON.parse(RedisConnection.get(data_key)) unless uploaded 
+  end
+  
+  # Multi-level beam(observation)-based followup trigger logic.\
+  # 
+  # 1. If no followup pending on the observation, triggers a separate followup for 
+  # any real signals signals found.
+  # 2. If an ON followup pending on the observation, triggers the next stage if
+  # any real signals are found in it.
+  # 3. If an OFF followup is pending on the observation, triggers the next stage
+  # if either no multi-beam signals are found or only real signals are found.
+  # New followups are triggered for the latter case.
+  def check_followup
+    is_followup = subject.follow_up_id > 0
+    if is_followup
+      f = Followup.where(:signal_id_nums => subject.follow_up_id ).first
+    else
+      f = nil
+    end
+    is_beam = ( is_followup and f.observations.sort(:created_at).last.beam_no == beam_no )
+    is_onx = ( is_beam and subject.observation_id.odd? )
+    is_offx = ( is_beam and subject.observation_id.even? )
+    is_empty = ( signal_groups.count == 0 )
+    
+    if ( is_empty and is_offx )
+      trigger_followup(f, nil, false)
+    else
+      # SIGGROUPS in obs
+      multi = false # Initialize no-reals flag
+      sig_grp_tmp = nil
+      signal_groups.each do |sig_grp|
+        real = sig_grp.is_real?
+        sig_grp_tmp = sig_grp if real # Remembers last real signal group
+        if ( ( !is_onx or is_offx ) and real )
+          trigger_followup( Followup.new(), sig_grp, true )
+        end
+        multi ||= !real 
+      end
+      if ( is_onx and !multi )
+        trigger_followup( f, sig_grp_tmp, true )
+      end
+      if ( is_offx and !multi )
+        trigger_followup( f, nil, false)
+      end
+    end
+  end
+  
+  def trigger_followup f, sig_grp, on    
+    signal_id_num = subject.follow_up_id
+    f.observations << self  
+    f.signal_groups << sig_grp if on
+    
+    # Select a unique signal_id_number for the followup message
+    # Normally, current timestamp in seconds. If followup within 2 seconds of
+    # last one increments by 1. Avoids duplication if multiple followups.
+    sig_id_num = RedisConnection.get( "followup_last_num")
+    if sig_id_num
+      sig_id_num += 1
+    else
+      sig_id_num = Time.now.utc.to_i
+    end
+    RedisConnection.setex "followup_last_num", 2, sig_id_num
+    
+    f.signal_id_nums << sig_id_num
+    f.trigger_next_stage
+    puts "trying to save"
+    if f.save 
+      puts "triggering "
+      f.trigger_follow_up on
+    else
+      puts "not triggered"
+    end
   end
 
   # def update_signal_groups

@@ -112,7 +112,9 @@ class Subject
   end
 
   def pop_in_redis_temp
-    RedisConnection.setex("subject_recent_#{self.id}", 3*60 ,  self.id)
+    # Interferes with fake followups if it extends into the next activity
+    # 130 + T + subjectCreationTime < 340s
+    RedisConnection.setex("subject_recent_#{self.id}", 2*60 ,  self.id)
   end
 
   def pop_in_redis
@@ -152,7 +154,22 @@ class Subject
     end
     generate_subject_from_frank(subject, key)
   end
-
+  
+  # Supports fake followup controlled triggering
+  def self.pull_random_frank_key
+    keys = RedisConnection.keys 'subject_new*'
+    return nil if keys.empty?
+    key = keys.sample
+    subject  = JSON.parse(RedisConnection.get key)
+    RedisConnection.del key
+    subject['beam'].each do |beam|
+      beam_no  = beam['beam'] 
+      data_key = key.gsub("subject_new", "subject_data_new")+"_#{beam_no}"
+      RedisConnection.expire data_key, 60*10
+    end
+    [subject, key]
+  end
+  
   def self.parse_key_details(key)
      data = key.split("_")
      {observation_id: data[2],
@@ -319,16 +336,17 @@ class Subject
   end
 
   def check_for_signals 
-    
+        
+    # Generate signal groups for each observation in subject
     signal_groups = observations.collect do |observation|
       signalFinder = observation.signal_finder || SignalFinder.create_with_observation(observation)
       signalFinder.generate_signal_groups  
     end
     
-    signal_groups.flatten.each {|signal_group| signal_group.check_real}
-    
+    # Check each observation for followup action
+    observations.each { |obs| obs.check_followup }
   end
-  
+
 
 
   # #revisit when rules need tweeking

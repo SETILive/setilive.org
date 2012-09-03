@@ -39,24 +39,86 @@ class SubjectsController < ApplicationController
       end
       obs = s.observations
       puts "observations", obs.first
-      sig_group = SignalGroup.create( angle: 0.20,
-                                      observation: obs.first,
-                                      source: obs.first.source )
+          sig_group = SignalGroup.create( angle: 0.20,
+                                          mid: 758.0 / 2.0,
+                                          observation: obs.first,
+                                          source: obs.first.source )
       sig_group.check_real
     else
       render :inline => "no subject found"
     end
     
   end
+
+  def fake_followup_trigger
+    ffid = RedisConnection.get('fake_followup')
+    
+    if ffid
+      s = Subject.find(ffid)
+      if s        
+        if Rails.env.development?
+          #Substitute for ATA echoing last followup signalIdNumber
+          last_followup_signal_id = RedisConnection.get("last_followup_signal_id").to_i 
+          last_followup_signal_id = 0 unless last_followup_signal_id
+          s.follow_up_id = last_followup_signal_id
+        else
+          last_followup_signal_id = s.follow_up_id
+        end
+        if last_followup_signal_id > 0
+          f = Followup.where(:signal_id_nums => s.follow_up_id ).first
+          s.observation_id = f.current_stage + 1 if Rails.env.development?
+          s.follow_up_id = last_followup_signal_id
+        else
+          f = nil
+          s.observation_id = 0 if Rails.env.development?
+          s.follow_up_id = 0
+        end
+        s.save
+        if s.follow_up_id > 0
+          last_beam_no = f.observations.last.beam_no
+          obs = s.observations.where(:beam_no => last_beam_no).first
+        else
+          obs = s.observations.first
+        end
+        if obs
+          if ( s.observation_id == 0 or s.observation_id.odd? )
+            sig_group = SignalGroup.create( angle: 0.20,
+                                            mid: 758.0 / 2.0,
+                                            observation: obs,
+                                            source: obs.source )
+          end
+          render :inline => "fake followup started with subject: activity_id=" << s.activity_id
+          s.check_for_signals
+        else
+          render :inline => "fake followup started but no subject found with tracked beam"
+        end
+      else
+        render :inline => "fake followup armed but no subject found"
+      end
+    else
+      render :inline => "fake followup not armed"
+    end
+    
+  end
+
   def next_subject_for_user
     subject = nil
     @subjectType="new"
 
-
-    if ['stuart.lynn','lnigra'].include? current_user.name and params[:subject_id]
-      subject = Subject.find(params[:subject_id])
+    # For follow-up testing this user pulls a new subject from frank
+    if current_user.name == 'bhima1'
+      unless RedisConnection.get('fake_followup')
+        info = Subject.pull_random_frank_key
+        if info
+          subject = Subject.generate_subject_from_frank(info[0], info[1])
+          RedisConnection.setex('fake_followup', 90, subject.id) if subject
+        else
+          subject = get_recent_subject
+          RedisConnection.setex('fake_followup', 90, subject.id) if subject
+        end
+      end
     end
-
+    
     if rand() < 0.1 and subject==nil
       subject = get_simulation_subject
     end

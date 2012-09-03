@@ -15,7 +15,7 @@ class Followup
 
   def trigger_next_stage 
     self.current_stage = self.current_stage + 1
-    notify_someone if self.current_stage == 5 
+    notify_someone if self.current_stage == 10 
   end
 
   def notify_someone
@@ -60,36 +60,46 @@ class Followup
 
   end
   
-  def trigger_follow_up
-    beam_no      = 1
-    sig_coll       = signal_groups.sort(:created_at)
-    signal       = sig_coll.last
+  def trigger_follow_up(is_on)
+    obss         = self.observations.sort(:created_at.desc).limit(2)
+    observation  = obss.first
+    obs_prev     = obss.last
+    signal       = self.signal_groups.sort(:created_at.desc).first
     source       = signal.source
-    observation  = signal.observation
+    beam_no      = observation.beam_no
     subject      = observation.subject
-    sig_orig     = sig_coll.first
-    obs_orig     = sig_orig.observation
-    subj_orig    = obs_orig.subject
+    subj_prev    = obs_prev.subject
+    sig_id_prev  = (self.current_stage == 0 ? 
+        signal_id_nums[0] : subject.follow_up_id )
+    t_act = subject.location["time"] / 1_000_000_000 # sec
+    t_act_prev = subj_prev.location["time"] / 1_000_000_000 # sec
+    t_delta = ( t_act - t_act_prev ) # sec
+    sig_drift = signal.drift
+    sig_freq  = ( is_on ? 
+                  signal.start_freq + subject.location["freq"]: 
+                  signal.start_freq + signal.drift * t_delta
+                          + subj_prev.location["freq"] )
+    
     reply = { signalIdNumber: signal_id_nums.last,
               activityId: subject.activity_id, 
               targetId: source.seti_ids.first,
               beamNumber: observation.beam_no,
               dxNumber: Subject.beam_to_dx( observation.beam_no ),
-              pol: (subject.pol==0 ? "right" : "left"),
+              pol: "both",
               subchanNumber: subject.sub_channel,
               type: "CwP",
-              rfFreq: subject.location["freq"],
-              drift: signal.calc_drift,
+              rfFreq: sig_freq,
+              drift: sig_drift,
               width: 5,
               sigClass: "Cand",
               power: 200,
-              reason: "Confrm",
+              reason: (self.current_stage==0 ? "Confrm" : "RConfirm" ),
               containsBadbands: "no",
-              activityStartTime: (Time.at(subject.location["time"]/1_000_000_000)).strftime("%Y-%m-%d %H:%M:%S") ,
-              origDxNumber: Subject.beam_to_dx( obs_orig.beam_no ),
-              origActivityId: subj_orig.activity_id,
-              origActivityStartTime: Time.at(subj_orig.location["time"]/1_000_000_000).strftime("%Y-%m-%d %H:%M:%S") ,
-              origSignalIdNumber: signal_id_nums[0]
+              activityStartTime: (Time.at(t_act)).strftime("%Y-%m-%d %H:%M:%S") ,
+              origDxNumber: Subject.beam_to_dx( obs_prev.beam_no ),
+              origActivityId: subj_prev.activity_id,
+              origActivityStartTime: Time.at(t_act_prev).strftime("%Y-%m-%d %H:%M:%S") ,
+              origSignalIdNumber: sig_id_prev
              }
   
     RedisConnection.setex "follow_up_#{self.id}", 30, reply.to_json
