@@ -26,9 +26,10 @@
     <%= render :partial=>'shared/zooniverse_bar'%>
 
     <div id='top'></div>
-    <div id='star_field' class= <%= @small_star_field ? 'small_field' : "big_field"%>></div>
     <ul id='notification_bar'>
+      <!-- <div id="alert"><span></span></div> -->
     </ul>
+    
     <%= yield %>
 
     <div id='footer'>

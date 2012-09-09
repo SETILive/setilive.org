@@ -30,9 +30,14 @@
   @include round-corner-mozilla("bottomright", $amount)
 
 @mixin box-shadow($offsetX:0px, $offsetY:2px, $width:4px, $color:#888888)
-  -moz-box-shadow: $offsetX   $offsetY $width $color 
-  -webkit-box-shadow: $offsetX  $offsetY $width $color 
-  box-shadow: $offsetX  $offsetY $width $color 
+  -moz-box-shadow: $offsetX $offsetY $width $color 
+  -webkit-box-shadow: $offsetX $offsetY $width $color 
+  box-shadow: $offsetX $offsetY $width $color 
+
+@mixin box-shadows($shadows)
+  -webkit-box-shadow: $shadows
+  -moz-box-shadow: $shadows
+  box-shadow: $shadows
 
 ul
   list-style: none
@@ -44,23 +49,21 @@ a
   &:hover
     color: #f0f0f0
 
-input[type=text] , input[type=password]
+input[type=text], input[type=password]
   @include box-shadow(0px, 1px, 0px, #f2f2f2)
   border: 1px solid #b4b4b4
   @include round-corners(3px)
-
-
-
-
   
 #footer
+  overflow-y: hidden
   width: 100%
-  border-top: 1px #191F26 solid
   height: 50px
-  background: #0E1216
-  color: #f6f6f6  
   margin: 0px
   padding: 0px
+  background: #0E1216
+  border-top: 1px #191F26 solid
+  color: #f6f6f6
+
   .container
     width: 1000px
     margin: 0px auto
@@ -213,9 +216,9 @@ body
 #top
   margin-left: auto
   margin-right: auto
-  width: 980px
+  width: 1000px
   height: 100px
-  padding-top: 0px
+  padding: 0 0 65px 0
   position: relative
   z-index: 1
 
@@ -603,39 +606,47 @@ p.title
   padding-bottom: 20px
 
 .extra_button
-  color: white
-  text-align: center
-  @include gradient-bg(#ECF96B, #90991F)
-  @include round-corners(2px)
-  height: 42px
-  line-height: 42px
-  margin: 0px
-  padding: 0px
-  margin-bottom: 20px
   display: inline-block
-  vertical-align: bottom
+  height: 42px
+  margin: 0 0 20px 0
+  padding: 0px
+
+  background-color: #cddc28
+  border: 1px solid #12161b
+  @include box-shadows((inset 0px 1px #f4ff7e, 0 2px 4px rgba(0, 0, 0, 0.1)))
+  color: white
   cursor: pointer
-  &:hover
-    background-color: #90991F
+  line-height: 42px
+  @include round-corners(2px)
+  text-align: center
+  text-shadow: #98a50d 0 1px 0
+  vertical-align: bottom
+
 #extra_controlls
   width: 100%
   height: 189px
   margin-top: -7px
 
   #clear_signal
-    width: 163px
+    width: 131px
     margin-right: 5px
+
+  #help_link
+    width: 33px
+    margin-right: 4px
+
   #favourite
-    width: 48px
+    width: 33px
     img
       position: relative
       top: 4px
-      left: -1px
+      left: 0px
+
   #next_beam
-    width: 100%
+    width: 218px
     height: 60px
+    margin: -10px 0 0 0
     line-height: 60px
-    margin-top: -10px
   #done
     display: none
     width: 100%
@@ -1403,17 +1414,26 @@ ul.pagination
     display: inline-block
     vertical-align: middle
 
+#alert
+  border: 1px solid #cddc28
+  color: #cddc28
+  font-size: 28px
+  line-height: 28px
+  text-align: center
+  span
+    font-weight: 700
+
 #notification_bar
-  width: 940px
-  list-style: none
-  height: 60px
+  position: relative
   overflow-y: hidden
+  width: 1000px
+  height: 60px
   margin: 0px
   padding: 0px
+  list-style: none
   margin-left: auto
   margin-right: auto
-  margin-bottom: 20px
-  position: relative
+  margin-bottom: 29px
   .notification_count
     position: absolute
     top: 10px
