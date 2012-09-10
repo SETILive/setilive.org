@@ -32,8 +32,6 @@ class Info extends Spine.Controller
       else 
         @time.css("font-size","20px")
         @time.html("Archive Data")
-
-
         
   clearSignals:()=>
     Spine.trigger("clearSignals")

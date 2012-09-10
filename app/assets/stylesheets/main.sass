@@ -317,16 +317,17 @@ body
   height: 200px
 
 #star_field
-  width: 100%
-  margin-top: 20px
-  margin-left: auto
-  margin-right: auto
-  margin-bottom: 20px
+  width: 212px
+  height: 212px
+  margin: 22px auto 0 auto
+  padding: 2px
+  background: #000
+  border: 1px solid #666
 
 #content
   margin-left: auto
   margin-right: auto
-  width: 1000px
+  width: 1010px
   min-height: 750px
 
 #stats li
@@ -421,16 +422,17 @@ body
   position: absolute
 
 .waterfall
-  border: 3px #bbbbbb solid
   padding: 0px
+  @include box-shadows((0 2px 5px rgba(0,0,0,0.2)))
+  border: 3px #bbbbbb solid
 
 #waterfall-0
   margin-left: 0px
 
 
 .large-waterfall
-  height: 410px
-  width: 758px
+  height: 357px
+  width: 768px
   margin-bottom: 20px
   position: relative
   
@@ -449,10 +451,10 @@ body
   margin-bottom: 25px
 
 .small-waterfall
+  display: inline-block
   width: 240px
   height: 115px
-  margin-left: 9px
-  display: inline-block
+  margin-left: 14px
   vertical-align: top
   cursor: pointer 
 
@@ -505,22 +507,31 @@ body
         box-shadow: 0px 0px 0px black
 
 #countdown #time
+  width: 214px
+  height: 50px
+  margin: 0px
+  background: #121212
+  background: -moz-linear-gradient(top,  #121212 0%, #1b1b1b 50%, #121212 51%, #1b1b1b 100%)
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#121212), color-stop(50%,#1b1b1b), color-stop(51%,#121212), color-stop(100%,#1b1b1b))
+  background: -webkit-linear-gradient(top,  #121212 0%,#1b1b1b 50%,#121212 51%,#1b1b1b 100%)
+  background: -o-linear-gradient(top,  #121212 0%,#1b1b1b 50%,#121212 51%,#1b1b1b 100%)
+  background: -ms-linear-gradient(top,  #121212 0%,#1b1b1b 50%,#121212 51%,#1b1b1b 100%)
+  background: linear-gradient(to bottom,  #121212 0%,#1b1b1b 50%,#121212 51%,#1b1b1b 100%)
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#121212', endColorstr='#1b1b1b',GradientType=0 )
+  border: 3px #f2f2f2 solid
+  @include box-shadows((0 2px 4px rgba(0,0,0,0.2)))
   color: #cddc28
   font-family: TitilliumText22LThin, Sans-serif
   font-size: 25pt
   text-align: center
   line-height: 42pt
-  width: 214px
-  height: 50px
-  margin: 0px
-  border: 3px #BBBBBB solid
+  @include round-corners(3px)
 
 p.title
   font-weight: normal
   font-family: TitilliumText22LMedium, Sans-serif
   font-size: 8pt
   color: #BBBBBB
-  text-transform: uppercase
   letter-spacing: 1px
 
 #current_targets
@@ -607,7 +618,7 @@ p.title
 
 .extra_button
   display: inline-block
-  height: 42px
+  height: 34px
   margin: 0 0 20px 0
   padding: 0px
 
@@ -616,7 +627,7 @@ p.title
   @include box-shadows((inset 0px 1px #f4ff7e, 0 2px 4px rgba(0, 0, 0, 0.1)))
   color: white
   cursor: pointer
-  line-height: 42px
+  line-height: 34px
   @include round-corners(2px)
   text-align: center
   text-shadow: #98a50d 0 1px 0
@@ -625,7 +636,7 @@ p.title
 #extra_controlls
   width: 100%
   height: 189px
-  margin-top: -7px
+  margin: 22px 0 0
 
   #clear_signal
     width: 131px
@@ -644,14 +655,10 @@ p.title
 
   #next_beam
     width: 218px
-    height: 60px
     margin: -10px 0 0 0
-    line-height: 60px
   #done
     display: none
     width: 100%
-    height: 60px
-    line-height: 60px
     margin-top: -10px
   #talk
     display: none
@@ -659,10 +666,6 @@ p.title
     height: 60px
     line-height: 60px
     margin-top: -30px
-    .talk_prompt 
-
-  #favourite
-    margin-top: 32px
 
 #talk_yes
   display: inline-block
@@ -700,13 +703,14 @@ p.title
   width: 1100px
   height: 690px
 
-#target_details 
+#target_details
+  margin: 14px 0 0
   font-weight: normal
   font-family: TitilliumText22LMedium, Sans-serif
   font-size: 8pt
   color: #BBBBBB
-  text-transform: uppercase
   letter-spacing: 1px
+  line-height: 11pt
 
 #target_button
   display: inline-block
@@ -1415,6 +1419,7 @@ ul.pagination
     vertical-align: middle
 
 #alert
+  padding: 17px 0 12px 0
   border: 1px solid #cddc28
   color: #cddc28
   font-size: 28px

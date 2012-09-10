@@ -11,7 +11,7 @@ class Notifications extends Spine.Controller
   pusherChannel : 'telescope'
   pusher: 
       "target_changed" : "sourceChange"
-      # "new_data" : "newData"
+      "new_data" : "newData"
       "followUpTrigger" : "followUpTrigger"
       "status_changed" : "telescopeStatusChange"
       "stats_update" : "updateStats"
@@ -24,15 +24,14 @@ class Notifications extends Spine.Controller
     @setupPusher() if Pusher?
     # @append "<div class='notification_count'></div>"
 
-  openPusher:->
-
+  openPusher: ->
     if @pusherKey
       @pusherConnection = new Pusher(@pusherKey) 
       @defaultChannel   = @openChannel @pusherChannel
     else  
       throw "You need to specify a pusher key"
 
-  openChannel :(channelName)->
+  openChannel: (channelName) ->
     @pusherChannels[channelName] = @pusherConnection.subscribe channelName 
 
   setupPusherBindings: (channel, bindings) ->
@@ -43,12 +42,12 @@ class Notifications extends Spine.Controller
         channel = @createChannel(key)
         @setupPusherBindings channel, method
   
-  setupPusher:=>
-    @pusherChannels={}
+  setupPusher: =>
+    @pusherChannels = {}
     @openPusher()
     @setupPusherBindings(@defaultChannel, @pusher)
 
-  setupLocal:=>
+  setupLocal: =>
     User.bind("badge_awarded", @badgeAwarded)
     User.bind("tutorial_badge_awarded", @tutorialBadgeAwarded)
     User.bind("favourited", @favourited)
@@ -70,7 +69,7 @@ class Notifications extends Spine.Controller
     Spine.trigger('target_target_changed', data)
     @addNotification('source_change',data)
 
-  newData: (data)=>
+  newData: (data) =>
     @addNotification('new_data',data)
 
   telescopeStatusChange: (data)=> 
