@@ -113,13 +113,11 @@ class Notifications extends Spine.Controller
       compact: true
       format: 'MS'
       description: ''
-      onExpiry: @changeNewData notification
+      onExpiry: @newDataAvailable
     )
 
-  changeNewData: (e) =>
-    notification_content = @view('notifications/new_data_available_notification')
-    console.log(notification_content)
-    $(e.currentTarget).parents('notification').html notification_content
+  newDataAvailable: ->
+    $(@).parent().html 'New data available! Refresh the page for fresh data.'
 
   addNotification: (type, data, style="badge") =>
     notificationTemplate = @view("notifications/#{type}_notification")
@@ -135,8 +133,8 @@ class Notifications extends Spine.Controller
 
   removeNotification: (e) =>
     @updateNotificationCount()
-    $(e.currentTarget).parents('notification').fadeOut 700, ->
-      $(e.currentTarget).parents('notification').remove()
+    $(e.currentTarget).parent().fadeOut 700, ->
+      $(e.currentTarget).parent().remove()
 
   updateNotificationCount: =>
     if @notifications.length > 1
