@@ -23,10 +23,10 @@ class Followup
   end
   
   def trigger_follow_up(is_on)
-    obss         = self.observations.sort(:created_at.desc).limit(2)
-    observation  = obss.first
-    obs_prev     = obss.last
-    signal       = self.signal_groups.sort(:created_at.desc).first
+    obss         = self.observations.sort(:created_at.desc).to_a
+    observation  = obss[0]
+    obs_prev     = obss[1] ? obss[1] : obss[0]
+    signal       = self.signal_groups.sort(:created_at.desc).to_a[0]
     source       = signal.source
     beam_no      = observation.beam_no
     subject      = observation.subject
@@ -37,9 +37,9 @@ class Followup
     t_act_prev = subj_prev.location["time"] / 1_000_000_000 # sec
     t_delta = ( t_act - t_act_prev ) # sec
     sig_drift = signal.drift
-    sig_freq  = ( is_on ? 
-                  signal.start_freq + subject.location["freq"]: 
-                  signal.start_freq + signal.drift * t_delta
+    sig_freq  = is_on ? 
+      ( ( signal.start_freq / 1_000_000 ) + subject.location["freq"] ): 
+      ( ( signal.start_freq + signal.drift * t_delta ) / 1_000_000 
                           + subj_prev.location["freq"] )
     
     reply = { signalIdNumber: signal_id_nums.last,
