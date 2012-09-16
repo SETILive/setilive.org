@@ -9,6 +9,6 @@ class StatsPusher
            }
     
     # puts "pusing #{JSON.pretty_generate stats}"
-    Pusher['telescope'].trigger('stats_update', stats)
+    Pusher['telescope'].trigger('stats_update', stats) unless Rails.env.development?
   end
 end

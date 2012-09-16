@@ -236,7 +236,7 @@ class Subject
       new_obs.save
     end
 
-    GenerateTalk.perform_async simulation_subject.id
+    GenerateTalk.perform_async simulation_subject.id unless Rails.env.development?
     simulation_subject        
 
   end
