@@ -79,12 +79,14 @@ class Observation
     is_followup = subject.follow_up_id > 0
     if is_followup
       f = Followup.where(:signal_id_nums => subject.follow_up_id ).first
+      obs_type = f.current_stage + 1
     else
       f = nil
+      obs_type = 0
     end
     is_beam = ( is_followup and f.observations.sort(:created_at).last.beam_no == beam_no )
-    is_onx = ( is_beam and subject.observation_id.odd? )
-    is_offx = ( is_beam and subject.observation_id.even? )
+    is_onx = ( is_beam and obs_type.odd? )
+    is_offx = ( is_beam and obs_type.even? )
     is_empty = ( signal_groups.count == 0 )
     
     if ( is_empty and is_offx )

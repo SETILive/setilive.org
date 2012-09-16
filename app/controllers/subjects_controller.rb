@@ -4,84 +4,26 @@ class SubjectsController < ApplicationController
       format.json { render json: Subject.tutorial_subject.to_json(:include => {:observations=>{:include=>:source}}), :status => '200' }
     end
   end
-
-  def trigger_followup
-    s = Subject.random_recent ZooniverseUser.where(:name=>"stuart.lynn").first
-    if s 
-      Followup.trigger_fake_follow_up s
-      render :inline => "triggered followup"
-    else
-      render :inline => "no recent subjects" 
-    end
-  end
   
-  def trigger_followup_2
-    #Get a subject
-    if Rails.env.development?
-      s = Subject.random.first
-    else
-      s = Subject.random_recent ZooniverseUser.where(:name=>"stuart.lynn").first
-    end
-    
-    if s
-      render :inline => "found subject: activity_id=" << s.activity_id
-      if Rails.env.development?
-        puts "subject", s.original_redis_key #Use to find subject in database
-        #Substitute for ATA echoing last followup signalIdNumber
-        last_followup_signal_id = RedisConnection.get "last_followup_signal_id"
-        if last_followup_signal_id
-          s.follow_up_id = last_followup_signal_id.to_i
-        else
-          s.follow_up_id = 0
-        end
-        s.save
-        puts "followup_signal_id", s.follow_up_id
-      end
-      obs = s.observations
-      puts "observations", obs.first
-          sig_group = SignalGroup.create( angle: 0.20,
-                                          mid: 758.0 / 2.0,
-                                          observation: obs.first,
-                                          source: obs.first.source )
-      sig_group.check_real
-    else
-      render :inline => "no subject found"
-    end
-    
-  end
-
   def fake_followup_trigger
     ffid = RedisConnection.get('fake_followup')
     
     if ffid
       s = Subject.find(ffid)
       if s        
-        if Rails.env.development?
-          #Substitute for ATA echoing last followup signalIdNumber
-          last_followup_signal_id = RedisConnection.get("last_followup_signal_id").to_i 
-          last_followup_signal_id = 0 unless last_followup_signal_id
-          s.follow_up_id = last_followup_signal_id
-        else
-          last_followup_signal_id = s.follow_up_id
-        end
-        if last_followup_signal_id > 0
+        if s.follow_up_id > 0
           f = Followup.where(:signal_id_nums => s.follow_up_id ).first
-          s.observation_id = f.current_stage + 1 if Rails.env.development?
-          s.follow_up_id = last_followup_signal_id
+          last_beam_no = f.observations.sort(:created_at).last.beam_no
+          obs = s.observations.where(:beam_no => last_beam_no).first
+          obs_type = f.current_stage + 1
         else
           f = nil
-          s.observation_id = 0 if Rails.env.development?
-          s.follow_up_id = 0
-        end
-        s.save
-        if s.follow_up_id > 0
-          last_beam_no = f.observations.last.beam_no
-          obs = s.observations.where(:beam_no => last_beam_no).first
-        else
           obs = s.observations.first
+          last_beam_no = obs.beam_no
+          obs_type = -1
         end
         if obs
-          if ( s.observation_id == 0 or s.observation_id.odd? )
+          if ( obs_type.odd? )
             sig_group = SignalGroup.create( angle: 0.20,
                                             mid: 758.0 / 2.0,
                                             observation: obs,
