@@ -120,8 +120,8 @@ class Observation
     # Select a unique signal_id_number for the followup message
     # Normally, current timestamp in seconds. If followup within 2 seconds of
     # last one increments by 1. Avoids duplication if multiple followups.
-    sig_id_num = RedisConnection.get( "followup_last_num")
-    if sig_id_num
+    sig_id_num = RedisConnection.get( "followup_last_num").to_i
+    if sig_id_num > 0
       sig_id_num += 1
     else
       sig_id_num = Time.now.utc.to_i
