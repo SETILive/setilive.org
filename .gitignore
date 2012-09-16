@@ -9,4 +9,4 @@ ruby*
 dump*
 public/assets
 vendor/cache
-/nbproject
+nbproject
