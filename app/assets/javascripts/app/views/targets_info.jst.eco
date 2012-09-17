@@ -1,0 +1,3 @@
+<h3 class="title" id="target_details">
+	This data was taken by the telescope at <%= (new Date(@dateTaken)).add(7).hours().toString("HH:mm:ss on d-MMM-yyyy") %>
+</h3> 

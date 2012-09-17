@@ -13,10 +13,11 @@ class TargetsSlide extends Spine.Controller
     @render()
 
   render:=>
-    @html @view('targets_slide_show')
+    @html @view('targets_info')
       targets : @targets
       current_target : @current_target
       dateTaken: @dateTaken
+
   selectTarget:(e)=>
     if e.currentTarget?
       targetId = $(e.currentTarget).data().id 

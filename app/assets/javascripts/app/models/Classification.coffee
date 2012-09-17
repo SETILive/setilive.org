@@ -12,6 +12,7 @@ class Classification extends Spine.Model
 
   setSignal:(id)=>
     @currentSignal= Signal.find(id)
+    
   persist:=>    
     window.classificaiton=@
     signals = (signal.toJSON() for signal in @signals().all())

@@ -64,7 +64,7 @@ class Stars extends Spine.Controller
       pos = @convertRaDec(star.coords)
       mag = @convertMag(star.meta.kepler_mag)
       
-      circle = @paper.circle(pos[0], pos[1], mag)
+      circle = @paper.circle(pos[0], (pos[1]+3), mag)
       circle.attr "fill", "white"
 
   drawIndicator:(beamNo, color)->

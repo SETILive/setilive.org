@@ -8,14 +8,14 @@ class Notifications extends Spine.Controller
     'click .dismiss_button' : 'removeNotification'
 
   pusherKey     : "***REMOVED***"
-  pusherChannel : 'telescope'
+  # pusherChannel : 'telescope'
+  pusherChannel : 'dev'
   pusher: 
       "target_changed" : "sourceChange"
-      # "new_data" : "newData"
+      "new_data" : "newData"
       "followUpTrigger" : "followUpTrigger"
       "status_changed" : "telescopeStatusChange"
       "stats_update" : "updateStats"
-
    
   constructor: ->
     super
@@ -24,15 +24,14 @@ class Notifications extends Spine.Controller
     @setupPusher() if Pusher?
     # @append "<div class='notification_count'></div>"
 
-  openPusher:->
-
+  openPusher: ->
     if @pusherKey
       @pusherConnection = new Pusher(@pusherKey) 
       @defaultChannel   = @openChannel @pusherChannel
     else  
       throw "You need to specify a pusher key"
 
-  openChannel :(channelName)->
+  openChannel: (channelName) ->
     @pusherChannels[channelName] = @pusherConnection.subscribe channelName 
 
   setupPusherBindings: (channel, bindings) ->
@@ -43,12 +42,12 @@ class Notifications extends Spine.Controller
         channel = @createChannel(key)
         @setupPusherBindings channel, method
   
-  setupPusher:=>
-    @pusherChannels={}
+  setupPusher: =>
+    @pusherChannels = {}
     @openPusher()
     @setupPusherBindings(@defaultChannel, @pusher)
 
-  setupLocal:=>
+  setupLocal: =>
     User.bind("badge_awarded", @badgeAwarded)
     User.bind("tutorial_badge_awarded", @tutorialBadgeAwarded)
     User.bind("favourited", @favourited)
@@ -69,9 +68,6 @@ class Notifications extends Spine.Controller
   sourceChange: (data)=> 
     Spine.trigger('target_target_changed', data)
     @addNotification('source_change',data)
-
-  newData: (data)=>
-    @addNotification('new_data',data)
 
   telescopeStatusChange: (data)=> 
     $(".telescope_status_changed").remove()
@@ -109,21 +105,35 @@ class Notifications extends Spine.Controller
       # facebookTemplate : @view('facebookBadge')(data)
       # twitterTemplate  : @view('twitterBadge')(data)
 
+  newData: (data) =>
+    notification = @addNotification('new_data', data, 'alert')
+    time = (data.time).seconds().fromNow()
+    $('.kepler-time').countdown(
+      until: time
+      compact: true
+      format: 'MS'
+      description: ''
+      onExpiry: @newDataAvailable
+    )
 
-  addNotification:(type, data)=>
-    notificationTemplate= @view("notifications/#{type}_notification")
+  newDataAvailable: ->
+    $(@).parent().html 'New data available! Refresh the page for fresh data.'
+
+  addNotification: (type, data, style="badge") =>
+    notificationTemplate = @view("notifications/#{type}_notification")
     notification = @view('notifications/notification')
       data: data
-      notificationTemplate : notificationTemplate
-      notificationType : type
-    
+      notificationTemplate: notificationTemplate
+      notificationType: type
+      notificationStyle: style
+
     @prepend $(notification)
     @updateNotificationCount()
-    @notifications.fadeIn 1000
+    @notifications.fadeIn 700
 
-  removeNotification: (e)=>
+  removeNotification: (e) =>
     @updateNotificationCount()
-    $(e.currentTarget).parent().fadeOut 1000, ->
+    $(e.currentTarget).parent().fadeOut 700, ->
       $(e.currentTarget).parent().remove()
 
   updateNotificationCount: =>
