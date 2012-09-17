@@ -20,6 +20,9 @@ class Notifications extends Spine.Controller
   constructor: ->
     super
 
+    if window.location.port == '3000'
+      @pusherChannel = 'dev'
+
     @setupLocal()
     @setupPusher() if Pusher?
     # @append "<div class='notification_count'></div>"
