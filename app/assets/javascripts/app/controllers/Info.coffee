@@ -64,6 +64,7 @@ class Info extends Spine.Controller
   doneClassification :=>
     Spine.trigger "dissableSignalDraw" 
     Spine.trigger 'doneClassification'
+    
     @controls.hide()
     @talk.show()
     
@@ -72,21 +73,23 @@ class Info extends Spine.Controller
 
     @social.append @view("twitterWaterfall")
       subject: Subject.first()
-      
 
     if Subject.first().has_simulation
       @simulation_notification.show() 
     else
       @talk_fill.show()
       @thankyou.show()
+
+
+
   talk :=>
     subject = Subject.first()
     window.open subject.talkURL()
     $.getJSON "/register_talk_click", =>
       window.location ='/classify'
 
-  dontTalk :(e)=>
-    window.location ='/classify'  
+  dontTalk: (e) =>
+    window.location = '/classify'  
 
   favourite:(e)=>
     unless $(e.currentTarget).hasClass('favourited')

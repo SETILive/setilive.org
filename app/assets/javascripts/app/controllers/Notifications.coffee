@@ -8,8 +8,8 @@ class Notifications extends Spine.Controller
     'click .dismiss_button' : 'removeNotification'
 
   pusherKey     : "***REMOVED***"
-  # pusherChannel : 'telescope'
-  pusherChannel : 'dev'
+  pusherChannel : 'telescope'
+  # pusherChannel : 'dev'
   pusher: 
       "target_changed" : "sourceChange"
       "new_data" : "newData"

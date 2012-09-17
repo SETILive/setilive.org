@@ -28,9 +28,10 @@
         <p class='title'>Complete your classification in</p>
       </div>
 
-      <div id="star_field"></div>
+      <div id="star_field_small"></div>
 
       <div id='current_targets'></div>
+
 
       <div id='extra_controlls'>
         <div id='clear_signal' class='extra_button'>Clear All Signals</div>
@@ -41,17 +42,20 @@
         <div id='next_beam' class='extra_button'> Next Beam </div>
         <div id='done' class='extra_button'> Done </div>
       </div>
+      
+      <div id="social"></div>
+
+      <div id='talk' >
+        <p class='talk_prompt'> 
+          <span style='display:none' id="talk_fill"><br><br></span>
+          <span style='display:none' id="simulation_notification">This waterfall contains a <a href='/simulations/' target='_blank'>simulated signal</a>. Move the mouse over the image to reveal it under the red line. Some are too faint for you to see.</span>
+          <span style='display:none' id='thankyou'>Thank you for classifying.</span> Would you like to discuss this observation?</p>
+        <div class='extra_button' id='talkYes'>Yes</div>
+        <div class='extra_button' id='talkNo'>No</div>  
+      </div>
+
     </div>
 
-
-    <div id='talk' >
-      <p class='talk_prompt'> 
-        <span style='display:none' id="talk_fill"><br><br></span>
-        <span style='display:none' id="simulation_notification">This waterfall contains a <a href='/simulations/' target='_blank'>simulated signal</a>. Move the mouse over the image to reveal it under the red line. Some are too faint for you to see.</span>
-        <span style='display:none' id='thankyou'>Thank you for classifying.</span> Would you like to discuss this observation?</p>
-      <div class='extra_button' id='talkYes'>Yes</div>
-      <div class='extra_button' id='talkNo'>No</div>  
-    </div>
   </div>
 </div>
 </div>
