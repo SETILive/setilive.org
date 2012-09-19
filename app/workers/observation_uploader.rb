@@ -34,7 +34,8 @@ class ObservationUploader
 
     
     unless @observation.subject.observations.collect{|o| o.uploaded}.include?(false)
-      GenerateTalk.new.perform @observation.subject.id unless Rails.env.development?
+      puts "Talk objects not generated on dev server"
+      #GenerateTalk.new.perform @observation.subject.id unless Rails.env.development?
     end
 
   end
@@ -74,7 +75,7 @@ class ObservationUploader
       'file://' + file_path
     else
       s3 = AWS::S3.new
-      bucket = s3.buckets['zooniverse-seti']
+      bucket = s3.buckets['zooniverse-seti-dev']
       object = bucket.objects[name]
       object.write( data, :acl=>:public_read )
       object.public_url

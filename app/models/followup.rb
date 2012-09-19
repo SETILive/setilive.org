@@ -65,7 +65,7 @@ class Followup
              }
   
     RedisConnection.setex "follow_up_#{self.id}", 30, reply.to_json
-    Pusher["telescope"].trigger( "followUpTrigger", "") unless Rails.env.development? 
+    Pusher["dev-telescope"].trigger( "followUpTrigger", "") unless Rails.env.development? 
   end
 
 end
