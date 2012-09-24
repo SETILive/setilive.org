@@ -38,6 +38,7 @@ class Info extends Spine.Controller
 
   setupTargets:() =>
     subject = Subject.first()
+    console.log 'Subject: ', subject
     if subject.observations.count ==1 
       @done.show()
       @nextBeam.hide() 
@@ -45,7 +46,8 @@ class Info extends Spine.Controller
       targets = []
       for observation in subject.observations
         targets.push(new Source(observation.source )) if observation.source?
-      new TargetsSlide(el:@targets , targets: targets, dateTaken: subject.created_at)
+      console.log new TargetInfo el:@targets, location: subject.location
+      new TargetInfo el:@targets, location: subject.location
 
 
   updateTime:=>

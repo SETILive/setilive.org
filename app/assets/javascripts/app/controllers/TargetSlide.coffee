@@ -18,7 +18,7 @@ class TargetsSlide extends Spine.Controller
       current_target : @current_target
       dateTaken: @dateTaken
 
-  selectTarget:(e)=>
+  selectTarget: (e) =>
     if e.currentTarget?
       targetId = $(e.currentTarget).data().id 
     else 
@@ -27,6 +27,6 @@ class TargetsSlide extends Spine.Controller
     @current_target = (target for target in @targets when target.id == targetId)[0]
     @render()
 
-  showTarget:(e)=>
+  showTarget: (e) =>
     window.open("/sources/#{@current_target.id}")
 window.TargetsSlide = TargetsSlide

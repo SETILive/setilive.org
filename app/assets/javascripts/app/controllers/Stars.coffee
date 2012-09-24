@@ -7,9 +7,9 @@ class Stars extends Spine.Controller
     
   constructor: ->
     super
-    @paper = Raphael("star_field_small","100%","100%")
-    Source.bind("refresh", @drawField)
-    @indicators={}
+    @paper = Raphael "star_field_small", "100%", "100%"
+    Source.bind "refresh", @drawField 
+    @indicators = {}
 
   updateTarget: (data) ->
 

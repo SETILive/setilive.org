@@ -1,5 +1,5 @@
 class Subject extends Spine.Model
-  @configure 'Subject','observations','activityId', 'bandwidthMhz', 'bitPix', 'centerFreqMhz', 'endTimeNanos', 'uploaded', 'image_url', 'thumb_url','data_url', 'zooniverse_id', "subjectType", "created_at", "has_simulation","simulation_reveal_url", "simulation_url"
+  @configure 'Subject','observations','activityId', 'bandwidthMhz', 'location', 'bitPix', 'centerFreqMhz', 'endTimeNanos', 'uploaded', 'image_url', 'thumb_url','data_url', 'zooniverse_id', "subjectType", "created_at", "has_simulation","simulation_reveal_url", "simulation_url"
   @extend Spine.Events
   
   @fetch_from_url: (url) ->
