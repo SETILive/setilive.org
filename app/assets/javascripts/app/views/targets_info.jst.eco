@@ -1,4 +1,4 @@
 <ul>
-  <li><label>Date Taken:</label> <%= @location.time %></li>
+  <li><label>Date Taken:</label> <%= new Date(@location.time / 1000000).toString('MMM d, yyyy - HH:mm:ss') %></li>
   <li><label>Frequency:</label> <%= @location.freq %></li>
 </ul>
