@@ -9,18 +9,6 @@ window.tutorialSteps = [
           location: [270,130]
           speed:400 
         ,
-          title: "Current Targets"
-          text: "Right now the telescope is looking at the stars you can see indicated here. It's listening for interesting data."
-          indicatorPos: "left top"
-          location: [660,-185]
-          speed:400
-        ,
-          title: "Current Targets"
-          text: "You can see details of the current targets here, and if you click on them you can see even more info."
-          location: [544,215]
-          indicatorPos: "top right"
-          speed:400
-        ,
           title: "Beams"
           text: "You will notice that the telescope can look at more than one target at a time. It does this by forming two beams. The latest data from each beam is shown here."
           location: [590, 340]

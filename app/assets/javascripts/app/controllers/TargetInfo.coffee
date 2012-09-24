@@ -5,7 +5,6 @@ class TargetInfo extends Spine.Controller
     @render()
 
   render: =>
-    console.log 'Location:', @location
     @html @view('targets_info')
       location: @location
 

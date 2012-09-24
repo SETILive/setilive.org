@@ -1,0 +1,14 @@
+
+         ### title: "Current Targets"
+          text: "Right now the telescope is looking at the stars you can see indicated here. It's listening for interesting data."
+          indicatorPos: "left top"
+          location: [660,-185]
+          speed:400
+        ,
+          title: "Current Targets"
+          text: "You can see details of the current targets here, and if you click on them you can see even more info."
+          location: [544,215]
+          indicatorPos: "top right"
+          speed:400
+        ,
+        ###
