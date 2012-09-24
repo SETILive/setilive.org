@@ -8,8 +8,8 @@ class Notifications extends Spine.Controller
     'click .dismiss_button' : 'removeNotification'
 
   pusherKey     : "***REMOVED***"
-  # pusherChannel : 'telescope'
-  pusherChannel : 'dev'
+  pusherChannel : 'dev-telescope'
+  # pusherChannel : 'dev'
   pusher: 
       "target_changed" : "sourceChange"
       "new_data" : "newData"
@@ -19,6 +19,9 @@ class Notifications extends Spine.Controller
    
   constructor: ->
     super
+
+    if window.location.port == '3000'
+      @pusherChannel = 'dev'
 
     @setupLocal()
     @setupPusher() if Pusher?

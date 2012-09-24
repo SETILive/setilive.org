@@ -6,7 +6,7 @@ class Source extends Spine.Model
 
   @fetch:->
     $.ajax
-      url: 'http://zooniverse-seti.s3.amazonaws.com/sourcesStatic.json',
+      url: 'http://zooniverse-seti-dev.s3.amazonaws.com/sourcesStatic.json',
       dataType: 'jsonp',
       jsonpCallback: 'staticSources',
       cache: true,

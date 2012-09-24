@@ -21,29 +21,6 @@ class SignalGroup
   timestamps! 
   before_save :calc_characteristics 
 
-  def check_real
-    if is_real?
-      subject = Subject.find(observation.subject_id)
-      signal_id_num = subject.follow_up_id
-      if signal_id_num > 0
-        f = Followup.where(:signal_id_nums => signal_id_num ).first
-      else
-        f = Followup.new()
-      end
-      f.observations << observation  
-      f.signal_groups << self
-      f.signal_id_nums << Time.now.utc.to_i
-      f.trigger_next_stage
-      puts "trying to save"
-      if f.save 
-        puts "triggering "
-        f.trigger_follow_up(true)
-      else
-        puts "not triggered"
-      end
-    end 
-  end
-  
   def calc_characteristics
     self.drift = calc_drift
     self.start_freq = calc_start_freq  

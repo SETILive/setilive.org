@@ -28,7 +28,7 @@ class SetiLiveController extends Spine.Controller
     "click #sign_in_button" : ->
       window.location = '/classify'
   notificationsOn : true
-  starFieldOn : true
+  starFieldOn : false
   badgesOn : true
   getUser : true
 
@@ -37,11 +37,11 @@ class SetiLiveController extends Spine.Controller
     new NavBar(el:$("#top")).el.insertBefore $('#notification_bar')
     
     if @starFieldOn
-      @stars = new Stars(el:$("#star_field"))
+      @stars = new Stars(el:$("#star_field_small"))
       Source.fetch()
 
     else
-      $("#star_field").remove()
+      # $("#star_field_small").remove()
       
     if @notificationsOn
       @notifications= new Notifications(el: $("#notification_bar")) 
@@ -109,6 +109,9 @@ class HomePage extends SetiLiveController
 class ClassificationPage extends SetiLiveController
   constructor: ->
     super  
+    @stars = new Stars(el:$("#star_field_small"))
+    Source.fetch()
+
     @subjects = new Subjects({el:$("#waterfalls")})
     @info = new Info({el: $("#info")})
     window.tutorial = false

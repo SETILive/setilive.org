@@ -9,10 +9,7 @@ test:
   <<: *global_settings
 
 production:
-  host: mongodb.setilive.org
-  database: ***REMOVED***-final
-  port: 27188
-  username: setilive
-  password: ***REMOVED***
-
+  host: localhost
+  database: setilive-dev
+  port: 27017
 

@@ -29,5 +29,8 @@ Marv::Application.configure do
   config.assets.debug = true
 
   # use pry 
+  
+  # Uncomment here and in Gemfile to enable debugging
+  #require 'debugger' ; debugger
 
 end

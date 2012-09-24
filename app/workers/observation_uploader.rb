@@ -1,7 +1,16 @@
 require 'chunky_png'
-AWS.config :access_key_id=>'***REMOVED***', :secret_access_key => '***REMOVED***'
 
-
+if Rails.env.development?
+  # Configure for 
+  # https://github.com/jubos/fake-s3 (Ruby)
+  # or
+  # https://github.com/jserver/mock-s3 (Python)
+  # Haven't made either of these work yet.
+  AWS.config :access_key_id=>'123', :secret_access_key => 'abc', 
+    :use_ssl => false, :s3_port => 10001, :s3_endpoint => 'localhost'
+else
+  AWS.config :access_key_id=>'***REMOVED***', :secret_access_key => '***REMOVED***'
+end
 
 class ObservationUploader
   include Sidekiq::Worker 
@@ -25,7 +34,8 @@ class ObservationUploader
 
     
     unless @observation.subject.observations.collect{|o| o.uploaded}.include?(false)
-      GenerateTalk.new.perform @observation.subject.id
+      puts "Talk objects not generated on dev server"
+      #GenerateTalk.new.perform @observation.subject.id unless Rails.env.development?
     end
 
   end
@@ -52,11 +62,24 @@ class ObservationUploader
   end
 
   def upload_file(name , data)
-    s3 = AWS::S3.new
-    bucket = s3.buckets['zooniverse-seti']
-    object = bucket.objects[name]
-    object.write( data, :acl=>:public_read )
-    object.public_url
+    if Rails.env.development?
+      #Kluge to avoid sending data to S3 in dev mode.
+      # Need folders already created in ~/s3store/zooniverse-seti/
+      # images, thumbs, data
+      bucket_home = ENV['HOME'] + '/' + 's3store'
+      bucket_name = 'zooniverse-seti'
+      file_path = bucket_home + '/' + bucket_name + '/' + name
+      object_file = File.open( file_path, 'w' )
+      object_file.write( data )
+      object_file.close
+      'file://' + file_path
+    else
+      s3 = AWS::S3.new
+      bucket = s3.buckets['zooniverse-seti-dev']
+      object = bucket.objects[name]
+      object.write( data, :acl=>:public_read )
+      object.public_url
+    end
   end
 
   def generate_simulations

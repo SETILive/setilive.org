@@ -24,7 +24,6 @@ Marv::Application.routes.draw do
   match '/about'  => 'about#index'
   match '/video_tutorial'  => 'about#video_tutorial'
 
-  match '/trigger_followup_2' => 'subjects#trigger_followup_2'
   match '/fake_followup' => 'subjects#fake_followup_trigger'
   match '/active_workflow' => 'workflows#active_workflow'
 
