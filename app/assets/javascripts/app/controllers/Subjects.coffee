@@ -240,7 +240,6 @@ class Subjects extends Spine.Controller
     else
       signal = @current_classification.currentSignal
 
-
     for beam in [@overlays[0]]
       canvas = $(beam.canvas)
       radius = canvas.parent().height() * 0.017
@@ -299,11 +298,11 @@ class Subjects extends Spine.Controller
         @canDrawSignal = false
         Spine.trigger("startWorkflow", signal)
   
-  updateLine:(signal)=>
+  updateLine: (signal) =>
     $(".signal_line_#{signal.id}").remove()
     @drawLine(signal)
 
-  drawLine:(signal)=>
+  drawLine: (signal) =>
     for beam in [@overlays[0], @overlays[@current_beam+1]] 
       canvas = $(beam.canvas)
       startY = signal.interp(0) * canvas.parent().height()
