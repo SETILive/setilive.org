@@ -34,7 +34,7 @@ class Subjects extends Spine.Controller
     @simBeam = 0 
 
     Spine.bind 'nextBeam', =>
-      @selectBeam @current_beam+1
+      @selectBeam @current_beam + 1
     
     Spine.bind 'doneClassification', @saveClassification
 
@@ -218,9 +218,6 @@ class Subjects extends Spine.Controller
 
     ctx.putImageData(imageData,0,0)
 
-  reverseEngineerSignalCoordinates: (signal) ->
-
-  
   # interaction with the beams!
   markerPlaced: (e) =>
     if @canDrawSignal and not @dragging
