@@ -422,22 +422,22 @@ body
   top: 0px
   left: 0px
 
-
 #waterfalls
-  width: 820px
-  margin: 0px
-  padding: 0px
-  left: 0px
-  top: 0px
   position: absolute
+  margin: 0
+  padding: 0
+  left: 0
+  top: 0
+  width: 820px
 
 .waterfall
-  padding: 0px
+  padding: 0
+  border: 3px #dfdfdf solid
   @include box-shadows((0 2px 5px rgba(0,0,0,0.2)))
-  border: 3px #bbbbbb solid
+  @include round-corners(3px)
 
 #waterfall-0
-  margin-left: 0px
+  margin-left: 0
 
 
 .large-waterfall
@@ -546,7 +546,7 @@ body
   background: -ms-linear-gradient(top,  #121212 0%,#1b1b1b 50%,#121212 51%,#1b1b1b 100%)
   background: linear-gradient(to bottom,  #121212 0%,#1b1b1b 50%,#121212 51%,#1b1b1b 100%)
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#121212', endColorstr='#1b1b1b',GradientType=0 )
-  border: 3px #f2f2f2 solid
+  border: 3px #dfdfdf solid
   @include box-shadows((0 2px 4px rgba(0,0,0,0.2)))
   color: #cddc28
   font-family: TitilliumText22LThin, Sans-serif
