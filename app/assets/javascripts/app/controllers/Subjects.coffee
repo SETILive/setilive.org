@@ -271,8 +271,8 @@ class Subjects extends Spine.Controller
             self.updateLine(signal)
        ,->
           if $(this.node).hasClass("draggable")
-            this.startX= this.attr("cx")
-            this.startY= this.attr("cy")
+            this.startX = this.attr("cx")
+            this.startY = this.attr("cy")
         )
 
       $(circle.node).addClass("signal")
@@ -303,14 +303,15 @@ class Subjects extends Spine.Controller
     @drawLine(signal)
 
   drawLine: (signal) =>
-    for beam in [@overlays[0], @overlays[@current_beam+1]] 
+    for beam in [@overlays[0], @overlays[@current_beam + 1]] 
       canvas = $(beam.canvas)
       startY = signal.interp(0) * canvas.parent().height()
       endY   = signal.interp(1) * canvas.parent().height()
       startX = 0
       endX   = canvas.parent().width()
       
-      line  = beam.path("M#{startX},#{startY}l#{endX-startX},#{endY-startY}z")
+      line  = beam.path("M#{startX},#{startY}l#{endX-startX},#{endY-startY}z").toBack()
+
       line.attr
         stroke : "#CDDC28"
         "stroke-width"   : 2
@@ -322,7 +323,7 @@ class Subjects extends Spine.Controller
       $(line.node).addClass("signal_selected")
       $(line.node).addClass("signal_beam_#{@current_beam}")
 
-    @stage=0
+    @stage = 0
 
   saveClassification:=>
     if @current_subject.has_simulation
