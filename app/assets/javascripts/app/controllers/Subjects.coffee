@@ -35,8 +35,13 @@ class Subjects extends Spine.Controller
     @simBeam = 0 
 
     Spine.bind 'nextBeam', =>
-      @selectBeam @current_beam + 1
-    
+      if @current_beam < @current_subject.observations.length - 1
+        @selectBeam @current_beam + 1
+
+    Spine.bind 'previousBeam', =>
+      unless @current_beam < 1
+        @selectBeam @current_beam - 1
+
     Spine.bind 'doneClassification', @saveClassification
 
   render: (subject) =>
@@ -48,6 +53,11 @@ class Subjects extends Spine.Controller
       start_time: new Date()
     
     @setUpBeams()
+
+    $(document).keydown (e) ->
+      switch e.keyCode
+        when 39 then Spine.trigger 'nextBeam'
+        when 37 then Spine.trigger 'previousBeam'
 
   selectBeam: (beamNo) =>
     if typeof beamNo == 'object'
@@ -78,6 +88,7 @@ class Subjects extends Spine.Controller
 
     # Prepare waterfall area for newly selected beam
     if otherObservationsWithSignals.length
+      console.log 'otherObservationsWithSignals: ', otherObservationsWithSignals
       beamNumbers = _.pluck otherObservationsWithSignals, 'beam_no'
       $("#waterfall-#{@current_beam}").siblings('.copy-beam').html @view('waterfalls_copy_text')({sources: beamNumbers, destination: @current_beam})
 
