@@ -13,7 +13,8 @@ class Stars extends Spine.Controller
 
   updateTarget: (data) ->
 
-  drawField:=>
+  drawField: =>
+    @calcBounds()
     @stars = Source.kepler_planets()
     
     for star,index in @stars 
@@ -21,9 +22,15 @@ class Stars extends Spine.Controller
         @drawStar(star)
 
     stars_with_coords = Source.select (s) =>
-      s.coords[0] !=0 and s.coords[1] !=0
+      s.coords[0] = parseInt s.coords[0], 10
+      s.coords[1] = parseInt s.coords[1], 10
 
-    @current_indicators=[stars_with_coords[2],stars_with_coords[1],stars_with_coords[10]]
+      @bounds[0] < s.coords[0] < @bounds[2] and @bounds[1] < s.coords[1] < @bounds[3]
+
+    # @current_indicators = [stars_with_coords[2],stars_with_coords[1],stars_with_coords[10]]
+    @current_indicators = _.shuffle(stars_with_coords).slice 0, 3
+    console.log 'Current Indicators: ', @current_indicators
+
     @drawIndicator 0, "#CDDC28"
     @drawIndicator 1, "red" 
     @drawIndicator 2, "blue"
@@ -94,6 +101,7 @@ class Stars extends Spine.Controller
             indicator.remove()
 
         indicator.animate anim.delay(index*400)
+
   
 
 
