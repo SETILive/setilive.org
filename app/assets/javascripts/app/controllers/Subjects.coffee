@@ -113,9 +113,9 @@ class Subjects extends Spine.Controller
       new_signal.updateAttribute 'observation_id', destination_observation_id
 
       # Series of horrible hacks to generate visual signal
-      @drawIndicatorLight new_signal.freqStart, new_signal.timeStart, new_signal
-      @drawIndicatorLight new_signal.freqEnd, new_signal.timeEnd, new_signal
       @drawLine new_signal
+      @drawIndicator new_signal.freqStart, new_signal.timeStart, new_signal
+      @drawIndicator new_signal.freqEnd, new_signal.timeEnd, new_signal
       @finalizeSignal new_signal
 
   deleteAllSignals: =>
@@ -234,68 +234,45 @@ class Subjects extends Spine.Controller
 
       @drawIndicator(dx,dy)
   
-  drawIndicatorLight: (x, y, signal) =>
+  drawIndicator: (x, y, new_signal = false) =>
+    unless new_signal
+      signal = @current_classification.currentSignal
+
     for beam in [@overlays[0]]
       canvas = $(beam.canvas)
-      radius = canvas.parent().height()*0.017
+      radius = canvas.parent().height() * 0.017
 
       window.clickcanvas = canvas
 
-      circle=beam.circle(x*canvas.parent().width(), y*canvas.parent().height(), radius)
+      circle = beam.circle(x * canvas.parent().width(), y * canvas.parent().height(), radius)
       circle.attr
         "stroke": "#CDDC28"
         "stroke-width":"2"
         "fill": "purple"
         "fill-opacity": "1"
 
-      $(circle.node).addClass("signal")
-      $(circle.node).addClass("signal_selected")
-
-      $(circle.node).attr("data-id", signal.id)
-      $(circle.node).addClass("signal_circle")
-
-      $(circle.node).addClass("signal_#{signal.id}")
-      $(circle.node).addClass("stage_#{@stage}")
-      $(circle.node).addClass("signal_beam_#{@current_beam}")
-
-
-  drawIndicator: (x,y) =>
-    signal = @current_classification.currentSignal
-    for beam in [@overlays[0]]
-      canvas = $(beam.canvas)
-      radius = canvas.parent().height()*0.017
-
-      window.clickcanvas = canvas
-
-      circle=beam.circle(x*canvas.parent().width(), y*canvas.parent().height(), radius)
-      circle.attr
-        "stroke": "#CDDC28"
-        "stroke-width":"2"
-        "fill": "purple"
-        "fill-opacity": "1"
-        
       self = this
       circle.drag(
-       (x,y)->
+       (x,y) ->
           if $(this.node).hasClass("draggable")
             this.attr
-              cx : this.startX+x
-              cy : this.startY+y 
+              cx: this.startX + x
+              cy: this.startY + y 
             if $(this.node).hasClass("stage_0")
               signal.updateAttributes 
-                "freqStart" : this.attr("cx")/canvas.parent().width()
-                "timeStart" : this.attr("cy")/canvas.parent().height()
+                "freqStart": this.attr("cx") / canvas.parent().width()
+                "timeStart": this.attr("cy") / canvas.parent().height()
             else 
               signal.updateAttributes 
-                "freqEnd" : this.attr("cx")/canvas.parent().width()
-                "timeEnd" : this.attr("cy")/canvas.parent().height()
+                "freqEnd": this.attr("cx") / canvas.parent().width()
+                "timeEnd": this.attr("cy") / canvas.parent().height()
             self.updateLine(signal)
        ,->
           if $(this.node).hasClass("draggable")
             this.startX= this.attr("cx")
             this.startY= this.attr("cy")
         )
-        
+
       $(circle.node).addClass("signal")
       $(circle.node).addClass("signal_selected")
 
@@ -303,20 +280,22 @@ class Subjects extends Spine.Controller
       $(circle.node).addClass("signal_circle")
 
       $(circle.node).addClass("signal_#{signal.id}")
-      $(circle.node).addClass("stage_#{@stage}")
+
+      if $(".signal_circle.signal_#{signal.id}.stage_0").length
+        $(circle.node).addClass("stage_1")
+      else
+        $(circle.node).addClass("stage_0")
+
       $(circle.node).addClass("signal_beam_#{@current_beam}")
       $(circle.node).addClass("draggable")
-      
 
-
-    @stage += 1 
-    if @stage == 2 
-      @drawLine(signal) 
-      @canDrawSignal = false
-      Spine.trigger("startWorkflow", signal)
-
+    unless new_signal
+      @stage += 1 
+      if @stage == 2 
+        @drawLine(signal) 
+        @canDrawSignal = false
+        Spine.trigger("startWorkflow", signal)
   
-
   updateLine:(signal)=>
     $(".signal_line_#{signal.id}").remove()
     @drawLine(signal)
