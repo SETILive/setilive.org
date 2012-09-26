@@ -1,6 +1,6 @@
 
 class Signal extends Spine.Model
-  @configure 'Signal', 'freqStart', 'freqEnd','timeStart', 'timeEnd', 'characterisations', "observation_id"
+  @configure 'Signal', 'freqStart', 'freqEnd', 'timeStart', 'timeEnd', 'characterisations', "observation_id"
   @belongsTo "classification", "models/Classification"
   
   # @url : =>
@@ -10,8 +10,8 @@ class Signal extends Spine.Model
     super 
     @characterisations = []
 
-  gradient: ->
-    (@timeEnd - @timeStart)/(@freqEnd - @freqStart)
+  slope: ->
+    (@timeEnd - @timeStart) / (@freqEnd - @freqStart)
 
   color: ->
     lookup =
@@ -37,6 +37,6 @@ class Signal extends Spine.Model
 
 
   interp: (x) ->
-    (x-@freqStart)*@gradient() + @timeStart
+    (x - @freqStart) * @slope() + @timeStart
 
 window.Signal = Signal

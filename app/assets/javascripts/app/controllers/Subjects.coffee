@@ -1,11 +1,11 @@
 
 class Subjects extends Spine.Controller
   elements: 
-    ".name" : "name"
-    "#main-waterfall"  : "main_beam"
-    ".small-waterfall" : "sub_beams"
-    ".waterfall"       : "beams"
-    "#workflow"         : 'workflowArea'
+    ".name": "name"
+    "#main-waterfall": "main_beam"
+    ".small-waterfall": "sub_beams"
+    ".waterfall": "beams"
+    "#workflow": 'workflowArea'
      
   events:
     'click #main-waterfall': 'markerPlaced'
@@ -224,10 +224,10 @@ class Subjects extends Spine.Controller
   # interaction with the beams!
   markerPlaced: (e) =>
     if @canDrawSignal and not @dragging
-      dx  = (e.pageX*1.0-$(e.currentTarget).offset().left) / @main_beam.width()*1.0
-      dy  = (e.pageY*1.0-$(e.currentTarget).offset().top) / @main_beam.height()*1.0
+      dx  = (e.pageX * 1.0 - $(e.currentTarget).offset().left) / @main_beam.width()*1.0
+      dy  = (e.pageY * 1.0 - $(e.currentTarget).offset().top) / @main_beam.height()*1.0
         
-      if(@stage==0)
+      if(@stage == 0)
         signal = @current_classification.newSignal(dx, dy, @current_subject.observations[@current_beam].id )
       else 
         @current_classification.updateSignal(dx,dy)
@@ -303,17 +303,23 @@ class Subjects extends Spine.Controller
     @drawLine(signal)
 
   drawLine: (signal) =>
-    for beam in [@overlays[0], @overlays[@current_beam + 1]] 
+    for beam in [@overlays[0], @overlays[@current_beam + 1]]
       canvas = $(beam.canvas)
       startY = signal.interp(0) * canvas.parent().height()
       endY   = signal.interp(1) * canvas.parent().height()
       startX = 0
       endX   = canvas.parent().width()
-      
+
+      unless isFinite startY
+        startY = 0
+        endY = canvas.parent().height()
+        startX = signal.freqStart * canvas.parent().width()
+        endX = startX
+
       line  = beam.path("M#{startX},#{startY}l#{endX-startX},#{endY-startY}z").toBack()
 
       line.attr
-        stroke : "#CDDC28"
+        stroke: "#CDDC28"
         "stroke-width"   : 2
         "stroke-opacity" : 1
 
