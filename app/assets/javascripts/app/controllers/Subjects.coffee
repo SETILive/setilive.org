@@ -235,8 +235,11 @@ class Subjects extends Spine.Controller
       @drawIndicator(dx,dy)
   
   drawIndicator: (x, y, new_signal = false) =>
-    unless new_signal
+    if new_signal
+      signal = new_signal
+    else
       signal = @current_classification.currentSignal
+
 
     for beam in [@overlays[0]]
       canvas = $(beam.canvas)
