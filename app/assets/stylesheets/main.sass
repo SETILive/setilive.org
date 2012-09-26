@@ -457,13 +457,17 @@ body
   line-height: 47pt
   margin-bottom: 25px
 
-.small-waterfall
-  display: inline-block
-  width: 240px
-  height: 115px
-  margin-left: 14px
-  vertical-align: top
-  cursor: pointer 
+.small-waterfall-container
+  float: left
+  padding: 0 18px 0 0
+  &:last-child
+    padding: 0
+
+  .small-waterfall
+    width: 240px
+    height: 115px
+    vertical-align: top
+    cursor: pointer 
 
 #info
   width: 220px

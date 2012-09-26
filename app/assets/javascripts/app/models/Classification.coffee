@@ -7,13 +7,13 @@ class Classification extends Spine.Model
   #   super 
   #   this.start_time = new Date()
     
-  newSignal: (x,y,id)=>
+  newSignal: (x,y,id) =>
     @currentSignal  = @signals().create({timeStart: y, freqStart : x, observation_id: id})
 
-  setSignal:(id)=>
-    @currentSignal= Signal.find(id)
+  setSignal: (id) =>
+    @currentSignal = Signal.find(id)
     
-  persist:=>    
+  persist: =>    
     window.classificaiton=@
     signals = (signal.toJSON() for signal in @signals().all())
     
@@ -26,16 +26,16 @@ class Classification extends Spine.Model
       url: '/classifications/'
       data: result
       dataType: 'json'
-      success: (response)->
+      success: (response) ->
         Spine.trigger("classificationSaved")
 
-  updateSignal:(x,y) =>
-    @currentSignal.timeEnd= y
-    @currentSignal.freqEnd= x
+  updateSignal: (x,y) =>
+    @currentSignal.timeEnd = y
+    @currentSignal.freqEnd = x
     @currentSignal.save()
 
-  @fetchRecent:(callback)->
-    $.getJSON "/recent_classifications.json", (data)=>
+  @fetchRecent: (callback) ->
+    $.getJSON "/recent_classifications.json", (data) =>
       callback(data)
 
 

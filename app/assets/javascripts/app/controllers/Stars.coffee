@@ -20,22 +20,22 @@ class Stars extends Spine.Controller
       if index%10==0
         @drawStar(star)
 
-    stars_with_coords = Source.select (s)=>
+    stars_with_coords = Source.select (s) =>
       s.coords[0] !=0 and s.coords[1] !=0
 
     @current_indicators=[stars_with_coords[2],stars_with_coords[1],stars_with_coords[10]]
-    @drawIndicator(0,"#CDDC28")
-    @drawIndicator(1,"red")
-    @drawIndicator(2,"blue")
+    @drawIndicator 0, "#CDDC28"
+    @drawIndicator 1, "red" 
+    @drawIndicator 2, "blue"
 
     
-    Spine.bind "update_indicators",(data)=>
+    Spine.bind "update_indicators",(data) =>
       @current_indicators[data.beamNo] = data.source
 
     
     
 
-  calcBounds:->
+  calcBounds: ->
     minRa  = 360
     minDec = 360
     maxRa  = 0
@@ -50,16 +50,16 @@ class Stars extends Spine.Controller
 
     # @bounds = [minRa, minDec, maxRa, maxDec]
     @bounds = [280.641, 37.84073829650879, 301.721, 52.1491]
-  convertRaDec:(pos)->
+  convertRaDec: (pos) ->
     @calcBounds() unless @bounds?
     new_ra  = (pos[0]-@bounds[0])*@el.width()/(@bounds[2]-@bounds[0])
     new_dec = (pos[1]-@bounds[1])*@el.height()/(@bounds[3]-@bounds[1])
     [new_ra,new_dec]
 
-  convertMag:(mag)->
-    mag/6
+  convertMag: (mag) ->
+    mag / 6
   
-  drawStar:(star)->
+  drawStar: (star) ->
     unless star.coords[0] is 0 and star.coords[1] is 0
       pos = @convertRaDec(star.coords)
       mag = @convertMag(star.meta.kepler_mag)
@@ -67,9 +67,9 @@ class Stars extends Spine.Controller
       circle = @paper.circle(pos[0], (pos[1]+3), mag)
       circle.attr "fill", "white"
 
-  drawIndicator:(beamNo, color)->
+  drawIndicator: (beamNo, color) ->
     star = @current_indicators[beamNo]
-
+    
     if star?
       pos = @convertRaDec(star.coords)
       mag = @convertMag(star.meta.kepler_mag)
@@ -79,7 +79,7 @@ class Stars extends Spine.Controller
         $(indicator.node).addClass("star_indicator")
       self= this
 
-      $.each indicators, (index,indicator) =>
+      $.each indicators, (index, indicator) =>
         indicator.attr("stroke-width","3") 
         indicator.attr("stroke", color)
         indicator.attr("opacity", 0.75)
