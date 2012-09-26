@@ -63,8 +63,8 @@ class Subjects extends Spine.Controller
     $(".waterfall").removeClass("selected_beam")
     $(".small-waterfall-container .copy-beam").empty()
 
-    # console.log 'Current Classification', @current_classification
-    # console.log 'Current Signals: ', @current_classification.signals().all()
+    console.log 'Current Classification', @current_classification
+    console.log 'Current Signals: ', @current_classification.signals().all()
     # console.log 'Curent Subject', @current_subject
     # console.log 'Curent Observation', @current_subject.observations[@current_beam]
     # console.log '---------------------'
@@ -130,7 +130,6 @@ class Subjects extends Spine.Controller
     else
       signal = @current_classification.currentSignal
 
-    console.log 'Signal: ', signal
     $(".signal_#{signal.id}.signal_circle").attr('opacity', '0.2')
     $(".signal_line_#{signal.id}").attr("opacity","0.2")
     $(".signal_line_#{signal.id}").attr("data-id",signal.id)

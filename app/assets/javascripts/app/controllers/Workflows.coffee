@@ -26,7 +26,6 @@ class Workflows extends Spine.Controller
       left : x
     @el.show()
     @currentSignal = signal
-    @currentSignal.characterisations =[]
     @currentSignal.save()
     @setUpQuestion(Workflow.first().questions[0]._id)
 
@@ -50,12 +49,24 @@ class Workflows extends Spine.Controller
     
     @render()
     
-  selectAnswer: (event)=>
-    answer= $(event.currentTarget).data()
+  selectAnswer: (event) =>
+    answer = $(event.currentTarget).data()
 
-    @currentSignal.characterisations.push 
+    new_characterisation =
       question_id: @current_question._id
-      answer_id : answer.id
+      answer_id: answer.id
+
+    index = -1
+    
+    _.find @currentSignal.characterisations, (characterisation, i) ->
+      if characterisation.question_id == new_characterisation.question_id
+        index = i
+        return true
+
+    if index >= 0
+      @currentSignal.characterisations[index] = new_characterisation
+    else
+      @currentSignal.characterisations.push new_characterisation
 
     if answer.leads_to
       @setUpQuestion(answer.leads_to)
