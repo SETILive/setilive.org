@@ -1,16 +1,19 @@
-<div class='question'>
-  <% if @question? :%>
-    <p id='question_text'><%=@question.name%></p>
-  <%end%>
-</div>
-<ul class='answer_list'>
-  <% if @question? : %>
-    <%for answer in @question.answers : %>
-      <li id='answer_<%=answer._id%>' class='answer' data-id ='<%=answer._id%>' data-leads_to='<%=answer.leads_to%>' >
-        <%- @answerHelper(answer) %><span class='answer_text'><%- answer.name %></span>
-
-      </li>      
+<div id="workflow-container">
+  <div id="close-workflow">Close X</div>
+  <div class='question'>
+    <% if @question? :%>
+      <p id='question_text'><%=@question.name%></p>
     <%end%>
-    <li id='delete_signal'>delete </li>
-  <%end%>
-</ul>
+  </div>
+  <ul class='answer_list'>
+    <% if @question? : %>
+      <%for answer in @question.answers : %>
+        <li id='answer_<%=answer._id%>' class='answer' data-id ='<%=answer._id%>' data-leads_to='<%=answer.leads_to%>' >
+          <%- @answerHelper(answer) %><span class='answer_text'><%- answer.name %></span>
+
+        </li>      
+      <%end%>
+      <li id='delete_signal'>delete </li>
+    <%end%>
+  </ul>
+</div>

@@ -9,6 +9,7 @@ class Workflows extends Spine.Controller
   constructor: ->
     super
     Spine.bind("startWorkflow", @startWorkflow)
+    Spine.bind "closeWorkflow", @closeWorkflow
     @render()
     @el.hide()
 
@@ -18,8 +19,8 @@ class Workflows extends Spine.Controller
       answerHelper : @answer_icon
 
   startWorkflow: (signal) =>
-    x = @el.parent().width()*(Math.max(signal.freqEnd, signal.freqStart) ) + 20
-    y = @el.parent().height()*(signal.timeEnd + signal.timeStart)/2.0 - @el.height()/2.0
+    x = @el.parent().width() * (Math.max(signal.freqEnd, signal.freqStart) ) + 20
+    y = @el.parent().height() * (signal.timeEnd + signal.timeStart) / 2.0 - @el.height() / 2.0
     @el.css
       top: y
       left : x
@@ -29,6 +30,9 @@ class Workflows extends Spine.Controller
     @currentSignal.save()
     @setUpQuestion(Workflow.first().questions[0]._id)
 
+  closeWorkflow: =>
+    @answer_list.html("")
+    @el.hide()
 
   deleteSignal: (e) =>
     e.stopPropagation()
@@ -36,7 +40,6 @@ class Workflows extends Spine.Controller
     $(".signal_#{@currentSignal.id}").remove()
     @el.hide()
     Workflow.trigger 'workflowDone','done'
-
 
   setUpQuestion: (question_id = -1) ->
     workflow = Workflow.first()
@@ -61,7 +64,7 @@ class Workflows extends Spine.Controller
     
     Spine.trigger("updateSignal", @currentSignal)
       
-  doneWorkflow:->
+  doneWorkflow: ->
     @answer_list.html("")
     @el.hide()
     Workflow.trigger 'workflowDone','done'

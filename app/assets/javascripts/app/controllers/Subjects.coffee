@@ -10,6 +10,7 @@ class Subjects extends Spine.Controller
   events:
     'click #main-waterfall': 'markerPlaced'
     'click .small-waterfall': 'selectBeam'
+    'click #close-workflow': 'closeWorkflow'
     'click .copy-beam span': 'duplicateSignalsFromObservation'
     'mouseover #main-waterfall': 'mainMouseOver'
     'mouseleave #main-waterfall': 'mainMouseLeave'
@@ -129,6 +130,7 @@ class Subjects extends Spine.Controller
     else
       signal = @current_classification.currentSignal
 
+    console.log 'Signal: ', signal
     $(".signal_#{signal.id}.signal_circle").attr('opacity', '0.2')
     $(".signal_line_#{signal.id}").attr("opacity","0.2")
     $(".signal_line_#{signal.id}").attr("data-id",signal.id)
@@ -150,10 +152,17 @@ class Subjects extends Spine.Controller
       signal_id = $(e.currentTarget).data().id
       @current_classification.setSignal(signal_id)
       unless $(".signal_#{signal_id}").hasClass("signal_selected")
+        @dissableSignalDraw()
         $(".signal_#{signal_id}").attr("opacity","1.0")
         $(".signal_#{signal_id}").addClass("signal_selected")
         $(".signal_#{signal.id}.signal_circle").addClass("draggable")
         Spine.trigger("startWorkflow", signal)
+
+  closeWorkflow: (e) =>
+    e.stopPropagation()
+    @finalizeSignal @current_classification.currentSignal
+    @enableSignalDraw()
+    Spine.trigger 'closeWorkflow'
 
   enableSignalDraw: =>
     @canDrawSignal = true 

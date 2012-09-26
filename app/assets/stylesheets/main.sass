@@ -578,24 +578,35 @@ p.title
   text-transform: uppercase
   font-size: 10pt
 
+$workflow-height: 164px
+$workflow-font-size: 12pt
 #workflow
-
-
+  position: absolute
   width: 130px
-  height: 164px
+  height: $workflow-height
 
   z-index: 10000
   @include gradient-bg(#ECEAEA, #B3B3B3)
   @include round-corners(2px)
-  position: absolute
   padding: 0px
   color: black
   text-align: center
+
+  #workflow-container
+    position: relative
+    #close-workflow
+      position: absolute
+      bottom: $workflow-height
+      right: -2px
+      padding: 3px
+      color: #fafafa
+      font-size: 11pt
+
   ul li
     cursor: pointer
     height: 28px
     line-height: 28px
-    font-size: 12pt
+    font-size: $workflow-font-size
     border-top: 1px solid #D7D6D6
 
     .answer_text
