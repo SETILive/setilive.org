@@ -27,21 +27,15 @@ class Stars extends Spine.Controller
 
       @bounds[0] < s.coords[0] < @bounds[2] and @bounds[1] < s.coords[1] < @bounds[3]
 
-    # @current_indicators = [stars_with_coords[2],stars_with_coords[1],stars_with_coords[10]]
     @current_indicators = _.shuffle(stars_with_coords).slice 0, 3
-    console.log 'Current Indicators: ', @current_indicators
 
     @drawIndicator 0, "#CDDC28"
     @drawIndicator 1, "red" 
     @drawIndicator 2, "blue"
 
-    
     Spine.bind "update_indicators",(data) =>
       @current_indicators[data.beamNo] = data.source
-
     
-    
-
   calcBounds: ->
     minRa  = 360
     minDec = 360
