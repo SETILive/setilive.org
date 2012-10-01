@@ -491,30 +491,6 @@ body
         &:hover
           background-color: lighten(#cddc28, 15%)
 
-#info
-  width: 220px
-  height: 660px
-  padding: 0px
-  margin: 0px
-  position: absolute
-  top: 0px
-  right: 0px
-
-  #current_targets
-    width: 100%
-    margin-top: 10px
-    color: #ccc
-    font-size: 13px
-
-    ul
-      li
-        position: relative
-        padding: 0 0 0 80px
-        label
-          position: absolute
-          width: 70px
-          top: 0
-          left: 0
 
     // Below is deprecated
     #targets
@@ -662,13 +638,6 @@ $workflow-font-size: 12pt
 #talkNo
   width: 100px
   margin-left: 8px
-.talk_prompt
-  width: 216px
-  margin: -20px 0 0
-  padding: 20px 0
-  font-size: 12px 
-  line-height: 16px
-  text-align: center
 
 .extra_button
   display: inline-block
@@ -681,6 +650,7 @@ $workflow-font-size: 12pt
   @include box-shadows((inset 0px 1px #f4ff7e, 0 2px 4px rgba(0, 0, 0, 0.1)))
   color: white
   cursor: pointer
+  font-size: 16px
   line-height: 34px
   @include round-corners(2px)
   text-align: center
@@ -1670,7 +1640,21 @@ ul.pagination
 #twitter_button:hover
   background-image: url('/assets/twitter_active.png')
 
+
+
+// Info sidebar in classify section
 #info 
+  width: 220px
+  height: 660px
+  padding: 0px
+  margin: 0px
+  position: absolute
+  top: 0px
+  right: 0px
+
+  color: #ccc
+  font-size: 13px
+
   #social 
     margin-top: 22px
     width: 220px
@@ -1692,6 +1676,27 @@ ul.pagination
       display: inline-block
     #facebook_button:hover
       background-image: url('/assets/facebook_small_active.png')
+
+  .talk_prompt
+    margin: 0
+    padding: 7px 0
+    text-align: center
+
+  #current_targets
+    width: 100%
+    margin-top: 10px
+
+    ul
+      li
+        position: relative
+        padding: 0 0 0 80px
+        label
+          position: absolute
+          width: 70px
+          top: 0
+          left: 0
+
+
 
 #badge_profile_return
   width: 130px

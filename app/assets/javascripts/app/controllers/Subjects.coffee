@@ -88,7 +88,6 @@ class Subjects extends Spine.Controller
 
     # Prepare waterfall area for newly selected beam
     if otherObservationsWithSignals.length
-      console.log 'otherObservationsWithSignals: ', otherObservationsWithSignals
       beamNumbers = _.pluck otherObservationsWithSignals, 'beam_no'
       $("#waterfall-#{@current_beam}").siblings('.copy-beam').html @view('waterfalls_copy_text')({sources: beamNumbers, destination: @current_beam})
 

@@ -1,3 +1,4 @@
-<div id='talk_yes'> Yes </div>
-<div id='talk_no'>  No  </div>
-<p id='talk_prompt'> Would you like to discuss this signal ? </div>
+<div id="talk_yes">Yes</div>
+<div id="talk_no">No</div>
+
+<p id="talk_prompt">Would you like to discuss this signal?</div>
