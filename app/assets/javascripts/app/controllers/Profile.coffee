@@ -1,19 +1,17 @@
 class Profile extends Spine.Controller
-  inital_collection_type : 'favourites'
+  inital_collection_type: 'favourites'
   
   events:
-    'click .page' : 'selectPage'
-    'click .collectionType' : 'selectCollectionType'
-    'click .favourite'  :  'addFavourite'
-    'click .favourited' :  'removeFavourite'
+    'click .page': 'selectPage'
+    'click .collectionType': 'selectCollectionType'
+    'click .favourite':  'addFavourite'
+    'click .favourited':  'removeFavourite'
   
   constructor: ->
     super
-    User.bind('refresh', @gotUser)
-    Badge.bind('refresh', @gotUser)
     @collectionType = 'favourites'
-    @favourites = { }
-    @recents = { }
+    @favourites = {}
+    @recents = {}
     
     @pagination =
       page: 1
@@ -22,8 +20,13 @@ class Profile extends Spine.Controller
       menu: ->
         JST['app/views/pagination'](@)
     
-    @render()
   
+  active: ->
+    super
+    User.bind 'refresh', @gotUser
+    Badge.bind 'refresh', @gotUser
+    @render()
+
   addFavourite: (e) =>
     observation_id = $(e.currentTarget).data().id 
     User.first().addFavourite observation_id, @render
@@ -32,7 +35,7 @@ class Profile extends Spine.Controller
     observation_id = $(e.currentTarget).data().id 
     User.first().removeFavourite observation_id, @render
   
-  gotUser:=>
+  gotUser: =>
     @user = User.first()
     @collectionType = @inital_collection_type
     @render()
@@ -40,22 +43,22 @@ class Profile extends Spine.Controller
   
   render: => 
     @html ""
-    @append @view('user_stats')(@user)
+    @append @view('profile/user_stats')(@user)
     
-    @append @view('user_profile')
+    @append @view('profile/user_profile')
       user: @user
       pagination: @pagination
       subjects: @data?.collection or []
       collectionType: @collectionType
-      itemTemplate: @view('waterfallCollectionItem')
-      badgeTemplate: @view('badge')
+      itemTemplate: @view('profile/waterfallCollectionItem')
+      badgeTemplate: @view('profile/badge')
   
   selectPage: (e) =>
     e.preventDefault()
     page = $(e.currentTarget).data().id
     @fetchType @collectionType, page
   
-  selectCollectionType:(e)=>
+  selectCollectionType: (e) =>
     @collectionType = $(e.currentTarget).data().id 
     @fetchType @collectionType, 1
   

@@ -1,28 +1,33 @@
+
 class NavBar extends Spine.Controller
-  events :
-    'click .telescope_status' : 'showTelescopeStatus'
+  elements:
+    '.telescope_status': 'telescope_status'
+
+  events:
+    'click .telescope_status': 'showTelescopeStatus'
 
   constructor: ->
     super
-    @telescope_status = 'unknown'
+    User.bind 'refresh', @render
+    TelescopeStatus.bind 'refresh', @render
     @render()
 
-    User.bind('refresh',@render)
-
-    Spine.bind 'target_status_changed', (data)=>
-      @telescope_status = data
-      @render()
-
-    $.getJSON '/telescope_status.json', (data)=>
-      @telescope_status = data.status
-      @render()
+    # Spine.bind 'target_status_changed', (data) =>
+    #   @telescope_status = data
+    #   @render()
   
-  render:=>
+  render: =>
+    # Non-blocking render of menu
+    if TelescopeStatus.count() == 0
+      telescope_status = 'unknown'
+    else
+      telescope_status = TelescopeStatus.first().status
+
     @html @view('navBar')
-      user : User.first()
-      telescope_status : @telescope_status 
+      user: User.first()
+      telescope_status: telescope_status
   
-  showTelescopeStatus:=>
-    window.location = '/telescope_status'
+  showTelescopeStatus: ->
+    @navigate '/telescope_status'
 
-window.NavBar=NavBar
+window.NavBar = NavBar

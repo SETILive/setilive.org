@@ -1,15 +1,15 @@
-<%if @user? :%>
- <img class='badge_icon' src="assets/badges/200px/registration-200.png"></img>
-  <div class='right'> 
-    <h2>Congratulations!</h2>
+<%if @user?: %>
+  <img class="badge_icon left" src="assets/badges/200px/registration-200.png"></img>
+  <div id="badge_content"> 
+    <h3>Congratulations!</h3>
     <p>You earned the Registration Badge.</p>
-    <div id='view_all_button'>View All</div>
+    <div id="view_all_button" class="button">View All</div>
   </div>
-<%else :%>
-   <img class='badge_icon' src="assets/emptyBadge.png"></img>
+<%else: %>
+  <img class="badge_icon left" src="assets/emptyBadge.png"></img>
 
-  <div class='right'> 
-    <h2> Sign in to earn badges</h2>
-    <div id='sign_in_button'>Sign In</div>
+  <div id="badge_content"> 
+    <h3>Sign in to earn badges</h3>
+    <div id="sign_in_button" class="button">Sign In</div>
   </div>
 <%end%>

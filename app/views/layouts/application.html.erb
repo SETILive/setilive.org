@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset=utf-8>
+  <meta charset="utf-8">
   <title>SETILive</title>
   <%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "application" %>
@@ -10,7 +10,6 @@
   "text/javascript" charset="utf-8"></script>
 
   <script type="text/javascript">
-
     var _gaq = _gaq || [];
     _gaq.push(['_setAccount', 'UA-1224199-29']);
     _gaq.push(['_trackPageview']);
@@ -23,30 +22,32 @@
   </script>  
 </head>
 <body>
-    <%= render :partial=>'shared/zooniverse_bar'%>
+    <%= render :partial=>'shared/zooniverse_bar' %>
 
-    <div id='top'></div>
+    <div id="top"></div>
 
-    <ul id='notification_bar'></ul>
+    <ul id="notification_bar"></ul>
     
+    <section></section>
     <%= yield %>
 
-    <div id='footer'>
+    <div id="footer">
       <div class="container">
         <p><%= link_to "SETILIVE", "/" %></p>
-        <p id='science-logo' class='left logo'><a href='http://science.discovery.com/tv/are-we-alone/' target='blank'><img src='/assets/logo_discovery_footer.png'></img></a></p>
-        <p id='ted-logo' class='left logo'><a href='http://www.ted.com/' target='blank'><img src='/assets/logo_ted_footer.png'></img></a></p>
-        <p id='seti-logo' class='left logo '><a href='http://www.seti.org/' target='blank'><img src='/assets/logo_seti_footer.png'></img></a></p>
-        <p class="right"><%= link_to "CONTACT", "/team#contact" %></p>
-        
-        <p class="right"><%= link_to "TEAM", "/team" %></p>
-        <p class="right"><%= link_to "ABOUT", "/about" %></p>
+        <p id="science-logo" class="left logo"><a href="http://science.discovery.com/tv/are-we-alone/" target="blank"><img src="/assets/logo_discovery_footer.png"></img></a></p>
+        <p id="ted-logo" class="left logo"><a href="http://www.ted.com/" target="blank"><img src="/assets/logo_ted_footer.png"></img></a></p>
+        <p id="seti-logo" class="left logo"><a href="http://www.seti.org/" target="blank"><img src="/assets/logo_seti_footer.png"></img></a></p>
+        <p class="right"><%= link_to "CONTACT", "/#/about/team" %></p>
+        <p class="right"><%= link_to "TEAM", "/#/about/team" %></p>
+        <p class="right"><%= link_to "ABOUT", "/#/about" %></p>
       </div>
     </div>
 
-      <%= yield :head%>
-
+    <script type="text/javascript" charset="utf-8">
+      var exports = this;
+      jQuery(function(){
+          new App({el: $('section')});      
+      });     
+    </script>
   </body>
-
-
 </html>

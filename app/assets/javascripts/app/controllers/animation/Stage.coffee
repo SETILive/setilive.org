@@ -33,15 +33,3 @@ class Stage extends Spine.Controller
 
 window.Stage = Stage
 window.stages = Stage.instances
-
-$ ->
-	$('[data-animation-scene]').parent().each ->
-		stage = new Stage el: @
-
-		$(@).children('[data-animation-scene]').each ->
-			$el = $(@)
-			Ctor = window[$el.data 'animation-scene']
-			scene = new Ctor el: @
-			stage.scenes.push scene
-
-			if $el.hasClass 'active' then setTimeout scene.activate, 10

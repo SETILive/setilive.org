@@ -1,56 +1,83 @@
+
 class Info extends Spine.Controller
+
   elements:
-    "#time" : "time"
-    "#extra_controlls" : "controls"
-    "#done" : "done"
-    "#current_targets" : "targets"
-    "#next_beam" : "nextBeam"
-    "#talk" : "talk"
-    "#simulation_notification" : "simulation_notification"
+    '#star_field_small': 'star_field_small'
+    "#time": "time"
+    "#extra_controlls": "controls"
+    "#done": "done"
+    "#current_targets": "targets"
+    "#next_beam": "nextBeam"
+    "#talk": "talk"
+    "#simulation_notification": "simulation_notification"
     "#thankyou": "thankyou"
     "#talk_fill": "talk_fill"
-    "#social" : "social"
+    "#social": "social"
 
   events:
-    "click #done " : "doneClassification"
-    "click #talkYes" : "talk"
-    "click #talkNo" : "dontTalk"
-    "click #favourite" : "favourite"
-    "click #next_beam" : "nextBeam"
-    "click #clear_signal" : "clearSignals"
-    
+    "click #done": "doneClassification"
+    "click #talkYes": "talk"
+    "click #talkNo": "dontTalk"
+    "click #favourite": "favourite"
+    "click #next_beam": "nextBeam"
+    "click #clear_signal": "clearSignals"
 
   constructor: ->
     super
     @resetTime()
-    Subject.bind('create', @setupTargets)
-    Spine.bind("beamChange", @beamChange)
+    Subject.bind 'create', @initialSetup
+    Source.bind 'refresh', @drawStarField
+    Spine.bind 'beamChange', @beamChange
 
-    Subject.bind 'create', =>
-      if Subject.first().subjectType=='new' or window.tutorial==true
-        @timeInterval = setInterval @updateTime, 100
-      else 
-        @time.css("font-size","20px")
-        @time.html("Archive Data")
-        
-  clearSignals:()=>
-    Spine.trigger("clearSignals")
+    if Source.count() == 0
+      Source.fetch()
 
-  setupTargets:() =>
+  initialSetup: =>
+    # Make sure info shown is default
+    @controls.show()
+    @talk.hide()
+    @social.empty()
+    @simulation_notification.hide()
+    @talk_fill.hide()
+    @thankyou.hide()
+
+    if Subject.first().subjectType == 'new' or window.tutorial == true
+      @timeInterval = setInterval @updateTime, 100
+    else 
+      @time.css "font-size", "20px"
+      @time.html "Archive Data"
+
     subject = Subject.first()
-    console.log 'Subject: ', subject
-    if subject.observations.count ==1 
+    if subject.observations.count == 1 
       @done.show()
       @nextBeam.hide() 
     if subject?
       targets = []
       for observation in subject.observations
         targets.push(new Source(observation.source )) if observation.source?
-      console.log new TargetInfo el:@targets, location: subject.location
+      # console.log new TargetInfo el:@targets, location: subject.location
       new TargetInfo el:@targets, location: subject.location
 
+  drawStarField: =>
+    @stars = new Stars(el: @star_field_small)
 
-  updateTime:=>
+  clearSignals: =>
+    Spine.trigger 'clearSignals'
+
+  # setupTargets: =>
+  #   subject = Subject.first()
+  #   if subject.observations.count ==1 
+  #     @done.show()
+  #     @nextBeam.hide() 
+  #   if subject?
+  #     targets = []
+  #     for observation in subject.observations
+  #       targets.push(new Source(observation.source )) if observation.source?
+  #     # console.log new TargetInfo el:@targets, location: subject.location
+  #     new TargetInfo el:@targets, location: subject.location
+
+
+  updateTime: =>
     timeRemaining = (@targetTime - Date.now())/1000
     mins          = Math.floor timeRemaining/60
     secs          = Math.floor timeRemaining-mins*60
@@ -60,11 +87,11 @@ class Info extends Spine.Controller
       @time.css("font-size","20px")
       @time.html "New data expected"
 
-  resetTime:=>
+  resetTime: =>
     @targetTime = (1).minutes().fromNow()
 
-  doneClassification :=>
-    Spine.trigger "dissableSignalDraw" 
+  doneClassification: =>
+    Spine.trigger 'dissableSignalDraw' 
     Spine.trigger 'doneClassification'
     
     @controls.hide()
@@ -82,30 +109,28 @@ class Info extends Spine.Controller
       @talk_fill.show()
       @thankyou.show()
 
-
-
-  talk :=>
+  talk: =>
     subject = Subject.first()
     window.open subject.talkURL()
     $.getJSON "/register_talk_click", =>
-      window.location ='/classify'
+      Subject.fetch_next_for_user()
 
   dontTalk: (e) =>
-    window.location = '/classify'  
+    Subject.fetch_next_for_user()
 
-  favourite:(e)=>
+  favourite: (e) =>
     unless $(e.currentTarget).hasClass('favourited')
-      u= User.first()
+      u = User.first()
       for observation in Subject.first().observations
         u.addFavourite observation.id 
       $(e.currentTarget).html("<span style='color:white'>✓</span>")
       $(e.currentTarget).addClass('favourited')
       User.trigger("favourited")
   
-  nextBeam:=>
+  nextBeam: =>
     Spine.trigger("nextBeam")
 
-  beamChange:(data)=>
+  beamChange: (data) =>
     if data.beamNo == data.totalBeams-1
       @done.show()
       @nextBeam.hide() 

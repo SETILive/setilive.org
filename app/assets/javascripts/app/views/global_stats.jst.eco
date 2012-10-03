@@ -1,24 +1,24 @@
 <li>
-  <div class='stats_box'>
-    <p><%=@people_online%></p>
+  <div class="stats_box">
+    <p><%= @people_online.value %></p>
   </div> 
-  <p>People classifying</p>
+  <p><%= @people_online.name %></p>
 </li>
 <li>
-  <div class='stats_box'>
-    <p><%=@total_classifications%></p>
+  <div class="stats_box">
+    <p><%= @total_classifications.value %></p>
   </div> 
-  <p>Total Classifications</p>
+  <p><%= @total_classifications.name %></p>
 </li>
 <li>
-  <div class='stats_box'>
-    <p><%=@total_users%></p>
+  <div class="stats_box">
+    <p><%= @total_users.value %></p>
   </div> 
-  <p>Total People</p>
+  <p><%= @total_users.name %></p>
 </li>
 <li>
-  <div class='stats_box'>
-    <p><%=@classification_rate%></p>
+  <div class="stats_box">
+    <p><%= @classification_rate.value %></p>
   </div> 
-  <p>Classifications per minute</p>
+  <p><%= @classification_rate.name %></p>
 </li>

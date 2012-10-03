@@ -8,7 +8,7 @@ class Subjects extends Spine.Controller
     "#workflow": 'workflowArea'
      
   events:
-    'click #main-waterfall': 'markerPlaced'
+    'click #main-waterfall': 'placeMarker'
     'click .small-waterfall': 'selectBeam'
     'click #close-workflow': 'closeWorkflow'
     'click .copy-beam span': 'duplicateSignalsFromObservation'
@@ -22,25 +22,18 @@ class Subjects extends Spine.Controller
     
   constructor: ->
     super
-    Subject.bind('next_subject', @render)  
+    Subject.bind 'create', @render
     Subject.bind('done', @saveClassification)
 
-    Spine.bind("enableSignalDraw", @enableSignalDraw)
-    Spine.bind("dissableSignalDraw", @dissableSignalDraw)
-    Spine.bind("clearSignals", @deleteAllSignals)
-    Workflow.bind("workflowDone", @enableSignalDraw)
-    Workflow.bind("workflowDone", @finalizeSignal)
+    Spine.bind 'nextBeam', @nextBeam
+    Spine.bind 'enableSignalDraw', @enableSignalDraw
+    Spine.bind 'dissableSignalDraw', @dissableSignalDraw
+    Spine.bind 'clearSignals', @deleteAllSignals
+    Workflow.bind 'workflowDone', @enableSignalDraw
+    Workflow.bind 'workflowDone', @finalizeSignal
     
     @showSimulation = false
-    @simBeam = 0 
-
-    Spine.bind 'nextBeam', =>
-      if @current_beam < @current_subject.observations.length - 1
-        @selectBeam @current_beam + 1
-
-    Spine.bind 'previousBeam', =>
-      unless @current_beam < 1
-        @selectBeam @current_beam - 1
+    @simBeam = 0
 
     Spine.bind 'doneClassification', @saveClassification
 
@@ -51,13 +44,29 @@ class Subjects extends Spine.Controller
     @current_classification = new Classification 
       subject_id: @current_subject.id
       start_time: new Date()
-    
+
+    # Reset current beam
+    @current_beam = 0
+
     @setUpBeams()
 
-    $(document).keydown (e) ->
+    $(document).keydown (e) =>
       switch e.keyCode
-        when 39 then Spine.trigger 'nextBeam'
-        when 37 then Spine.trigger 'previousBeam'
+        when 39 then @nextBeam()
+        when 37 then @previousBeam()
+
+  setUpBeams: =>
+    @wrapBeams()
+    @drawBeam $(beam).find("canvas"), @current_subject, index for beam, index in @sub_beams
+    
+    @selectBeam @current_beam
+
+  #drawing methods for the beams 
+  wrapBeams: =>
+    @overlays = (Raphael($(beam).attr("id"), '100%', '100%') for beam in @beams)
+    console.log @overlays
+    $(overlay.canvas).css("z-index","10000") for overlay in @overlays 
+    new Workflows({el: $(@workflowArea)})
 
   selectBeam: (beamNo) =>
     if typeof beamNo == 'object'
@@ -72,12 +81,6 @@ class Subjects extends Spine.Controller
 
     $(".waterfall").removeClass("selected_beam")
     $(".small-waterfall-container .copy-beam").empty()
-
-    # console.log 'Current Classification', @current_classification
-    # console.log 'Current Signals: ', @current_classification.signals().all()
-    # console.log 'Curent Subject', @current_subject
-    # console.log 'Curent Observation', @current_subject.observations[@current_beam]
-    # console.log '---------------------'
 
     # Get observations that have signals that aren't the current observation
     otherObservationsWithSignals = _.filter @current_subject.observations, (observation) =>
@@ -99,6 +102,14 @@ class Subjects extends Spine.Controller
       observation: @current_subject.observations[beamNo]
       beamNo: beamNo
       totalBeams: @current_subject.observations.length
+
+  nextBeam: =>
+    if @current_beam < @current_subject.observations.length - 1
+      @selectBeam @current_beam + 1
+
+  previousBeam: =>
+    unless @current_beam < 1
+      @selectBeam @current_beam - 1
 
   duplicateSignalsFromObservation: (e) =>
     # grab source and destination
@@ -182,21 +193,6 @@ class Subjects extends Spine.Controller
   getNextSubject: =>
     Subject.fetch_from_url('data/test.json')
     
-  setUpBeams: =>
-    @wrapBeams()           
-    @current_beam or= 0
-    @drawBeam $(beam).find("canvas"), @current_subject, index for beam, index in @sub_beams
-    
-    @selectBeam @current_beam
-
-  
-  #drawing methods for the beams 
-  wrapBeams: =>
-    @overlays = ( Raphael($(beam).attr("id"), '100%', '100%') for beam in @beams )
-    $(overlay.canvas).css("z-index","10000") for overlay in @overlays 
-
-    new Workflows({el:$(@workflowArea)})
-
   drawBeam: (target,subject,beamNo) ->
     ctx = target[0].getContext('2d')
 
@@ -237,12 +233,12 @@ class Subjects extends Spine.Controller
     ctx.putImageData(imageData,0,0)
 
   # interaction with the beams!
-  markerPlaced: (e) =>
+  placeMarker: (e) =>
     if @canDrawSignal and not @dragging
       dx  = (e.pageX * 1.0 - $(e.currentTarget).offset().left) / @main_beam.width()*1.0
       dy  = (e.pageY * 1.0 - $(e.currentTarget).offset().top) / @main_beam.height()*1.0
         
-      if(@stage == 0)
+      if @stage is 0
         signal = @current_classification.newSignal(dx, dy, @current_subject.observations[@current_beam].id )
       else 
         @current_classification.updateSignal(dx,dy)
@@ -264,11 +260,12 @@ class Subjects extends Spine.Controller
       circle = beam.circle(x * canvas.parent().width(), y * canvas.parent().height(), radius)
       circle.attr
         "stroke": "#CDDC28"
-        "stroke-width":"2"
+        "stroke-width": "2"
         "fill": "purple"
         "fill-opacity": "1"
 
       self = this
+      circle.toFront()
       circle.drag(
        (x,y) ->
           if $(this.node).hasClass("draggable")
@@ -284,7 +281,7 @@ class Subjects extends Spine.Controller
                 "freqEnd": this.attr("cx") / canvas.parent().width()
                 "timeEnd": this.attr("cy") / canvas.parent().height()
             self.updateLine(signal)
-       ,->
+       , ->
           if $(this.node).hasClass("draggable")
             this.startX = this.attr("cx")
             this.startY = this.attr("cy")
@@ -292,26 +289,25 @@ class Subjects extends Spine.Controller
 
       $(circle.node).addClass("signal")
       $(circle.node).addClass("signal_selected")
-
-      $(circle.node).attr("data-id", signal.id)
       $(circle.node).addClass("signal_circle")
+      $(circle.node).attr("data-id", signal.id)
 
       $(circle.node).addClass("signal_#{signal.id}")
 
       if $(".signal_circle.signal_#{signal.id}.stage_0").length
         $(circle.node).addClass("stage_1")
+        $(circle.node).addClass("draggable")
       else
         $(circle.node).addClass("stage_0")
 
       $(circle.node).addClass("signal_beam_#{@current_beam}")
-      $(circle.node).addClass("draggable")
 
     unless new_signal
       @stage += 1 
       if @stage == 2 
         @drawLine(signal) 
         @canDrawSignal = false
-        Spine.trigger("startWorkflow", signal)
+        Spine.trigger 'startWorkflow', signal
   
   updateLine: (signal) =>
     $(".signal_line_#{signal.id}").remove()
@@ -346,7 +342,7 @@ class Subjects extends Spine.Controller
 
     @stage = 0
 
-  saveClassification:=>
+  saveClassification: =>
     if @current_subject.has_simulation
       @showSimulation = true
       for observation, index in @current_subject.observations
@@ -356,7 +352,7 @@ class Subjects extends Spine.Controller
 
     @current_classification.persist() unless window.tutorial
 
-  mainMouseOver:=>
+  mainMouseOver: =>
     if @showSimulation && @current_beam == @simBeam
       target = @main_beam.find("canvas")
       subject = @current_subject
@@ -372,7 +368,7 @@ class Subjects extends Spine.Controller
       $(obsImg).load =>
         ctx.drawImage obsImg, 0, 0, targetWidth,targetHeight
 
-  mainMouseLeave:=>
+  mainMouseLeave: =>
     if @showSimulation && @current_beam == @simBeam
       target = @main_beam.find("canvas")
       subject = @current_subject

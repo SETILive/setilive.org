@@ -1,0 +1,7 @@
+<ul id="global_stats"></ul>
+
+<div id="home_content" class="dark"></div>
+<div id="home_lower" class="dark">
+  <div id="most_recent_badge"></div>
+  <a href="http://science.discovery.com/tv/are-we-alone/" target="_blank" ><img id="discovery_logo" src="/assets/Are-we-alone-610x150.jpg"></a>
+</div>

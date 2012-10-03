@@ -14,31 +14,34 @@ class Subject extends Spine.Model
     if window.subject_id?
       url += "?subject_id=#{window.subject_id}"
 
-    $.getJSON url, (data)=>
+    $.getJSON url, (data) =>
       console.log "getting data: activity", data.activity_id, "id", data.zooniverse_id, data
-      if data.observations.length==0
-        window.location.reload()
+      if data.observations.length == 0
+        @fetch_next_for_user()
+      else
+        Subject.dataifyData data
 
-      Subject.dataifyData(data)
-      subject=  Subject.create(data)
-      Subject.trigger('next_subject', subject)
+        if Subject.count()
+          Subject.first().destroy()
+
+        Subject.create data
   
   @get_tutorial_subject: ->
     $.getJSON "tutorial_subject.json", (data)->
       Subject.dataifyData(data)
-      subject=  Subject.create(data)
+      subject = Subject.create(data)
       Subject.trigger('next_subject', subject)
   
-  @dataifyData:(data)->
+  @dataifyData: (data) ->
     for observation, index in data.observations
       observation.data = observation.data_for_display unless observation.uploaded
 
 
-  observationForId:(id)=>
+  observationForId: (id) =>
     for observation in @observations
       return observation if observation.beam_no
 
-  lastObservation:=>
+  lastObservation: =>
     max_index = 0
     max_beam_no = 0
     for observation,index in @observations
@@ -47,8 +50,8 @@ class Subject extends Spine.Model
         max_index = index
     return @observations[max_index]
 
-  imageDataForBeam:(beamNo,targetWidth,targetHeight)->
-    imageData=[]
+  imageDataForBeam: (beamNo,targetWidth,targetHeight) ->
+    imageData = []
     imageData[i] =0 for i in [0..targetWidth*targetHeight]
     bounds = @calcBounds()
     width = @observations[beamNo].width

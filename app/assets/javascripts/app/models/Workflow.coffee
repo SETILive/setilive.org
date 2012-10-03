@@ -3,13 +3,8 @@ class Workflow extends Spine.Model
 
   @extend Spine.Events
 
-  
-  @fetch_from_url: (url) ->
-    $.getJSON url, (data)=>
-      Workflow.create(data)
-
-
   @fetch: ->
-    @fetch_from_url("/active_workflow.json")
+    $.getJSON '/active_workflow.json', (data) =>
+      Workflow.create data
   
 window.Workflow = Workflow

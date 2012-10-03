@@ -1,0 +1,38 @@
+
+<div id="classify-area">
+
+  <div id="waterfalls">
+    <h1>Loading...</h1>
+  </div>
+
+  <div id="info">
+    <div id="countdown">
+      <p id="time">-</p>
+      <p>Complete your classification in</p>
+    </div>
+
+    <div id="star_field_small"></div>
+
+    <div id="current_targets"></div>
+
+    <div id="extra_controlls">
+      <div id="clear_signal" class="extra_button">Clear All Signals</div>
+      <a href="/#/about/video_tutorial"><div id='help_link' class='extra_button'>?</div></a>
+      <div id="favourite" class="extra_button" >
+        <img src="/assets/favourite_button_classify-new.png">
+      </div>
+      <div id="next_beam" class="extra_button">Next Beam</div>
+      <div id="done" class="extra_button">Done</div>
+    </div>
+    
+    <div id="social"></div>
+
+    <div id="talk">
+      <p class="talk_prompt">Thank you for classifying! Your classification has been saved in the database.</p>
+      <p class="talk_prompt">Would you like to discuss this observation?</p>
+      <div class="extra_button" id="talkYes">Yes</div>
+      <div class="extra_button" id="talkNo">No</div>  
+    </div>
+
+  </div>
+</div>

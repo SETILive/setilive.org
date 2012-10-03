@@ -1,37 +1,36 @@
-<a href='/' id='logo'>SETI<span class='green live'>LIVE</span></a>
-<ul id='nav'>
-  <li><a href='http://talk.setilive.org' target='_blank'>talk</a></li>
-  <li><a href='/sources'>targets</a></li>
-  <li class='nav_classify'><a href='/classify'>classify</a>
+<a href="/#/" id="logo">SETI<span class="green live">LIVE</span></a>
+<ul id="nav">
+  <li><a href="http://talk.setilive.org" target="_blank">Talk</a></li>
+  <li><a href="/#/sources">Targets</a></li>
+  <li class="nav_classify"><a href="/#/classify">Classify</a>
      <ul class="nav_submenu">
-        <li class='tutorial_tutorial'><a href='/tutorial'>Tutorial</a> </li>
-        <li class='tutorial_signals'><a href="/gallery">Signals</a></li>
-        <li class='tutorial_video'><a href="/video_tutorial">Video</a></li>
+        <li class="tutorial_tutorial"><a href="/#/tutorial">Tutorial</a> </li>
+        <li class="tutorial_signals"><a href="/#/about/gallery">Signals</a></li>
+        <li class="tutorial_video"><a href="/#/about/video_tutorial">Video</a></li>
 
      </ul>
   </li>
-  <li class='nav_about'>
-    <a href='/about'>about</a>
+  <li class="nav_about">
+    <a href="/#/about">About</a>
     <ul class="nav_submenu">
-      <li><a href='/about'>Science</a> </li>
-      <li><a href="/ted">TED</a></li>
-      <li><a href="/team">Team</a></li>
-      <li class='tutorial_signals'><a href="/gallery">Signals</a></li>
+      <li><a href="/#/about">Science</a> </li>
+      <li><a href="/#/about/ted">TED</a></li>
+      <li><a href="/#/about/team">Team</a></li>
+      <li><a href="/#/about/gallery">Signals</a></li>
     </ul>
   </li>
-  <li><a href='http://blogs.zooniverse.org/seti' target='_blank'>blog</a></li>
-  <%unless @user?: %>
-    <li class='nav_user'><a href='/login'>login / signup</a> </li>
-  <%else: %>
-    <li class='nav_user'><a href='/profile'><%-@user.name%></a>
-      <ul class='nav_submenu'>
-        <li class='tutorial_profile'><a class='tutorial_profile' href='/profile'>Profile</a></li>
-
-        <li><a href='/logout'>Logout</a></li>
+  <li><a href="http://blogs.zooniverse.org/seti" target="_blank">blog</a></li>
+  <% unless @user?: %>
+    <li class="nav_user"><a href="/login">login / signup</a> </li>
+  <% else: %>
+    <li class="nav_user"><a href="#/profile"><%-@user.name%></a>
+      <ul class="nav_submenu">
+        <li class="tutorial_profile"><a class="tutorial_profile" href="#/profile">Profile</a></li>
+        <li><a href="/logout">Logout</a></li>
       </ul> 
     </li>
-  <%end%>
-  <li class='telescope_status'>
+  <% end %>
+  <li class="telescope_status">
     <img src = '/assets/status_<%=@telescope_status%>.png' />
     <p> Telescope <br /> <%=@telescope_status%></p>
   </li>

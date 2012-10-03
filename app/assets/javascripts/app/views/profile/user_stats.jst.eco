@@ -1,24 +1,24 @@
-<ul id='user_stats'>
+<ul id="user_stats">
   <li>
-    <div class='stats_box'>
+    <div class="stats_box">
       <p><%=@total_classifications%></p>
     </div> 
-    <p>Total Classification</p>
+    <p>Total Classifications</p>
   </li>
   <li>
-    <div class='stats_box'>
+    <div class="stats_box">
       <p><%=@total_follow_ups%></p>
     </div> 
     <p>Follow Ups</p>
   </li>
   <li>
-    <div class='stats_box'>
+    <div class="stats_box">
       <p><%=@total_signals%></p>
     </div> 
     <p>Signals Marked</p>
   </li>
   <li>
-    <div class='stats_box'>
+    <div class="stats_box">
       <p>0</p>
     </div> 
     <p>Extraterrestrials Found</p>

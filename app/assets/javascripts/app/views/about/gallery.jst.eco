@@ -1,0 +1,14 @@
+<div id="galleryPage">
+  <div id="gallery_header">
+    <h1 id="gallery_title">The ATA Radio Signal Gallery</h1>
+    <h2 class="waterfall_plot_title">Introduction</h2>
+    <p class="waterfall_blurb">Welcome to the signal gallery. The ATA picks up a large number of signals, terrestrial, satellite's and hopefully even some extraterrestrial. This page is here to give you an idea of the kinds of signal you can expect to find and what causes them.</p>
+
+    <h2 class="waterfall_plot_title">What are Waterfall Plots?</h2>
+    <p class="waterfall_blurb">A very useful way of sorting out a mixture of signals that come from different sources (ET or RFI) and get into the ATA beam is the "Waterfall" display. Sources can emit many frequencies at once but those frequencies will generally change in the same way with time if from the same source. If they evolve differently with time, they are probably from different sources. The Waterfall display shows a series of snapshots of the frequencies in the beam, taken every 1 second or so and then stacked on top of each other vertically to make an image. The horizontal position represents the frequency, the vertical position, the time of the snapshot and the strength of each frequency is indicated by the brightness. With this, we can see how all the frequencies evolve with time and decide which are related and which are not.</p>
+  </div>
+
+  <h3>Mouse over the images bellow to see examples of how to mark them or click <a href="/video_tutorial">here</a> to view a video tutorial</h3>
+
+  <ul id="gallery"></ul>
+</div>

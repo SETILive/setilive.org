@@ -46,6 +46,50 @@
   -o-transition: $transition
   transition: $transition
 
+// Generic classes
+.right
+  float: right
+  margin: 0 0 10px 18px
+.left
+  float: left
+  margin: 0 18px 10px 0
+.dark
+  color: #12161b
+  h1,h2,h3
+    text-shadow: 0px 1px 0px #ffffff
+  p
+    text-shadow: 0px 1px 0px #d4d4d4
+
+.button
+  display: inline-block
+  padding: 0 20px
+  @include box-shadow(0px, 1px, 0px, #f2f2f2)
+  @include gradient-bg(#14ACD1, #0B7994)
+  @include round-corners(2px)
+  border: 1px solid #095E73
+  color: #ffffff
+  cursor: pointer
+  font-size: 13px
+  line-height: 25px
+  text-align: center
+  &:hover
+    background: #0a7590
+  &.larger
+    font-size: 1.1em
+    line-height: 2.5em
+
+// Element defaults
+body
+  margin: 0
+  padding: 0
+  font-family: TitilliumText22LRegular, Sans-serif
+  background-image: url("background_gradient.png")
+  background-color: #12161b
+  background-position: center center 
+  background-repeat: no-repeat
+  color: #f6f6f6
+  letter-spacing: 0px
+
 ul
   list-style: none
   padding: 0px
@@ -54,13 +98,40 @@ a
   color: #b2b2b2
   text-decoration: none
   &:hover
-    color: #f0f0f0
+    color: #cddc28
+
+p
+  margin: 7px 0
+  font-family: TitilliumText22LRegular, Sans-serif
+  font-size: 13px
+  line-height: 18px
+
+h1
+
+h2
+  margin: 15px 0
+  padding: 15px 0
+  font-weight: normal
+  font-family: TitilliumText22LRegular, Sans-serif
+  font-size: 24px
+
+h3
+  margin: 15px 0
+  font-size: 16px
+  &.uppercase
+    text-transform: uppercase
+
 
 input[type=text], input[type=password]
   @include box-shadow(0px, 1px, 0px, #f2f2f2)
   border: 1px solid #b4b4b4
   @include round-corners(3px)
-  
+
+// Spine stack CSS
+.stack > *:not(.active)
+  display: none
+
+
 #footer
   overflow-y: hidden
   width: 100%
@@ -97,19 +168,6 @@ input[type=text], input[type=password]
 
 
         
-body
-  font-family: TitilliumText22LRegular, Sans-serif
-  width: 100%
-  height: 100%
-  background-image: url("background_gradient.png")
-  background-color: #12161b
-  background-position: center center 
-  background-repeat: no-repeat
-  color: white
-  margin: 0
-  padding: 0
-  font-family: TitilliumText22LMedium, Sans-serif
-  letter-spacing: 0px
 
 #real_time
   h1
@@ -128,97 +186,54 @@ body
 
 #aboutpage
   h1
-    font-family: TitilliumText22LBold, Sans-serif
-    font-weight: normal
-    line-height: 40px
-    font-size: 24px
-    text-align: center
     padding: 50px 20px 10px
-  
-  .section_title
-    padding-top: 50px
-    padding-bottom: 40px
-    width: 722px
-    float: right
-    font-weight: normal
-    font-size: 25px
-    font-family: TitilliumText22LRegular, Sans-serif
-
-
+    font-weight: 700
+    font-size: 24px
+    line-height: 40px
+    text-align: center
+    &.section-title
+      margin-left: 200px
+      padding-left: 0
+      font-size: 26px
+      font-weight: 400
+      text-align: left
 
   .team_member
     clear: both
-    width: 900px
-    margin: 0px auto 40px auto
+    margin: 0 0 35px 0
     min-height: 146px
-    .team_logo
-      width: 180px
-      height: 150px
-      padding: 0px
-      display: inline-block 
-      vertical-align: top
-      
+    img
+      float: left
+      max-width: 180px
     .team_text
-      width: 620px
-      display: inline-block
-      vertical-align: top
-      padding-left: 45px    
-      font-family: TitilliumText22LRegular, Sans-serif
-      font-weight: normal
-      font-size: 13px
-      line-height: 18px
-    .team_name
-      font-size: 20px
-      margin: 10px 0px
-      font-family: TitilliumText22LBold, Sans-serif
-      font-weight: normal
+      margin: 0 0 0 200px
+      .team_name
+        font-size: 20px
+        margin: 10px 0px
+        font-weight: 700
+
   .contact
     height: 10px
     margin: 0px auto 0px auto
   
-  .ted_section_title
-    font-family: TitilliumText22LBold, Sans-serif
-    font-weight: normal
-    line-height: 40px
-    font-size: 20px
-    text-align: left
-    padding: 0px
-  .ted_section_text
-    padding-top: 0px
-    margin-top: 0px
-    font-size: 13px
-    line-height: 18px
-    color: #F2F2F2
-    text-align: left
-    font-family: TitilliumText22LRegular, Sans-serif
-    img
-      border: none
-      float: right
-      margin-left: 30px 
-      margin-bottom: 0px
       
 #about_menu
   @include round-corners(2px)
   @include gradient-bg(#ECEAEA, #B3B3B3)
-  text-shadow: 0px 1px 0px #f2f2f2
-  width: 1000px
-  margin-left: auto
-  margin-right: auto
   margin-top: 30px
   margin-bottom: 40px
-  padding: 0px
-  p, a
+  font-size: 20px
+  line-height: 30px
+  text-align: center
+  text-shadow: 0px 1px 0px #f2f2f2
+  a
     display: inline-block
-    font-size: 20px
-    line-height: 30px
-    padding: 0px 35px
-    font-family: TitilliumText22LMedium, Sans-serif
-    color: black
+    padding: 20px 45px
+    color: #111
     text-decoration: none
-  a:hover
-    text-decoration: none
-    color: #ffffff
-    text-shadow: 0px -1px 0px #b4b4b4
+    &:hover
+      color: #ffffff
+      text-shadow: 0px -1px 0px #b4b4b4
 
 #top
   margin-left: auto
@@ -294,16 +309,19 @@ body
       color: #cddc28
 
     .telescope_status
+      position: relative
+      top: 2px
       width: 70px
       margin-right: 30px
-      position: relative
-      top: 10px
       cursor: pointer
 
+      img
+        float: left
       p
-        float: right
-        font-size: 5pt
+        margin: 3px 0 0 30px
         font-family: TitilliumText22LRegular, Sans-serif
+        font-size: 6pt
+        line-height: 8pt
 
   .tutorial_item_selected 
     color: #cddc28
@@ -978,84 +996,73 @@ form p
 
 #sources 
   ul#source_list
-    width: 940px
-    margin-left: auto
-    margin-right: auto
     padding: 20px
     list-style: none
+    text-align: center
     li.source
-      @include gradient-bg(#ECEAEA, #B3B3B3)
+      display: inline-block
       width: 210px
       height: 150px
-      display: inline-block
-      vertical-align: top
-      margin-right: 20px
-      margin-bottom: 20px
+      margin: 0 20px 20px 0
+      @include gradient-bg(#ECEAEA, #B3B3B3)
       cursor: pointer
-      p
-        font-family: TitilliumText22LMedium, Sans-serif
-        text-shadow: 0px 1px 0px #d4d4d4
-        text-transform: uppercase 
-        letter-spacing: 0px
-        color : #12161b
-        font-size: 14px
-    li.source:hover p
-      color: #0a7590
+      text-transform: uppercase
+      &:hover p
+        color: #0a7590
+      &:nth-child(4n)
+        margin: 0 0 20px 0
                 
-  ul#pagination
+  #pagination
     list-style: none
-    width: 800px
-    margin: 0px auto
+    text-align: center
     li
       display: inline-block
-      .pagination_active
-        text-decoration: underline   
-
+      a
+        display: block
+        padding: 3px
+        &.pagination_active
+          text-decoration: underline
       &.ellipsis
         + .ellipsis
           display: none
 
 #source
-  width: 940px
   height: 540px
-  margin-left: auto
-  margin-right: auto
+  padding: 0 30px
   #star_vis
+    display: inline-block
     width: 540px
     height: 540px
-    display: inline-block
     vertical-align: middle
   #star_details
+    display: inline-block
     width: 220px
     height: 280px
+    margin-left: 40px
+    padding-top: 10px
     @include gradient-bg(#ECEAEA, #B3B3B3)
     @include round-corners(2px)
-    text-align: center
-    color: black
+    color: #000000
     letter-spacing: 0px
-    padding-top: 10px
-    display: inline-block
     vertical-align: middle
-    margin-left: 40px
+    text-align: center
     h1
+      margin: 20px 0 0 0
+      padding: 0px
+      font-family: TitilliumText22LMedium, Sans-serif
       font-size: 13px
       font-weight: normal
-      font-family: TitilliumText22LMedium, Sans-serif
       text-transform: uppercase
-      margin: 0px
-      padding: 0px
-      margin-top: 20px
     h2
-      margin: 0px
+      margin: 20px 0 0 0
       padding: 0px
-      margin-top: 20px
-      font-size: 25px
       font-family: TitilliumText22LRegular, Sans-serif
+      font-size: 25px
       font-weight: normal
       text-transform: uppercase
     li
-      font-size: 13px
       font-family: TitilliumText22LMedium, Sans-serif
+      font-size: 13px
       line-height: 16px
   #buttons
     margin-left: auto
@@ -1076,13 +1083,8 @@ form p
       margin-bottom: 4px
       vertical-align: top
       width: 87px
-
       &:hover
         background: #0a7590
-
-    #back_button
-
-    #talk_button
 
     #planethunters_button
       width: 180px
@@ -1256,112 +1258,53 @@ ul.pagination
       font-size: 12px
 
 #home_content 
-  width: 1000px
-  height: 430px
+  padding: 24px 30px
+  width: 940px
   @include round-corners(2px)
   @include gradient-bg(#ECEAEA, #B3B3B3)
-  margin-left: auto
-  margin-right: auto
   margin-top: 30px
   #home_content_top
-    width: 100%
-    height: 105px
+    padding: 0 0 20px 0
     border-bottom: 1px solid #BCBCBC
     box-shadow: (0px 1px 0px #f2f2f2)
-    color: black
     h1
-      width: 733px
+      margin: 0
       font-size: 30px
-      letter-spacing: 0px
-      margin-top: 25px
-      margin-left: 30px
-      display: inline-block
-      vertical-align: middle
-      color: #12161b
       font-family: TitilliumText22LBold, Sans-serif
       font-weight: normal
-      text-shadow: #ffffff 0px 1px 0px
-    #start_searching_button
-      @include round-corners(3px)
-      @include gradient-bg(#14acd1, #0b7994)
-      margin-left: 80px 
-      margin-top: 25px
-      width: 120px
-      height: 33px
-      color: white 
-      font-size: 13px
-      line-height: 33px
-      text-align: center
-      cursor: pointer
-      display: inline-block
-      vertical-align: middle
-      border: 1px solid #095e73
-      @include box-shadow(0px, 1px, 0px, #f2f2f2)
-    #start_searching_button:hover
-      background: #0a7590
-      
    
   #home_content_bottom
     #subjects 
-      margin-left: 20px
-      margin-top: 40px
-      min-height: 130px
+      margin: 40px 0 0 0
+      height: 130px
       overflow-y: hidden
-      max-height: 130px 
-      .waterfall
-        display: inline-block
-        vertical-align: top
-        width: 220px
-        height: 130px
-        border: 3px solid #BBBBBB
-        @include box-shadow
-        margin-right: 10px
-        margin-bottom: 20px
-        background-image: url("example_thumb.png")
+
     #stars_link_button
       float: right
-      margin-right: 30px
+      margin: 0 0 10px 30px
       width: 200px
-      height: 60px
       @include gradient-bg(#ECEAEA, #B3B3B3)
       @include round-corners(3px)
       border: 1px solid #888888
-      font-family: TitilliumText22LBold, Sans-serif
-      font-weight: normal
-      font-size: 16px
-      line-height: 60px
-      color: white 
       box-shadow: 0px 1px 0px #f2f2f2
-      float: right
+      font-family: TitilliumText22LBold, Sans-serif
+      font-size: 16px
+      font-weight: normal
+      line-height: 60px
+      text-align: center
       a
+        display: block
+        height: 60px
         color: #12161b
-        margin-left: 20px
-    #stars_link_button:hover
-      a
-        color: #0A7590
+        &:hover
+          color: #0A7590
 
-    p.intro
-      display: inline-block
-      width: 720px
     h2
       margin-left: 30px
-      color: #12161b
-      font-size: 15px
-      font-weight: normal
       text-transform: uppercase
       font-family: TitilliumText22LBold, Sans-serif
       letter-spacing: 0px
       text-shadow: 0px 1px 0px #d4d4d4
-    p
-      color: #12161b
-      font-size: 13px
-      line-height: 16px
-      font-family: TitilliumText22LMedium, Sans-serif
-      text-shadow: 0px 1px 0px #d4d4d4
-      letter-spacing: 0px
-      margin-left: 30px
-      width: 916px
-      margin-top: -4px
 
 #home_lower
   width: 1000px
@@ -1372,28 +1315,21 @@ ul.pagination
   padding: 0px
 
   #most_recent_badge
-    width: 365px
-    height: 150px
-    padding: 0px
-    margin: 0px 
     display: inline-block
+    width: 325px
+    height: 120px
+    margin: 0
+    padding: 30px 20px 0 20px
     vertical-align: top
     @include round-corners(2px)
     @include gradient-bg(#ECEAEA, #B3B3B3)
-    color: black
+   
+    #badge_content
+      margin: 0 0 0 110px
     .badge_icon
-      margin-left: 30px
-      margin-right: 10px
-
-      margin-top: 30px
+      float: left
       width: 90px
       height: 90px
-      display: inline-block
-      vertical-align: middle
-    .right
-      display: inline-block
-      vertical-align: middle
-      margin-top: 30px
       h2
         font-size: 19px
         font-weight: normal
@@ -1405,35 +1341,7 @@ ul.pagination
         padding: 0px
         margin: 0px
         margin-bottom: 6px
-      #sign_in_button
-        color: white
-        text-align: center
-        line-height: 25px
-        width: 80px
-        height: 25px
-        font-size: 13px
-        border: 1px solid #095E73
-        @include round-corners(2px)
-        @include gradient-bg(#14ACD1, #0B7994)
-        box-shadow: (0px 1px 0px #f2f2f2)
-        cursor: pointer
-      #sign_in_button:hover
-        background: #095e73
-      #view_all_button
-        color: white
-        text-align: center
-        line-height: 25px
-        font-size: 13px
-        width: 80px
-        height: 25px
-        @include round-corners(2px)
-        @include gradient-bg(#14ACD1, #0B7994)
-        border: 1px solid #095E73
-        @include box-shadow(0px, 1px, 0px, #f2f2f2)
-        cursor: pointer
-      #view_all_button:hover
-        background: #0a7590
-     
+
   
   #discovery_logo
     width: 610px 
@@ -1586,7 +1494,6 @@ ul.pagination
     vertical-align: top
     width: 538px
     height: 198px
-    color: black
     margin-left: 70px
     h1
       padding-top: 0px
@@ -1597,12 +1504,6 @@ ul.pagination
       margin: 0px
       padding: 0px
       font-size: 14px
-      font-family: TitilliumText22LRegular, Sans-serif
-
-    p
-      margin-top: 50px 
-      width: 455px
-      font-size: 19px
       font-family: TitilliumText22LRegular, Sans-serif
 
 #badge_profile_bottom
@@ -1811,15 +1712,16 @@ ul.pagination
     float: left
 
 .observation
-  border: #F1F1F1 solid 3px 
-  display: inline-block
-  vertical-align: top
-  @include box-shadow
   position: relative
+  display: inline-block
   height: 116px
-  margin-left: 8px
-  margin-right: 8px
-  margin-bottom: 10px
+  margin: 0 7px 10px 7px
+  @include box-shadow
+  border: #f1f1f1 solid 3px
+  color: #ffffff
+  vertical-align: top
+  &:last-child
+    margin: 0
   .classification_details
     position: absolute
     top: 85px
