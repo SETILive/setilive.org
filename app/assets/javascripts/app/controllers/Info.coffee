@@ -99,8 +99,8 @@ class Info extends Spine.Controller
       Subject.fetch_next_for_user()
 
   dontTalk: (e) =>
-    Spine.unbind 'startWorkflow', @startWorkflow
-    Spine.unbind 'closeWorkflow', @closeWorkflow
+    Spine.unbind 'startWorkflow'
+    Spine.unbind 'closeWorkflow'
     Subject.fetch_next_for_user()
 
   favourite: (e) =>

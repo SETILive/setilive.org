@@ -35,8 +35,10 @@ class Subjects extends Spine.Controller
     @showSimulation = false
     @simBeam = 0
 
-
   render: (subject) =>
+    Spine.unbind 'startWorkflow'
+    Spine.unbind 'closeWorkflow'
+    
     @current_subject = subject
     @html @view('classify/waterfalls')(@current_subject.observations)
 
@@ -254,7 +256,6 @@ class Subjects extends Spine.Controller
       signal = new_signal
     else
       signal = @current_classification.currentSignal
-
 
     for beam in [@overlays[0]]
       canvas = $(beam.canvas)

@@ -29,12 +29,11 @@ class Classify extends Spine.Controller
 
   deactivate: =>
     super
-    Spine.unbind 'startWorkflow', @startWorkflow
-    Spine.unbind 'closeWorkflow', @closeWorkflow
-    Spine.unbind 'nextBeam', @nextBeam
-    Spine.unbind 'clearSignals', @deleteAllSignals
-    Spine.unbind 'doneClassification', @saveClassification
-    
+    Spine.unbind 'startWorkflow'
+    Spine.unbind 'closeWorkflow'
+    Spine.unbind 'nextBeam'
+    Spine.unbind 'clearSignals'
+    Spine.unbind 'doneClassification'
     @el.empty()
 
 window.Classify = Classify

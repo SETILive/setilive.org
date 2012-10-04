@@ -1,3 +1,4 @@
+
 class Workflows extends Spine.Controller
   elements: 
     ".answer_list": "answer_list"
