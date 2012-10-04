@@ -3,8 +3,8 @@ class Classification extends Spine.Model
   @configure 'Classification', 'subject_id', 'user_id', 'start_time', 'end_time'  
   @hasMany 'signals', 'Signal'
     
-  newSignal: (x,y,id) =>
-    @currentSignal = @signals().create({timeStart: y, freqStart : x, observation_id: id})
+  newSignal: (x, y, id) =>
+    @currentSignal = @signals().create({timeStart: y, freqStart: x, observation_id: id})
 
   setSignal: (id) =>
     @currentSignal = Signal.find(id)
@@ -14,15 +14,15 @@ class Classification extends Spine.Model
     signals = (signal.toJSON() for signal in @signals().all())
     
     result = 
-      signals : signals
-      subject_id : @subject_id
+      signals: signals
+      subject_id: @subject_id
 
     $.ajax
       type: 'POST'
       url: '/classifications/'
       data: result
       dataType: 'json'
-      success: (response) ->
+      success: (response) =>
         Spine.trigger 'classificationSaved'
 
   updateSignal: (x,y) =>

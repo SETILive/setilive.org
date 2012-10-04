@@ -23,7 +23,7 @@ class Subjects extends Spine.Controller
   constructor: ->
     super
     Subject.bind 'create', @render
-    Subject.bind('done', @saveClassification)
+    Subject.bind 'done', @saveClassification
 
     Spine.bind 'nextBeam', @nextBeam
     Spine.bind 'clearSignals', @deleteAllSignals
@@ -35,9 +35,12 @@ class Subjects extends Spine.Controller
     @showSimulation = false
     @simBeam = 0
 
+
   render: (subject) =>
     @current_subject = subject
     @html @view('classify/waterfalls')(@current_subject.observations)
+
+    @workflow = new Workflows({el: $(@workflowArea)})
 
     # A really dumb hack
     @delay @setupWaterfalls
@@ -61,14 +64,12 @@ class Subjects extends Spine.Controller
   setUpBeams: =>
     @wrapBeams()
     @drawBeam $(beam).find("canvas"), @current_subject, index for beam, index in @sub_beams
-    
     @selectBeam @current_beam
 
   #drawing methods for the beams 
   wrapBeams: =>
     @overlays = (Raphael($(beam).attr("id"), '100%', '100%') for beam in @beams)
     $(overlay.canvas).css("z-index","10000") for overlay in @overlays 
-    new Workflows({el: $(@workflowArea)})
 
   selectBeam: (beamNo) =>
     if typeof beamNo == 'object'
@@ -147,6 +148,8 @@ class Subjects extends Spine.Controller
     $(".signal").remove()
 
   finalizeSignal: (new_signal = false) =>
+    console.log 'FS CC: ', @current_classification
+
     # Default to currentSignal unless a specific signal is passed
     unless new_signal == 'done'
       signal = new_signal
@@ -178,7 +181,7 @@ class Subjects extends Spine.Controller
         $(".signal_#{signal_id}").attr("opacity","1.0")
         $(".signal_#{signal_id}").addClass("signal_selected")
         $(".signal_#{signal.id}.signal_circle").addClass("draggable")
-        Spine.trigger("startWorkflow", signal)
+        Spine.trigger 'startWorkflow', signal
 
   closeWorkflow: (e) =>
     e.stopPropagation()
@@ -192,7 +195,7 @@ class Subjects extends Spine.Controller
   dissableSignalDraw: =>
     @canDrawSignal = false
     
-  drawBeam: (target,subject,beamNo) ->
+  drawBeam: (target, subject, beamNo) ->
     ctx = target[0].getContext('2d')
 
     targetWidth = $(target[0]).width()
@@ -219,7 +222,7 @@ class Subjects extends Spine.Controller
       ctx.putImageData(imageData,0,0)
 
 
-  drawCombinedBeam: (target,subject) ->
+  drawCombinedBeam: (target, subject) ->
     ctx = target[0].getContext('2d')
     targetWidth = $(target[0]).width()
     targetHeight = $(target[0]).height()
@@ -236,11 +239,13 @@ class Subjects extends Spine.Controller
     if @canDrawSignal and not @dragging
       dx  = (e.pageX * 1.0 - $(e.currentTarget).offset().left) / @main_beam.width()*1.0
       dy  = (e.pageY * 1.0 - $(e.currentTarget).offset().top) / @main_beam.height()*1.0
-        
+      
       if @stage is 0
         signal = @current_classification.newSignal(dx, dy, @current_subject.observations[@current_beam].id )
+        console.log 'PM CS: ', @current_classification.currentSignal
       else 
         @current_classification.updateSignal(dx,dy)
+        console.log 'PM CS: ', @current_classification.currentSignal
 
       @drawIndicator(dx,dy)
   
@@ -249,6 +254,7 @@ class Subjects extends Spine.Controller
       signal = new_signal
     else
       signal = @current_classification.currentSignal
+
 
     for beam in [@overlays[0]]
       canvas = $(beam.canvas)
@@ -306,7 +312,9 @@ class Subjects extends Spine.Controller
       if @stage == 2 
         @drawLine(signal)
         @enableSignalDraw()
+        console.log 'DI CC: ', @current_classification
         Spine.trigger 'startWorkflow', signal
+
   
   updateLine: (signal) =>
     $(".signal_line_#{signal.id}").remove()

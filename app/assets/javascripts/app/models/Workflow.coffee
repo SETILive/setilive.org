@@ -1,3 +1,4 @@
+
 class Workflow extends Spine.Model
   @configure 'Workflow','description','primary','name', 'project', 'version', 'questions'
 
