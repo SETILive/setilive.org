@@ -114,7 +114,8 @@ class Subject
   def pop_in_redis_temp
     # Interferes with fake followups if it extends into the next activity
     # 130 + T + subjectCreationTime < 340s
-    RedisConnection.setex("subject_recent_#{self.id}", 2*60 ,  self.id)
+    RedisConnection.setex( "subject_recent_#{self.id}",
+      RedisConnection.ttl("subject_timer") ,  self.id)
   end
 
   def pop_in_redis
@@ -142,40 +143,40 @@ class Subject
   end
 
   def self.random_frank_subject 
-    keys = RedisConnection.keys 'subject_new*'
+    keys = RedisConnection.keys '*subject_new*'
     return nil if keys.empty?
     key = keys.sample
     subject  = JSON.parse(RedisConnection.get key)
     RedisConnection.del key
-    subject['beam'].each do |beam|
-      beam_no  = beam['beam'] 
-      data_key = key.gsub("subject_new", "subject_data_new")+"_#{beam_no}"
-      RedisConnection.expire data_key, 60*10
-    end
+#    subject['beam'].each do |beam|
+#      beam_no  = beam['beam'] 
+#      data_key = key.gsub("subject_new", "subject_data_new")+"_#{beam_no}"
+#      RedisConnection.expire data_key, 60*10
+#    end
     generate_subject_from_frank(subject, key)
   end
   
   # Supports fake followup controlled triggering
   def self.pull_random_frank_key
-    keys = RedisConnection.keys 'subject_new*'
+    keys = RedisConnection.keys '*subject_new*'
     return nil if keys.empty?
     key = keys.sample
     subject  = JSON.parse(RedisConnection.get key)
     RedisConnection.del key
-    subject['beam'].each do |beam|
-      beam_no  = beam['beam'] 
-      data_key = key.gsub("subject_new", "subject_data_new")+"_#{beam_no}"
-      RedisConnection.expire data_key, 60*10
-    end
+#    subject['beam'].each do |beam|
+#      beam_no  = beam['beam'] 
+#      data_key = key.gsub("subject_new", "subject_data_new")+"_#{beam_no}"
+#      RedisConnection.expire data_key, 60*10
+#    end
     [subject, key]
   end
   
   def self.parse_key_details(key)
      data = key.split("_")
-     {observation_id: data[2],
-      activity_id: data[3],
-      pol: data[4].to_i,
-      sub_channel: data[5].to_i
+     {observation_id: data[3],
+      activity_id: data[4],
+      pol: data[5].to_i,
+      sub_channel: data[6].to_i
      }
   end
   
@@ -255,7 +256,7 @@ class Subject
                       :freq_range  => subject["bandwidthMhz"].to_f,
                       :location    => {:time=>subject["startTimeNanos"], :freq=>subject["centerFreqMhz"]},
                       :pol => details[:pol],
-                      :activity_id => details[:activity_id],
+                      # duplicated above :activity_id => details[:activity_id],
                       :sub_channel => details[:sub_channel],
                       :observation_id => details[:observation_id],
                       :original_redis_key => key
@@ -267,33 +268,37 @@ class Subject
           beam_no  = beam['beam']
           seti_id  = beam['target']
           data_key = key.gsub("subject_new", "subject_data_new")+"_#{beam_no}"
-          data = JSON.parse(RedisConnection.get(data_key))
+          urls = JSON.parse(RedisConnection.get(data_key))
+          
+          source = Source.find_by_seti_id(seti_id.to_s)
+          source = Source.create_with_seti_id(seti_id) unless source 
+          if source
+            s.observations.create( :data_key => data_key,
+                                    :source  => source,
+                                    :beam_no => beam_no,
+                                    :width => subject['width'],
+                                    :height => subject['height'],
+                                    :has_simulation => false,
+                                    :data_url => urls[2],
+                                    :image_url => urls[0],
+                                    :thumb_url => urls[1]
+                                    )
 
-          if data.nil? or data.empty? or (data-[0]).empty?
-            RedisConnection.del data_key 
-            Rails.logger.error 'broken data'
-            Rails.logger.error subject
-            Rails.logger.error data
           else 
-            source = Source.find_by_seti_id(seti_id.to_s)
-            source = Source.create_with_seti_id(seti_id) unless source 
-            if source
-              s.observations.create( :data_key => data_key,
-                                     :source  => source,
-                                     :beam_no => beam_no,
-                                     :width => subject['width'],
-                                     :height => subject['height'],
-                                     :has_simulation => false
-                                     )
-
-            else 
-              throw "Could not find or create Source for observation #{beam['target_id']}"
-            end
+            throw "Could not find or create Source for observation #{beam['target_id']}"
           end
         end
-
-        s.observations.each {|o| o.process}
-
+        loader = ObservationUploader.new()
+        s.observations.each do |o|
+          url = loader.rename_file(o.data_url, o.zooniverse_id)
+          url ? (o.data_url = url) : (throw "invalid data url")
+          url = loader.rename_file(o.image_url, o.zooniverse_id)
+          url ? (o.image_url = url) : (throw "invalid image url")
+          url = loader.rename_file(o.thumb_url, o.zooniverse_id)
+          url ? (o.thumb_url = url) : (throw "invalid thumb url")
+          o.uploaded = true
+          o.save
+        end
 
       rescue   Exception => e  
         Rails.logger.error "could not create subject "
@@ -328,7 +333,7 @@ class Subject
 
   #probably want to fix this at some point(need to find a way of doing random with pattern)
   def self.get_random_new
-    list = RedisConnection.keys("subject_new*")
+    list = RedisConnection.keys("*subject_new*")
     with_key list[rand(list.count)]
   end
 
