@@ -47,6 +47,7 @@ class Subjects extends Spine.Controller
 
     # Reset current beam
     @current_beam = 0
+    @enableSignalDraw()
 
     @setUpBeams()
 
@@ -64,7 +65,6 @@ class Subjects extends Spine.Controller
   #drawing methods for the beams 
   wrapBeams: =>
     @overlays = (Raphael($(beam).attr("id"), '100%', '100%') for beam in @beams)
-    console.log @overlays
     $(overlay.canvas).css("z-index","10000") for overlay in @overlays 
     new Workflows({el: $(@workflowArea)})
 
@@ -234,6 +234,9 @@ class Subjects extends Spine.Controller
 
   # interaction with the beams!
   placeMarker: (e) =>
+    console.log $(e.currentTarget)
+    console.log @canDrawSignal
+    console.log @dragging
     if @canDrawSignal and not @dragging
       dx  = (e.pageX * 1.0 - $(e.currentTarget).offset().left) / @main_beam.width()*1.0
       dy  = (e.pageY * 1.0 - $(e.currentTarget).offset().top) / @main_beam.height()*1.0
