@@ -26,11 +26,11 @@ class Info extends Spine.Controller
     super
     @resetTime()
     Subject.bind 'create', @initialSetup
-    Source.bind 'refresh', @drawStarField
+    # Source.bind 'refresh', @drawStarField
     Spine.bind 'beamChange', @beamChange
 
-    if Source.count() == 0
-      Source.fetch()
+    # if Source.count() == 0
+    #   Source.fetch()
 
   initialSetup: =>
     # Make sure info shown is default
