@@ -186,10 +186,7 @@ class Subjects extends Spine.Controller
     @canDrawSignal = true 
 
   dissableSignalDraw: =>
-    @canDrawSignal = false 
-
-  getNextSubject: =>
-    Subject.fetch_from_url('data/test.json')
+    @canDrawSignal = false
     
   drawBeam: (target,subject,beamNo) ->
     ctx = target[0].getContext('2d')
