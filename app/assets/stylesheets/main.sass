@@ -131,7 +131,6 @@ input[type=text], input[type=password]
 .stack > *:not(.active)
   display: none
 
-
 #footer
   overflow-y: hidden
   width: 100%
@@ -139,7 +138,7 @@ input[type=text], input[type=password]
   margin: 0px
   padding: 0px
   background: #0E1216
-  border-top: 1px #191F26 solid
+  border-top: 1px solid #191F26
   color: #f6f6f6
 
   .container
@@ -155,34 +154,29 @@ input[type=text], input[type=password]
       margin-left: 30px
 
     p, a
+      float: left
+      margin: 0
+      padding: 0
       font-family: TitilliumText22LRegular, Sans-serif
       font-size: 12px
       line-height: 50px
       text-decoration: none
-      padding: 0px
-      margin: 0px
-      float: left
       &.right
         float: right
         padding-left: 40px
 
-
-        
-
 #real_time
   h1
+    border-bottom: 1px solid #373737
+    padding:  0 0 20px 0
     font-family: TitilliumText22LThin, Sans-serif
-    border-bottom: 1px #373737 solid
-    padding-bottom: 20px
     font-size: 40pt
   h2
-    font-family: TitilliumText22LThin, Sans-serif
+    margin: -24px 0 40px 0
     color: #666666
-    margin-top: -24px
-    margin-bottom: 40px
-    font-size: 20px
-    text-transform: uppercase
+    font-family: TitilliumText22LThin, Sans-serif
     font-size: 10pt
+    text-transform: uppercase
 
 #aboutpage
   h1
@@ -240,7 +234,7 @@ input[type=text], input[type=password]
   margin-right: auto
   width: 1000px
   height: 100px
-  padding: 0 0 65px 0
+  padding: 0 0 45px 0
   position: relative
   z-index: 1
 
@@ -450,7 +444,7 @@ input[type=text], input[type=password]
 
 .waterfall
   padding: 0
-  border: 3px #dfdfdf solid
+  border: 3px solid #dfdfdf
   @include box-shadows((0 2px 5px rgba(0,0,0,0.2)))
   @include round-corners(3px)
 
@@ -708,35 +702,6 @@ $workflow-font-size: 12pt
     height: 60px
     line-height: 60px
     margin-top: -30px
-
-#talk_yes
-  display: inline-block
-  width: 120px
-  height: 78px
-  font-family: TitilliumText22LThin, Sans-serif
-  background-image: url("gradient_background.png")
-  color: #CDDC28
-  font-size: 35pt
-  text-align: center
-  line-height: 60pt
-  font-family: TitilliumText22LThin, Sans-serif
-  border: 1px solid #383838
-  cursor: pointer
-  margin-right: 12px
-
-#talk_no
-  display: inline-block
-  width: 120px
-  height: 78px
-  font-family: TitilliumText22LThin, Sans-serif
-  background-image: url("gradient_background.png")
-  color: #CDDC28
-  font-size: 35pt
-  text-align: center
-  line-height: 60pt
-  font-family: TitilliumText22LRegular, Sans-serif
-  border: 1px solid #383838
-  cursor: pointer
 
 #talk_prompt
   color: #5F5F5F
