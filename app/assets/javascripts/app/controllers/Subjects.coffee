@@ -26,8 +26,6 @@ class Subjects extends Spine.Controller
     Subject.bind('done', @saveClassification)
 
     Spine.bind 'nextBeam', @nextBeam
-    Spine.bind 'enableSignalDraw', @enableSignalDraw
-    Spine.bind 'dissableSignalDraw', @dissableSignalDraw
     Spine.bind 'clearSignals', @deleteAllSignals
     Workflow.bind 'workflowDone', @enableSignalDraw
     Workflow.bind 'workflowDone', @finalizeSignal
@@ -308,8 +306,8 @@ class Subjects extends Spine.Controller
     unless new_signal
       @stage += 1 
       if @stage == 2 
-        @drawLine(signal) 
-        @canDrawSignal = false
+        @drawLine(signal)
+        @enableSignalDraw()
         Spine.trigger 'startWorkflow', signal
   
   updateLine: (signal) =>
