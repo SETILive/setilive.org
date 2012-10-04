@@ -13,6 +13,7 @@ class Main extends Spine.Stack
     classify: Classify
 
   routes:
+    '/classify/:type': 'classify'
     '/classify': 'classify'
     '/about/:content': 'about'
     '/about': 'about'

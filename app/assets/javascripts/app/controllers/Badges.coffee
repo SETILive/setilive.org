@@ -40,6 +40,4 @@ class Badges extends Spine.Controller
       twitterTemplate: @view('profile/twitterBadge')
       facebookTemplate: @view('profile/facebookBadge')
   
-
-  
 window.Badges = Badges

@@ -37,7 +37,7 @@ window.tutorialSteps = [
                $("#nav li.nav_about").removeClass("tutorial_select")
                $("#nav li.tutorial_signals").removeClass("tutorial_item_selected")
 
-          location: [400,-270]
+          location: [400,-170]
           speed:400
        , 
           title: "Markers"
@@ -115,7 +115,7 @@ window.tutorialSteps = [
             $("#nav li.nav_user").removeClass("tutorial_select")
             $("#nav li.tutorial_profile").removeClass("tutorial_item_selected")
           indicatorPos: "top right"
-          location: [500,-330]
+          location: [500,-230]
           speed: 400
         ,
           title: "More Info"
@@ -124,7 +124,7 @@ window.tutorialSteps = [
           onLeave: ->
             $("#nav li.nav_about").removeClass("tutorial_select")
           text: "For more info you can check out the about pages to learn about the science and background to SETILive."
-          location: [760,-330]
+          location: [760,-230]
           speed: 400
         ,
           title: "Tutorial Rerun"
@@ -135,7 +135,7 @@ window.tutorialSteps = [
           onLeave: ->
             $("#nav li.nav_classify").removeClass("tutorial_select")
             $("#nav li.tutorial_tutorial").removeClass("tutorial_item_selected")
-          location: [660,-330]
+          location: [660,-230]
           speed: 400
         ,
           title: "Time"
@@ -144,6 +144,6 @@ window.tutorialSteps = [
           indicatorPos: "top right"
           onLeave: ->
             $.getJSON '/seen_tutorial', ->
-              window.location = '/classify'
+              window.location = '/#/classify'
           speed:400
 ]

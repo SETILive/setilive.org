@@ -4,7 +4,7 @@
   <li><a href="/#/sources">Targets</a></li>
   <li class="nav_classify"><a href="/#/classify">Classify</a>
      <ul class="nav_submenu">
-        <li class="tutorial_tutorial"><a href="/#/tutorial">Tutorial</a> </li>
+        <li class="tutorial_tutorial"><a href="/#/classify/tutorial">Tutorial</a> </li>
         <li class="tutorial_signals"><a href="/#/about/gallery">Signals</a></li>
         <li class="tutorial_video"><a href="/#/about/video_tutorial">Video</a></li>
 
