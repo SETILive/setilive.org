@@ -1,11 +1,12 @@
-<div class='waterfall large-waterfall' id='main-waterfall' style='position:relative'>
+<div class="waterfall large-waterfall" id="main-waterfall" style="position: relative">
     <canvas style='width:100%;height:100%;position:absolute; top:0px; left:0px'></canvas>
-    <div id='workflow' class='workflow_area'></div>
+    <div id="workflow" class="workflow_area"></div>
 </div>
+
 <% for beam, index in @: %>
   <% if (beam.data? and beam.data.length > 0) or beam.uploaded : %>
     <div class="small-waterfall-container" data-id="<%- index %>">
-      <div class='waterfall small-waterfall <%- "waterfall-first" if index == 0 %>' id='waterfall-<%-index%>' data-id='<%-index%>' style='position:relative'>
+      <div class="waterfall small-waterfall <%- "waterfall-first" if index == 0 %>" id="waterfall-<%- index %>" data-id="<%- index %>" style="position: relative">
         <canvas style='width:100%;height:100%;position:absolute; top:0px; left:0px'></canvas>
       </div>
       <div class="copy-beam"></div>

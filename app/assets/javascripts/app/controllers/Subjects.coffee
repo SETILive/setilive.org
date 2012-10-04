@@ -27,18 +27,22 @@ class Subjects extends Spine.Controller
 
     Spine.bind 'nextBeam', @nextBeam
     Spine.bind 'clearSignals', @deleteAllSignals
+    Spine.bind 'doneClassification', @saveClassification
+
     Workflow.bind 'workflowDone', @enableSignalDraw
     Workflow.bind 'workflowDone', @finalizeSignal
     
     @showSimulation = false
     @simBeam = 0
 
-    Spine.bind 'doneClassification', @saveClassification
-
   render: (subject) =>
     @current_subject = subject
-    @html @view('waterfalls')(@current_subject.observations)
-    
+    @html @view('classify/waterfalls')(@current_subject.observations)
+
+    # A really dumb hack
+    @delay @setupWaterfalls
+
+  setupWaterfalls: =>
     @current_classification = new Classification 
       subject_id: @current_subject.id
       start_time: new Date()
@@ -62,6 +66,7 @@ class Subjects extends Spine.Controller
 
   #drawing methods for the beams 
   wrapBeams: =>
+    console.log @beams
     @overlays = (Raphael($(beam).attr("id"), '100%', '100%') for beam in @beams)
     $(overlay.canvas).css("z-index","10000") for overlay in @overlays 
     new Workflows({el: $(@workflowArea)})

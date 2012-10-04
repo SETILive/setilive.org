@@ -15,7 +15,7 @@ class Classify extends Spine.Controller
     # window.location.hash='notification_bar'
 
   render: =>
-    @subjects = new Subjects({el:$("#waterfalls")})
+    @subjects = new Subjects({el: $("#waterfalls")})
     @info = new Info({el: $("#info")})
     Subject.fetch_next_for_user()
 

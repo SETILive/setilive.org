@@ -26,11 +26,7 @@ class Info extends Spine.Controller
     super
     @resetTime()
     Subject.bind 'create', @initialSetup
-    # Source.bind 'refresh', @drawStarField
     Spine.bind 'beamChange', @beamChange
-
-    # if Source.count() == 0
-    #   Source.fetch()
 
   initialSetup: =>
     # Make sure info shown is default
@@ -63,19 +59,6 @@ class Info extends Spine.Controller
 
   clearSignals: =>
     Spine.trigger 'clearSignals'
-
-  # setupTargets: =>
-  #   subject = Subject.first()
-  #   if subject.observations.count ==1 
-  #     @done.show()
-  #     @nextBeam.hide() 
-  #   if subject?
-  #     targets = []
-  #     for observation in subject.observations
-  #       targets.push(new Source(observation.source )) if observation.source?
-  #     # console.log new TargetInfo el:@targets, location: subject.location
-  #     new TargetInfo el:@targets, location: subject.location
-
 
   updateTime: =>
     timeRemaining = (@targetTime - Date.now())/1000
