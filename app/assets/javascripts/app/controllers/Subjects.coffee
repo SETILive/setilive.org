@@ -66,7 +66,6 @@ class Subjects extends Spine.Controller
 
   #drawing methods for the beams 
   wrapBeams: =>
-    console.log @beams
     @overlays = (Raphael($(beam).attr("id"), '100%', '100%') for beam in @beams)
     $(overlay.canvas).css("z-index","10000") for overlay in @overlays 
     new Workflows({el: $(@workflowArea)})
@@ -95,7 +94,7 @@ class Subjects extends Spine.Controller
     # Prepare waterfall area for newly selected beam
     if otherObservationsWithSignals.length
       beamNumbers = _.pluck otherObservationsWithSignals, 'beam_no'
-      $("#waterfall-#{@current_beam}").siblings('.copy-beam').html @view('waterfalls_copy_text')({sources: beamNumbers, destination: @current_beam})
+      $("#waterfall-#{@current_beam}").siblings('.copy-beam').html @view('classify/waterfalls_copy_text')({sources: beamNumbers, destination: @current_beam})
 
     $("#waterfall-#{@current_beam}").addClass("selected_beam")
     @drawBeam @main_beam.find("canvas"), @current_subject, @current_beam
@@ -234,9 +233,6 @@ class Subjects extends Spine.Controller
 
   # interaction with the beams!
   placeMarker: (e) =>
-    console.log $(e.currentTarget)
-    console.log @canDrawSignal
-    console.log @dragging
     if @canDrawSignal and not @dragging
       dx  = (e.pageX * 1.0 - $(e.currentTarget).offset().left) / @main_beam.width()*1.0
       dy  = (e.pageY * 1.0 - $(e.currentTarget).offset().top) / @main_beam.height()*1.0
