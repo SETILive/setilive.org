@@ -34,6 +34,7 @@ class Classify extends Spine.Controller
     Spine.unbind 'nextBeam'
     Spine.unbind 'clearSignals'
     Spine.unbind 'doneClassification'
+    Workflow.unbind 'workflowDone'
     @el.empty()
 
 window.Classify = Classify

@@ -36,13 +36,9 @@ class Subjects extends Spine.Controller
     @simBeam = 0
 
   render: (subject) =>
-    Spine.unbind 'startWorkflow'
-    Spine.unbind 'closeWorkflow'
-    
+
     @current_subject = subject
     @html @view('classify/waterfalls')(@current_subject.observations)
-
-    @workflow = new Workflows({el: $(@workflowArea)})
 
     # A really dumb hack
     @delay @setupWaterfalls
@@ -51,6 +47,10 @@ class Subjects extends Spine.Controller
     @current_classification = new Classification 
       subject_id: @current_subject.id
       start_time: new Date()
+
+    Spine.unbind 'startWorkflow'
+    Spine.unbind 'closeWorkflow'
+    @workflow = new Workflows({el: $(@workflowArea)})
 
     # Reset current beam
     @current_beam = 0
