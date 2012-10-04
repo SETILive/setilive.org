@@ -17,16 +17,18 @@ class Sources extends Spine.Controller
     @html @view 'sources/sources'
 
     if Source.count() == 0
-      Source.fetch(@changePage)
+      Source.fetch()
     else
       @changePage @page
 
   active: ->
     super
+    Source.bind 'refresh', @changePage
     @render()
 
   deactivate: ->
     super
+    Source.unbind 'refresh', @changePage
     @el.html ''
 
   changePage: (page = 0) =>

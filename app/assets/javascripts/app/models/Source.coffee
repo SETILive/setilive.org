@@ -3,7 +3,7 @@ class Source extends Spine.Model
   @configure 'Source', 'name', 'coords', 'description', 'type', 'meta','zooniverse_id', 'seti_id'
   @extend Spine.Events
 
-  @fetch: (onSuccess = '') ->
+  @fetch: ->
     $.ajax
       url: 'http://zooniverse-seti-dev.s3.amazonaws.com/sourcesStatic.json',
       dataType: 'jsonp',
