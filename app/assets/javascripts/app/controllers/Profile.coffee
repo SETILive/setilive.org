@@ -19,14 +19,29 @@ class Profile extends Spine.Controller
       perPage: 8
       menu: ->
         JST['app/views/pagination'](@)
-    
   
   active: ->
     super
     User.bind 'refresh', @gotUser
     Badge.bind 'refresh', @gotUser
-    @render()
 
+    if User.count() == 0
+      User.fetch_current_user()
+    else
+      @gotUser()
+
+  render: => 
+    @html ""
+    @append @view('profile/user_stats')(@user)
+    
+    @append @view('profile/user_profile')
+      user: @user
+      pagination: @pagination
+      subjects: @data?.collection or []
+      collectionType: @collectionType
+      itemTemplate: @view('profile/waterfallCollectionItem')
+      badgeTemplate: @view('profile/badge')
+  
   addFavourite: (e) =>
     observation_id = $(e.currentTarget).data().id 
     User.first().addFavourite observation_id, @render
@@ -40,18 +55,6 @@ class Profile extends Spine.Controller
     @collectionType = @inital_collection_type
     @render()
     @fetchType(@collectionType, 1) if @user
-  
-  render: => 
-    @html ""
-    @append @view('profile/user_stats')(@user)
-    
-    @append @view('profile/user_profile')
-      user: @user
-      pagination: @pagination
-      subjects: @data?.collection or []
-      collectionType: @collectionType
-      itemTemplate: @view('profile/waterfallCollectionItem')
-      badgeTemplate: @view('profile/badge')
   
   selectPage: (e) =>
     e.preventDefault()
