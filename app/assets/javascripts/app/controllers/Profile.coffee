@@ -30,6 +30,12 @@ class Profile extends Spine.Controller
     else
       @gotUser()
 
+  deactivate: ->
+    super
+    @el.html ''
+    User.unbind 'refresh', @gotUser
+    Badge.unbind 'refresh', @gotUser
+
   render: => 
     @html ""
     @append @view('profile/user_stats')(@user)
