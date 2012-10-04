@@ -1,5 +1,5 @@
 <div id="home_content_top">
-  <div class="button larger right">Start Searching</div>
+  <a href="/#/classify"><div class="button larger right">Start Searching</div></a>
   <h1>
     We're searching for interesting signals coming from the Kepler Field. Will we find life on another planet? 
   </h1>
