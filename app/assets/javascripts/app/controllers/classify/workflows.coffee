@@ -21,15 +21,20 @@ class Workflows extends Spine.Controller
 
   startWorkflow: (signal) =>
     console.log 'workflow start', Signal.find signal.id
+
     x = @el.parent().width() * (Math.max(signal.freqEnd, signal.freqStart) ) + 20
     y = @el.parent().height() * (signal.timeEnd + signal.timeStart) / 2.0 - @el.height() / 2.0
     @el.css
       top: y
       left: x
     @el.show()
+
     @currentSignal = signal
     @currentSignal.save()
     @setUpQuestion(Workflow.first().questions[0]._id)
+    
+    if @currentSignal.characterisations.length > 0
+      @el.find('#close-workflow').show()
 
   closeWorkflow: =>
     @answer_list.html("")
@@ -75,8 +80,6 @@ class Workflows extends Spine.Controller
     else
       console.log @currentSignal
       @doneWorkflow()
-    
-    # Spine.trigger 'updateSignal', @currentSignal
       
   doneWorkflow: =>
     @answer_list.html ''
