@@ -5,6 +5,7 @@ class Main extends Spine.Stack
   controllers:
     home: Home
     about: About
+    badges: Badges
     sources: Sources
     source_item: SourceItem
     profile: Profile
@@ -17,6 +18,7 @@ class Main extends Spine.Stack
     '/about': 'about'
     '/sources/:id': 'source_item'
     '/sources': 'sources'
+    '/profile/badges/:id': 'badges'
     '/profile': 'profile'
     '/telescope_status': 'telescope'
     '/': 'home'

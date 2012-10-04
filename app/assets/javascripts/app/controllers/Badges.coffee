@@ -1,39 +1,44 @@
+
 class Badges extends Spine.Controller
-  inital_collection_type : 'favourites'
+
+  inital_collection_type: 'favourites'
 
   events:
-    'click .page' : 'selectPage'
-    'click .collectionType' : 'selectCollectionType'
+    'click .page': 'selectPage'
+    'click .collectionType': 'selectCollectionType'
 
-  constructor: ->
+  constructor: (params) ->
     super
-    User.bind('refresh',@gotUser)
-    Badge.bind('refresh', @gotBadge)
-    @collectionType='favourites'
+    @collectionType = 'favourites'
 
-  gotUser:=>
-    @user= User.first()
-    if @user and Badge.count()>0
+  active: (params) =>
+    super
+    @badge_id = params.id
+
+    if User.first() and Badge.count() > 0
+      @dataReceived()
+
+    User.bind 'refresh', @dataReceived
+    Badge.bind 'refresh', @dataReceived
+
+  dataReceived: =>
+    if User.first() and Badge.count() > 0
+      @user = User.first()
+      @mainBadge = Badge.find @badge_id
       @render()
 
-
-  gotBadge:=>
-    @mainBadge = Badge.find(window.location.pathname.split("/")[2])
-    if @user and Badge.count()>0
-      @render()
-
-  render:=> 
+  render: => 
     @html ""
-    @append @view('user_stats')(@user)
-    @append @view('badge_details')
+    @append @view('profile/user_stats')(@user)
+    @append @view('profile/badge_details')
       user: @user
       mainBadge: @mainBadge
-      pagination : @pagination
-      subjects : [1..20] #@user[@collectionType]
+      pagination: @pagination
+      subjects: [1..20] #@user[@collectionType]
       collectionType: @collectionType
-      badgeTemplate: @view('badge')
-      twitterTemplate: @view('twitterBadge')
-      facebookTemplate: @view('facebookBadge')
+      badgeTemplate: @view('profile/badge')
+      twitterTemplate: @view('profile/twitterBadge')
+      facebookTemplate: @view('profile/facebookBadge')
   
 
   

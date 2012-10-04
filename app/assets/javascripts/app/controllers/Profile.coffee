@@ -1,3 +1,4 @@
+
 class Profile extends Spine.Controller
   inital_collection_type: 'favourites'
   
@@ -23,7 +24,6 @@ class Profile extends Spine.Controller
   active: ->
     super
     User.bind 'refresh', @gotUser
-    Badge.bind 'refresh', @gotUser
 
     if User.count() == 0
       User.fetch_current_user()
@@ -34,7 +34,6 @@ class Profile extends Spine.Controller
     super
     @el.html ''
     User.unbind 'refresh', @gotUser
-    Badge.unbind 'refresh', @gotUser
 
   render: => 
     @html ""

@@ -1,0 +1,36 @@
+<div id="user_profile">
+  <div id="profile_top">
+    <h1 id="user_welcome">
+      <% if @user?: %>
+        Welcome back, <%=@user.name%>.
+      <% end %>
+    </h1>
+    <ul id="user_badges">
+      <% for badge in Badge.all(): %>
+        <li class="badge">
+          <%if @user?.hasBadge(badge): %>
+            <%- @badgeTemplate({badge:badge, size: 50, level: @user.maxLevelForBadge(badge)})  %>
+          <%else: %>
+            <%- @badgeTemplate({size: 50})  %>
+          <%end%>
+        </li>
+      <%end%>
+    </ul>
+  </div>
+  <div id="badge_profile_bottom">
+    <div id="badge_profile_left">
+      <%- @badgeTemplate({badge:@mainBadge, size:250, level: @user?.maxLevelForBadge(@mainBadge)})%>
+    </div>
+    <div id="badge_profile_right">
+      <% if @mainBadge? and @user?.hasBadge(@mainBadge): %>
+        <h1>You’ve earned the <%-@mainBadge?.title.replace("_"," ")%> Badge! </h1>
+        <p> <%= @mainBadge.facebookString("You",@user?.maxLevelForBadge(@mainBadge)).replace("their","your").replace("is","are").replace("has","have")%>. Tell your friends.</p>
+         <%- @twitterTemplate({user: @user.name, badge: @mainBadge, level: @user?.maxLevelForBadge(@mainBadge)}) %>
+         <%- @facebookTemplate({user: @user.name, badge: @mainBadge, level: @user?.maxLevelForBadge(@mainBadge)}) %>
+         <a href="/#/profile"><div id="badge_profile_return">Return to Profile</div></a>
+      <% else: %>
+        <h1>You have yet to earn this badge</h1>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -24,14 +24,14 @@ class User extends Spine.Model
       User.trigger "badge_awarded", {badge: badge, level: level }
       @persistBadge(data)
   
-  persistBadge:(data)=>
+  persistBadge: (data) =>
     $.ajax
       type: 'POST'
       url: '/awardBadge'
       data: data
       dataType: 'json'
 
-  hasBadge:(testBadge,level...)=>
+  hasBadge: (testBadge, level...) =>
     level = level[0]
     for badge in @badges 
       if testBadge.id == badge.id 
@@ -42,7 +42,7 @@ class User extends Spine.Model
           return true
     return false
 
-  maxLevelForBadge:(badge)=>
+  maxLevelForBadge: (badge) =>
     return null if badge.type=='one_off'
     level=0
     for item in @badges
@@ -51,18 +51,18 @@ class User extends Spine.Model
         level = item.level  
     level
 
-  addFavourite:(observation_id, callback=null)=>
+  addFavourite: (observation_id, callback=null) =>
     $.ajax 
       type: 'POST'
       url: '/favourites/'
-      data: {observation_id : observation_id}
+      data: {observation_id: observation_id}
       dataType: 'json'
-      success: (response)=>
+      success: (response) =>
         @favourites.push(observation_id)
         @save()
         callback() if callback?
 
-  removeFavourite:(observation_id, callback=null)=>
+  removeFavourite: (observation_id, callback=null) =>
     $.ajax 
       type: 'DELETE'
       url: "/favourites/#{observation_id}"
