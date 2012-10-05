@@ -38,8 +38,12 @@ class Messages extends Spine.Controller
   setupPusherBindings: (channel, bindings) ->
     for key, method of bindings
       if typeof method == 'string' or 'function'
+        Spine.bind key, @[method]
         @defaultChannel.bind key, (data) ->
-          console.log 'bound to spine ', method, ' and key: ', key
-          Spine.trigger method, data
+          Spine.trigger key, data
+
+  onPusherTelescopeStatusChange: (data) ->
+    status = status: data
+    TelescopeStatus.refresh status, {clear: true}
 
 window.Messages = Messages
