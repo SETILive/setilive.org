@@ -25,6 +25,7 @@ class App extends Spine.Controller
 
     User.fetch_current_user()
     Badge.fetch()
+    TelescopeStatus.fetch()
 
     @append @main = new Main
     Spine.Route.setup()
