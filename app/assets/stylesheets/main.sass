@@ -59,6 +59,9 @@
     text-shadow: 0px 1px 0px #ffffff
   p
     text-shadow: 0px 1px 0px #d4d4d4
+.container
+  margin: 0 auto
+  width: 1000px
 
 .button
   display: inline-block
@@ -212,10 +215,9 @@ input[type=text], input[type=password]
   
       
 #about_menu
-  @include round-corners(2px)
+  margin: 30px 0 40px 0
   @include gradient-bg(#ECEAEA, #B3B3B3)
-  margin-top: 30px
-  margin-bottom: 40px
+  @include round-corners(2px)
   font-size: 20px
   line-height: 30px
   text-align: center
@@ -229,15 +231,6 @@ input[type=text], input[type=password]
       color: #ffffff
       text-shadow: 0px -1px 0px #b4b4b4
 
-#top
-  margin-left: auto
-  margin-right: auto
-  width: 1000px
-  height: 100px
-  padding: 0 0 45px 0
-  position: relative
-  z-index: 1
-
 .green
   color: #cddc28
   font-family: TitilliumText22LRegular, Sans-serif
@@ -249,6 +242,10 @@ input[type=text], input[type=password]
   font-family: TitilliumText22LThin, Sans-serif
 
 #top
+  position: relative
+  height: 100px
+  padding: 0 0 35px 0
+  z-index: 1
   #nav
     position: relative
     float: right
@@ -330,8 +327,6 @@ input[type=text], input[type=password]
     .green
       letter-spacing: 2px
 
-
-
 .small_field
   height: 130px
 
@@ -347,9 +342,7 @@ input[type=text], input[type=password]
   border: 1px solid #666
 
 #content
-  margin-left: auto
-  margin-right: auto
-  width: 1010px
+  margin: 0 -5px
   min-height: 750px
 
 #stats li
@@ -1319,7 +1312,6 @@ ul.pagination
 #notification_bar
   position: relative
   overflow-y: hidden
-  width: 1000px
   height: 60px
   margin: 0 auto 29px
   padding: 0px

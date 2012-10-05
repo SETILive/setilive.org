@@ -220,7 +220,6 @@ class Subjects extends Spine.Controller
       imageData.data[i]=data[i] for i in [0..data.length]
       ctx.putImageData(imageData,0,0)
 
-
   drawCombinedBeam: (target, subject) ->
     ctx = target[0].getContext('2d')
     targetWidth = $(target[0]).width()

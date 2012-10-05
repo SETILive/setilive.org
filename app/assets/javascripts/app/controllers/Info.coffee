@@ -55,7 +55,7 @@ class Info extends Spine.Controller
       new TargetInfo el:@targets, location: subject.location
 
   drawStarField: =>
-    @stars = new Stars(el: @star_field_small)
+    # @stars = new Stars(el: @star_field_small)
 
   clearSignals: =>
     Spine.trigger 'clearSignals'
