@@ -1,3 +1,4 @@
+
 class Notifications extends Spine.Controller
 
   elements :
@@ -7,15 +8,6 @@ class Notifications extends Spine.Controller
   events:
     'click .dismiss_button' : 'removeNotification'
 
-  pusherKey     : "***REMOVED***"
-  pusherChannel : 'dev-telescope'
-  # pusherChannel : 'dev'
-  pusher: 
-      "target_changed" : "sourceChange"
-      "new_data" : "newData"
-      "followUpTrigger" : "followUpTrigger"
-      "status_changed" : "telescopeStatusChange"
-      "stats_update" : "updateStats"
    
   constructor: ->
     super
@@ -63,34 +55,34 @@ class Notifications extends Spine.Controller
     #       @[rp](data)
 
   updateStats:(data)=>
-    Spine.trigger('updateStats',data)  
+    Spine.trigger 'updateStats', data
 
   favourited: => 
     @addNotification('favourited',{})
 
-  sourceChange: (data)=> 
+  sourceChange: (data) => 
     Spine.trigger('target_target_changed', data)
     @addNotification('source_change',data)
 
-  telescopeStatusChange: (data)=> 
+  telescopeStatusChange: (data) => 
     $(".telescope_status_changed").remove()
     Spine.trigger('target_status_changed', data)
     @addNotification('telescope_status_changed',data)
 
-  followUpTrigger:()=>
+  followUpTrigger: =>
     console.log("here")
     @addNotification('followUpTriggered',{})
   
-  badgeAwarded:(data)=>
+  badgeAwarded: (data) =>
     data['size'] = "50"
     data['user'] = User.first().name
     @addNotification 'badge_awarded',
-      data : data
-      badgeTemplate : @view('badge')(data)
-      facebookTemplate : @view('facebookBadge')(data)
-      twitterTemplate  : @view('twitterBadge')(data)
+      data: data
+      badgeTemplate: @view('badge')(data)
+      facebookTemplate: @view('facebookBadge')(data)
+      twitterTemplate: @view('twitterBadge')(data)
 
-  tutorialBadgeAwarded:=>
+  tutorialBadgeAwarded: =>
     data = 
       'size' : "50"
       badge :

@@ -28,4 +28,15 @@ class App extends Spine.Controller
     @append @main = new Main
     Spine.Route.setup()
 
+    # setup pusher messaging
+    @messages = new Messages()
+
+    # Pusher bindings
+    Spine.bind 'onPusherTelescopeStatusChange', (data) ->
+      status =
+        status: data
+      TelescopeStatus.refresh status, {clear: true}
+      console.log 'event fired'
+
+
 window.App = App

@@ -23,7 +23,6 @@ class Info extends Spine.Controller
     "click #clear_signal": "clearSignals"
 
   constructor: ->
-    super
     @resetTime()
     Subject.bind 'create', @initialSetup
     Spine.bind 'beamChange', @beamChange
