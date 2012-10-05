@@ -63,22 +63,61 @@ class ObservationUploader
 
   def upload_file(name , data)
     if Rails.env.development?
-      #Kluge to avoid sending data to S3 in dev mode.
+      #Kluge to avoid sending data to S3 in dev mode if live data is emulated.
       # Need folders already created in ~/s3store/zooniverse-seti/
       # images, thumbs, data
+      # Run local HTTP file server in s3store on port 9914
+      # (i.e. python -m SimpleHTTPServer 9914) 
       bucket_home = ENV['HOME'] + '/' + 's3store'
-      bucket_name = 'zooniverse-seti'
+      bucket_name = 'zooniverse-seti-dev'
       file_path = bucket_home + '/' + bucket_name + '/' + name
       object_file = File.open( file_path, 'w' )
       object_file.write( data )
       object_file.close
-      'file://' + file_path
+      'http://localhost:9914/' + bucket_name + "/" + name
     else
       s3 = AWS::S3.new
       bucket = s3.buckets['zooniverse-seti-dev']
       object = bucket.objects[name]
       object.write( data, :acl=>:public_read )
       object.public_url
+    end
+  end
+
+  def rename_file(url, zoo_name)
+    if Rails.env.development?
+      #Kluge to avoid sending data to S3 in dev mode if live data is emulated.
+      # Need folders already created in ~/s3store/zooniverse-seti/
+      # images, thumbs, data
+      # Run local HTTP file server in s3store on port 9914
+      # (i.e. python -m SimpleHTTPServer 9914) 
+      bucket_home = ENV['HOME'] + '/' + 's3store'
+      bucket_name = 'zooniverse-seti-dev'
+      temp = url.split("/")
+      name_1 = temp[4] + "/" + temp[5]
+      file_path_1 = bucket_home + '/' + bucket_name + '/' + name_1
+      name_2 = temp[temp.length-2] + "/observation_" + 
+                zoo_name + '.' + temp.last.split('.').last
+      file_path_2 = bucket_home + '/' + bucket_name + '/' + name_2
+      return nil unless File.exists?(file_path_1)
+      File.rename(file_path_1, file_path_2)
+      if File.exists?(file_path_2) 
+        'http://localhost:9914/' + bucket_name + "/" + name_2
+      else
+        nil
+      end
+    else
+      s3 = AWS::S3.new
+      bucket = s3.buckets['zooniverse-seti-dev']
+      temp = url.split("/")
+      name_1 = temp[4] + "/" + temp[5]
+      object = bucket.objects[name_1]
+      return nil unless object.exists?
+      name_2 = temp[temp.length-2] + "/observation_" + 
+                zoo_name + '.' + temp.last.split('.').last
+      object.rename_to(name_2)
+      object = bucket.objects[name_2]
+      object.exists? ? object.public_url : nil
     end
   end
 
