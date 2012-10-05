@@ -51,8 +51,10 @@ class Info extends Spine.Controller
       targets = []
       for observation in subject.observations
         targets.push(new Source(observation.source )) if observation.source?
-      # console.log new TargetInfo el:@targets, location: subject.location
-      new TargetInfo el:@targets, location: subject.location
+        
+      @targets.html @view('classify/targets_info')
+        location: subject.location
+      # new TargetInfo el:@targets, location: subject.location
 
   drawStarField: =>
     # @stars = new Stars(el: @star_field_small)
