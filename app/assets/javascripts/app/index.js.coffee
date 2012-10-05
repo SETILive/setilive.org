@@ -20,7 +20,8 @@ class App extends Spine.Controller
 
   constructor: ->
     super
-    @nav = new NavBar(el: $("#top")).el.insertBefore $('#notification_bar')
+    @nav = new NavBar(el: $('#top')).el.insertBefore $('#notification_bar')
+    @notifications = new Notifications(el: $('#notification_bar')) 
 
     User.fetch_current_user()
     Badge.fetch()
@@ -30,6 +31,5 @@ class App extends Spine.Controller
 
     # setup pusher messaging
     @messages = new Messages()
-
 
 window.App = App

@@ -1,60 +1,21 @@
 
 class Notifications extends Spine.Controller
-
-  elements :
-    '.notification' : 'notifications'
-    '.notification_count' : 'notificationCount'
+  elements:
+    '.notification': 'notifications'
 
   events:
     'click .dismiss_button' : 'removeNotification'
 
-   
   constructor: ->
     super
-
-    if window.location.port == '3000'
-      @pusherChannel = 'dev'
-
-    @setupLocal()
-    @setupPusher() if Pusher?
-    # @append "<div class='notification_count'></div>"
-
-  openPusher: ->
-    if @pusherKey
-      @pusherConnection = new Pusher(@pusherKey) 
-      @defaultChannel   = @openChannel @pusherChannel
-    else  
-      throw "You need to specify a pusher key"
-
-  openChannel: (channelName) ->
-    @pusherChannels[channelName] = @pusherConnection.subscribe channelName 
-
-  setupPusherBindings: (channel, bindings) ->
-    for key, method of bindings
-      if typeof method == 'string' or 'function'
-        @defaultChannel.bind key, @[method]
-      else  
-        channel = @createChannel(key)
-        @setupPusherBindings channel, method
-  
-  setupPusher: =>
-    @pusherChannels = {}
-    @openPusher()
-    @setupPusherBindings(@defaultChannel, @pusher)
 
   setupLocal: =>
     User.bind("badge_awarded", @badgeAwarded)
     User.bind("tutorial_badge_awarded", @tutorialBadgeAwarded)
     User.bind("favourited", @favourited)
- 
 
-    # for model, events of @localEvents
-    #   for trigger, response of events
-    #     window[model].bind trigger, (data)=>
-    #       rp = response
-    #       @[rp](data)
 
-  updateStats:(data)=>
+  updateStats: (data) =>
     Spine.trigger 'updateStats', data
 
   favourited: => 
@@ -123,11 +84,11 @@ class Notifications extends Spine.Controller
       notificationStyle: style
 
     @prepend $(notification)
-    @updateNotificationCount()
+    # @updateNotificationCount()
     @notifications.fadeIn 700
 
   removeNotification: (e) =>
-    @updateNotificationCount()
+    # @updateNotificationCount()
     $(e.currentTarget).parent().fadeOut 700, ->
       $(e.currentTarget).parent().remove()
 

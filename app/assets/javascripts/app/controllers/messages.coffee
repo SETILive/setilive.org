@@ -43,7 +43,10 @@ class Messages extends Spine.Controller
           Spine.trigger key, data
 
   onPusherTelescopeStatusChange: (data) ->
-    status = status: data
-    TelescopeStatus.refresh status, {clear: true}
+    telescope_status = status: data
+    TelescopeStatus.refresh telescope_status, {clear: true}
+
+    message = message: data
+    Notification.create message
 
 window.Messages = Messages
