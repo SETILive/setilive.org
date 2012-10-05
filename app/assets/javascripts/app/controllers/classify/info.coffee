@@ -80,10 +80,10 @@ class Info extends Spine.Controller
     @controls.hide()
     @talk.show()
     
-    @social.append @view('classify/facebookWaterfall')
+    @social.append @view("facebookWaterfall")
       subject: Subject.first()
 
-    @social.append @view('classify/twitterWaterfall')
+    @social.append @view("twitterWaterfall")
       subject: Subject.first()
 
     if Subject.first().has_simulation
