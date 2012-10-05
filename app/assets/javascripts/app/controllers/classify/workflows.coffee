@@ -20,8 +20,6 @@ class Workflows extends Spine.Controller
       answerHelper: @answer_icon
 
   startWorkflow: (signal) =>
-    console.log 'workflow start', Signal.find signal.id
-
     x = @el.parent().width() * (Math.max(signal.freqEnd, signal.freqStart) ) + 20
     y = @el.parent().height() * (signal.timeEnd + signal.timeStart) / 2.0 - @el.height() / 2.0
     @el.css
@@ -32,7 +30,7 @@ class Workflows extends Spine.Controller
     @currentSignal = signal
     @currentSignal.save()
     @setUpQuestion(Workflow.first().questions[0]._id)
-    
+
     if @currentSignal.characterisations.length > 0
       @el.find('#close-workflow').show()
 
@@ -78,7 +76,6 @@ class Workflows extends Spine.Controller
     if answer.leads_to
       @setUpQuestion(answer.leads_to)
     else
-      console.log @currentSignal
       @doneWorkflow()
       
   doneWorkflow: =>
