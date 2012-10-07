@@ -10,6 +10,7 @@ class NavBar extends Spine.Controller
     super
     User.bind 'refresh', @render
     TelescopeStatus.bind 'refresh', @render
+
     @render()
 
     # Spine.bind 'target_status_changed', (data) =>

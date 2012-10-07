@@ -21,6 +21,13 @@ class Badges extends Spine.Controller
     User.bind 'refresh', @dataReceived
     Badge.bind 'refresh', @dataReceived
 
+  deactivate: =>
+    @el.removeClass 'active'
+    @el.empty()
+
+    User.unbind 'refresh', @dataReceived
+    Badge.unbind 'refresh', @dataReceived
+
   dataReceived: =>
     if User.first() and Badge.count() > 0
       @user = User.first()

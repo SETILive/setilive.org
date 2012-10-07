@@ -13,7 +13,6 @@
   <li class="nav_about">
     <a href="/#/about">About</a>
     <ul class="nav_submenu">
-      <li><a href="/#/about">Science</a> </li>
       <li><a href="/#/about/ted">TED</a></li>
       <li><a href="/#/about/team">Team</a></li>
       <li><a href="/#/about/gallery">Signals</a></li>

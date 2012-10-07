@@ -23,7 +23,6 @@ class Info extends Spine.Controller
     "click #clear_signal": "clearSignals"
 
   constructor: ->
-    super
     @resetTime()
     Subject.bind 'create', @initialSetup
     Spine.bind 'beamChange', @beamChange
@@ -51,11 +50,12 @@ class Info extends Spine.Controller
       targets = []
       for observation in subject.observations
         targets.push(new Source(observation.source )) if observation.source?
-      # console.log new TargetInfo el:@targets, location: subject.location
-      new TargetInfo el:@targets, location: subject.location
+
+      @targets.html @view('classify/targets_info')
+        location: subject.location
 
   drawStarField: =>
-    @stars = new Stars(el: @star_field_small)
+    # @stars = new Stars(el: @star_field_small)
 
   clearSignals: =>
     Spine.trigger 'clearSignals'
@@ -80,10 +80,10 @@ class Info extends Spine.Controller
     @controls.hide()
     @talk.show()
     
-    @social.append @view("facebookWaterfall")
+    @social.append @view('classify/facebookWaterfall')
       subject: Subject.first()
 
-    @social.append @view("twitterWaterfall")
+    @social.append @view('classify/twitterWaterfall')
       subject: Subject.first()
 
     if Subject.first().has_simulation

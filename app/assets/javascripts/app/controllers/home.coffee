@@ -13,6 +13,10 @@ class Home extends Spine.Controller
     super
     @render()
 
+  deactivate: =>
+    @el.removeClass 'active'
+    @el.empty()
+    
   render: ->
     @html @view('home')()
 

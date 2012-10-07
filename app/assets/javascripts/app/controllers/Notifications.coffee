@@ -1,96 +1,49 @@
-class Notifications extends Spine.Controller
 
-  elements :
-    '.notification' : 'notifications'
-    '.notification_count' : 'notificationCount'
+class Notifications extends Spine.Controller
+  elements:
+    '.notification': 'notifications'
 
   events:
     'click .dismiss_button' : 'removeNotification'
 
-  pusherKey     : "***REMOVED***"
-  pusherChannel : 'dev-telescope'
-  # pusherChannel : 'dev'
-  pusher: 
-      "target_changed" : "sourceChange"
-      "new_data" : "newData"
-      "followUpTrigger" : "followUpTrigger"
-      "status_changed" : "telescopeStatusChange"
-      "stats_update" : "updateStats"
-   
   constructor: ->
     super
-
-    if window.location.port == '3000'
-      @pusherChannel = 'dev'
-
-    @setupLocal()
-    @setupPusher() if Pusher?
-    # @append "<div class='notification_count'></div>"
-
-  openPusher: ->
-    if @pusherKey
-      @pusherConnection = new Pusher(@pusherKey) 
-      @defaultChannel   = @openChannel @pusherChannel
-    else  
-      throw "You need to specify a pusher key"
-
-  openChannel: (channelName) ->
-    @pusherChannels[channelName] = @pusherConnection.subscribe channelName 
-
-  setupPusherBindings: (channel, bindings) ->
-    for key, method of bindings
-      if typeof method == 'string' or 'function'
-        @defaultChannel.bind key, @[method]
-      else  
-        channel = @createChannel(key)
-        @setupPusherBindings channel, method
-  
-  setupPusher: =>
-    @pusherChannels = {}
-    @openPusher()
-    @setupPusherBindings(@defaultChannel, @pusher)
 
   setupLocal: =>
     User.bind("badge_awarded", @badgeAwarded)
     User.bind("tutorial_badge_awarded", @tutorialBadgeAwarded)
     User.bind("favourited", @favourited)
- 
 
-    # for model, events of @localEvents
-    #   for trigger, response of events
-    #     window[model].bind trigger, (data)=>
-    #       rp = response
-    #       @[rp](data)
 
-  updateStats:(data)=>
-    Spine.trigger('updateStats',data)  
+  updateStats: (data) =>
+    Spine.trigger 'updateStats', data
 
   favourited: => 
     @addNotification('favourited',{})
 
-  sourceChange: (data)=> 
+  sourceChange: (data) => 
     Spine.trigger('target_target_changed', data)
     @addNotification('source_change',data)
 
-  telescopeStatusChange: (data)=> 
+  telescopeStatusChange: (data) => 
     $(".telescope_status_changed").remove()
     Spine.trigger('target_status_changed', data)
     @addNotification('telescope_status_changed',data)
 
-  followUpTrigger:()=>
+  followUpTrigger: =>
     console.log("here")
     @addNotification('followUpTriggered',{})
   
-  badgeAwarded:(data)=>
+  badgeAwarded: (data) =>
     data['size'] = "50"
     data['user'] = User.first().name
     @addNotification 'badge_awarded',
-      data : data
-      badgeTemplate : @view('badge')(data)
-      facebookTemplate : @view('facebookBadge')(data)
-      twitterTemplate  : @view('twitterBadge')(data)
+      data: data
+      badgeTemplate: @view('badge')(data)
+      facebookTemplate: @view('facebookBadge')(data)
+      twitterTemplate: @view('twitterBadge')(data)
 
-  tutorialBadgeAwarded:=>
+  tutorialBadgeAwarded: =>
     data = 
       'size' : "50"
       badge :
@@ -131,11 +84,11 @@ class Notifications extends Spine.Controller
       notificationStyle: style
 
     @prepend $(notification)
-    @updateNotificationCount()
+    # @updateNotificationCount()
     @notifications.fadeIn 700
 
   removeNotification: (e) =>
-    @updateNotificationCount()
+    # @updateNotificationCount()
     $(e.currentTarget).parent().fadeOut 700, ->
       $(e.currentTarget).parent().remove()
 

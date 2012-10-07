@@ -36,7 +36,6 @@ class Subjects extends Spine.Controller
     @simBeam = 0
 
   render: (subject) =>
-
     @current_subject = subject
     @html @view('classify/waterfalls')(@current_subject.observations)
 
@@ -150,8 +149,6 @@ class Subjects extends Spine.Controller
     $(".signal").remove()
 
   finalizeSignal: (new_signal = false) =>
-    console.log 'FS CC: ', @current_classification
-
     # Default to currentSignal unless a specific signal is passed
     unless new_signal == 'done'
       signal = new_signal
@@ -223,7 +220,6 @@ class Subjects extends Spine.Controller
       imageData.data[i]=data[i] for i in [0..data.length]
       ctx.putImageData(imageData,0,0)
 
-
   drawCombinedBeam: (target, subject) ->
     ctx = target[0].getContext('2d')
     targetWidth = $(target[0]).width()
@@ -244,10 +240,8 @@ class Subjects extends Spine.Controller
       
       if @stage is 0
         signal = @current_classification.newSignal(dx, dy, @current_subject.observations[@current_beam].id )
-        console.log 'PM CS: ', @current_classification.currentSignal
       else 
         @current_classification.updateSignal(dx,dy)
-        console.log 'PM CS: ', @current_classification.currentSignal
 
       @drawIndicator(dx,dy)
   
@@ -313,7 +307,6 @@ class Subjects extends Spine.Controller
       if @stage == 2 
         @drawLine(signal)
         @enableSignalDraw()
-        console.log 'DI CC: ', @current_classification
         Spine.trigger 'startWorkflow', signal
 
   
