@@ -94,7 +94,7 @@ class ObservationUploader
       bucket_home = ENV['HOME'] + '/' + 's3store'
       bucket_name = 'zooniverse-seti-dev'
       temp = url.split("/")
-      name_1 = temp[4] + "/" + temp[5]
+      name_1 = temp[3] + "/" + temp[4]
       file_path_1 = bucket_home + '/' + bucket_name + '/' + name_1
       name_2 = temp[temp.length-2] + "/observation_" + 
                 zoo_name + '.' + temp.last.split('.').last
@@ -115,9 +115,9 @@ class ObservationUploader
       return nil unless object.exists?
       name_2 = temp[temp.length-2] + "/observation_" + 
                 zoo_name + '.' + temp.last.split('.').last
-      object.rename_to(name_2)
+      object.rename_to(name_2, :acl=>:public_read)
       object = bucket.objects[name_2]
-      object.exists? ? object.public_url : nil
+      object.exists? ? object.public_url.to_s : nil
     end
   end
 
