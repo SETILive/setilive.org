@@ -46,6 +46,12 @@
   -o-transition: $transition
   transition: $transition
 
+@mixin unselectable
+  -moz-user-select: none
+  -khtml-user-select: none
+  -webkit-user-select: none
+  -o-user-select: none
+
 // Generic classes
 .right
   float: right
@@ -651,6 +657,7 @@ $workflow-font-size: 12pt
   margin: 0 0 20px 0
   padding: 0px
 
+  @include unselectable
   background-color: #cddc28
   border: 1px solid #12161b
   @include box-shadows((inset 0px 1px #f4ff7e, 0 2px 4px rgba(0, 0, 0, 0.1)))
