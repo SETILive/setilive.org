@@ -23,9 +23,14 @@ class Info extends Spine.Controller
     "click #clear_signal": "clearSignals"
 
   constructor: ->
+    super
+    @render()
     @resetTime()
     Subject.bind 'create', @initialSetup
     Spine.bind 'beamChange', @beamChange
+
+  render: =>
+    @html @view 'classify/info'
 
   initialSetup: =>
     # Make sure info shown is default

@@ -2,7 +2,7 @@
 class Messages extends Spine.Controller
 
   pusherKey: '***REMOVED***'
-  pusherChannel: 'dev-telescope'
+  pusherChannel: 'dmode-telescope'
   pusher: 
     'target_changed': 'onPusherSourceChange'
     'new_data': 'onPusherNewData'
