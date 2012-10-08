@@ -8,7 +8,7 @@ class Messages extends Spine.Controller
     'new_data': 'onPusherNewData'
     'followUpTrigger': 'onPusherFollowUpTrigger'
     'status_changed': 'onPusherTelescopeStatusChange'
-    # 'stats_update': 'onPusherUpdateStats'
+    'stats_update': 'onPusherUpdateStats'
 
   constructor: ->
     @pusherChannels = {}
@@ -37,10 +37,7 @@ class Messages extends Spine.Controller
 
   setupPusherBindings: (channel, bindings) ->
     for key, method of bindings
-      if typeof method == 'string' or 'function'
-        Spine.bind key, @[method]
-        @defaultChannel.bind key, (data) ->
-          Spine.trigger key, data
+      channel.bind key, @[method]
 
   onPusherTelescopeStatusChange: (data) ->
     telescope_status = status: data
