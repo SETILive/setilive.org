@@ -173,6 +173,11 @@ class Subjects extends Spine.Controller
 
     $(".signal_#{signal.id}").click (e) =>
       e.stopPropagation()
+
+      selected_beam = $(e.currentTarget).closest('.waterfall').data('id')
+      unless selected_beam == @current_beam
+        @selectBeam selected_beam
+
       signal_id = $(e.currentTarget).data().id
       @current_classification.setSignal(signal_id)
       unless $(".signal_#{signal_id}").hasClass("signal_selected")
