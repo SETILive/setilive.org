@@ -1,19 +1,22 @@
 <div id="workflow-container">
   <div id="close-workflow">Close X</div>
-  <div class='question'>
-    <% if @question? :%>
-      <p id='question_text'><%=@question.name%></p>
-    <%end%>
+  <div class="question">
+    <% if @question?: %>
+      <p id="question_text"><%= @question.name %></p>
+    <% end %>
   </div>
-  <ul class='answer_list'>
-    <% if @question? : %>
-      <%for answer in @question.answers : %>
-        <li id='answer_<%=answer._id%>' class='answer' data-id ='<%=answer._id%>' data-leads_to='<%=answer.leads_to%>' >
-          <%- @answerHelper(answer) %><span class='answer_text'><%- answer.name %></span>
-
+  <ul class="answer_list">
+    <% if @question?: %>
+      <%for answer in @question.answers: %>
+        <% if @previous_answer and not _.isUndefined(@previous_answer) and answer._id is @previous_answer.answer_id: %>
+          <li id="answer_<%= answer._id %>" class="answer previous_answer" data-id ="<%= answer._id %>" data-leads_to="<%= answer.leads_to %>">
+        <% else: %>
+          <li id="answer_<%= answer._id %>" class="answer" data-id ="<%= answer._id %>" data-leads_to="<%= answer.leads_to %>" >
+        <% end %>
+          <%- @answerHelper(answer) %><span class="answer_text"><%- answer.name %></span>
         </li>      
-      <%end%>
-      <li id='delete_signal'>delete </li>
-    <%end%>
+      <% end %>
+      <li id="delete_signal">delete</li>
+    <% end %>
   </ul>
 </div>

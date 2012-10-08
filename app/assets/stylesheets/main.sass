@@ -613,9 +613,11 @@ $workflow-font-size: 12pt
   ul li
     cursor: pointer
     height: 28px
+    border-top: 1px solid #D7D6D6
     line-height: 28px
     font-size: $workflow-font-size
-    border-top: 1px solid #D7D6D6
+    &.previous_answer
+      color: #0A7590 
 
     .answer_text
       float: left
@@ -623,15 +625,13 @@ $workflow-font-size: 12pt
     img.answer-icon
       float: left
       margin-left: 10px
-      float: left
         
   #question_text
-    font-size: 12pt
     height: 23px
     width: 100%
-    padding: 0px
     margin: 0px
-    padding-top: 10px
+    padding: 10px 0 0 0
+    font-size: 12pt
     text-transform: uppercase
   ul li 
     font-size: 14px

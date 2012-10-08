@@ -1,1 +1,1 @@
-<p id='question_text'><%=@name%></p>
+<p id='question_text'><%= @name %></p>

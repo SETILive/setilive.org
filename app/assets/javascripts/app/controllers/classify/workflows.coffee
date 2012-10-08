@@ -15,9 +15,16 @@ class Workflows extends Spine.Controller
     @render()
 
   render: =>
+    previous_answer = false
+
+    if @currentSignal
+      previous_answer = _.find @currentSignal.characterisations, (characterisation, i) =>
+        characterisation.question_id == @current_question._id
+
     @html @view('workflow')
       question: @current_question
       answerHelper: @answer_icon
+      previous_answer: previous_answer
 
   startWorkflow: (signal) =>
     x = @el.parent().width() * (Math.max(signal.freqEnd, signal.freqStart) ) + 20
@@ -47,10 +54,10 @@ class Workflows extends Spine.Controller
 
   setUpQuestion: (question_id = -1) ->
     workflow = Workflow.first()
-    question_id = workflow.questions[0]._id if question_id==-1
+    question_id = workflow.questions[0]._id if question_id == -1
      
     for question in workflow.questions
-      @current_question= question if question._id==question_id    
+      @current_question = question if question._id == question_id    
     
     @render()
     
@@ -77,7 +84,7 @@ class Workflows extends Spine.Controller
       @setUpQuestion(answer.leads_to)
     else
       @doneWorkflow()
-      
+
   doneWorkflow: =>
     @answer_list.html ''
     @el.hide()
