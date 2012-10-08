@@ -94,7 +94,7 @@ class ObservationUploader
       bucket_home = ENV['HOME'] + '/' + 's3store'
       bucket_name = 'zooniverse-seti-dev'
       temp = url.split("/")
-      name_1 = temp[3] + "/" + temp[4]
+      name_1 = temp[4] + "/" + temp[5]
       file_path_1 = bucket_home + '/' + bucket_name + '/' + name_1
       name_2 = temp[temp.length-2] + "/observation_" + 
                 zoo_name + '.' + temp.last.split('.').last
@@ -110,7 +110,7 @@ class ObservationUploader
       s3 = AWS::S3.new
       bucket = s3.buckets['zooniverse-seti-dev']
       temp = url.split("/")
-      name_1 = temp[4] + "/" + temp[5]
+      name_1 = temp[3] + "/" + temp[4]
       object = bucket.objects[name_1]
       return nil unless object.exists?
       name_2 = temp[temp.length-2] + "/observation_" + 
