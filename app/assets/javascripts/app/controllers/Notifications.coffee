@@ -18,14 +18,14 @@ class Notifications extends Spine.Controller
   updateStats: (data) =>
     Spine.trigger 'updateStats', data
 
-  favourited: => 
+  favourited: =>
     @addNotification('favourited',{})
 
-  sourceChange: (data) => 
+  sourceChange: (data) =>
     Spine.trigger('target_target_changed', data)
     @addNotification('source_change',data)
 
-  telescopeStatusChange: (data) => 
+  telescopeStatusChange: (data) =>
     $(".telescope_status_changed").remove()
     Spine.trigger('target_status_changed', data)
     @addNotification('telescope_status_changed',data)

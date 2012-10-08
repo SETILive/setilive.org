@@ -39,10 +39,30 @@ class Messages extends Spine.Controller
     for key, method of bindings
       channel.bind key, @[method]
 
+  onPusherSourceChange: (data) ->
+    console.log 'Source Change: ', data
+    message = message: data
+    Notification.create message
+
+  onPusherNewData: (data) ->
+    console.log 'Source Change: ', data
+    message = message: data
+    Notification.create message
+
+  onPusherFollowUpTrigger: (data) ->
+    console.log 'Source Change: ', data
+    message = message: data
+    Notification.create message
+
   onPusherTelescopeStatusChange: (data) ->
     telescope_status = status: data
     TelescopeStatus.refresh telescope_status, {clear: true}
 
+    message = message: data
+    Notification.create message
+
+  onPusherUpdateStats: (data) ->
+    console.log 'Source Change: ', data
     message = message: data
     Notification.create message
 
