@@ -78,8 +78,9 @@ class Subjects extends Spine.Controller
       beamNo = $(beamNo.currentTarget).data().id 
 
     unless @current_beam == beamNo
-      $("#main-waterfall .signal_beam_#{@current_beam}").hide()
+      $("#main-waterfall [data-beam=#{@current_beam}]").hide()
       $("#main-waterfall path").hide()
+      @closeWorkflow()
 
     @current_beam = beamNo
 
@@ -100,7 +101,7 @@ class Subjects extends Spine.Controller
 
     $("#waterfall-#{@current_beam}").addClass("selected_beam")
     @drawBeam @main_beam.find("canvas"), @current_subject, @current_beam
-    $("#main-waterfall .signal_beam_#{@current_beam}").show()
+    $("#main-waterfall [data-beam=#{@current_beam}]").show()
 
     Spine.trigger "beamChange"
       observation: @current_subject.observations[beamNo]
@@ -174,7 +175,7 @@ class Subjects extends Spine.Controller
     $(".signal_#{signal.id}").click (e) =>
       e.stopPropagation()
 
-      selected_beam = $(e.currentTarget).closest('.waterfall').data('id')
+      selected_beam = $(e.currentTarget).data('beam')
       unless selected_beam == @current_beam
         @selectBeam selected_beam
 
@@ -187,8 +188,9 @@ class Subjects extends Spine.Controller
         $(".signal_#{signal.id}.signal_circle").addClass("draggable")
         Spine.trigger 'startWorkflow', signal
 
-  closeWorkflow: (e) =>
-    e.stopPropagation()
+  closeWorkflow: (e = false) =>
+    if e
+      e.stopPropagation()
     @finalizeSignal @current_classification.currentSignal
     @enableSignalDraw()
     Spine.trigger 'closeWorkflow'
@@ -305,7 +307,7 @@ class Subjects extends Spine.Controller
       else
         $(circle.node).addClass("stage_0")
 
-      $(circle.node).addClass("signal_beam_#{@current_beam}")
+      $(circle.node).attr('data-beam', @current_beam)
 
     unless new_signal
       @stage += 1 
@@ -344,7 +346,7 @@ class Subjects extends Spine.Controller
       $(line.node).addClass("signal_#{signal.id}")
       $(line.node).addClass("signal_line_#{signal.id}")
       $(line.node).addClass("signal_selected")
-      $(line.node).addClass("signal_beam_#{@current_beam}")
+      $(line.node).attr('data-beam', @current_beam)
 
     @stage = 0
 
