@@ -97,6 +97,8 @@ class Subjects extends Spine.Controller
     # Prepare waterfall area for newly selected beam
     if otherObservationsWithSignals.length
       beamNumbers = _.pluck otherObservationsWithSignals, 'beam_no'
+      beamNumbers = _.sortBy beamNumbers, (num) ->
+        -num
       $("#waterfall-#{@current_beam}").siblings('.copy-beam').html @view('classify/waterfalls_copy_text')({sources: beamNumbers, destination: @current_beam})
 
     $("#waterfall-#{@current_beam}").addClass("selected_beam")
