@@ -21,10 +21,13 @@ class Workflows extends Spine.Controller
       previous_answer = _.find @currentSignal.characterisations, (characterisation, i) =>
         characterisation.question_id == @current_question._id
 
-    @html @view('workflow')
+    @el.find('#workflow-area').html @view('workflow')
       question: @current_question
       answerHelper: @answer_icon
       previous_answer: previous_answer
+      
+    if not _.isUndefined(@currentSignal) and @currentSignal.characterisations.length > 1
+      @el.find('#close-workflow').show()
 
   startWorkflow: (signal) =>
     x = @el.parent().width() * (Math.max(signal.freqEnd, signal.freqStart) ) + 20
@@ -37,9 +40,6 @@ class Workflows extends Spine.Controller
     @currentSignal = signal
     @currentSignal.save()
     @setUpQuestion(Workflow.first().questions[0]._id)
-
-    if @currentSignal.characterisations.length > 0
-      @el.find('#close-workflow').show()
 
   closeWorkflow: =>
     @answer_list.html("")
@@ -62,6 +62,7 @@ class Workflows extends Spine.Controller
     @render()
     
   selectAnswer: (e) =>
+    e.stopPropagation()
     answer = $(e.currentTarget).data()
 
     new_characterisation =

@@ -592,7 +592,7 @@ $workflow-font-size: 12pt
   height: $workflow-height
 
   z-index: 10000
-  @include gradient-bg(#ECEAEA, #B3B3B3)
+  @include gradient-bg(#eceaea, #b3b3b3)
   @include round-corners(2px)
   padding: 0px
   color: black
@@ -611,20 +611,30 @@ $workflow-font-size: 12pt
       font-size: 11pt
 
   ul li
-    cursor: pointer
     height: 28px
     border-top: 1px solid #D7D6D6
+    cursor: pointer
     line-height: 28px
-    font-size: $workflow-font-size
+    font-size: 14px
+
+    &:hover
+      background: #444
+      cursor: pointer
+      color: #fff !important
+
     &.previous_answer
+      border-right: 5px solid #0a7590
+
+    &#delete_signal
       color: #0A7590 
+      text-align: center
 
     .answer_text
       float: left
       margin-left: 10px
     img.answer-icon
       float: left
-      margin-left: 10px
+      margin: 5px 0 0 10px
         
   #question_text
     height: 23px
@@ -633,15 +643,6 @@ $workflow-font-size: 12pt
     padding: 10px 0 0 0
     font-size: 12pt
     text-transform: uppercase
-  ul li 
-    font-size: 14px
-  ul li:hover
-    cursor: pointer
-    color: #383838
-    
-  ul li#delete_signal
-    color: #0A7590 
-    text-align: center
 
 #talk
   display: none
