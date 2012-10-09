@@ -11,17 +11,17 @@
         <img src="/assets/about/ata/telescope_large.png" class="second near scope" />
       </div>
 
-      <p>
+      <div class="description">
         The Allen Telescope Array (ATA) uses telescopes to determine the direction of radio signals that come from the sky. Humans use two ears to do something similar. If a sound comes from in front of us or behind us, it arrives at both ears at the same time. If the sound comes from our left it arrives in our left ear first, and so on. If we want to concentrate on sounds coming from certain directions, our built in computer - our brain - uses the information from our ears and picks out what it needs. The human brain is much more sophisticated than any computer, so the ATA uses an array of 42 'ears' to provide the information needed for its computer to focus on specific directions.
-      </p>
+      </div>
 
-      <p>
+      <div class="description">
         The advantage of an array over a single large dish is that the signals from these dishes can be combined in special ways by computer to electronically point it in several directions at the same time, with each circular spot about as small as what you get in only one direction with a single big dish. With <a href="http://www.setilive.org">setilive.org</a> we look at 'waterfall' images, which show the radio signals received by the ATA and how it changes over the 90 seconds or so before the ATA switches to a new direction or new frequency range (more about waterfall images later). The SETI scientists have automated computer algorithms to analyze these images and look for signals that might be worth a second look.
-      </p>
+      </div>
 
-      <p>
+      <div class="description">
         Computer algorithms however don't work very well when there are also strong signals coming from earthbound and orbiting signal sources. Humans use radio signals a lot to communicate with each other (e.g. with satellites and WiFi) and to make matters worse, non-radio electronics (e.g. digital cameras and computers) produce unintentional radio signals as a byproduct of their normal operation. This means that while trying to listen for faint radio signals from space the telescope will also pick up a lot of Radio Frequency Interference (RFI) here on Earth. One of the hardest parts of hunting for signals from space is separating what might be an ET signal from the earth-based RFI sources. We think that human eyes, and our amazing brains, should be better than a computer at finding interesting signals in the noise.
-      </p>
+      </div>
     </div>
 
     <div data-animation-scene="Radiosphere" class="radiosphere scene">

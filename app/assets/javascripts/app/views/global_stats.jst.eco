@@ -2,23 +2,23 @@
   <div class="stats_box">
     <p><%= @people_online.value %></p>
   </div> 
-  <p><%= @people_online.name %></p>
+  <span><%= @people_online.name %></span>
 </li>
 <li>
   <div class="stats_box">
     <p><%= @total_classifications.value %></p>
   </div> 
-  <p><%= @total_classifications.name %></p>
+  <span><%= @total_classifications.name %></span>
 </li>
 <li>
   <div class="stats_box">
     <p><%= @total_users.value %></p>
   </div> 
-  <p><%= @total_users.name %></p>
+  <span><%= @total_users.name %></span>
 </li>
 <li>
   <div class="stats_box">
     <p><%= @classification_rate.value %></p>
   </div> 
-  <p><%= @classification_rate.name %></p>
+  <span><%= @classification_rate.name %></span>
 </li>
