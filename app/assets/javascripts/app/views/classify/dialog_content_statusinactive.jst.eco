@@ -1,2 +1,7 @@
-<h2>Telescope is Inactive</h2>
-<p>Lorem ipsum</p>
+<img src="/assets/about/ata/telescope_large.png" id="telescope">
+<span>
+  <h2>Telescope is Inactive</h2>
+  <p>The SETI telescope is currently inactive. You are welcome to classify archived data.</p>
+  <p>The telescope will be active again on TIME</p>
+  <div class="extra_button" id="close">Close This Window</div>
+</span>

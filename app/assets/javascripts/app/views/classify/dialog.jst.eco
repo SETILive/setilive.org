@@ -1,6 +1,5 @@
 <div id="dialog-container">
   <div id="dialog">
-    <div id="close">Close</div>
     <%- @content %>
   </div>
 </div>

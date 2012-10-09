@@ -14,7 +14,7 @@ class NotificationItem extends Spine.Controller
     @el.attr 'data-id', @notification.id
 
     # handle timers
-    if not _.isUndefined @notification.meta and not _.isUndefined @notification.meta.timer
+    if not _.isUndefined @notification.meta and not _.isUndefined @notification.meta.timer 
       date = new Date()
       date.setSeconds date.getSeconds() + @notification.meta.timer
       @el.find('span').countdown {
@@ -22,16 +22,20 @@ class NotificationItem extends Spine.Controller
           compact: true
           description: ''
           format: 'MS'
+          expiryText: @showFinalText
         }
 
     @show()
     @
 
   show: =>
-    @el.fadeIn 700
+    @el.fadeIn 550, 'easeInExpo'
+
+  showFinalText: =>
+    @el.find('.content').html @notification.content.final
 
   remove: =>
-    @el.fadeOut 700, =>
+    @el.fadeOut 550, 'easeInExpo', =>
       @el.remove()
 
 window.NotificationItem = NotificationItem

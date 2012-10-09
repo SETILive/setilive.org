@@ -14,11 +14,9 @@ class Messages extends Spine.Controller
     @setupPusher() if Pusher?
 
   setupLocal: =>
-    # might want to break this into controllers
-    # likely will
-    # User.bind 'badge_awarded', @badgeAwarded
-    # User.bind 'tutorial_badge_awarded', @tutorialBadgeAwarded
-    # User.bind 'favourited', @favourited
+    User.bind 'badge_awarded', @onBadgeAwarded
+    User.bind 'tutorial_badge_awarded', @onTutorialBadgeAwarded
+    User.bind 'favourited', @onFavourited
 
   setupPusher: =>
     @openPusher()
@@ -44,7 +42,8 @@ class Messages extends Spine.Controller
     content = "Telescope is now looking at #{data}."
     message =
       name: 'source_change'
-      content: content
+      content:
+        initial: content
       type: 'alert'
 
     Notification.create message
@@ -52,10 +51,13 @@ class Messages extends Spine.Controller
   onPusherNewData: (data) ->
     console.log 'New Data: ', data
     content = "New data expected in <span>#{data}</span> seconds!"
+    content_final = "New data available now!"
 
     message =
       name: 'time_to_new_data'
-      content: content
+      content:
+        initial: content
+        final: content_final
       type: 'alert'
       meta:
         timer: data
@@ -65,10 +67,13 @@ class Messages extends Spine.Controller
   onPusherTimeToFollowUp: (data) ->
     console.log 'Follow Up!: ', data
     content = "Followup window closing in <span>#{data}</span> seconds!"
+    content_final = "Follow up window has closed. Please wait for new data."
 
     message =
       name: 'time_for_followups'
-      content: content
+      content:
+        initial: content
+        final: content_final
       type: 'alert'
       meta:
         timer: data
@@ -81,13 +86,23 @@ class Messages extends Spine.Controller
 
     switch data
       when 'inactive' then content = 'The telescope is now inactive. Thanks for classifying!'
-      when 'active' then content = 'The telescope is now active!'
+      when 'active' then content = 'The telescope is now active! Get classifying!'
 
     message =
       name: 'telescope_status'
-      content: content
+      content:
+        initial: content
       type: 'alert'
 
     Notification.create message
+
+  onFavourited: =>
+
+  onBadgeAwarded: =>
+
+  onTutorialBadgeAwarded: =>
+
+
+
 
 window.Messages = Messages

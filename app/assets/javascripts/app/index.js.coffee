@@ -28,9 +28,30 @@ class App extends Spine.Controller
 
     User.fetch_current_user()
     Badge.fetch()
+
+    TelescopeStatus.bind 'refresh', @setInitialNotification
     TelescopeStatus.fetch()
 
     # setup pusher messaging
     @messages = new Messages()
+
+  setInitialNotification: =>
+    if TelescopeStatus.first().status == 'active'
+      message =
+        name: 'default'
+        content:
+          initial: 'active'
+        type: 'alert'
+
+      Notification.create message
+    else
+      message =
+        name: 'default'
+        content:
+          initial: 'Welcome to SETILive!'
+        type: 'alert'
+
+      Notification.create message
+
 
 window.App = App

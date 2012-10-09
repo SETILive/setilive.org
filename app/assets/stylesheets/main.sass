@@ -46,13 +46,16 @@
   -o-transition: $transition
   transition: $transition
 
-@mixin unselectable
-  -moz-user-select: none
-  -khtml-user-select: none
-  -webkit-user-select: none
-  -o-user-select: none
+@mixin unselectable($property: none)
+  -moz-user-select: $property
+  -khtml-user-select: $property
+  -webkit-user-select: $property
+  -o-user-select: $property
 
 // Generic classes
+*
+  @include unselectable
+
 .right
   float: right
   margin: 0 0 10px 18px
@@ -99,6 +102,9 @@ body
   color: #f6f6f6
   letter-spacing: 0px
 
+h1,h2,h3,a,p,ul,li
+  @include unselectable(text)
+
 ul
   list-style: none
   padding: 0px
@@ -110,10 +116,11 @@ a
     color: #cddc28
 
 p
-  margin: 7px 0
+  margin: 0 0 12px 0
+  @include unselectable(text)
   font-family: TitilliumText22LRegular, Sans-serif
   font-size: 13px
-  line-height: 18px
+  line-height: 19px
 
 h1
 
@@ -1325,6 +1332,7 @@ ul.pagination
   height: 60px
   margin: 0 auto 29px
   padding: 0px
+  border: 1px solid #cddc28
   list-style: none
 
   li
@@ -1348,7 +1356,6 @@ ul.pagination
     &.alert
       height: 29px
       padding: 17px 0 12px 0
-      border: 1px solid #cddc28
       color: #cddc28
       font-size: 28px
       line-height: 28px
@@ -1731,17 +1738,42 @@ ul.pagination
   top: 0
   left: 0
   z-index: 25000
-  background: rgba(0, 0, 0, 0.5)
+  background: rgba(0, 0, 0, 0.1)
   transition: all 1s linear
   #dialog-container
     display: table-cell
-    text-align: center
     vertical-align: middle
     #dialog
-      width: 50%
-      height: 40%
+      position: relative
+      overflow: hidden
+      width: 530px
+      height: 290px
       min-width: 300px
       min-height: 225px
       margin: 0 auto
-      background: #eee
-      color: #333
+
+      @include box-shadows(0 0 75px 13px #000)
+      background: url("background_gradient.png") center #111
+      color: #fafafa
+
+      // Telescope Inactive case
+      img
+        position: absolute
+        bottom: -15px
+        left: -70px
+
+      span
+        position: absolute
+        top: 50px
+        left: 215px
+
+        h2
+          padding: 0
+          font-size: 1.7em
+          font-weight: 700
+
+        .extra_button
+          margin: 14px 0 0
+          padding: 0 20px
+
+
