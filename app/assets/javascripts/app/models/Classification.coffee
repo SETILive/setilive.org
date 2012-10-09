@@ -16,14 +16,14 @@ class Classification extends Spine.Model
     result = 
       signals: signals
       subject_id: @subject_id
-
+      
     $.ajax
       type: 'POST'
       url: '/classifications/'
       data: result
       dataType: 'json'
       success: (response) =>
-        Spine.trigger 'classificationSaved'
+        Classification.trigger 'classificationSaved'
 
   updateSignal: (x,y) =>
     @currentSignal.timeEnd = y

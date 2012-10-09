@@ -79,23 +79,26 @@ class Info extends Spine.Controller
     @targetTime = (1).minutes().fromNow()
 
   doneClassification: =>
+    Classification.bind 'classificationSaved', =>
+      Classification.unbind 'classificationSaved'
+      @controls.hide()
+      @talk.show()
+      
+      @social.append @view('classify/facebookWaterfall')
+        subject: Subject.first()
+
+      @social.append @view('classify/twitterWaterfall')
+        subject: Subject.first()
+
+      if Subject.first().has_simulation
+        @simulation_notification.show() 
+      else
+        @talk_fill.show()
+        @thankyou.show()
+
     Spine.trigger 'dissableSignalDraw' 
     Spine.trigger 'doneClassification'
     
-    @controls.hide()
-    @talk.show()
-    
-    @social.append @view('classify/facebookWaterfall')
-      subject: Subject.first()
-
-    @social.append @view('classify/twitterWaterfall')
-      subject: Subject.first()
-
-    if Subject.first().has_simulation
-      @simulation_notification.show() 
-    else
-      @talk_fill.show()
-      @thankyou.show()
 
   talk: =>
     subject = Subject.first()
