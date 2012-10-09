@@ -8,12 +8,21 @@ class Notifications extends Spine.Controller
 
   constructor: ->
     super
+    Notification.bind 'create', @addNotification
+    Notification.bind 'refresh', @addNotifications
 
+  addNotification: (notification) =>
+    notification = new NotificationItem(notification: notification)
+    @prepend notification.render()
+
+  addNotifications: =>
+    Notification.each @addNotification
+
+  ###
   setupLocal: =>
     User.bind("badge_awarded", @badgeAwarded)
     User.bind("tutorial_badge_awarded", @tutorialBadgeAwarded)
     User.bind("favourited", @favourited)
-
 
   updateStats: (data) =>
     Spine.trigger 'updateStats', data
@@ -101,5 +110,5 @@ class Notifications extends Spine.Controller
 
   removeAllNotifications: ->
     $(notifications).remove()
-
+###
 window.Notifications= Notifications

@@ -45,12 +45,12 @@ class Messages extends Spine.Controller
     Notification.create message
 
   onPusherNewData: (data) ->
-    console.log 'Source Change: ', data
+    console.log 'New Data: ', data
     message = message: data
     Notification.create message
 
   onPusherFollowUpTrigger: (data) ->
-    console.log 'Source Change: ', data
+    console.log 'Follw Up!: ', data
     message = message: data
     Notification.create message
 
@@ -58,7 +58,11 @@ class Messages extends Spine.Controller
     telescope_status = status: data
     TelescopeStatus.refresh telescope_status, {clear: true}
 
-    message = message: data
+    message =
+      name: 'telescope_status'
+      content: 'The telescope is now inactive.'
+      type: 'alert'
+
     Notification.create message
 
   onPusherUpdateStats: (data) ->

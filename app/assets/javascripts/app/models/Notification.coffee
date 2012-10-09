@@ -1,5 +1,5 @@
 
 class Notification extends Spine.Model
-  @configure 'Notification', 'message'
+  @configure 'Notification', 'name', 'content', 'type'
 
 window.Notification = Notification
