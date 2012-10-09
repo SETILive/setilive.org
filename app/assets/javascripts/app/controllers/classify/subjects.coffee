@@ -73,6 +73,9 @@ class Subjects extends Spine.Controller
     $(overlay.canvas).css("z-index","10000") for overlay in @overlays 
 
   selectBeam: (beamNo) =>
+    unless @stage is 0
+      return
+      
     if typeof beamNo == 'object'
       beamNo.preventDefault()
       beamNo = $(beamNo.currentTarget).data().id 
