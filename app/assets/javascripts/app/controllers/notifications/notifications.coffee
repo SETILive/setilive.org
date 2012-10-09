@@ -1,22 +1,31 @@
 
+$.fn.notification = ->
+  element_id = $(@).data 'id'
+  element_id or= $(@).parents('[data-id]').data('id')
+  Notification.find element_id
+
 class Notifications extends Spine.Controller
   elements:
     '.notification': 'notifications'
 
   events:
-    'click .dismiss_button' : 'removeNotification'
+    'click .dismiss_button' : 'remove'
 
   constructor: ->
     super
-    Notification.bind 'create', @addNotification
-    Notification.bind 'refresh', @addNotifications
+    Notification.bind 'create', @add
+    Notification.bind 'refresh', @addAll
 
-  addNotification: (notification) =>
+  add: (notification) =>
     notification = new NotificationItem(notification: notification)
     @prepend notification.render()
 
-  addNotifications: =>
-    Notification.each @addNotification
+  addAll: =>
+    Notification.each @add
+
+  remove: (e) =>
+    notification = $(e.target).notification()
+    notification.destroy()
 
   ###
   setupLocal: =>

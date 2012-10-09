@@ -58,9 +58,13 @@ class Messages extends Spine.Controller
     telescope_status = status: data
     TelescopeStatus.refresh telescope_status, {clear: true}
 
+    switch data
+      when 'inactive' then content = 'The telescope is now inactive.'
+      when 'active' then content = 'The telescope is now active.'
+      
     message =
       name: 'telescope_status'
-      content: 'The telescope is now inactive.'
+      content: content
       type: 'alert'
 
     Notification.create message

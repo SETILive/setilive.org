@@ -1327,18 +1327,10 @@ ul.pagination
   padding: 0px
   list-style: none
 
-  .notification_count
-    position: absolute
-    top: 10px
-    right: 10px
-    width: 40px
-    height: 40px
-    background-color: red
-    @include round-corners(40px)
-    color: white
   li
     position: relative
     height: 60px
+    @include transitions(all 0.7s ease)
 
     &.badge
       @include gradient-bg(#ECEAEA, #B3B3B3)
@@ -1679,15 +1671,13 @@ ul.pagination
 
 .observation
   position: relative
-  display: inline-block
+  float: left
+  width: 215px
   height: 108px
   margin: 0 7px 10px 7px
   @include box-shadow
   border: #f1f1f1 solid 3px
   color: #ffffff
-  vertical-align: top
-  &:last-child
-    margin: 0
   .classification_details
     position: absolute
     top: 85px
@@ -1738,6 +1728,7 @@ ul.pagination
   left: 0
   z-index: 25000
   background: rgba(0, 0, 0, 0.5)
+  transition: all 1s linear
   #dialog-container
     display: table-cell
     text-align: center

@@ -1,8 +1,7 @@
-<li class="notification <%- @type %>">
-  <% if @type is 'alert': %>
-    <img class="dismiss_button" width="18" height="18" src="/assets/dismiss_button_alert.png"></img>
-  <% else: %>
-    <img class="dismiss_button" width="18" height="18" src="/assets/dismiss_button.png"></img>
-  <% end %>
-  <div class="content"><%- @content %></div>
-</li>
+
+<% if @type is 'alert': %>
+  <img class="dismiss_button" width="18" height="18" src="/assets/dismiss_button_alert.png"></img>
+<% else: %>
+  <img class="dismiss_button" width="18" height="18" src="/assets/dismiss_button.png"></img>
+<% end %>
+<div class="content"><%- @content %></div>

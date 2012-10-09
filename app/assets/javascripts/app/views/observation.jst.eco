@@ -1,7 +1,6 @@
 <% for classification in @observations: %>
 
-  <div class='observation'>
-    <img width="215"  src="<%= classification.image_url %>">
+  <div class="observation" style="background-image: url(<%= classification.image_url %>); background-size: 215px 108px">
     
     <% if @user: %>
       <% if @user.favourites.indexOf(classification.observation_id) isnt -1: %>

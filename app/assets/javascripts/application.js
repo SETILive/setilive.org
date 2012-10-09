@@ -7,7 +7,7 @@
 //= require ./jquery.min.js
 //= require ./jquery-ui-1.8.6.custom
 //= require ./underscore.js
-//= require ./raphael.js
+//= require ./raphael-min.js
 //= require ./jquery.svg.min.js
 //= require ./jquery.svgdom.min.js
 //= require ./jquery.transform2d.js
