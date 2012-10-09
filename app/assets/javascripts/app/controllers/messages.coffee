@@ -2,13 +2,12 @@
 class Messages extends Spine.Controller
 
   pusherKey: '***REMOVED***'
-  pusherChannel: 'dmode-telescope'
+  pusherChannel: 'dmode-dev-telescope'
   pusher: 
     'target_changed': 'onPusherSourceChange'
-    'new_data': 'onPusherNewData'
-    'followUpTrigger': 'onPusherFollowUpTrigger'
+    'new_telescope_data': 'onPusherNewData'
+    'time_to_followup': 'onPusherTimeToFollowUp'
     'status_changed': 'onPusherTelescopeStatusChange'
-    'stats_update': 'onPusherUpdateStats'
 
   constructor: ->
     @pusherChannels = {}
@@ -41,17 +40,39 @@ class Messages extends Spine.Controller
 
   onPusherSourceChange: (data) ->
     console.log 'Source Change: ', data
-    message = message: data
+
+    content = "Telescope is now looking at #{data}."
+    message =
+      name: 'source_change'
+      content: content
+      type: 'alert'
+
     Notification.create message
 
   onPusherNewData: (data) ->
     console.log 'New Data: ', data
-    message = message: data
+    content = "New data expected in <span>#{data}</span> seconds!"
+
+    message =
+      name: 'time_to_new_data'
+      content: content
+      type: 'alert'
+      meta:
+        timer: data
+
     Notification.create message
 
-  onPusherFollowUpTrigger: (data) ->
-    console.log 'Follw Up!: ', data
-    message = message: data
+  onPusherTimeToFollowUp: (data) ->
+    console.log 'Follow Up!: ', data
+    content = "Followup window closing in <span>#{data}</span> seconds!"
+
+    message =
+      name: 'time_for_followups'
+      content: content
+      type: 'alert'
+      meta:
+        timer: data
+
     Notification.create message
 
   onPusherTelescopeStatusChange: (data) ->
@@ -59,19 +80,14 @@ class Messages extends Spine.Controller
     TelescopeStatus.refresh telescope_status, {clear: true}
 
     switch data
-      when 'inactive' then content = 'The telescope is now inactive.'
-      when 'active' then content = 'The telescope is now active.'
-      
+      when 'inactive' then content = 'The telescope is now inactive. Thanks for classifying!'
+      when 'active' then content = 'The telescope is now active!'
+
     message =
       name: 'telescope_status'
       content: content
       type: 'alert'
 
-    Notification.create message
-
-  onPusherUpdateStats: (data) ->
-    console.log 'Source Change: ', data
-    message = message: data
     Notification.create message
 
 window.Messages = Messages

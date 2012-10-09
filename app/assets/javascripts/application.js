@@ -12,4 +12,5 @@
 //= require ./jquery.svgdom.min.js
 //= require ./jquery.transform2d.js
 //= require ./date.js
+//= require ./countdown.js
 //= require app

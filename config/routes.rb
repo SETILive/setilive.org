@@ -21,8 +21,6 @@ Marv::Application.routes.draw do
   match '/classify'  => 'classifications#classify'
   match '/next_subject' => 'subjects#next_subject_for_user'
   match '/current_user' => "ZooniverseUsers#current_logged_in_user"
-  match '/about'  => 'about#index'
-  match '/video_tutorial'  => 'about#video_tutorial'
 
   match '/fake_followup' => 'subjects#fake_followup_trigger'
   match '/active_workflow' => 'workflows#active_workflow'
@@ -48,14 +46,13 @@ Marv::Application.routes.draw do
   match '/science_report' => 'ZooniverseUsers#index'
   match '/stats' => 'home#stats'
   match '/telescope_status' => 'home#telescope_status'
+  match '/time_to_followup' => 'home#time_to_followup'
+  match '/time_to_new_data' => 'home#time_to_new_data'
   match '/tutorial'  => 'classifications#tutorial'
 
   match '/recent_classifications'  => 'classifications#recent'
 
   match '/seen_tutorial' => 'ZooniverseUsers#seen_tutorial'
-  match '/team' => 'home#team'
-  match '/ted' => 'home#ted'
-
 
   match '/sweeps_change' => 'ZooniverseUsers#sweeps_change'
   match '/sweeps_opt_out' => 'ZooniverseUsers#sweeps_out'

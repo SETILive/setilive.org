@@ -18,7 +18,7 @@ class Notifications extends Spine.Controller
 
   add: (notification) =>
     notification = new NotificationItem(notification: notification)
-    @prepend notification.render()
+    @html notification.render()
 
   addAll: =>
     Notification.each @add

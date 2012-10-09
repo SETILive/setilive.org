@@ -19,7 +19,7 @@ class HomeController < ApplicationController
                   people_online: RedisConnection.keys("online_*").count,
                   total_users: ZooniverseUser.count,
                   classification_rate: RedisConnection.keys("recent_classification_*").count }
-        render :json=>reply
+        render :json => reply
       end
     end
   end
@@ -28,23 +28,26 @@ class HomeController < ApplicationController
      @status = RedisConnection.get('current_status') || 'unknown'
      respond_to do |format|
        format.html
-       format.json{ render :json=> {status: @status}.to_json}
+       format.json {render :json=> {status: @status}.to_json}
      end
   end
 
   def time_to_followup
      @time = RedisConnection.get('time_to_followup') || '0'
+     @ttl = RedisConnection.ttl('time_to_followup')
      respond_to do |format|
        format.html
-       format.json{ render :json=> {time: @time}.to_json}
+       format.json {render :json=> {time: @time, ttl: @ttl}.to_json}
      end
   end
 
   def time_to_new_data
-     @time = RedisConnection.get('time_to_new_data') || '0'
+     @time = RedisConnection.get("time_to_new_data") || '0'
+     @ttl = RedisConnection.ttl("time_to_new_data")
+
      respond_to do |format|
        format.html
-       format.json{ render :json=> {status: @time}.to_json}
+       format.json {render :json => {time: @time, ttl: @ttl, test: 'hello'}.to_json}
      end
   end
 end

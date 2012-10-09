@@ -12,6 +12,18 @@ class NotificationItem extends Spine.Controller
     @notification = notification if notification
     @html @view('notifications/notification')(@notification)
     @el.attr 'data-id', @notification.id
+
+    # handle timers
+    if not _.isUndefined @notification.meta and not _.isUndefined @notification.meta.timer
+      date = new Date()
+      date.setSeconds date.getSeconds() + @notification.meta.timer
+      @el.find('span').countdown {
+          until: date
+          compact: true
+          description: ''
+          format: 'MS'
+        }
+
     @show()
     @
 
@@ -19,6 +31,7 @@ class NotificationItem extends Spine.Controller
     @el.fadeIn 700
 
   remove: =>
-    @el.remove()
+    @el.fadeOut 700, =>
+      @el.remove()
 
 window.NotificationItem = NotificationItem
