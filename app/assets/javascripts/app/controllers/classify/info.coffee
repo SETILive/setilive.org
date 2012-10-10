@@ -25,7 +25,6 @@ class Info extends Spine.Controller
   constructor: ->
     super
     @render()
-    @resetTime()
     Subject.bind 'create', @initialSetup
     Spine.bind 'beamChange', @beamChange
 
@@ -34,6 +33,7 @@ class Info extends Spine.Controller
 
   initialSetup: =>
     # Make sure info shown is default
+    @resetTime()
     @controls.show()
     @talk.hide()
     @social.empty()
@@ -43,8 +43,7 @@ class Info extends Spine.Controller
 
     if Subject.first().subjectType == 'new' or window.tutorial == true
       @timeInterval = setInterval @updateTime, 100
-    else 
-      @time.css "font-size", "20px"
+    else
       @time.html "Archive Data"
 
     subject = Subject.first()
@@ -69,7 +68,6 @@ class Info extends Spine.Controller
     @time.html "#{if mins<10 then "0" else ""}#{mins}:#{if secs<10 then "0"  else ""}#{secs}"
     if timeRemaining <= 0
       clearInterval @timeInterval
-      @time.css("font-size","20px")
       @time.html "Time expired!"
 
   resetTime: =>
