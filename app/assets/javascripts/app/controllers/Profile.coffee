@@ -86,6 +86,9 @@ class Profile extends Spine.Controller
   
   switchTo: (type, page) =>
     @data = @[type][page]
+
+    @data.pages = 30 if @data.pages > 30
+
     @pagination.page = @data.page
     @pagination.pages = @data.pages
     @pagination.perPage = @data.per_page
