@@ -45,7 +45,7 @@ class SubjectsController < ApplicationController
 
   def next_subject_for_user
     subject = nil
-    @subjectType="new"
+    @subjectType = "new"
 
     # For follow-up testing this user pulls a new subject from frank
     if current_user.name == 'bhima1'
@@ -61,12 +61,12 @@ class SubjectsController < ApplicationController
       end
     end
     
-    if rand() < 0.1 and subject==nil
+    if rand() < 0.1 and subject == nil
       subject = get_simulation_subject
     end
 
-    if subject==nil
-      if rand()<0.8
+    if subject == nil
+      if rand() < 0.8
         subject = get_recent_subject
         subject = get_new_subject unless subject
       else
@@ -76,12 +76,11 @@ class SubjectsController < ApplicationController
     end
 
     unless subject
-      subject = Subject.random(:selector=>{:status=>"active"}).first 
-      @subjectType="archive" 
+      subject = Subject.random(:selector => {:status => "active"}).first 
+      @subjectType = "archive" 
     end
    
     if subject 
-    
       # Update user's seen_subject list here instead of after classification
       # in zooniverse_user.update_classification_stats. Better here since at
       # this point, the user will see the subject whether they classify or not.
@@ -113,6 +112,7 @@ class SubjectsController < ApplicationController
   def get_recent_subject
     Subject.random_recent(current_user)
   end
+
   def get_seen_subject
     # Subject.unseen_for_user(current_user)
     Subject.random(:selector=>{:status=>"active"}).first 

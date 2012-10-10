@@ -5,21 +5,21 @@ class User extends Spine.Model
     super 
     @id = @zooniverse_user_id 
 
-
-  @fetch_current_user :->
+  @fetch_current_user: ->
     $.getJSON '/current_user.json', (data) =>
-      data.favourites = data.favourite_ids
-      u = User.create(data)
-      User.trigger('refresh', u )
+      if data
+        data.favourites = data.favourite_ids
+        User.create data 
+      User.trigger 'refresh', data
     
-  award:(badge,level...)=>
-    if level.length>0
-      level = level[level.length-1] 
+  award: (badge, level...) =>
+    if level.length > 0
+      level = level[level.length - 1] 
     else 
       level = null
 
     unless @hasBadge(badge,level)
-      data= {id: badge.id, level:level, name: badge.title}
+      data = {id: badge.id, level:level, name: badge.title}
       @badges.push data
       User.trigger "badge_awarded", {badge: badge, level: level }
       @persistBadge(data)

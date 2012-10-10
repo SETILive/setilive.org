@@ -30,7 +30,7 @@ Marv::Application.routes.draw do
   match '/user_favourites' => 'ZooniverseUsers#favourites'
   match '/user_recents' => 'ZooniverseUsers#recents'
 
-
+  match '/redirect' => 'accounts#go_home'
   match '/login'   => 'accounts#login', :as => 'login'
   match '/logout'  => 'accounts#logout', :as => 'logout'
   match '/signup'  => 'accounts#signup', :as => 'signup'

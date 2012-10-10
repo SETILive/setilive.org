@@ -44,7 +44,8 @@ class Info extends Spine.Controller
     if Subject.first().subjectType == 'new' or window.tutorial == true
       @timeInterval = setInterval @updateTime, 100
     else
-      @time.html "Archive Data"
+      @time.addClass 'text'
+      @time.html 'Archive Data'
 
     subject = Subject.first()
     if subject.observations.count == 1 
@@ -68,9 +69,11 @@ class Info extends Spine.Controller
     @time.html "#{if mins<10 then "0" else ""}#{mins}:#{if secs<10 then "0"  else ""}#{secs}"
     if timeRemaining <= 0
       clearInterval @timeInterval
-      @time.html "Time expired!"
+      @time.addClass 'text'
+      @time.html 'Time expired!'
 
   resetTime: =>
+    @time.removeClass 'text'
     @targetTime = (1).minutes().fromNow()
 
   doneClassification: =>

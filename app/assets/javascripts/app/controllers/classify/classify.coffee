@@ -6,14 +6,24 @@ class Classify extends Spine.Controller
 
   constructor: ->
     super
-
-    if Workflow.count() == 0
-      Workflow.fetch()
-
+    @user_set = -1
     @dialog_shown = false
+
+    User.bind 'refresh', (user) =>
+      @user_set = if user then 1 else 0
 
   active: (params) =>
     super
+    if @user_set < 0
+      @timeout_id = window.setTimeout @active, 1000, params
+    else
+      console.log @user_set
+      if @user_set > 0
+        @setupPage params
+      else
+        window.location = '/login'
+
+  setupPage: (params) =>
     @html @view 'classify/classify'
 
     @delay =>
@@ -36,6 +46,7 @@ class Classify extends Spine.Controller
 
   deactivate: =>
     super
+    window.clearTimeout @timeout_id
     Spine.unbind 'startWorkflow'
     Spine.unbind 'closeWorkflow'
     Spine.unbind 'nextBeam'

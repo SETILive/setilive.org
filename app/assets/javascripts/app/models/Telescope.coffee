@@ -21,7 +21,15 @@ class Telescope extends Spine.Model
 
       Spine.trigger 'telescope_status'
 
-  @getNewDataState: ->
-    console.log 'noop'
+  @updateNewData: ->
+    $.getJSON '/time_to_new_data.json', (time) ->
+      current_time = Telescope.findByAttribute 'key', 'time_to_new_data'
+
+      if _.isNull current_time
+        Telescope.create {key: 'time_to_new_data', value: time}
+      else
+        Telescope.update current_time.id, {value: status}
+
+      Spine.trigger 'time_to_new_data'
 
 window.Telescope = Telescope

@@ -1,5 +1,5 @@
 class ZooniverseUsersController < ApplicationController
-  before_filter :check_login, :except=>[:index]
+  before_filter :check_login, :except=>[:index,:current_logged_in_user]
   before_filter :authenticate, :only => [:index]
 
   def index 
@@ -60,7 +60,7 @@ class ZooniverseUsersController < ApplicationController
       end
     else 
      respond_to do |format|
-        format.json {render json: "please log in first", :status=>403}
+        format.json {render json: "false"}
       end
     end
   end 

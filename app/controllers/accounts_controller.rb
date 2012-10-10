@@ -1,9 +1,13 @@
 class AccountsController < ApplicationController
   before_filter CASClient::Frameworks::Rails::GatewayFilter
 
+  def go_home
+    redirect_to '/'
+  end
+
   def login
     @cas_client = CASClient::Frameworks::Rails::Filter.client
-    @return_to = "http://#{request.host}:#{request.port}/"
+    @return_to = "http://#{request.host}:#{request.port}/redirect"
     @from_discovery=true if params['discovery']
     @small_star_field = true  
   end

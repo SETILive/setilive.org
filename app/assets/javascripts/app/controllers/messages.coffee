@@ -56,8 +56,13 @@ class Messages extends Spine.Controller
 
     Notification.create message
 
-  onPusherNewData: (data) ->
+  onPusherNewData: (data = false) ->
     console.log 'New Data: ', data
+
+    unless data
+      Spine.bind 'time_to_new_data', (data) ->
+        data = data.value
+
     content = "New data expected in <span>#{data}</span> seconds!"
     content_final = "New data available now!"
 
@@ -68,7 +73,8 @@ class Messages extends Spine.Controller
         final: content_final
       type: 'alert'
       meta:
-        timer: data
+        timer:
+          data: data
 
     Notification.create message
 
@@ -78,7 +84,7 @@ class Messages extends Spine.Controller
     content_final = "Follow up window has closed. Please wait for new data."
 
     message =
-      name: 'time_for_followups'
+      name: 'time_to_followup'
       content:
         initial: content
         final: content_final
