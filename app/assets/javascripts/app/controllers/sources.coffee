@@ -17,6 +17,8 @@ class Sources extends Spine.Controller
     @html @view 'sources/sources'
 
     if Source.count() == 0
+
+      @sources_list.html '<h2 class="loading">Loading... this may take awhile!</h2>'
       Source.fetch()
     else
       @changePage @page
