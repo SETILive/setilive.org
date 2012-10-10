@@ -41,18 +41,18 @@ Marv::Application.routes.draw do
   match '/awardBadge' => 'ZooniverseUsers#awardBadge', :as => 'awardBadge'
   match '/register_talk_click' => 'ZooniverseUsers#register_talk_click', :as => 'register_talk_click'
 
+  match '/tutorial'  => 'classifications#tutorial'
   match '/tutorial_subject' => 'subjects#tutorial_subject'
+  match '/seen_tutorial' => 'ZooniverseUsers#seen_tutorial'
 
   match '/science_report' => 'ZooniverseUsers#index'
   match '/stats' => 'home#stats'
   match '/telescope_status' => 'home#telescope_status'
   match '/time_to_followup' => 'home#time_to_followup'
   match '/time_to_new_data' => 'home#time_to_new_data'
-  match '/tutorial'  => 'classifications#tutorial'
+  match '/retrieve_system_state' => 'home#retrieve_system_state'
 
   match '/recent_classifications'  => 'classifications#recent'
-
-  match '/seen_tutorial' => 'ZooniverseUsers#seen_tutorial'
 
   match '/sweeps_change' => 'ZooniverseUsers#sweeps_change'
   match '/sweeps_opt_out' => 'ZooniverseUsers#sweeps_out'

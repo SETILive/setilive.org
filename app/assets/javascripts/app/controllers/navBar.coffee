@@ -9,20 +9,18 @@ class NavBar extends Spine.Controller
   constructor: ->
     super
     User.bind 'refresh', @render
-    TelescopeStatus.bind 'refresh', @render
-
     @render()
 
-    # Spine.bind 'target_status_changed', (data) =>
-    #   @telescope_status = data
-    #   @render()
+    Spine.bind 'telescope_status', @render
   
   render: =>
     # Non-blocking render of menu
-    if TelescopeStatus.count() == 0
+    telescope_status = Telescope.findByAttribute 'key', 'telescope_status'
+
+    if _.isNull telescope_status
       telescope_status = 'unknown'
     else
-      telescope_status = TelescopeStatus.first().status
+      telescope_status = telescope_status.value
 
     @html @view('navBar')
       user: User.first()

@@ -29,18 +29,22 @@ class App extends Spine.Controller
     User.fetch_current_user()
     Badge.fetch()
 
-    TelescopeStatus.bind 'refresh', @setInitialNotification
-    TelescopeStatus.fetch()
+    #Telescope.bind 'refresh', @setInitialNotification
+    Telescope.fetch @setupSystem
+    Telescope.fetch()
 
     # setup pusher messaging
     @messages = new Messages()
 
+  setupSystem: ->
+    console.log 'noop'
+
   setInitialNotification: =>
-    if TelescopeStatus.first().status == 'active'
+    if Telescope.findByAttribute('key','telescope_status') == 'active'
       message =
         name: 'default'
         content:
-          initial: 'active'
+          initial: 'The telescope is active! Get classifying!'
         type: 'alert'
 
       Notification.create message

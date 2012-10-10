@@ -22,7 +22,7 @@ class NotificationItem extends Spine.Controller
           compact: true
           description: ''
           format: 'MS'
-          expiryText: @showFinalText
+          expiryText: @notification.meta.timer.onTimerEnd
         }
 
     @show()
@@ -31,7 +31,7 @@ class NotificationItem extends Spine.Controller
   show: =>
     @el.fadeIn 550, 'easeInExpo'
 
-  showFinalText: =>
+  cleanupNotification: =>
     @el.find('.content').html @notification.content.final
 
   remove: =>

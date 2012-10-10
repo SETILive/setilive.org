@@ -76,25 +76,28 @@ class Messages extends Spine.Controller
         final: content_final
       type: 'alert'
       meta:
-        timer: data
+        timer:
+          data: data
+          onTimerEnd: @checkForNewData
 
     Notification.create message
 
   onPusherTelescopeStatusChange: (data) ->
-    telescope_status = status: data
-    TelescopeStatus.refresh telescope_status, {clear: true}
+    telescope_status = Telescope.findByAttribute('key','telescope_status')
+    Telescope.update telescope_status.id, {value: data}
 
-    switch data
+    switch telescope_status.value
       when 'inactive' then content = 'The telescope is now inactive. Thanks for classifying!'
       when 'active' then content = 'The telescope is now active! Get classifying!'
 
     message =
-      name: 'telescope_status'
+      name: telescope_status.key
       content:
         initial: content
       type: 'alert'
 
     Notification.create message
+    Spine.trigger telescope_status.key
 
   onFavourited: =>
 
@@ -102,6 +105,8 @@ class Messages extends Spine.Controller
 
   onTutorialBadgeAwarded: =>
 
+
+  checkForNewData: ->
 
 
 

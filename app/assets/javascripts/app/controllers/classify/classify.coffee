@@ -27,10 +27,8 @@ class Classify extends Spine.Controller
         Subject.get_tutorial_subject()
       else
         Subject.fetch_next_for_user()
-        if TelescopeStatus.count() > 0
+        if Telescope.findByAttribute('key','telescope_status').value is 'inactive'
           @showInactiveDialog()
-        else
-          TelescopeStatus.bind 'refresh', @showInactiveDialog
 
   deactivate: =>
     super
@@ -39,13 +37,11 @@ class Classify extends Spine.Controller
     Spine.unbind 'nextBeam'
     Spine.unbind 'clearSignals'
     Spine.unbind 'doneClassification'
-    TelescopeStatus.unbind 'refresh', @showInactiveDialog
+    Telescope.unbind 'refresh', @showInactiveDialog
     Workflow.unbind 'workflowDone'
     @el.empty()
 
   showInactiveDialog: =>
-    status = TelescopeStatus.first().status
-    if status is 'inactive'
-      dialog = new Dialog({el: $('#dialog-underlay'), content: @view('classify/dialog_content_statusinactive')()})
+    dialog = new Dialog({el: $('#dialog-underlay'), content: @view('classify/dialog_content_statusinactive')()})
 
 window.Classify = Classify
