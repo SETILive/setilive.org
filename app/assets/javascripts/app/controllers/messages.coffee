@@ -78,7 +78,7 @@ class Messages extends Spine.Controller
       meta:
         timer:
           data: data
-          onTimerEnd: @checkForNewData
+          onTimerEnd: @onPusherNewData 
 
     Notification.create message
 
@@ -105,9 +105,7 @@ class Messages extends Spine.Controller
 
   onTutorialBadgeAwarded: =>
 
-
   checkForNewData: ->
-
 
 
 window.Messages = Messages

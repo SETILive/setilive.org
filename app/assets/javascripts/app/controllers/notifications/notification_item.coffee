@@ -14,9 +14,9 @@ class NotificationItem extends Spine.Controller
     @el.attr 'data-id', @notification.id
 
     # handle timers
-    if not _.isUndefined @notification.meta and not _.isUndefined @notification.meta.timer 
+    if not _.isUndefined @notification.meta and not _.isUndefined @notification.meta.timer
       date = new Date()
-      date.setSeconds date.getSeconds() + @notification.meta.timer
+      date.setSeconds date.getSeconds() + @notification.meta.timer.data
       @el.find('span').countdown {
           until: date
           compact: true

@@ -77,7 +77,7 @@ class Info extends Spine.Controller
 
   doneClassification: =>
     @controls.hide()
-    @talk.before '<p id="save-temp">Saving...</p>'
+    @talk.before '<p>Saving...</p>'
 
     Classification.bind 'classificationSaved', =>
       Classification.unbind 'classificationSaved'

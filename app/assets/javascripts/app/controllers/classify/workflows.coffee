@@ -26,8 +26,10 @@ class Workflows extends Spine.Controller
       answerHelper: @answer_icon
       previous_answer: previous_answer
       
-    if not _.isUndefined(@currentSignal) and @currentSignal.characterisations.length > 1
+    if not _.isUndefined @currentSignal and @currentSignal.characterisations.length > 1
       @el.find('#close-workflow').show()
+    else
+      @el.find('#close-workflow').hide()
 
   startWorkflow: (signal) =>
     x = @el.parent().width() * (Math.max(signal.freqEnd, signal.freqStart) ) + 20

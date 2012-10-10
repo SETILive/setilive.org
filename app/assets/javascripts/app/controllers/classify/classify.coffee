@@ -27,8 +27,10 @@ class Classify extends Spine.Controller
         Subject.get_tutorial_subject()
       else
         Subject.fetch_next_for_user()
-        if Telescope.findByAttribute('key','telescope_status').value is 'inactive'
-          @showInactiveDialog()
+        if _.isNull Telescope.findByAttribute('key','telescope_status')
+          Spine.bind 'telescope_status', =>
+            if Telescope.findByAttribute('key','telescope_status').value is 'inactive'
+              @showInactiveDialog()
 
   deactivate: =>
     super

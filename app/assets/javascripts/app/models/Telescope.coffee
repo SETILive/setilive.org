@@ -21,4 +21,7 @@ class Telescope extends Spine.Model
 
       Spine.trigger 'telescope_status'
 
+  @getNewDataState: ->
+    console.log 'noop'
+
 window.Telescope = Telescope
