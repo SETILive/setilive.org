@@ -2,7 +2,7 @@
 class Messages extends Spine.Controller
 
   pusherKey: '***REMOVED***'
-  pusherChannel: 'dmode-dev-telescope'
+  pusherChannel: 'telescope'
   pusher: 
     'target_changed': 'onPusherSourceChange'
     'new_telescope_data': 'onPusherNewData'
@@ -11,6 +11,14 @@ class Messages extends Spine.Controller
 
   constructor: ->
     @pusherChannels = {}
+
+    # Build Pusher channel based on environment
+    if window.location.hostname is 'devwww.setilive.org' or window.location.hostname is '0.0.0.0' or window.location.hostname is 'localhost'
+      @pusherChannel = 'dev-' + @pusherChannel
+
+    if window.location.hostname is '0.0.0.0' or window.location.hostname is 'localhost'
+      @pusherChannel = 'dmode-' + @pusherChannel
+
     @setupPusher() if Pusher?
 
   setupLocal: =>
@@ -106,6 +114,5 @@ class Messages extends Spine.Controller
   onTutorialBadgeAwarded: =>
 
   checkForNewData: ->
-
 
 window.Messages = Messages

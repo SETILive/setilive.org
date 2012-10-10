@@ -27,9 +27,8 @@ class Classify extends Spine.Controller
       else
         Subject.fetch_next_for_user()
 
-        if _.isNull Telescope.findByAttribute('key','telescope_status')
-          Spine.bind 'telescope_status', @initialTelescopeSetup
-        else
+        Spine.one 'telescope_status', @initialTelescopeSetup
+        if not _.isNull Telescope.findByAttribute 'key', 'telescope_status'
           Spine.trigger 'telescope_status'
 
   deactivate: =>
@@ -45,11 +44,7 @@ class Classify extends Spine.Controller
     @el.empty()
 
   initialTelescopeSetup: =>
-    Spine.unbind 'telescope_status', @initialTelescopeSetup # Ensures this only actually happens once per session.
     if Telescope.findByAttribute('key','telescope_status').value is 'inactive'
-      @showInactiveDialog()
-
-  showInactiveDialog: =>
-    dialog = new Dialog({el: $('#dialog-underlay'), content: @view('classify/dialog_content_statusinactive')()})
+      dialog = new Dialog({el: $('#dialog-underlay'), content: @view('classify/dialog_content_statusinactive')()})
 
 window.Classify = Classify

@@ -35,8 +35,6 @@ class Subjects extends Spine.Controller
     @showSimulation = false
     @simBeam = 0
 
-    console.log 'constructor subject'
-
   render: (subject) =>
     @current_subject = subject
     @html @view('classify/waterfalls')(@current_subject.observations)
