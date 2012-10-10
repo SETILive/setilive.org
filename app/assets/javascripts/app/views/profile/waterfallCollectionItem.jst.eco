@@ -1,7 +1,6 @@
 <% for item in @items: %>
   <% if item.uploaded: %>
-    <div class="observation">
-      <img width=215  src="<%= item.image_url %>" />
+    <div class="observation" style="background-image: url(<%= item.image_url %>); background-size: 221px 114px">
       <% if @user: %>
         <% if item._id in @user.favourites: %>
           <div class="favourited" title="unfavourite" data-id= "<%= item._id %>">
