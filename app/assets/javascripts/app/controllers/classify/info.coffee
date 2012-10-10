@@ -59,9 +59,6 @@ class Info extends Spine.Controller
       @targets.html @view('classify/targets_info')
         location: subject.location
 
-  drawStarField: =>
-    # @stars = new Stars(el: @star_field_small)
-
   clearSignals: =>
     Spine.trigger 'clearSignals'
 
@@ -73,15 +70,19 @@ class Info extends Spine.Controller
     if timeRemaining <= 0
       clearInterval @timeInterval
       @time.css("font-size","20px")
-      @time.html "New data expected"
+      @time.html "Time expired!"
 
   resetTime: =>
     @targetTime = (1).minutes().fromNow()
 
   doneClassification: =>
+    @controls.hide()
+    @talk.before '<p id="save-temp">Saving...</p>'
+
     Classification.bind 'classificationSaved', =>
       Classification.unbind 'classificationSaved'
-      @controls.hide()
+
+      @talk.prev().remove()
       @talk.show()
       
       @social.append @view('classify/facebookWaterfall')
