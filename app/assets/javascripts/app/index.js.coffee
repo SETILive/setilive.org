@@ -26,21 +26,18 @@ class App extends Spine.Controller
     @append @main = new Main
     Spine.Route.setup()
 
+    # setup events
+    Telescope.bind 'fetch', @setInitialNotification
+
     User.fetch_current_user()
     Badge.fetch()
-
-    #Telescope.bind 'refresh', @setInitialNotification
-    Telescope.fetch @setupSystem
     Telescope.fetch()
 
     # setup pusher messaging
     @messages = new Messages()
 
-  setupSystem: ->
-    console.log 'noop'
-
   setInitialNotification: =>
-    if Telescope.findByAttribute('key','telescope_status') == 'active'
+    if Telescope.findByAttribute('key','telescope_status') is 'active'
       message =
         name: 'default'
         content:
@@ -48,6 +45,7 @@ class App extends Spine.Controller
         type: 'alert'
 
       Notification.create message
+
     else
       message =
         name: 'default'

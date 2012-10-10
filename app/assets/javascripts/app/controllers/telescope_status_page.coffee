@@ -10,7 +10,7 @@ class TelescopeStatusPage extends Spine.Controller
   active: ->
     super
     Spine.bind 'telescope_status', @render
-    Telescope.fetch()
+    Telescope.updateTelescopeStatus()
 
   deactivate: ->
     super
