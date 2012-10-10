@@ -6,11 +6,12 @@ class Workflows extends Spine.Controller
   events:
     "click .answer" : 'selectAnswer'
     "click #delete_signal" : 'deleteSignal'
-    
+
   constructor: ->
     super
     Spine.bind 'startWorkflow', @startWorkflow
     Spine.bind 'closeWorkflow', @closeWorkflow
+
     @el.hide()
     @render()
 
@@ -25,20 +26,24 @@ class Workflows extends Spine.Controller
       question: @current_question
       answerHelper: @answer_icon
       previous_answer: previous_answer
-      
-    if not _.isUndefined @currentSignal and @currentSignal.characterisations.length > 1
-      @el.find('#close-workflow').show()
-    else
-      @el.find('#close-workflow').hide()
 
   startWorkflow: (signal) =>
+    # Adjust workflow position and look
     x = @el.parent().width() * (Math.max(signal.freqEnd, signal.freqStart) ) + 20
     y = @el.parent().height() * (signal.timeEnd + signal.timeStart) / 2.0 - @el.height() / 2.0
     @el.css
       top: y
       left: x
+
+    # Only show 'Close X' if working on an already classified signal
+    if signal.characterisations.length > 1
+      @el.find('#close-workflow').show()
+    else
+      @el.find('#close-workflow').hide()
+
     @el.show()
 
+    # Setup working signal as the current signal
     @currentSignal = signal
     @currentSignal.save()
     @setUpQuestion(Workflow.first().questions[0]._id)
