@@ -3,12 +3,12 @@ class Telescope extends Spine.Model
   @configure 'Telescope', 'key', 'value'
 
   @fetch: ->
-    $.getJSON '/retrieve_system_state.json', (data) ->
+    $.getJSON '/retrieve_system_state.json', (data) =>
       for datum in data
         Telescope.create datum
         if datum.key is 'telescope_status'
           Spine.trigger datum.key
-    super
+      super
 
   @updateTelescopeStatus: ->
     $.getJSON '/telescope_status.json', (status) ->
@@ -20,6 +20,5 @@ class Telescope extends Spine.Model
         Telescope.update current_status.id, {value: status}
 
       Spine.trigger 'telescope_status'
-
 
 window.Telescope = Telescope

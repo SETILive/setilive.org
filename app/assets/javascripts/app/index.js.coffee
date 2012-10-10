@@ -37,7 +37,8 @@ class App extends Spine.Controller
     @messages = new Messages()
 
   setInitialNotification: =>
-    if Telescope.findByAttribute('key','telescope_status') is 'active'
+    Telescope.unbind 'fetch', @setInitialNotification
+    if (Telescope.findByAttribute('key','telescope_status')).value is 'active'
       message =
         name: 'default'
         content:
