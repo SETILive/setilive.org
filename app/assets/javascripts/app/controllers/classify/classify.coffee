@@ -42,7 +42,7 @@ class Classify extends Spine.Controller
     Subject.unbind 'create'
     Subject.unbind 'done'
     Workflow.unbind 'workflowDone'
-    @subjects.release()
+    @el.empty()
 
   initialTelescopeSetup: =>
     Spine.unbind 'telescope_status', @initialTelescopeSetup # Ensures this only actually happens once per session.
