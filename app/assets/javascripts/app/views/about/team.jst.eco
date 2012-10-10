@@ -2,10 +2,10 @@
 <div id="aboutpage">
   <h1>A collaboration between SETI Institute, TED, Science Channel and Zooniverse.</h1>
   <div id="about_menu" class="dark">
-    <a href="#organisations">Organisations</a>
-    <a href="#development">Development</a>
-    <a href="#scienceteam">Science Team</a>
-    <a href="#contact">Contact</a>
+    <a data-link="organisations" href="">Organisations</a>
+    <a data-link="development" href="">Development</a>
+    <a data-link="scienceteam" href="">Science Team</a>
+    <a data-link="contact" href="">Contact</a>
   </div>
   
   

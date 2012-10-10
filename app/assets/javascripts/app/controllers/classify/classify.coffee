@@ -10,6 +10,8 @@ class Classify extends Spine.Controller
     if Workflow.count() == 0
       Workflow.fetch()
 
+    @dialog_shown = false
+
   active: (params) =>
     super
     @html @view 'classify/classify'
@@ -28,7 +30,8 @@ class Classify extends Spine.Controller
         Subject.fetch_next_for_user()
 
         Spine.one 'telescope_status', @initialTelescopeSetup
-        if not _.isNull Telescope.findByAttribute 'key', 'telescope_status'
+        if not _.isNull(Telescope.findByAttribute('key', 'telescope_status')) and not @dialog_shown
+          @dialog_shown = true
           Spine.trigger 'telescope_status'
 
   deactivate: =>

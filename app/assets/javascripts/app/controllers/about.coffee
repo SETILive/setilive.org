@@ -21,7 +21,13 @@ class About extends Spine.Controller
           $(this).parent().find(".gallery_explination").show()
           $(this).parent().find(".gallery_explination2").hide()
       when 'video_tutorial' then @render params.content
-      when 'team' then @render params.content
+      when 'team'
+        @render params.content
+        $('#about_menu a').click (e) ->
+          e.preventDefault()
+          link = $(e.currentTarget).data 'link'
+          link_offset = $("#aboutpage a[name=#{link}]").offset().top
+          $(window).scrollTop link_offset
       else
         @render 'about'
         $('[data-animation-scene]').parent().each ->
