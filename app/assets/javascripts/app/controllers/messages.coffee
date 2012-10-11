@@ -66,7 +66,7 @@ class Messages extends Spine.Controller
   onPusherTimeToFollowUp: (data) =>
     t = Telescope.findByAttribute('key', 'time_to_followup')
     t.updateAttribute('value', data)
-    @displayFollowUp()
+    @displayFollowup()
 
   onPusherTelescopeStatusChange: (data) =>
     t = Telescope.findByAttribute('key', 'telescope_status')
@@ -94,7 +94,7 @@ class Messages extends Spine.Controller
 
     Notification.create message
 
-  displayNewData: ->
+  displayNewData: =>
     t = Telescope.findByAttribute('key','time_to_new_data')
     content = "New data expected in <span>#{t.value}</span> seconds!"
     content_final = "New data available now!"
@@ -106,10 +106,10 @@ class Messages extends Spine.Controller
       type: 'alert'
       meta:
         timer:
-          data: data
+          data: t.value
     Notification.create message
 
-  displayFollowUp: ->
+  displayFollowup: =>
     t = Telescope.findByAttribute('key','time_to_followup')
     content = "The follow up window is closing in <span>#{t.value}</span> seconds!"
     content_final = "The follow up window has closed. Please wait for new data."
@@ -122,7 +122,7 @@ class Messages extends Spine.Controller
       type: 'alert'
       meta:
         timer:
-          data: time
+          data: t.value
           onTimerEnd: @displayNewData
     Notification.create message
 

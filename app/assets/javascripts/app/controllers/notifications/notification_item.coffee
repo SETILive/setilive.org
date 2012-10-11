@@ -17,13 +17,17 @@ class NotificationItem extends Spine.Controller
     if not _.isUndefined @notification.meta and not _.isUndefined @notification.meta.timer
       date = new Date()
       date.setSeconds date.getSeconds() + @notification.meta.timer.data
-      @el.find('span').countdown {
-          until: date
-          compact: true
-          description: ''
-          format: 'MS'
-          expiryText: @notification.meta.timer.onTimerEnd
-        }
+
+      options =
+        until: date
+        compact: true
+        description: ''
+        format: 'MS'
+
+      options.expiryText = @notification.meta.content.final if not _.isUndefined @notification.content.final
+      options.onExpiry = @notification.meta.timer.onTimerEnd if not _.isUndefined @notification.meta.timer.onTimerEnd
+
+      @el.find('span').countdown options
 
     @show()
     @

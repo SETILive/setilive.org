@@ -48,7 +48,7 @@ class App extends Spine.Controller
     # if not, is the telescope active? if so, use that
     # otherwise, say hello
     if Telescope.findByAttribute('key', 'time_to_followup').value > 0
-      @messages.displayFollowup
+      @messages.displayFollowup()
     else if Telescope.findByAttribute('key', 'time_to_new_data').value > 0
       @messages.displayNewData()
     else if Telescope.findByAttribute('key','telescope_status').value is 'active'
