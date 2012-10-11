@@ -32,4 +32,15 @@ class Telescope extends Spine.Model
 
       Spine.trigger 'time_to_new_data'
 
+  @updateFollowup: ->
+    $.getJSON '/time_to_followup.json', (time) ->
+      current_time = Telescope.findByAttribute 'key', 'time_to_followup'
+
+      if _.isNull current_time
+        Telescope.create {key: 'time_to_followup', value: time}
+      else
+        Telescope.update current_time.id, {value: status}
+
+      Spine.trigger 'time_to_followup'
+
 window.Telescope = Telescope

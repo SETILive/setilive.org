@@ -47,52 +47,14 @@ class App extends Spine.Controller
     # if not, is new data window active? if so, use that
     # if not, is the telescope active? if so, use that
     # otherwise, say hello
-    if (time = (Telescope.findByAttribute('key', 'time_to_followup')).value) > 0
-      content = "Followup window closing in <span>#{time}</span> seconds!"
-      content_final = "Follow up window has closed. Please wait for new data."
-
-      message =
-        name: 'time_to_followup'
-        content:
-          initial: content
-          final: content_final
-        type: 'alert'
-        meta:
-          timer:
-            data: time
-      Notification.create message
-
-    else if (time = (Telescope.findByAttribute('key', 'time_to_new_data')).value) > 0
-      content = "New data expected in <span>#{time}</span> seconds!"
-      content_final = "New data available now!"
-
-      message =
-        name: 'time_to_new_data'
-        content:
-          initial: content
-          final: content_final
-        type: 'alert'
-        meta:
-          timer:
-            data: time
-      Notification.create message
-
-    else if (Telescope.findByAttribute('key','telescope_status')).value is 'active'
-      message =
-        name: 'telescope_status'
-        content:
-          initial: 'The telescope is active! Get classifying!'
-        type: 'alert'
-      Notification.create message
-
+    if Telescope.findByAttribute('key', 'time_to_followup').value > 0
+      @messages.displayFollowup
+    else if Telescope.findByAttribute('key', 'time_to_new_data').value > 0
+      @messages.displayNewData()
+    else if Telescope.findByAttribute('key','telescope_status').value is 'active'
+      @messages.displayTelescopeStatus()
     else
-      message =
-        name: 'default'
-        content:
-          initial: 'Welcome to SETILive!'
-        type: 'alert'
-
-      Notification.create message
+     @messages.displayDefault()
 
 
 window.App = App

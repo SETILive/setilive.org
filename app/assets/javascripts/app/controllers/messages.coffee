@@ -21,6 +21,8 @@ class Messages extends Spine.Controller
 
     @setupPusher() if Pusher?
 
+    Telescope.bind 'telescope_status'
+
   setupLocal: =>
     User.bind 'badge_awarded', @onBadgeAwarded
     User.bind 'tutorial_badge_awarded', @onTutorialBadgeAwarded
@@ -56,69 +58,81 @@ class Messages extends Spine.Controller
 
     Notification.create message
 
-  onPusherNewData: (data = false) ->
-    console.log 'New Data: ', data
+  onPusherNewData: (data) =>
+    t = Telescope.findByAttribute('key', 'time_to_new_data')
+    t.updateAttribute('value', data)
+    @displayNewData()
 
-    unless data
-      Spine.bind 'time_to_new_data', (data) ->
-        data = data.value
+  onPusherTimeToFollowUp: (data) =>
+    t = Telescope.findByAttribute('key', 'time_to_followup')
+    t.updateAttribute('value', data)
+    @displayFollowUp()
 
-    content = "New data expected in <span>#{data}</span> seconds!"
-    content_final = "New data available now!"
-
-    message =
-      name: 'time_to_new_data'
-      content:
-        initial: content
-        final: content_final
-      type: 'alert'
-      meta:
-        timer:
-          data: data
-
-    Notification.create message
-
-  onPusherTimeToFollowUp: (data) ->
-    console.log 'Follow Up!: ', data
-    content = "Followup window closing in <span>#{data}</span> seconds!"
-    content_final = "Follow up window has closed. Please wait for new data."
-
-    message =
-      name: 'time_to_followup'
-      content:
-        initial: content
-        final: content_final
-      type: 'alert'
-      meta:
-        timer:
-          data: data
-          onTimerEnd: @onPusherNewData 
-
-    Notification.create message
-
-  onPusherTelescopeStatusChange: (data) ->
-    telescope_status = Telescope.findByAttribute('key','telescope_status')
-    Telescope.update telescope_status.id, {value: data}
-
-    switch telescope_status.value
-      when 'inactive' then content = 'The telescope is now inactive. Thanks for classifying!'
-      when 'active' then content = 'The telescope is now active! Get classifying!'
-
-    message =
-      name: telescope_status.key
-      content:
-        initial: content
-      type: 'alert'
-
-    Notification.create message
-    Spine.trigger telescope_status.key
+  onPusherTelescopeStatusChange: (data) =>
+    t = Telescope.findByAttribute('key', 'telescope_status')
+    t.updateAttribute('value', data)
+    @displayTelescopeStatus()
+    Spine.trigger 'telescope_status'
 
   onFavourited: =>
 
   onBadgeAwarded: =>
 
-  onTutorialBadgeAwarded: =>
+  onTutorialBadgeAwarded: ->
 
-  checkForNewData: ->
+  displayTelescopeStatus: ->
+    t = Telescope.findByAttribute('key','telescope_status')
+    switch t.value
+      when 'inactive' then content = 'The telescope is now inactive. Thanks for classifying!'
+      when 'active' then content = 'The telescope is now active! Get classifying!'
+
+    message =
+      name: t.key
+      content:
+        initial: content
+      type: 'alert'
+
+    Notification.create message
+
+  displayNewData: ->
+    t = Telescope.findByAttribute('key','time_to_new_data')
+    content = "New data expected in <span>#{t.value}</span> seconds!"
+    content_final = "New data available now!"
+    message =
+      name: t.key
+      content:
+        initial: content
+        final: content_final
+      type: 'alert'
+      meta:
+        timer:
+          data: data
+    Notification.create message
+
+  displayFollowUp: ->
+    t = Telescope.findByAttribute('key','time_to_followup')
+    content = "The follow up window is closing in <span>#{t.value}</span> seconds!"
+    content_final = "The follow up window has closed. Please wait for new data."
+
+    message =
+      name: t.key
+      content:
+        initial: content
+        final: content_final
+      type: 'alert'
+      meta:
+        timer:
+          data: time
+          onTimerEnd: @displayNewData
+    Notification.create message
+
+  displayDefault: ->
+    message =
+      name: 'default'
+      content:
+        initial: 'Welcome to SETILive!'
+      type: 'alert'
+
+    Notification.create message
 
 window.Messages = Messages
