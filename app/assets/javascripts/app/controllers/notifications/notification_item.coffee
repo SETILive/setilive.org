@@ -24,7 +24,10 @@ class NotificationItem extends Spine.Controller
         description: ''
         format: 'MS'
 
-      options.onExpiry = @notification.meta.timer.onTimerEnd if not _.isUndefined @notification.meta.timer.onTimerEnd
+      if not _.isUndefined @notification.meta.timer.onTimerEnd
+        options.onExpiry = @notification.meta.timer.onTimerEnd
+      else if not _.isUndefined @notification.content.final
+        options.onExpiry = @cleanupNotification
 
       @el.find('span').countdown options
 

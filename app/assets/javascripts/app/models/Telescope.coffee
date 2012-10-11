@@ -2,12 +2,15 @@
 class Telescope extends Spine.Model
   @configure 'Telescope', 'key', 'value'
 
-  @fetch: ->
+  @fetch: =>
     $.getJSON '/retrieve_system_state.json', (data) =>
       for datum in data
-        Telescope.create datum
+        t = Telescope.create datum
         if datum.key is 'telescope_status'
-          Spine.trigger datum.key
+          Spine.trigger 'telescope_status'
+        else if datum.key is 'time_to_new_data' or datum.key is 'time_to_followup'
+          t.countdown()
+          t.bind 'update', t.countdown
       super
 
   @updateTelescopeStatus: ->
@@ -42,5 +45,17 @@ class Telescope extends Spine.Model
         Telescope.update current_time.id, {value: status}
 
       Spine.trigger 'time_to_followup'
+
+  countdown: =>
+    if @value < 1
+      return
+    @timer = window.setInterval @tick, 1000
+
+  tick: =>
+    @value -= 1
+    console.log 'time: ', @value
+    if @value < 1
+      clearInterval @timer
+
 
 window.Telescope = Telescope
