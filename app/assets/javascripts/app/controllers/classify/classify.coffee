@@ -30,7 +30,7 @@ class Classify extends Spine.Controller
       @subjects = new Subjects({el: $("#waterfalls")})
       @info = new Info({el: $("#info")})
 
-      if params.type is 'tutorial'
+      if not _.isUndefined params.type and params.type is 'tutorial'
         @classify_area.inlineTutorial
           steps: tutorialSteps
 
