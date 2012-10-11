@@ -1,6 +1,6 @@
 <div class="extra_button">
   <p>Copy from Beam:</p>
   <% for source, i in @sources: %>
-    <span data-source="<%= source - 1 # zero-indexed %>" data-destination="<%= @destination %>"><%- source %></span>
+    <span data-source="<%- source %>" data-destination="<%- @destination %>"><%- source %></span>
   <% end %>
 </div>

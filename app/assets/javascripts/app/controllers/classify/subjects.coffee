@@ -90,9 +90,12 @@ class Subjects extends Spine.Controller
     $(".waterfall").removeClass("selected_beam")
     $(".small-waterfall-container .copy-beam").empty()
 
+    console.log 'CC:', @current_classification.signals()
+
+    @current_beam_no = @current_subject.observations[@current_beam].beam_no
     # Get observations that have signals that aren't the current observation
     otherObservationsWithSignals = _.filter @current_subject.observations, (observation) =>
-      unless observation.id == @current_subject.observations[@current_beam].id
+      unless observation.beam_no is @current_beam_no
         if @current_classification.signals().findAllByAttribute('observation_id', observation.id).length
           return true
       return false
@@ -102,7 +105,7 @@ class Subjects extends Spine.Controller
       beamNumbers = _.pluck otherObservationsWithSignals, 'beam_no'
       beamNumbers = _.sortBy beamNumbers, (num) ->
         -num
-      $("#waterfall-#{@current_beam}").siblings('.copy-beam').html @view('classify/waterfalls_copy_text')({sources: beamNumbers, destination: @current_beam})
+      $("#waterfall-#{@current_beam}").siblings('.copy-beam').html @view('classify/waterfalls_copy_text')({sources: beamNumbers, destination: @current_beam_no})
 
     $("#waterfall-#{@current_beam}").addClass("selected_beam")
     @drawBeam @main_beam.find("canvas"), @current_subject, @current_beam
@@ -126,23 +129,28 @@ class Subjects extends Spine.Controller
     source = $(e.currentTarget).data('source')
     destination = $(e.currentTarget).data('destination')
 
-    # Get observation id for the source and destination observations
-    source_observation_id = @current_subject.observations[source].id
-    destination_observation_id = @current_subject.observations[destination].id
+    console.log 'CS: ', @current_subject
 
-    # Destroy all existing signals at the destionation beam
-    _.each @current_classification.signals().findAllByAttribute('observation_id', destination_observation_id), (signal) =>
+    # Get observation id for the source and destination observations
+    source_observation = _.find @current_subject.observations, (observation) ->
+      observation.beam_no == source
+
+    destination_observation = _.find @current_subject.observations, (observation) ->
+      observation.beam_no == destination
+
+    # Destroy all existing signals at the destination beam
+    _.each @current_classification.signals().findAllByAttribute('observation_id', destination_observation.id), (signal) =>
       $(".signal_#{signal.id}").remove()
       signal.destroy()
 
     # Get all signals that belong to the source observation id
-    source_signals = @current_classification.signals().findAllByAttribute('observation_id', source_observation_id)
+    source_signals = @current_classification.signals().findAllByAttribute('observation_id', source_observation.id)
 
     # Change source signals' observation id to destination's observation id and save it
     _.each source_signals, (signal) =>
       new_signal = signal.dup()
       new_signal.characterisations = signal.characterisations # Move characterisations to the new signal
-      new_signal.updateAttribute 'observation_id', destination_observation_id
+      new_signal.updateAttribute 'observation_id', destination_observation.id
 
       # Series of horrible hacks to generate visual signal
       @drawLine new_signal

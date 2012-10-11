@@ -41,7 +41,7 @@ class NotificationItem extends Spine.Controller
     @el.find('.content').html @notification.content.final
 
   remove: =>
-    @el.fadeOut 550, 'easeInExpo', =>
+    @el.fadeOut 550, 'easeOutExpo', =>
       @el.remove()
 
 window.NotificationItem = NotificationItem

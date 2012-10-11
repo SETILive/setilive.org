@@ -78,25 +78,19 @@ class Info extends Spine.Controller
 
   doneClassification: =>
     @controls.hide()
-    @talk.before '<p>Saving...</p>'
+    @talk.show()
+    
+    @social.append @view('classify/facebookWaterfall')
+      subject: Subject.first()
 
-    Classification.bind 'classificationSaved', =>
-      Classification.unbind 'classificationSaved'
+    @social.append @view('classify/twitterWaterfall')
+      subject: Subject.first()
 
-      @talk.prev().remove()
-      @talk.show()
-      
-      @social.append @view('classify/facebookWaterfall')
-        subject: Subject.first()
-
-      @social.append @view('classify/twitterWaterfall')
-        subject: Subject.first()
-
-      if Subject.first().has_simulation
-        @simulation_notification.show() 
-      else
-        @talk_fill.show()
-        @thankyou.show()
+    if Subject.first().has_simulation
+      @simulation_notification.show() 
+    else
+      @talk_fill.show()
+      @thankyou.show()
 
     Spine.trigger 'dissableSignalDraw' 
     Spine.trigger 'doneClassification'
