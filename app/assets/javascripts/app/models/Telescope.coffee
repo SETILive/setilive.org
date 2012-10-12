@@ -47,15 +47,12 @@ class Telescope extends Spine.Model
       Spine.trigger 'time_to_followup'
 
   countdown: =>
-    if @value < 1
-      return
+    if @value < 1 then return
     @timer = window.setInterval @tick, 1000
 
   tick: =>
     @value -= 1
-    console.log 'time: ', @value
-    if @value < 1
-      clearInterval @timer
+    if @value < 1 then clearInterval @timer
 
 
 window.Telescope = Telescope

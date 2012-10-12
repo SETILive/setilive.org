@@ -7,8 +7,6 @@ class Badge extends Spine.Model
     User.bind 'refresh', =>
       @checkUser User.first()
 
-    @has_tested = false
-
   @fetch: ->
     $.getJSON '/badges.json', (data) =>
       for badge in data
@@ -23,10 +21,6 @@ class Badge extends Spine.Model
       for level in @levels
         if @check_condition user, level
           user.award @, level
-        else if not @has_tested
-          if Math.random() > 0.8
-            user.award @, level
-            @has_tested = true
 
   checkUser: (user) ->
     window.setInterval @testUser, 3000, user

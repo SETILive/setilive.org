@@ -90,8 +90,6 @@ class Subjects extends Spine.Controller
     $(".waterfall").removeClass("selected_beam")
     $(".small-waterfall-container .copy-beam").empty()
 
-    console.log 'CC:', @current_classification.signals()
-
     @current_beam_no = @current_subject.observations[@current_beam].beam_no
     # Get observations that have signals that aren't the current observation
     otherObservationsWithSignals = _.filter @current_subject.observations, (observation) =>
@@ -128,8 +126,6 @@ class Subjects extends Spine.Controller
     # grab source and destination
     source = $(e.currentTarget).data('source')
     destination = $(e.currentTarget).data('destination')
-
-    console.log 'CS: ', @current_subject
 
     # Get observation id for the source and destination observations
     source_observation = _.find @current_subject.observations, (observation) ->
