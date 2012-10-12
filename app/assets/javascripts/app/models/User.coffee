@@ -3,7 +3,7 @@ class User extends Spine.Model
   
   constructor: ->
     super 
-    @id = @zooniverse_user_id 
+    @id = @zooniverse_user_id
 
   @fetch_current_user: ->
     $.getJSON '/current_user.json', (data) =>
@@ -18,10 +18,10 @@ class User extends Spine.Model
     else 
       level = null
 
-    unless @hasBadge(badge,level)
+    unless @hasBadge badge, level
       data = {id: badge.id, level:level, name: badge.title}
       @badges.push data
-      User.trigger "badge_awarded", {badge: badge, level: level }
+      User.trigger "badge_awarded", {badge: badge, level: level}
       @persistBadge(data)
   
   persistBadge: (data) =>

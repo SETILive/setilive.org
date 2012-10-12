@@ -1,14 +1,14 @@
-  <%-@badgeTemplate%>
-  <p style='display:inline-block' class='badge_notification_description'> 
+  <%- @badgeTemplate %>
+  <p style="display: inline-block" class="badge_notification_description"> 
 
-  <%if @data.level? :%>
-    You have just been awarded the <%=@data.level%> level <%-@data.badge.title%> badge 
-  <%else:%>
-    You have just been awarded the <%=@data.badge.title%> badge 
-  <%end%>
+  <% if @data.level?: %>
+    You have just been awarded the <%= @data.level %> level <%- @data.badge.title %> badge 
+  <% else: %>
+    You have just been awarded the <%= @data.badge.title %> badge 
+  <% end %>
   </p>
   
-  <div class='badge_social_buttons'>
-    <%-@facebookTemplate if @facebookTemplate?%>
-    <%-@twitterTemplate  if @twitterTemplate?%>
+  <div class="badge_social_buttons">
+    <%- @facebookTemplate if @facebookTemplate? %>
+    <%- @twitterTemplate  if @twitterTemplate? %>
   </div>

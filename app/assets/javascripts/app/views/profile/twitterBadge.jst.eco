@@ -1,4 +1,4 @@
-<a href="https://twitter.com/share?url=<%-window.location.href%>&text=<%-@badge.twitterString(@user,@level)%>&hashtags=setilive"
+<a href="https://twitter.com/share?url=<%- window.location.host %>&text=<%-@badge.twitterString(@user,@level)%>&hashtags=setilive"
 
   target="_blank"> <div id="twitter_button"></div>
 </a>

@@ -1,6 +1,5 @@
 
 class NotificationItem extends Spine.Controller
-  className: 'alert'
   tag: 'li'
 
   constructor: ->
@@ -10,26 +9,40 @@ class NotificationItem extends Spine.Controller
 
   render: (notification) =>
     @notification = notification if notification
-    @html @view('notifications/notification')(@notification)
-    @el.attr 'data-id', @notification.id
 
-    # handle timers
-    if not _.isUndefined @notification.meta and not _.isUndefined @notification.meta.timer
-      date = new Date()
-      date.setSeconds date.getSeconds() + @notification.meta.timer.data
+    switch @notification.type
+      when 'flash'
+        # legacy badge support
+        @el.addClass 'flash'
+        @notification.content['size'] = '50'
+        @notification.content['user'] = User.first().name
+        @html @view('notifications/badge_awarded_notification')({
+            data: @notification.content
+            badgeTemplate: @view('profile/badge')(@notification.content)
+            facebookTemplate: @view('profile/facebookBadge')(@notification.content)
+            twitterTemplate: @view('profile/twitterBadge')(@notification.content)
+          })
+      when 'alert'
+        @html @view('notifications/notification')(@notification)
+        @el.attr 'data-id', @notification.id
 
-      options =
-        until: date
-        compact: true
-        description: ''
-        format: 'MS'
+        # handle timers
+        if not _.isUndefined @notification.meta and not _.isUndefined @notification.meta.timer
+          date = new Date()
+          date.setSeconds date.getSeconds() + @notification.meta.timer.data
 
-      if not _.isUndefined @notification.meta.timer.onTimerEnd
-        options.onExpiry = @notification.meta.timer.onTimerEnd
-      else if not _.isUndefined @notification.content.final
-        options.onExpiry = @cleanupNotification
+          options =
+            until: date
+            compact: true
+            description: ''
+            format: 'MS'
 
-      @el.find('span').countdown options
+          if not _.isUndefined @notification.meta.timer.onTimerEnd
+            options.onExpiry = @notification.meta.timer.onTimerEnd
+          else if not _.isUndefined @notification.content.final
+            options.onExpiry = @cleanupNotification
+
+          @el.find('span').countdown options
 
     @show()
     @
@@ -43,5 +56,5 @@ class NotificationItem extends Spine.Controller
   remove: =>
     @el.fadeOut 550, 'easeOutExpo', =>
       @el.remove()
-
+    
 window.NotificationItem = NotificationItem

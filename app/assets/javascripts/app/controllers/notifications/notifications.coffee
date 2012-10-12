@@ -18,14 +18,18 @@ class Notifications extends Spine.Controller
 
   add: (notification) =>
     notification = new NotificationItem(notification: notification)
-    @html notification.render()
+
+    if notification.notification.type is 'flash'
+      @prepend notification.render()
+      window.setTimeout @remove, 6000, notification
+    else
+      @html notification.render()
 
   addAll: =>
     Notification.each @add
 
-  remove: (e) =>
-    notification = $(e.target).notification()
-    notification.destroy()
+  remove: (notification) ->
+    notification.remove()
 
   ###
   setupLocal: =>

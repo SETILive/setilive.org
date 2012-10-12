@@ -22,11 +22,9 @@ class Messages extends Spine.Controller
     @setupPusher() if Pusher?
 
     Telescope.bind 'telescope_status'
-
-  setupLocal: =>
     User.bind 'badge_awarded', @onBadgeAwarded
-    User.bind 'tutorial_badge_awarded', @onTutorialBadgeAwarded
-    User.bind 'favourited', @onFavourited
+    # User.bind 'tutorial_badge_awarded', @onTutorialBadgeAwarded
+    # User.bind 'favourited', @onFavourited
 
   setupPusher: =>
     @openPusher()
@@ -47,16 +45,9 @@ class Messages extends Spine.Controller
       channel.bind key, @[method]
 
   onPusherSourceChange: (data) ->
-    console.log 'Source Change: ', data
-
-    content = "Telescope is now looking at #{data}."
-    message =
-      name: 'source_change'
-      content:
-        initial: content
-      type: 'alert'
-
-    Notification.create message
+    t = Telescope.findByAttribute('key', 'target_change')
+    t.updateAttribute('value', data)
+    @displayTargetChange()
 
   onPusherNewData: (data) =>
     t = Telescope.findByAttribute('key', 'time_to_new_data')
@@ -74,10 +65,13 @@ class Messages extends Spine.Controller
     @displayTelescopeStatus()
     Spine.trigger 'telescope_status'
 
-  onBadgeAwarded: =>
-    console.log 'HELLO!'
+  onBadgeAwarded: (data) =>
+    message = 
+      name: 'badge'
+      content: data
+      type: 'flash'
 
-  onTutorialBadgeAwarded: ->
+    Notification.create message
 
   displayTelescopeStatus: ->
     t = Telescope.findByAttribute('key','telescope_status')
@@ -92,6 +86,9 @@ class Messages extends Spine.Controller
       type: 'alert'
 
     Notification.create message
+
+  displayTargetChange: =>
+    console.log 'target changed'
 
   displayNewData: =>
     t = Telescope.findByAttribute('key','time_to_new_data')

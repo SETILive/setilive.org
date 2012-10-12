@@ -17,7 +17,6 @@ class Classify extends Spine.Controller
     if @user_set < 0
       @timeout_id = window.setTimeout @active, 1000, params
     else
-      console.log @user_set
       if @user_set > 0
         @setupPage params
       else
