@@ -111,6 +111,7 @@ a
   text-decoration: none
   &:hover
     color: #cddc28
+    text-shadow: 0 0 5px #1b1
 
 p, div.description
   margin: 0 0 12px 0
@@ -272,7 +273,7 @@ input[type=text], input[type=password]
       &:hover
         color: #CDDC28
         text-decoration: none
-    li
+    > li
       position: relative
       display: inline-block
       vertical-align: center
@@ -281,19 +282,19 @@ input[type=text], input[type=password]
       font-size: 15px
       text-align: left
       text-transform: uppercase
-      &:hover
-        color: #ffffff
       &:hover, .tutorial_select
         .nav_submenu
           display: block
+          zoom: 1
+          -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)"
+          filter: alpha(opacity=100)
           opacity: 1
-          text-align: left   
       .nav_submenu
         position: absolute
         display: none
-        top: 7px
+        top: 22px
         left: 0
-        margin: 16px 0 0
+        margin: 0
         padding: 3px 0 7px
         li
           display: block
@@ -302,12 +303,8 @@ input[type=text], input[type=password]
           font-size: 13px
           text-transform: none
           a
-            padding: 2px 13px 2px 12px
-        
-    .nav_submenu:hover
-      display: block
-      opacity: 1
-      text-align: left
+            display: block
+            padding: 2px 13px
 
     li.tutorial_item_selected a
       color: #cddc28
