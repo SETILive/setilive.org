@@ -52,7 +52,7 @@ class Messages extends Spine.Controller
   onPusherNewData: (data) =>
     t = Telescope.findByAttribute('key', 'time_to_new_data')
     t.updateAttribute('value', data)
-    @displayNewData()
+    # @displayNewData()
 
   onPusherTimeToFollowUp: (data) =>
     t = Telescope.findByAttribute('key', 'time_to_followup')

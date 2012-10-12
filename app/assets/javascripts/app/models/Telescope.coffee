@@ -24,25 +24,27 @@ class Telescope extends Spine.Model
 
       Spine.trigger 'telescope_status'
 
-  @updateNewData: ->
-    $.getJSON '/time_to_new_data.json', (time) ->
+  updateNewData: ->
+    $.getJSON '/time_to_new_data.json', (status) ->
       current_time = Telescope.findByAttribute 'key', 'time_to_new_data'
 
       if _.isNull current_time
-        Telescope.create {key: 'time_to_new_data', value: time}
+        Telescope.create {key: 'time_to_new_data', value: status.ttl}
       else
-        Telescope.update current_time.id, {value: status}
+        if status.ttl > 0
+          Telescope.update current_time.id, {value: status.ttl}
 
       Spine.trigger 'time_to_new_data'
 
-  @updateFollowup: ->
-    $.getJSON '/time_to_followup.json', (time) ->
+  updateFollowup: ->
+    $.getJSON '/time_to_followup.json', (status) ->
       current_time = Telescope.findByAttribute 'key', 'time_to_followup'
 
       if _.isNull current_time
-        Telescope.create {key: 'time_to_followup', value: time}
+        Telescope.create {key: 'time_to_followup', value: status.ttl}
       else
-        Telescope.update current_time.id, {value: status}
+        if status.ttl > 0
+          Telescope.update current_time.id, {value: status.ttl}
 
       Spine.trigger 'time_to_followup'
 
@@ -52,7 +54,11 @@ class Telescope extends Spine.Model
 
   tick: =>
     @value -= 1
-    if @value < 1 then clearInterval @timer
+    if @value < 1
+      clearInterval @timer
+      switch @key
+        when 'time_to_new_data' then @updateNewData()
+        when 'time_to_followup' then @updateFollowup()
 
 
 window.Telescope = Telescope
