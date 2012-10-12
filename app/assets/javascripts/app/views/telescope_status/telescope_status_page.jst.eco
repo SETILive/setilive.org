@@ -1,5 +1,5 @@
 
-<ul id="global_stats"></ul>
+<ul id="global_stats" class="stats"></ul>
 
 <div id="telescopeStatus" class="dark">
   <div class="telescopeStatusVis">

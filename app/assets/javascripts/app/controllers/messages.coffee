@@ -74,17 +74,16 @@ class Messages extends Spine.Controller
     @displayTelescopeStatus()
     Spine.trigger 'telescope_status'
 
-  onFavourited: =>
-
   onBadgeAwarded: =>
+    console.log 'HELLO!'
 
   onTutorialBadgeAwarded: ->
 
   displayTelescopeStatus: ->
     t = Telescope.findByAttribute('key','telescope_status')
     switch t.value
-      when 'inactive' then content = 'The telescope is now inactive. Thanks for classifying!'
-      when 'active' then content = 'The telescope is now active! Get classifying!'
+      when 'inactive' then content = 'The telescope is inactive. Thanks for classifying!'
+      when 'active' then content = 'The telescope is active! Get classifying!'
 
     message =
       name: t.key

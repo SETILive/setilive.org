@@ -25,7 +25,7 @@ class Metrics extends Spine.Controller
       name: 'Classification Rate'
       value: Metric.findByAttribute('name', 'classification_rate').value
 
-    @el.html @view('global_stats')({
+    @html @view('global_stats')({
         people_online: people_online
         total_classifications: total_classifications
         total_users: total_users
