@@ -54,11 +54,7 @@ class Telescope extends Spine.Model
 
   tick: =>
     @value -= 1
-    if @value < 1
-      clearInterval @timer
-      switch @key
-        when 'time_to_new_data' then @updateNewData()
-        when 'time_to_followup' then @updateFollowup()
+    if @value < 1 then clearInterval @timer
 
 
 window.Telescope = Telescope

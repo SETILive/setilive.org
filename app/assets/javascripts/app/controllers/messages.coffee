@@ -46,13 +46,13 @@ class Messages extends Spine.Controller
 
   onPusherSourceChange: (data) ->
     t = Telescope.findByAttribute('key', 'target_change')
-    t.updateAttribute('value', data)
+    t.updateAttribute('value', data.target_id)
     @displayTargetChange()
 
   onPusherNewData: (data) =>
     t = Telescope.findByAttribute('key', 'time_to_new_data')
     t.updateAttribute('value', data)
-    # @displayNewData()
+    @displayNewData()
 
   onPusherTimeToFollowUp: (data) =>
     t = Telescope.findByAttribute('key', 'time_to_followup')
@@ -77,7 +77,7 @@ class Messages extends Spine.Controller
     t = Telescope.findByAttribute('key','telescope_status')
     switch t.value
       when 'inactive' then content = 'The telescope is inactive. Thanks for classifying!'
-      when 'active' then content = 'The telescope is active! Get classifying!'
+      when 'active' then content = 'The telescope is now active!'
 
     message =
       name: t.key
@@ -88,7 +88,14 @@ class Messages extends Spine.Controller
     Notification.create message
 
   displayTargetChange: =>
-    console.log 'target changed'
+    t = Telescope.findByAttribute('key','target_change')
+    content = "The telescope is now looking at target #{t.value}."
+    message =
+      name: t.key
+      content:
+        initial: content
+      type: 'alert'
+    Notification.create message
 
   displayNewData: =>
     t = Telescope.findByAttribute('key','time_to_new_data')
@@ -119,7 +126,6 @@ class Messages extends Spine.Controller
       meta:
         timer:
           data: t.value
-          onTimerEnd: @displayNewData
     Notification.create message
 
   displayDefault: ->
