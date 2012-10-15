@@ -16,8 +16,8 @@ class Info extends Spine.Controller
 
   events:
     "click #done": "doneClassification"
-    "click #talkYes": "talk"
-    "click #talkNo": "dontTalk"
+    "click #talkYes": "getNextSubject"
+    "click #talkNo": "getNextSubject"
     "click #favourite": "favourite"
     "click #next_beam": "nextBeam"
     "click #clear_signal": "clearSignals"
@@ -99,17 +99,18 @@ class Info extends Spine.Controller
     Spine.trigger 'dissableSignalDraw' 
     Spine.trigger 'doneClassification'
     
+  getNextSubject: (e) =>
+    clearInterval @timeInterval
+    action = $(e.currentTarget).data 'action'
 
-  talk: =>
-    subject = Subject.first()
-    window.open subject.talkURL()
-    $.getJSON "/register_talk_click", =>
-      Subject.fetch_next_for_user()
+    switch action
+      when 'talk-yes'
+        subject = Subject.first()
+        window.open subject.talkURL()
+        $.getJSON '/register_talk_click'
 
-  dontTalk: (e) =>
     unless @talk.children('.extra_button').attr('disabled') is 'disabled'
       Subject.fetch_next_for_user()
-
     @talk.children('.extra_button').attr 'disabled', 'disabled'
 
   favourite: (e) =>
