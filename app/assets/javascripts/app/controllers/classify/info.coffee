@@ -84,11 +84,11 @@ class Info extends Spine.Controller
     @controls.hide()
     @talk.show()
     
-    @social.append @view('classify/facebookWaterfall')
-      subject: Subject.first()
+    # @social.append @view('classify/facebookWaterfall')
+    #   subject: Subject.first()
 
-    @social.append @view('classify/twitterWaterfall')
-      subject: Subject.first()
+    # @social.append @view('classify/twitterWaterfall')
+    #   subject: Subject.first()
 
     if Subject.first().has_simulation
       @simulation_notification.show() 
@@ -106,8 +106,8 @@ class Info extends Spine.Controller
     switch action
       when 'talk-yes'
         subject = Subject.first()
-        window.open subject.talkURL()
-        $.getJSON '/register_talk_click'
+        #window.open subject.talkURL()
+        #$.getJSON '/register_talk_click'
 
     unless @talk.children('.extra_button').attr('disabled') is 'disabled'
       Subject.fetch_next_for_user()
