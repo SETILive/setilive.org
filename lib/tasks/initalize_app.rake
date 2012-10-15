@@ -7,7 +7,8 @@ end
 
 
 task :update_workflow => :environment do
-  data = JSON.parse(IO.read("data/workflow.json"))
+  puts "updating workflow"
+  data = JSON.parse(IO.read(Rails.root.join('data', 'workflow2.json')))
   workflow = Workflow.first
   workflow.questions = data['questions']
   workflow.save
