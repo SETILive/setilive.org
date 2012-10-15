@@ -41,13 +41,17 @@ class Info extends Spine.Controller
     @talk_fill.hide()
     @thankyou.hide()
 
-    if Subject.first().subjectType == 'new' or window.tutorial == true
+    @talk.children('.extra_button').removeAttr 'disabled'
+
+    Subject.each (subject) -> console.log 's: ', subject
+
+    if Subject.last().subjectType == 'new' or window.tutorial == true
       @timeInterval = setInterval @updateTime, 100
     else
       @time.addClass 'text'
       @time.html 'Archive Data'
 
-    subject = Subject.first()
+    subject = Subject.last()
     if subject.observations.count == 1 
       @done.show()
       @nextBeam.hide() 
@@ -103,7 +107,10 @@ class Info extends Spine.Controller
       Subject.fetch_next_for_user()
 
   dontTalk: (e) =>
-    Subject.fetch_next_for_user()
+    unless @talk.children('.extra_button').attr('disabled') is 'disabled'
+      Subject.fetch_next_for_user()
+
+    @talk.children('.extra_button').attr 'disabled', 'disabled'
 
   favourite: (e) =>
     unless $(e.currentTarget).hasClass('favourited')
