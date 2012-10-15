@@ -313,6 +313,7 @@ class Subjects extends Spine.Controller
       if $(".signal_circle.signal_#{signal.id}.stage_0").length
         $(circle.node).addClass("stage_1")
         $(circle.node).addClass("draggable")
+        $(".signal_circle.signal_#{signal.id}.stage_0").addClass 'draggable'
       else
         $(circle.node).addClass("stage_0")
 
@@ -322,7 +323,7 @@ class Subjects extends Spine.Controller
       @stage += 1 
       if @stage == 2 
         @drawLine(signal)
-        @enableSignalDraw()
+        @dissableSignalDraw()
         Spine.trigger 'startWorkflow', signal
 
   

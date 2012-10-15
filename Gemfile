@@ -37,10 +37,11 @@ end
 group :development, :test do
   gem 'pry'
   gem 'pry-rails'
+  # gem 'pry-nav'
   gem 'turn', :require => false 
   gem 'shoulda'
   gem 'factory_girl_rails'
   gem 'minitest'
   gem 'autotest-rails'
-  #gem 'debugger'
+  # gem 'debugger'
 end
