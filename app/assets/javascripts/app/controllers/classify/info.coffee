@@ -43,8 +43,6 @@ class Info extends Spine.Controller
 
     @talk.children('.extra_button').removeAttr 'disabled'
 
-    Subject.each (subject) -> console.log 's: ', subject
-
     if Subject.last().subjectType == 'new' or window.tutorial == true
       @timeInterval = setInterval @updateTime, 100
     else

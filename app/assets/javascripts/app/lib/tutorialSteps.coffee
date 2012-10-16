@@ -59,11 +59,9 @@ window.tutorialSteps = [
         ,
           title: "Describe",
           text: "You can adjust the line showing where the signal is by moving either marker. We will ask you to descibe the signal now. Give it a try.",
-          triggers: [{elements : ".answer", action: "click"}]
-          disableControls: true
+          triggers: [{elements: ".answer", action: "click"}]
           location: [520,24]
-          prompt: "Describe the signal"
-          speed:400
+          speed: 400
         ,
           title: "Repeat"
           text: "Do this for each signal you can see in the data. Once you're done, click here to move on.",
