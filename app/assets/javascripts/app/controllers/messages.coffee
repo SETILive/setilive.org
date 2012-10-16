@@ -78,7 +78,7 @@ class Messages extends Spine.Controller
     switch t.value
       when 'inactive' then content = 'The telescope is inactive. Thanks for classifying!'
       when 'active' then content = 'The telescope is now active!'
-      when 'replay' then content = 'The telescope is displaying fake data!'
+      when 'replay' then content = 'The telescope simulator is replaying older data!'
       else
         content = 'Welcome to SETI Live!'
 
@@ -135,7 +135,7 @@ class Messages extends Spine.Controller
     message =
       name: 'default'
       content:
-        initial: 'Welcome to SETILive!'
+        initial: 'Welcome to SETILive! Update Preview (Beta)'
       type: 'alert'
 
     Notification.create message
