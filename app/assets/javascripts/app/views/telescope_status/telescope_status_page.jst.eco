@@ -22,9 +22,9 @@
   </div>
   <div class="telescopeStatusExplinationText">
     <% if @status == 'unknown': %>
-      <h1 id="large_status_title">The telescope status is <%= @status %></h1>
+      <h1 id="large_status_title">The telescope's status is <%= @status %></h1>
     <% else: %>
-      <h1 id="large_status_title">The telescope is <%= @status %></h1>
+      <h1 id="large_status_title">The telescope's status is <%= @status %></h1>
     <% end %>
     <h2 id="lastUpdate">Last updated at  <%= Date.now().toString("HH:mm d/M/yyyy") %></h2>
     <p>

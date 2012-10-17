@@ -102,7 +102,7 @@ class Messages extends Spine.Controller
 
   displayNewData: =>
     t = Telescope.findByAttribute('key','time_to_new_data')
-    content = "New data expected in <span>#{t.value}</span> seconds!"
+    content = "New data expected in <span>#{t.value}</span> seconds"
     content_final = "New data available now!"
     message =
       name: t.key
@@ -117,7 +117,7 @@ class Messages extends Spine.Controller
 
   displayFollowup: =>
     t = Telescope.findByAttribute('key','time_to_followup')
-    content = "The follow up window is closing in <span>#{t.value}</span> seconds!"
+    content = "The follow up window is closing in <span>#{t.value}</span>"
     content_final = "The follow up window has closed. Please wait for new data."
 
     message =

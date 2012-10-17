@@ -11,7 +11,7 @@ end
 
 
 task :create_tutorial_subject => :environment do
-  Subject.delete_all
+  #Subject.delete_all
   signalFile_url = "https://s3.amazonaws.com/zooniverse-seti-dev/tutorial/signal.png"
   noiseFile_url  = "https://s3.amazonaws.com/zooniverse-seti-dev/tutorial/noise.png"
 
