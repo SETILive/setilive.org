@@ -24,15 +24,17 @@ class Info extends Spine.Controller
 
   constructor: ->
     super
-    @render()
     Subject.bind 'create', @initialSetup
     Spine.bind 'beamChange', @beamChange
 
-  render: =>
-    @html @view 'classify/info'
+  render: (subject) =>
+    @html @view('classify/info')({subject: subject})
 
   initialSetup: =>
+    subject = Subject.last()
+
     # Make sure info shown is default
+    @render subject
     @resetTime()
     @controls.show()
     @talk.hide()
@@ -43,13 +45,12 @@ class Info extends Spine.Controller
 
     @talk.children('.extra_button').removeAttr 'disabled'
 
-    if Subject.last().subjectType == 'new' or window.tutorial == true
+    if subject.subjectType == 'new' or window.tutorial == true
       @timeInterval = setInterval @updateTime, 100
     else
       @time.addClass 'text'
       @time.html 'Archive Data'
 
-    subject = Subject.last()
     if subject.observations.count == 1 
       @done.show()
       @nextBeam.hide() 

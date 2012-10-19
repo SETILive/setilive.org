@@ -1,7 +1,11 @@
 <div class="info-container">
   <div id="countdown">
     <p id="time">-</p>
-    <p>Complete your classification in</p>
+    <% if @subject.subjectType is 'new': %>
+      <p>Complete your classification in</p>
+    <% else: %>
+      <p>Take your time, classify all signals!</p>
+    <% end %>
   </div>
 
   <div id="star_field_small"></div>
