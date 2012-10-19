@@ -72,8 +72,7 @@ class Info extends Spine.Controller
     @time.html "#{if mins<10 then "0" else ""}#{mins}:#{if secs<10 then "0"  else ""}#{secs}"
     if timeRemaining <= 0
       clearInterval @timeInterval
-      @time.addClass 'text'
-      @time.html 'Time expired!'
+      @time.html '00:00'
 
   resetTime: =>
     @time.removeClass 'text'

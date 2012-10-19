@@ -2,7 +2,7 @@
   <div id="countdown">
     <p id="time">-</p>
     <% if @subject.subjectType is 'new': %>
-      <p>Complete your classification in</p>
+      <p>Suggested time to finish</p>
     <% else: %>
       <p>Take your time, classify all signals!</p>
     <% end %>
