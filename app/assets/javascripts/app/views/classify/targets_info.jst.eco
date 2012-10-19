@@ -1,4 +1,4 @@
 <ul>
-  <li><label>Date Taken:</label> <%= new Date(@location.time / 1000000).toUTCString() %></li>
-  <li><label>Frequency:</label> <%= @location.freq %></li>
+  <li><label>Date Taken:</label> <%= @date %></li>
+  <li><label>Frequency:</label> <%= (@location.freq).toFixed(6) %></li>
 </ul>

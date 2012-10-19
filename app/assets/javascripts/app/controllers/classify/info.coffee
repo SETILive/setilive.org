@@ -52,15 +52,25 @@ class Info extends Spine.Controller
       @time.addClass 'text'
       @time.html 'Archive Data'
 
-    if subject.observations.count == 1 
+    if subject.observations.count == 1
       @done.show()
-      @nextBeam.hide() 
+      @nextBeam.hide()
     if subject?
       targets = []
       for observation in subject.observations
         targets.push(new Source(observation.source )) if observation.source?
 
+      time_taken = new Date(subject.location.time / 1000000)
+      utc_date =
+        time_taken.getUTCFullYear() + '-' +
+        (time_taken.getUTCMonth() + 1) + '-' +
+        time_taken.getUTCDate() + ' at ' +
+        time_taken.getUTCHours() + ':' +
+        time_taken.getUTCMinutes() + ':' +
+        time_taken.getUTCSeconds() + ' UTC'
+
       @targets.html @view('classify/targets_info')
+        date: utc_date
         location: subject.location
 
   clearSignals: =>
