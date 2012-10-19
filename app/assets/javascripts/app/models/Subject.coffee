@@ -15,7 +15,6 @@ class Subject extends Spine.Model
       url += "?subject_id=#{window.subject_id}"
 
     $.getJSON url, (data) =>
-      console.log "getting data: activity", data.activity_id, "id", data.zooniverse_id, data
       if data.observations.length == 0
         @fetch_next_for_user()
       else

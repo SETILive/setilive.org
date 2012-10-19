@@ -40,7 +40,6 @@ class Classify extends Spine.Controller
             steps: tutorialSteps
 
         setTimeout (=> @classify_area.inlineTutorial("start")), 230
-        console.log 'tets'
         Subject.get_tutorial_subject()
       else
         Subject.fetch_next_for_user()
