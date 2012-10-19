@@ -6,6 +6,7 @@ class Classify extends Spine.Controller
 
   constructor: ->
     super
+    @tutorial_step = 0
     @user_set = -1
     @dialog_shown = false
 
@@ -30,10 +31,16 @@ class Classify extends Spine.Controller
       @info = new Info({el: $("#info")})
 
       if not _.isUndefined params.type and params.type is 'tutorial'
-        @classify_area.inlineTutorial
-          steps: tutorialSteps
+        if @tutorial_step > 0
+          @tutorial = @classify_area.inlineTutorial
+            current_step_id: @tutorial_step
+            steps: tutorialSteps
+        else
+          @tutorial = @classify_area.inlineTutorial
+            steps: tutorialSteps
 
         setTimeout (=> @classify_area.inlineTutorial("start")), 230
+        console.log 'tets'
         Subject.get_tutorial_subject()
       else
         Subject.fetch_next_for_user()
@@ -54,6 +61,10 @@ class Classify extends Spine.Controller
     Subject.unbind 'create'
     Subject.unbind 'done'
     Workflow.unbind 'workflowDone'
+
+    if @tutorial
+      @tutorial_step = @tutorial.find('#inline_tutorial_box').data('step')
+
     @el.empty()
 
   initialTelescopeSetup: =>

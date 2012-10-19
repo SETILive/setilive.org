@@ -23,10 +23,10 @@ $.widget "ui.inlineTutorial",
 
   start: ->
     op = @options
-    op.current_step = op.steps[0]
+    op.current_step = op.steps[op.current_step_id]
     step = op.current_step
     self = this
-    $("#inline_tutorial_outer").append(@options.template(step)).css("top", step.location[1]).css "left", step.location[0]
+    $("#inline_tutorial_outer").append(@options.template(step)).css("top", step.location[1]).css("left", step.location[0])
     op.current_step.onShow.call self  if typeof op.current_step.onShow is "function"
     self.setUpIndicator op.current_step.indicatorPos
     @show()
@@ -58,6 +58,7 @@ $.widget "ui.inlineTutorial",
     , speed, ->
       $("#inline_tutorial_box").replaceWith op.template(op.current_step)
       op.current_step.onShow.call self  if typeof op.current_step.onShow is "function"
+      $("#inline_tutorial_box").attr('data-step', op.current_step_id)
       if op.current_step.disableControls is true
         $(".controls").children().hide()
         $(".controls").append "<p class='prompt'>" + op.current_step.prompt + "</p>"  if op.current_step.prompt?

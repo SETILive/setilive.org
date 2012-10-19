@@ -1,9 +1,9 @@
-<div id='inline_tutorial_box' > 
-  <div class='content'>
-    <h1 class='tutorial_header'> <%=@title%> </h1> 
-    <p class='tutorial_text'><%=@text%></p>
+<div id="inline_tutorial_box"> 
+  <div class="content">
+    <h1 class="tutorial_header"><%= @title %></h1> 
+    <p class="tutorial_text"><%= @text %></p>
   </div>
-  <div class='controls'>
-    <span class='tutorial_next'>next</span>
+  <div class="controls">
+    <span class="tutorial_next">next</span>
   </div>
 </div>  
