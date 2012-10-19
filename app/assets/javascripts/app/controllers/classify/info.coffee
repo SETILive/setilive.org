@@ -44,6 +44,7 @@ class Info extends Spine.Controller
     @thankyou.hide()
 
     @talk.children('.extra_button').removeAttr 'disabled'
+    @talk.find('[data-action="talk-no"]').html 'No'
 
     if subject.subjectType == 'new' or window.tutorial == true
       @timeInterval = setInterval @updateTime, 100
@@ -110,6 +111,7 @@ class Info extends Spine.Controller
     unless @talk.children('.extra_button').attr('disabled') is 'disabled'
       Subject.fetch_next_for_user()
     @talk.children('.extra_button').attr 'disabled', 'disabled'
+    @talk.find('[data-action="talk-no"]').html 'Loading...'
 
   favourite: (e) =>
     unless $(e.currentTarget).hasClass('favourited')
