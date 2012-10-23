@@ -78,10 +78,9 @@ class Subject
   
 
   def check_retire 
-    if classification_count >= 5
-      if suitable_for_folloup?
+    if classification_count >= 4
+      if suitable_for_followup?
         CheckResults.perform_async(self.id) 
-      else 
         self.remove_from_redis
       end
       
@@ -89,7 +88,7 @@ class Subject
     end
   end
   
-  def suitable_for_folloup?
+  def suitable_for_followup?
     RedisConnection.exists "subject_recent_#{self.id}"
   end
 
