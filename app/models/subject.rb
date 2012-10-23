@@ -177,11 +177,20 @@ class Subject
   
   def self.parse_key_details(key)
      data = key.split("_")
-     {observation_id: data[3],
-      activity_id: data[4],
-      pol: data[5].to_i,
-      sub_channel: data[6].to_i
-     }
+     if data.length == 7       
+      {observation_id: data[3],
+        activity_id: data[4],
+        pol: data[5].to_i,
+        sub_channel: data[6].to_i
+      }
+     else
+      {observation_id: data[3],
+        activity_id: data[4],
+        pol: data[5].to_i,
+        sub_channel: data[6].to_i,
+        rendering: data[7].to_i
+      }
+     end
   end
   
   def start_freq
@@ -263,7 +272,8 @@ class Subject
                       # duplicated above :activity_id => details[:activity_id],
                       :sub_channel => details[:sub_channel],
                       :observation_id => details[:observation_id],
-                      :original_redis_key => key
+                      :original_redis_key => key,
+                      :rendering => details[:rendering].to_i                                      
                     ) 
     
     if s 
