@@ -1,4 +1,4 @@
-class CheckForResults
+class CheckResults
   include Sidekiq::Worker 
   def perform(subject_id)
     s= Subject.find(subject_id)

@@ -80,7 +80,7 @@ class Subject
   def check_retire 
     if classification_count >= 5
       if suitable_for_folloup?
-        CheckForResults.perform_async(self.id) 
+        CheckResults.perform_async(self.id) 
       else 
         self.remove_from_redis
       end
