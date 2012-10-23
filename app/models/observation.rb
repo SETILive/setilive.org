@@ -130,12 +130,14 @@ class Observation
     
     f.signal_id_nums << sig_id_num
     f.trigger_next_stage
-    puts "trying to save"
-    if f.save 
-      puts "triggering "
-      f.trigger_follow_up on
+    puts "Triggering..."
+    msg = f.trigger_follow_up on
+    f.followup_msgs << msg
+    puts "Trying to save..."
+    if f.save
+      puts "...saved."
     else
-      puts "not triggered"
+      puts "...not saved"
     end
   end
 

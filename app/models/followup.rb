@@ -2,6 +2,7 @@ class Followup
   include MongoMapper::Document
   key :current_stage , Integer , :default => -1
   key :signal_id_nums , Array
+  key :followup_msgs, Array
   has_many :signal_groups
   has_many :observations
   
@@ -55,7 +56,7 @@ class Followup
               width: 5,
               sigClass: "Cand",
               power: 200,
-              reason: (self.current_stage==0 ? "Confrm" : "RConfirm" ),
+              reason: (self.current_stage==0 ? "Confrm" : "RConfrm" ),
               containsBadbands: "no",
               activityStartTime: (Time.at(t_act)).strftime("%Y-%m-%d %H:%M:%S") ,
               origDxNumber: Subject.beam_to_dx( obs_prev.beam_no ),
@@ -65,7 +66,11 @@ class Followup
              }
   
     RedisConnection.setex "follow_up_#{self.id}", 30, reply.to_json
-    Pusher["dev-telescope"].trigger( "followUpTrigger", "") unless Rails.env.development? 
+    key = RedisConnection.keys("fake_followup*") ? "fakeFollowUpTrigger" : "followUpTrigger"
+    Rails.env.development? ? 
+      Pusher['dmode-telescope'].trigger( key, "") : 
+      Pusher["telescope"].trigger( key, "")
+    reply.to_json
   end
 
 end
