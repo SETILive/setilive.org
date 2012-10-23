@@ -5,6 +5,25 @@ class SubjectsController < ApplicationController
     end
   end
   
+  def fake_followup_trigger_2
+    # Enables a special user to repeatedly be served their current subject
+    # to effectively act as a group of users classifying it.
+    
+    # Has special user started a fake followup window?
+    ffid = RedisConnection.get('fake_followup')    
+    if ffid
+      #If so, replace the key with one allowing repeated classifying.
+      RedisConnection.setex('fake_followup_2', 240, ffid )
+      RedisConnection.del( 'fake_followup' )
+      render :inline => 
+        "fake followup 2 started on activity_id=" << 
+        Subject.find(ffid).activity_id
+    else
+      render :inline => "fake followup 2 not armed"
+    end
+    
+  end
+  
   def fake_followup_trigger
     ffid = RedisConnection.get('fake_followup')
     
@@ -49,14 +68,22 @@ class SubjectsController < ApplicationController
 
     # For follow-up testing this user pulls a new subject from frank
     if current_user.name == 'bhima1'
-      unless RedisConnection.get('fake_followup')
-        info = Subject.pull_random_frank_key
-        if info
-          subject = Subject.generate_subject_from_frank(info[0], info[1])
-          RedisConnection.setex('fake_followup', 90, subject.id) if subject
-        else
-          subject = get_recent_subject
-          RedisConnection.setex('fake_followup', 90, subject.id) if subject
+      # Has the fake followup 2 window been triggered?
+      ffid = RedisConnection.get('fake_followup_2')      
+      if ffid
+        # In a followup 2 window, grab the same subject
+        subject = Subject.find(ffid)
+      else
+        # Grab a subject and start a fake followup trigger window
+        unless RedisConnection.get('fake_followup')
+          info = Subject.pull_random_frank_key
+          if info
+            subject = Subject.generate_subject_from_frank(info[0], info[1])
+            RedisConnection.setex('fake_followup', 90, subject.id) if subject
+          else
+            subject = get_recent_subject
+            RedisConnection.setex('fake_followup', 90, subject.id) if subject
+          end
         end
       end
     end

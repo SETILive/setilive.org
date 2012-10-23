@@ -23,6 +23,7 @@ Marv::Application.routes.draw do
   match '/current_user' => "ZooniverseUsers#current_logged_in_user"
 
   match '/fake_followup' => 'subjects#fake_followup_trigger'
+  match '/fake_followup_2' => 'subjects#fake_followup_trigger_2'
   match '/active_workflow' => 'workflows#active_workflow'
 
   match '*all' => 'application#cor', :constraints => {:method => 'OPTIONS'}

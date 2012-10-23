@@ -131,6 +131,11 @@ class Subject
 
   def self.random_recent(user)
     list = RedisConnection.keys("subject_recent*").map{|r| r.gsub("subject_recent_","") }
+    # Check if followup 2 is pending and take the reserved subject key out of play
+    # for normal users. The key is not deleted outright because then it would not
+    # meet criteria for followup.
+    fup_id = RedisConnection.get( "fake_followup_2")
+    list.delete_if { |x| x == fup_id } if fup_id
     id = (list - user.seen_subject_ids.map(&:to_s)).sample
     Subject.find id
   end
