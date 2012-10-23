@@ -61,13 +61,24 @@ class Info extends Spine.Controller
         targets.push(new Source(observation.source )) if observation.source?
 
       time_taken = new Date(subject.location.time / 1000000)
+      mon = '' + (time_taken.getUTCMonth() + 1)
+      if mon < 10 then mon = '0' + mon
+      day = time_taken.getUTCDate()
+      if day < 10 then day = '0' + day
+      hrs = time_taken.getUTCHours()
+      if hrs < 10 then hrs = '0' + hrs
+      min = time_taken.getUTCMinutes()
+      if min < 10 then min = '0' + min
+      sec = time_taken.getUTCSeconds()
+      if sec < 10 then sec = '0' + sec
+
       utc_date =
         time_taken.getUTCFullYear() + '-' +
-        (time_taken.getUTCMonth() + 1) + '-' +
-        time_taken.getUTCDate() + ' at ' +
-        time_taken.getUTCHours() + ':' +
-        time_taken.getUTCMinutes() + ':' +
-        time_taken.getUTCSeconds() + ' UTC'
+        mon + '-' +
+        day + ' ' +
+        hrs + ':' +
+        min + ':' +
+        sec + ' UTC'
 
       @targets.html @view('classify/targets_info')
         date: utc_date
@@ -87,7 +98,7 @@ class Info extends Spine.Controller
 
   resetTime: =>
     @time.removeClass 'text'
-    @targetTime = (1).minutes().fromNow()
+    @targetTime = (0.5).minutes().fromNow()
 
   doneClassification: =>
     @controls.hide()
