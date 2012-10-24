@@ -76,9 +76,9 @@ class Messages extends Spine.Controller
   displayTelescopeStatus: ->
     t = Telescope.findByAttribute('key','telescope_status')
     switch t.value
-      when 'inactive' then content = 'The telescope is inactive. Thanks for classifying!'
-      when 'active' then content = 'The telescope is now active!'
-      when 'replay' then content = 'The telescope simulator is replaying older data!'
+      when 'inactive' then content = 'Telescope inactive - Please classify Archive data.'
+      when 'active' then content =   'Telescope active! - Waiting for more live data ...'
+      when 'replay' then content =   'Telescope simulator active! - Waiting for more replayed data ...'
       else
         content = 'Welcome to SETI Live!'
 
@@ -117,8 +117,8 @@ class Messages extends Spine.Controller
 
   displayFollowup: =>
     t = Telescope.findByAttribute('key','time_to_followup')
-    content = "The follow up window is closing in <span>#{t.value}</span>"
-    content_final = "The follow up window has closed. Please wait for new data."
+    content = "Live data now available - follow-up window open for <span>#{t.value}.</span>"
+    content_final = "Follow-up window closed - more live data expected soon ..."
 
     message =
       name: t.key
