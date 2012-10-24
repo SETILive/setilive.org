@@ -88,10 +88,6 @@ class SubjectsController < ApplicationController
       end
     end
     
-    if rand() < 0.1 and subject == nil
-      subject = get_simulation_subject
-    end
-
     if subject == nil
       if rand() < 0.8
         subject = get_recent_subject
@@ -101,6 +97,8 @@ class SubjectsController < ApplicationController
         subject = get_recent_subject unless subject
       end
     end
+
+    subject = get_simulation_subject if rand() < 0.0 and subject == nil
 
     unless subject
       subject = Subject.random(:selector => {:status => "active"}).first 
