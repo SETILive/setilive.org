@@ -11,7 +11,7 @@ class NotificationItem extends Spine.Controller
     @notification = notification if notification
 
     switch @notification.type
-      when 'flash'
+      when 'badge'
         # legacy badge support
         @el.addClass 'flash'
         @notification.content['size'] = '50'
@@ -22,6 +22,10 @@ class NotificationItem extends Spine.Controller
             facebookTemplate: @view('profile/facebookBadge')(@notification.content)
             twitterTemplate: @view('profile/twitterBadge')(@notification.content)
           })
+      when 'flash'
+        @el.addClass 'flash'
+        @html @view('notifications/flash_notification')(@notification)
+        @el.attr 'data-id', @notification.id
       when 'alert'
         @html @view('notifications/notification')(@notification)
         @el.attr 'data-id', @notification.id

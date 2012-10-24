@@ -69,7 +69,7 @@ class Messages extends Spine.Controller
     message = 
       name: 'badge'
       content: data
-      type: 'flash'
+      type: 'badge'
 
     Notification.create message
 
