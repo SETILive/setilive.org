@@ -1,4 +1,4 @@
 <ul>
   <li><label>Data Time:</label> <%= @date %></li>
-  <li><label>Frequency:</label> <%= @location.freq.toFixed(6) %> Megahertz</li>
+  <li><label>Frequency:</label> <%= parseFloat(@location.freq).toFixed(6) %> Megahertz</li>
 </ul>
