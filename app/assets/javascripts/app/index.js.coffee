@@ -53,6 +53,10 @@ class App extends Spine.Controller
       @messages.displayNewData()
     else if Telescope.findByAttribute('key','telescope_status').value is 'active'
       @messages.displayTelescopeStatus()
+    else if Telescope.findByAttribute('key','telescope_status').value is 'replay'
+      @messages.displayTelescopeStatus()
+    else if Telescope.findByAttribute('key','telescope_status').value is 'inactive'
+      @messages.displayTelescopeStatus()
     else
      @messages.displayDefault()
 
