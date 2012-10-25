@@ -68,8 +68,8 @@ class Followup
     RedisConnection.setex "follow_up_#{self.id}", 30, reply.to_json
     key = RedisConnection.keys("fake_followup*") ? "fakeFollowUpTrigger" : "followUpTrigger"
     Rails.env.development? ? 
-      Pusher['dmode-telescope'].trigger( key, "") : 
-      Pusher["telescope"].trigger( key, "")
+      Pusher['dmode-dev-telescope'].trigger( key, "") : 
+      Pusher["dev-telescope"].trigger( key, "")
     reply.to_json
   end
 
