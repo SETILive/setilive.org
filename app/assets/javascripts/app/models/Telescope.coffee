@@ -11,6 +11,9 @@ class Telescope extends Spine.Model
         else if datum.key is 'time_to_new_data' or datum.key is 'time_to_followup'
           t.countdown()
           t.bind 'update', t.countdown
+      t = Telescope.create {key: 'target_change', value: 0}
+      t = Telescope.create {key: 'follow_up_trigger', value: 'ON Level 0'}
+      t = Telescope.create {key: 'fake_follow_up_trigger', value: 'ON Level 0'}
       super
 
   @updateTelescopeStatus: ->
@@ -47,7 +50,7 @@ class Telescope extends Spine.Model
           Telescope.update current_time.id, {value: status.ttl}
 
       Spine.trigger 'time_to_followup'
-
+      
   countdown: =>
     if @value < 1 then return
     @timer = window.setInterval @tick, 1000
