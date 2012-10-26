@@ -19,12 +19,7 @@ class SubjectSignal
     [end_coords[0].to_f, end_coords[1].to_f]
   end
 
-  def calcIntersect
-    m = calcGrad(start_point,end_point)
-    end_point[1]- m* end_point[0] 
-  end
-
-  def calcMid
+  def calc_mid
     (observation.height*0.5 - start_point[1])*(end_point[0]-start_point[0])/(end_point[1]-start_point[1])+start_point[0]
   end
 

@@ -23,7 +23,7 @@ class SignalFinder
   def add_signal(signal_id)
     signal = SubjectSignal.find(signal_id)
     if signal and signal.real?
-      chains << {center:{}, confidence: 0, points:[{ang: signal.angle, mid: signal.calcMid , grad: signal.grad, signal_id: signal.id}]}
+      chains << {center:{}, confidence: 0, points:[{ang: signal.angle, mid: signal.calc_mid , grad: signal.grad, signal_id: signal.id}]}
     end
   end
 
@@ -59,7 +59,7 @@ class SignalFinder
   end
 
   def calc_confidence
-    total = chains.collect{|c| c[:points]}.flatten.count
+    total = self.observation.subject.classification_count
     chains.each do |c|
       c[:confidence] = c[:points].count.to_f / total 
     end
