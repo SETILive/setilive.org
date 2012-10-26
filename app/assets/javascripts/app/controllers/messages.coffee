@@ -8,6 +8,8 @@ class Messages extends Spine.Controller
     'new_telescope_data': 'onPusherNewData'
     'time_to_followup': 'onPusherTimeToFollowUp'
     'status_changed': 'onPusherTelescopeStatusChange'
+    'followUpTrigger': 'onPusherFollowUpTrigger'
+    'fakeFollowUpTrigger': 'onPusherFakeFollowUpTrigger'
 
   constructor: ->
     @pusherChannels = {}
@@ -44,10 +46,14 @@ class Messages extends Spine.Controller
     for key, method of bindings
       channel.bind key, @[method]
 
-  onPusherSourceChange: (data) ->
+  onPusherSourceChange: (data) =>
     t = Telescope.findByAttribute('key', 'target_change')
-    t.updateAttribute('value', data.target_id)
+    val = data.target.name
+    if val == undefined
+      val = 'SETI ' + data.target_id
+    t.updateAttribute('value', val)
     @displayTargetChange()
+    Spine.trigger 'target_changed'
 
   onPusherNewData: (data) =>
     t = Telescope.findByAttribute('key', 'time_to_new_data')
@@ -65,6 +71,19 @@ class Messages extends Spine.Controller
     @displayTelescopeStatus()
     Spine.trigger 'telescope_status'
 
+  onPusherFollowUpTrigger: (data) =>
+    t = Telescope.findByAttribute('key', 'follow_up_trigger')
+    t.updateAttribute('value', data)
+    @displayFollowUp()
+    Spine.trigger 'followUpTrigger'
+
+  onPusherFakeFollowUpTrigger: (data) =>
+    console.log "Fake Follow Up: ", data
+    t = Telescope.findByAttribute('key', 'fake_follow_up_trigger')
+    t.updateAttribute('value', data)
+    @displayFakeFollowUp()
+    Spine.trigger 'fakeFollowUpTrigger'
+
   onBadgeAwarded: (data) =>
     message = 
       name: 'badge'
@@ -76,9 +95,9 @@ class Messages extends Spine.Controller
   displayTelescopeStatus: ->
     t = Telescope.findByAttribute('key','telescope_status')
     switch t.value
-      when 'inactive' then content = 'The telescope is inactive. Thanks for classifying!'
-      when 'active' then content = 'The telescope is now active!'
-      when 'replay' then content = 'The telescope simulator is replaying older data!'
+      when 'inactive' then content = 'Telescope inactive - Please classify Archive data.'
+      when 'active' then content =   'Telescope active! - Waiting for more live data ...'
+      when 'replay' then content =   'Telescope simulator active! - Waiting for more replayed data ...'
       else
         content = 'Welcome to SETI Live!'
 
@@ -90,14 +109,34 @@ class Messages extends Spine.Controller
 
     Notification.create message
 
-  displayTargetChange: =>
+  displayTargetChange: ->
     t = Telescope.findByAttribute('key','target_change')
-    content = "The telescope is now looking at target #{t.value}."
+    content = "The telescope has moved one of its beams to point at target #{t.value}."
     message =
       name: t.key
       content:
         initial: content
-      type: 'alert'
+      type: 'flash'
+    Notification.create message
+
+  displayFollowUp: ->
+    t = Telescope.findByAttribute('key','follow_up_trigger')
+    content = "SETILive sent a #{t.value} follow-up request to the Allen Telescope Array."
+    message =
+      name: t.key
+      content:
+        initial: content
+      type: 'flash'
+    Notification.create message
+
+  displayFakeFollowUp: ->
+    t = Telescope.findByAttribute('key','fake_follow_up_trigger')
+    content = "TESTING 1-2-3...SETILive sent a #{t.value} artificial follow-up request to the Allen Telescope Array"
+    message =
+      name: t.key
+      content:
+        initial: content
+      type: 'flash'
     Notification.create message
 
   displayNewData: =>
@@ -117,8 +156,8 @@ class Messages extends Spine.Controller
 
   displayFollowup: =>
     t = Telescope.findByAttribute('key','time_to_followup')
-    content = "The follow up window is closing in <span>#{t.value}</span>"
-    content_final = "The follow up window has closed. Please wait for new data."
+    content = "Live data now available - follow-up window open for <span>#{t.value}.</span>"
+    content_final = "Follow-up window closed - more live data expected soon ..."
 
     message =
       name: t.key
