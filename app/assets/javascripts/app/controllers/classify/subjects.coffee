@@ -369,6 +369,7 @@ class Subjects extends Spine.Controller
           @simBeam = index
 
     @current_classification.persist() unless @current_subject.id is '4f4db140fe4bed08a6000009'
+    @current_classification.destroy()
 
   mainMouseOver: =>
     if @showSimulation && @current_beam == @simBeam

@@ -6,7 +6,6 @@ class Classify extends Spine.Controller
 
   constructor: ->
     super
-    @tutorial_step = 0
     @user_set = -1
     @dialog_shown = false
 
@@ -27,11 +26,12 @@ class Classify extends Spine.Controller
     @html @view 'classify/classify'
 
     @delay =>
+      @cleanup()
       @subjects = new Subjects({el: $("#waterfalls")})
       @info = new Info({el: $("#info")})
 
       if not _.isUndefined params.type and params.type is 'tutorial'
-        if @tutorial_step > 0
+        if @tutorial_step?
           @tutorial = @classify_area.inlineTutorial
             current_step_id: @tutorial_step
             steps: tutorialSteps
@@ -51,20 +51,29 @@ class Classify extends Spine.Controller
 
   deactivate: =>
     super
+    @cleanup()
+    @el.empty()
+
+  cleanup: =>
     window.clearTimeout @timeout_id
     Spine.unbind 'startWorkflow'
     Spine.unbind 'closeWorkflow'
     Spine.unbind 'nextBeam'
     Spine.unbind 'clearSignals'
     Spine.unbind 'doneClassification'
-    Subject.unbind 'create'
-    Subject.unbind 'done'
-    Workflow.unbind 'workflowDone'
 
-    if @tutorial
+    Workflow.unbind()
+    Subject.unbind()
+
+    if @subjects?
+      @subjects.release()
+
+    if @info?
+      @info.release()
+
+    if @tutorial?
       @tutorial_step = @tutorial.find('#inline_tutorial_box').data('step')
-
-    @el.empty()
+      @tutorial.remove()
 
   initialTelescopeSetup: =>
     if Telescope.findByAttribute('key','telescope_status').value is 'inactive'

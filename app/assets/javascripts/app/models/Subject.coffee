@@ -21,24 +21,22 @@ class Subject extends Spine.Model
         Subject.dataifyData data
 
         if Subject.count()
-          Subject.first().destroy()
+          Subject.destroyAll()
 
         Subject.create data
   
   @get_tutorial_subject: ->
-    $.getJSON "tutorial_subject.json", (data) ->
-      Subject.dataifyData(data)
+    $.getJSON 'tutorial_subject.json', (data) ->
+      Subject.dataifyData data
 
       if Subject.count()
-        Subject.first().destroy()
+        Subject.destroyAll()
 
-      subject = Subject.create(data)
-      Subject.trigger('next_subject', subject)
+      Subject.create(data)
   
   @dataifyData: (data) ->
     for observation, index in data.observations
       observation.data = observation.data_for_display unless observation.uploaded
-
 
   observationForId: (id) =>
     for observation in @observations
