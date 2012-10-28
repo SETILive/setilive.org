@@ -19,15 +19,17 @@ class SubjectSignal
     [end_coords[0].to_f, end_coords[1].to_f]
   end
 
-  def calc_mid
-    (observation.height*0.5 - start_point[1])*(end_point[0]-start_point[0])/(end_point[1]-start_point[1])+start_point[0]
+  def calc_mid # x value at vertical midpoint normalized from left.
+    (0.5 - start_point[1])*(end_point[0]-start_point[0])/(end_point[1]-start_point[1])+start_point[0]
   end
 
-  def grad 
-    m = (end_point[1]-start_point[1])*1.0/(end_point[0]-start_point[0])
+  def calc_grad # Slope in normalized top-left x-right, y-down coordinates
+    (end_point[0]-start_point[0]) / (end_point[1]-start_point[1]).abs < 0.0001 ?
+          10000.0 :
+          (end_point[1]-start_point[1])/(end_point[0]-start_point[0])
   end
 
-  def angle
+  def calc_angle # Counter-clockwise from down 
     (Math.atan2((end_point[0] - start_point[0]),(end_point[1]-start_point[1])))
   end
 

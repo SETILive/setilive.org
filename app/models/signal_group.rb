@@ -28,12 +28,14 @@ class SignalGroup
   
   def calc_drift
     # In Hz / second
-    Math.tan(angle)*( 410.0 / 93.0 ) /  (758 / 533 )
+    -( observation.subject.freq_range / 93.0 ) / gradient
   end
   
   def calc_start_freq
     # Relative to center frequency in Hz at start of waterfall (y=0)
-    ( mid - 758.0 / 2.0 ) * ( 533.0 / 2.0 ) - calc_drift * ( 93.0 / 2.0 )
+    observation.subject.location['freq'] +
+      ( mid + 0.5 / gradient - 0.5 ) * observation.subject.freq_range / 1_000_000.0
+       
   end
   
   def is_real?

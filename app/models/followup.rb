@@ -27,7 +27,10 @@ class Followup
     obss         = self.observations.sort(:created_at.desc).to_a
     observation  = obss[0]
     obs_prev     = obss[1] ? obss[1] : obss[0]
+    
+    # if OFFx, signal will be from previous ONx since OFF produces no new signal
     signal       = self.signal_groups.sort(:created_at.desc).to_a[0]
+    
     source       = signal.source
     beam_no      = observation.beam_no
     subject      = observation.subject
@@ -38,10 +41,8 @@ class Followup
     t_act_prev = subj_prev.location["time"] / 1_000_000_000 # sec
     t_delta = ( t_act - t_act_prev ) # sec
     sig_drift = signal.drift
-    sig_freq  = is_on ? 
-      ( ( signal.start_freq / 1_000_000 ) + subject.location["freq"] ): 
-      ( ( signal.start_freq + signal.drift * t_delta ) / 1_000_000 
-                          + subj_prev.location["freq"] )
+    sig_freq  = is_on ? signal.start_freq : 
+                        signal.start_freq + ( signal.drift * t_delta ) / 1_000_000
     
     reply = { signalIdNumber: signal_id_nums.last,
               activityId: subject.activity_id, 

@@ -6,7 +6,7 @@ class SignalFinder
   key :clusters_on, Array, :default=>[:ang, :mid]
   key :weights, Hash , :default => {ang: (1.0/20.0), mid: (1.0/5.0) }
   key :consensus_on, Array
-  key :centers_in_coords, Array, :default => [:ang,:mid]
+  key :centers_in_coords, Array, :default => [:ang,:mid,:grad]
   key :limits, Hash, :default => {:ang=>180}
 
   belongs_to :observation
@@ -23,7 +23,7 @@ class SignalFinder
   def add_signal(signal_id)
     signal = SubjectSignal.find(signal_id)
     if signal and signal.real?
-      chains << {center:{}, confidence: 0, points:[{ang: signal.angle, mid: signal.calc_mid , grad: signal.grad, signal_id: signal.id}]}
+      chains << {center:{}, confidence: 0, points:[{ang: signal.calc_angle, mid: signal.calc_mid , grad: signal.calc_grad, signal_id: signal.id}]}
     end
   end
 
@@ -49,7 +49,8 @@ class SignalFinder
   def generate_signal_groups 
     self.check_for_results.collect do |signal|
       SignalGroup.create( angle: signal[:center][:ang], 
-                          mid: signal[:center][:mid], 
+                          mid: signal[:center][:mid],
+                          gradient: signal[:center][:grad],
                           confidence: signal[:confidence], 
                           subject_signal_ids: signal[:points].collect{|s| s[:signal_id]},
                           source: self.observation.source,
