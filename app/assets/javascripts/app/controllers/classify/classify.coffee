@@ -31,7 +31,7 @@ class Classify extends Spine.Controller
       @info = new Info({el: $("#info")})
 
       if not _.isUndefined params.type and params.type is 'tutorial'
-        if @tutorial_step?
+        if @tutorial_step? and @tutorial_step isnt 0
           @tutorial = @classify_area.inlineTutorial
             current_step_id: @tutorial_step
             steps: tutorialSteps

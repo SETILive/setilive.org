@@ -22,7 +22,7 @@
   padding: 0px
   width: 220px
   color: #FFFFFF
-  height: 127px
+  height: 167px
   padding: 20px 
 
   @include box-shadow(0px, 2px, 5px , black)
@@ -39,8 +39,9 @@
       font: TitilliumText22LBold, Sans-serif
     .tutorial_text
       font: TitilliumText22LRegular, Sans-serif
-      font-size: 12px
+      font-size: 15px
       line-height: 16px
+      text-align: left
   .controls
     background-color: #0b7384
     width: 180px
@@ -48,9 +49,8 @@
     position: absolute
     bottom: 20px
     left : 20px
-    text-transform: uppercase
     font: TitilliumText22LBold, Sans-serif
-    font-size: 12px
+    font-size: 16px
     padding: 0px
     margin: 0px
     .tutorial_previous
@@ -59,15 +59,24 @@
       left: 0px
       border: 0px
       padding: 0px
+      text-transform: uppercase
       cursor: pointer
       bottom: -2px
-    .tutorial_next, .prompt
+    .tutorial_next
       color: #FFFFFF
       position: absolute
       right: 0px
       border: 0px
       padding: 0px
+      text-transform: uppercase
       cursor: pointer
+      bottom: -2px
+    .tutorial_.prompt
+      color: #FFFFFF
+      position: absolute
+      right: 0px
+      border: 0px
+      padding: 0px
       bottom: -2px
 
 .tutorial_indicator

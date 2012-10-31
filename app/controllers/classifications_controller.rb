@@ -19,17 +19,19 @@ class ClassificationsController < ApplicationController
     
     @classification = Classification.new(:subject=>subject, :zooniverse_user => current_user)
     
+    unless subject.activity_id == 'tutorial'   
 
-    if signals 
-      signals.each do |signal|
+      if signals 
+        signals.each do |signal|
 
-        characteristics = []
-        characteristics = signal['characterisations'].values if signal['characterisations']
+          characteristics = []
+          characteristics = signal['characterisations'].values if signal['characterisations']
 
-        observation = Observation.find(signal['observation_id'])
-        start_coords = [signal['freqStart'],signal['timeStart']]
-        end_coords   = [signal['freqEnd'],signal['timeEnd']]
-        @classification.subject_signals.create(:characteristics=> characteristics, :observation_id=> observation.id, :start_coords=>start_coords,:end_coords=> end_coords)
+          observation = Observation.find(signal['observation_id'])
+          start_coords = [signal['freqStart'],signal['timeStart']]
+          end_coords   = [signal['freqEnd'],signal['timeEnd']]
+          @classification.subject_signals.create(:characteristics=> characteristics, :observation_id=> observation.id, :start_coords=>start_coords,:end_coords=> end_coords)
+        end
       end
     end
 

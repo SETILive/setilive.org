@@ -1,66 +1,68 @@
 window.tutorialSteps = [ 
           title: "Welcome to SETILive "
-          text: "SETILive is an exciting new project to try and detect 
-          Extraterrestrial signals"
-          location: [270,130]
+          text: "SETILive is an exciting new project where you can help 
+          look for extraterrestrial (ET) radio signals."
+          location: [255,90]
           speed:400
         ,
           title: "Real Time Data"
           text: "This image presents data directly from the Allen Telescope Array 
-          (or 'ATA') when it is ACTIVE. Help us by looking for potential 
-          Extraterrestrial signals in this LIVE data..."
-          location: [270,130]
+          (ATA). You'll look for potential ET signals in this LIVE 
+          data when the telescope is ACTIVE. "
+          location: [255,90]
           speed:400 
         ,
-          title: "Real Time Data"
-          text: "..If enough other people see the same signal in only one of the
-          waterfalls, it could be ET! If in more than one, it's earth-based
-          interference."
-          location: [270,130]
-          speed:400 
-        ,
+#          title: "Real Time Data"
+#          text: "..If enough other people see the same signal in only one of the
+#          waterfalls, it could be ET! If in more than one, it's earth-based
+#          interference."#
+#          location: [270,130]
+#          speed:400 
+#        ,
           title: "Archive Data"
-          text: "When the telescope is INACTIVE, we show you older data and ask 
-          you to characterize those interference signals to help us analyse them."
-          location: [270,130]
+          text: "When INACTIVE, we show older data and 
+          you identify human-made signals which make the search for ET 
+          signals difficult. You'll help us understand how to deal with them better."
+          location: [255,90]
           speed:400 
         ,
           title: "Beams"
-          text: "The telescope can look in up to three directions at once, 
+          text: "The telescope is able to look in up to three directions at once, 
           toward different stars with known planets. Data from
-          each directional beam are shown here."
-          location: [540, 250]
+          each directional beam are shown below."
+          location: [450, 195]
           indicatorPos: "bottom left"
           speed:400
         ,
-          title: "Main Beam"
-          text: "We will work on one beam at a time. The main display shows 
-          the data from the currently selected beam highlighted below."
-          location: [350,130]
+          title: "Waterfall Diagram"
+          text: "The main display presents the selected beam 
+          data as a 'Waterfall Diagram', showing signal 
+          frequencies left to right, as time progresses from bottom to top."
+          location: [350,90]
           # indicatorPos: "top right"
           speed:400
         ,
-          title: "Waterfalls"
-          text: "We ask you to mark anything that looks like a signal on this 
-          waterfall diagram. Signals are distinct patterns like
-          the one  you can see here."
-          location: [350,130]
+          title: "Signals"
+          text: "We ask you to mark anything that looks like a signal. Signals 
+          are distinct patterns that roughly follow a particular direction or
+          angle like the one you see here."
+          location: [350,90]
           speed:400
           indicatorPos: "top left"
        ,
           title: "Markers"
-          text: "Start by clicking anywhere along the bright signal you 
-          can see here"
+          text: "Start by clicking anywhere along signal. Go ahead, mark a point
+          on the signal. Maybe about here..."
           prompt: "Click a point"
           triggers: [{elements : ".large-waterfall", action: "click"}]
           disableControls: true
-          location: [350,130]
+          location: [350,90]
           speed:400
           indicatorPos: "bottom left"
         ,
           title: "Lines",
-          text: "Great! Now click a second point along the signal.",
-          location: [360,120]
+          text: "That's great! Now click a second point further up the signal.",
+          location: [350,90]
           indicatorPos: "top left"
           triggers: [{elements : ".large-waterfall", action: "click"}]
           disableControls: true
@@ -69,13 +71,13 @@ window.tutorialSteps = [
         ,
           title: "Lines",
           text: "Excellent! You can adjust the line by dragging the markers
-          so that the line follows the general direction of
-          the signal. Give it a try...",
-          location: [350,120]
+          so that it follows the general direction of the signal and is about
+          in the middle if the signal is wide. Go ahead, give it a try...",
+          location: [350,90]
           # indicatorPos: "bottom left"
           triggers: [{elements : ".large-waterfall", action: "click"}]
           # disableControls: true
-          prompt: "Click a second point"
+          prompt: "Drag the markers"
           speed:400
         ,
           title: "Describe",
@@ -84,24 +86,24 @@ window.tutorialSteps = [
           the list. Go ahead and make your choices...",
           triggers: [{elements : ".answer", action: "click"}]
           #disableControls: true
-          location: [500,120]
+          location: [500,90]
           prompt: "Describe the signal"
           speed:400
         ,
           title: "Repeat"
-          text: "Do this for each signal you can see in the data. Once you're 
+          text: "Do this for each signal that you want to mark. Once you're 
           done, click here to move on to the next beam's waterfall.",
-          location: [490,295]
+          location: [500,305]
           disableControls: true
           triggers: [{elements : "#next_beam", action: "click"}]
-          prompt: "Click next beam"
+          prompt: "Click 'Next Beam'"
           indicatorPos: "right bottom "
           speed:400
         ,
           title: "Second Beam"
           text: "This 'moves you on to marking the second beam's waterfall. 
           You can always go back to another beam by clicking on it."
-          location: [490,295]
+          location: [500,305]
           indicatorPos: "left bottom "
           speed:400
         ,
@@ -109,8 +111,8 @@ window.tutorialSteps = [
           text: "Once you're done, click here."
           disableControls: true
           triggers: [{elements : "#done", action: "click"}]
-          prompt: "Click to finish"
-          location: [490,295]
+          prompt: "Click 'Done' to finish"
+          location: [500,305]
           indicatorPos: "bottom right"
           speed:400
         ,
@@ -121,55 +123,50 @@ window.tutorialSteps = [
           onShow: ->
             $("#talkYes").unbind('click')
             $("#talkNo").unbind('click')
-          location: [490,295]
+          location: [500,305]
           indicatorPos: "bottom right"
           speed:400
         ,
+          title: "Archive Data"
+          text: "When the telescope is INACTIVE and not sending data, we show
+          you archived waterfalls. No rush, take your time if you like."
+          location: [510,20]
+          indicatorPos: "top right"
+          speed:400
+        ,
           title: "Classify Timer"
-          text: "When the telescope is ACTIVE, you get live data as it happens
+          text: "When the telescope is ACTIVE, you get live data as it happens.
           A suggested time to finish classifying the waterfalls is counted down 
-          here..."
+          here whenever you're looking at live data."
           location: [510,20]
           indicatorPos: "top right"
           speed:400
         ,
-          title: "Classify Timer"
-          text: "...We should classify as many signals as we can before the telescope
-          moves on to the next set of Kepler planets..."
+          title: "Live Data Expires"
+          text: "We try to check as much data as we can for potential ET signals 
+          before the telescope moves to new targets. With live data, 
+          you can ignore any signals that show in two or more beams if you like."
           location: [510,20]
           indicatorPos: "top right"
           speed:400
         ,
-          title: "Follow-Ups"
-          text: "...Why the rush? If enough other people see the same signal 
-          in the same waterfall, it could be ET..."
+          title: "Why the Rush?"
+          text: "Well, if enough people see the same signal 
+          in the same single waterfall, <iit> could be ET!/i> More people looking
+          faster helps make sure we check all 12 sets of data before
+          they expire."
           location: [510,20]
           # indicatorPos: "top right"
           speed:400
         ,
           title: "Follow-Ups"
-          text: "... We'll then command the telescope 
-          to send more data from that direction at that frequency a bit later 
-          to see if it's still present."
+          text: "If enough people mark a promising signal, we'll command the 
+          telescope to send more data from that direction at that frequency a 
+          bit later to see if it's still present."
           location: [510,20]
           # indicatorPos: "top right"
           speed:400
          ,
-          title: "Archive Data"
-          text: "When the telescope is INACTIVE and not sending data, we show
-          you archived waterfalls..."
-          location: [510,20]
-          indicatorPos: "top right"
-          speed:400
-        ,
-          title: "Archive Data"
-          text: "...We ask that you mark them to help us analyze
-          the many interfering signals (RFI) that humans produce. No rush - 
-          take your time if you like."
-          location: [510,20]
-          indicatorPos: "top right"
-          speed:400
-        ,
           title: "More Examples"
           text: "For information on a variety of interesting
           signals with suggestions on how to mark them,
@@ -182,7 +179,7 @@ window.tutorialSteps = [
                $("#nav li.nav_about").removeClass("tutorial_select")
                $("#nav li.tutorial_signals").removeClass("tutorial_item_selected")
 
-          location: [227,-122]
+          location: [200,-127]
           speed:400
           indicatorPos: "top right"
         , 
@@ -208,7 +205,7 @@ window.tutorialSteps = [
             $("#nav li.nav_user").removeClass("tutorial_select")
             $("#nav li.tutorial_profile").removeClass("tutorial_item_selected")
           indicatorPos: "top right"
-          location: [530,-122]
+          location: [505,-145]
           speed: 400
         ,
           title: "Science Info"
@@ -218,7 +215,7 @@ window.tutorialSteps = [
             $("#nav li.nav_about").removeClass("tutorial_select")
           text: "Under 'ABOUT', click on 'Science' for more information about 
           the science and background to SETILive. "
-          location: [685,-122]
+          location: [660,-145]
           speed: 400
           indicatorPos: "top left"
         ,
@@ -231,7 +228,7 @@ window.tutorialSteps = [
           onLeave: ->
             $("#nav li.nav_classify").removeClass("tutorial_select")
             $("#nav li.tutorial_tutorial").removeClass("tutorial_item_selected")
-          location: [580,-122]
+          location: [540,-145]
           speed: 400
           indicatorPos: "top "
         ,
@@ -240,23 +237,24 @@ window.tutorialSteps = [
           depend on majority rule on classifying the signals - you're not 
           alone...
           "
-          location: [270,130]
+          location: [255,90]
           # indicatorPos: "top right"
           speed:400
         ,
           title: "Crowd Power!"
-          text: "...If you need help, click on 'TALK' on the top menu and look 
+          text: "If you need help, click on 'TALK' on the top menu and look 
           on our forum."
-          location: [270,130]
+          location: [255,90]
           # indicatorPos: "top right"
           speed:400
         ,
-          title: "Let's Get Classifying!"
-          text: "Ok, 'SETIzen', it's time to get to work."
-          location: [270,130]
+          title: "Let's Start the Search!"
+          text: "Ok, 'SETIzen', it's time to get to work!"
+          location: [255,90]
           # indicatorPos: "top right"
           onLeave: ->
             $.getJSON '/seen_tutorial', ->
               window.location = '/#/classify'
+              window.location.reload()
           speed:400
 ]
