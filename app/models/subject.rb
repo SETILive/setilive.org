@@ -147,6 +147,17 @@ class Subject
     id = (list - user.seen_subject_ids.map(&:to_s)).sample
     Subject.find id 
   end
+  
+  def self.random_archive(user)
+    sample = Subject.random(:selector => {:status => "active"}, :limit => 20).to_a
+    list = []
+    sample.each do |x|
+      list << x.id.to_s
+    end 
+    id = (list - user.seen_subject_ids.map(&:to_s)).sample
+    s = Subject.find(id)
+    s ? s : sample.first()
+  end
 
   def self.random_frank_subject 
     keys = RedisConnection.keys '*subject_new*'
