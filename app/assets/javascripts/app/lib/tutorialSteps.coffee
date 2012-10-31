@@ -61,7 +61,8 @@ window.tutorialSteps = [
           indicatorPos: "bottom left"
         ,
           title: "Lines",
-          text: "That's great! Now click a second point further up the signal.",
+          text: "That's great! Now make a line by clicking on a second point 
+          further up along the signal.",
           location: [350,90]
           indicatorPos: "top left"
           triggers: [{elements : ".large-waterfall", action: "click"}]
@@ -69,7 +70,7 @@ window.tutorialSteps = [
           prompt: "Click a second point"
           speed:400
         ,
-          title: "Lines",
+          title: "Adjust the Line",
           text: "Excellent! You can adjust the line by dragging the markers
           so that it follows the general direction of the signal and is about
           in the middle if the signal is wide. Go ahead, give it a try...",
@@ -80,7 +81,7 @@ window.tutorialSteps = [
           prompt: "Drag the markers"
           speed:400
         ,
-          title: "Describe",
+          title: "Describe the Signal",
           text: "Now, describe the signal in two steps, choosing one
           characteristic each time. If two choices apply, pick the highest on
           the list. Go ahead and make your choices...",
@@ -90,46 +91,49 @@ window.tutorialSteps = [
           prompt: "Describe the signal"
           speed:400
         ,
-          title: "Repeat"
-          text: "Do this for each signal that you want to mark. Once you're 
-          done, click here to move on to the next beam's waterfall.",
-          location: [500,305]
+          title: "Repeat for other Beams"
+          text: "Once you're 
+          done with one waterfall, click here to move to the next beam
+          and mark signals on that one.  
+          You can also move between beams by clicking on them.",
+          location: [505,270]
           disableControls: true
           triggers: [{elements : "#next_beam", action: "click"}]
           prompt: "Click 'Next Beam'"
           indicatorPos: "right bottom "
           speed:400
         ,
-          title: "Second Beam"
-          text: "This 'moves you on to marking the second beam's waterfall. 
-          You can always go back to another beam by clicking on it."
-          location: [500,305]
-          indicatorPos: "left bottom "
-          speed:400
-        ,
+#          title: "Second Beam"
+#          text: "This 'moves you on to marking the second beam's waterfall. 
+#          You can always go back to another beam by clicking on it."#
+#          location: [505,270]
+#          indicatorPos: "left bottom "
+#          speed:400
+#        ,
           title: "Done"
           text: "Once you're done, click here."
           disableControls: true
           triggers: [{elements : "#done", action: "click"}]
           prompt: "Click 'Done' to finish"
-          location: [500,305]
+          location: [505,270]
           indicatorPos: "bottom right"
           speed:400
         ,
           title: "Talk"
-          text: "If you've seen anything unusual in any of the waterfalls
+          text: "If you've seen something interesting in any of the waterfalls
           and want to talk about it or see what other people have said, click 
           'Yes'."
           onShow: ->
             $("#talkYes").unbind('click')
             $("#talkNo").unbind('click')
-          location: [500,305]
+          location: [505,270]
           indicatorPos: "bottom right"
           speed:400
         ,
           title: "Archive Data"
           text: "When the telescope is INACTIVE and not sending data, we show
-          you archived waterfalls. No rush, take your time if you like."
+          you archived waterfalls and ask you to take your time and mark ALL
+          signals for later aanalysis by the science team."
           location: [510,20]
           indicatorPos: "top right"
           speed:400
@@ -143,7 +147,7 @@ window.tutorialSteps = [
           speed:400
         ,
           title: "Live Data Expires"
-          text: "We try to check as much data as we can for potential ET signals 
+          text: "Try to check as much data as you can for potential ET signals 
           before the telescope moves to new targets. With live data, 
           you can ignore any signals that show in two or more beams if you like."
           location: [510,20]
@@ -151,8 +155,8 @@ window.tutorialSteps = [
           speed:400
         ,
           title: "Why the Rush?"
-          text: "Well, if enough people see the same signal 
-          in the same single waterfall, <iit> could be ET!/i> More people looking
+          text: "If enough people see the same signal 
+          in the same single waterfall, <i>it could be ET!</i> More people looking
           faster helps make sure we check all 12 sets of data before
           they expire."
           location: [510,20]
@@ -160,8 +164,9 @@ window.tutorialSteps = [
           speed:400
         ,
           title: "Follow-Ups"
-          text: "If enough people mark a promising signal, we'll command the 
-          telescope to send more data from that direction at that frequency a 
+          text: "If enough people mark a promising signal, an automatic request
+          is sent to the 
+          telescope to give us more data from that direction at that frequency a 
           bit later to see if it's still present."
           location: [510,20]
           # indicatorPos: "top right"
@@ -179,7 +184,7 @@ window.tutorialSteps = [
                $("#nav li.nav_about").removeClass("tutorial_select")
                $("#nav li.tutorial_signals").removeClass("tutorial_item_selected")
 
-          location: [200,-127]
+          location: [200,-115]
           speed:400
           indicatorPos: "top right"
         , 
@@ -205,7 +210,7 @@ window.tutorialSteps = [
             $("#nav li.nav_user").removeClass("tutorial_select")
             $("#nav li.tutorial_profile").removeClass("tutorial_item_selected")
           indicatorPos: "top right"
-          location: [505,-145]
+          location: [505,-133]
           speed: 400
         ,
           title: "Science Info"
@@ -215,7 +220,7 @@ window.tutorialSteps = [
             $("#nav li.nav_about").removeClass("tutorial_select")
           text: "Under 'ABOUT', click on 'Science' for more information about 
           the science and background to SETILive. "
-          location: [660,-145]
+          location: [660,-133]
           speed: 400
           indicatorPos: "top left"
         ,
@@ -228,7 +233,7 @@ window.tutorialSteps = [
           onLeave: ->
             $("#nav li.nav_classify").removeClass("tutorial_select")
             $("#nav li.tutorial_tutorial").removeClass("tutorial_item_selected")
-          location: [540,-145]
+          location: [540,-133]
           speed: 400
           indicatorPos: "top "
         ,
