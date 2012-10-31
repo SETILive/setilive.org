@@ -78,7 +78,7 @@ class Subject
   
 
   def check_retire 
-    if classification_count >= 4
+    if classification_count >= 0
       if suitable_for_followup?
         self.remove_from_redis
         CheckResults.perform_async(self.id) 
