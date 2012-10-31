@@ -21,7 +21,10 @@ class Notifications extends Spine.Controller
 
     if notification.notification.type is 'flash'
       @prepend notification.render()
-      window.setTimeout @remove, 6000, notification
+      window.setTimeout @remove, 10000, notification
+    else if notification.notification.type is 'badge'
+      @prepend notification.render()
+      window.setTimeout @remove, 10000, notification
     else
       @html notification.render()
 
