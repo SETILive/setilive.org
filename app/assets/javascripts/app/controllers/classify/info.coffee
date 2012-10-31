@@ -56,10 +56,10 @@ class Info extends Spine.Controller
       @done.show()
       @nextBeam.hide()
     if subject?
-      targets = []
-      for observation in subject.observations
-        targets.push(new Source(observation.source )) if observation.source?
-
+      sources = []
+      #targets.push(new Source(observation.source )) if observation.source?
+      for obs in subject.observations
+        sources = sources.concat(obs.source.name.replace('kplr','Kepler ') )       
       time_taken = new Date(subject.location.time / 1000000)
       mon = '' + (time_taken.getUTCMonth() + 1)
       if mon < 10 then mon = '0' + mon
@@ -73,14 +73,15 @@ class Info extends Spine.Controller
       if sec < 10 then sec = '0' + sec
 
       utc_date =
+        hrs + ' : ' +
+        min + ' : ' +
+        sec + ' ' +
         time_taken.getUTCFullYear() + '-' +
         mon + '-' +
-        day + ' ' +
-        hrs + ':' +
-        min + ':' +
-        sec + ' UTC'
-
+        day
+        
       @targets.html @view('classify/targets_info')
+        target: sources
         date: utc_date
         location: subject.location
 
