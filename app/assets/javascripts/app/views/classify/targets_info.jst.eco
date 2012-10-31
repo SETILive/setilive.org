@@ -3,6 +3,6 @@
   <li><label>Target 1:</label> <%= @target[0] %> <br> </li>
   <li><label>Target 2:</label> <%= @target[1] %> <br> </li>
   <li><label>Target 3:</label> <%= @target[2] %> <br> </li>
-  <li><label>Data Time:</label> <%= @date %> </li>
-  <li><label>Frequency:</label> <%= parseFloat(@location.freq).toFixed(6) %> Megahertz</li>
+  <li><label>Data Time:</label> <%= @date %> <br> </li>
+  <li><label>Frequency:</label> <%= parseFloat(@location.freq).toFixed(6) %> Megahertz </li>
 </ul>

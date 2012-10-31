@@ -113,11 +113,11 @@ a
     color: #cddc28
 
 p, div.description
-  margin: 8px 0 8px 0
+  margin: 3px 0 3px 0
   @include unselectable(text)
   font-family: TitilliumText22LRegular, Sans-serif
-  font-size: 16px
-  line-height: 19px
+  font-size: 14px
+  line-height: 18px
   text-align: center
 
 h1
@@ -492,6 +492,8 @@ input[type=text], input[type=password]
     padding: 5px
     .extra_button
       width: 100%
+      height: 22px
+      line-height: 22px
       text-align: left
       p
         display: inline-block
@@ -500,7 +502,7 @@ input[type=text], input[type=password]
         font-size: 13px
       span
         float: right
-        padding: 0 12px
+        padding: 0 7px
         border-left: 1px solid darken(#f4ff7e, 35%)
         border-right: 1px solid #f4ff7e, 25%
         &:last-child
@@ -653,16 +655,19 @@ $workflow-font-size: 12pt
 
 #talk
   display: none
+
 #talkYes
   width: 100px
+  margin: -10px 0 0 0
+
 #talkNo
   width: 100px
-  margin-left: 8px
+  margin: 0px 0 0 11px
 
 .extra_button
   display: inline-block
-  height: 45px
-  margin: 0 0 20px 0
+  height: 30px
+  margin: 0 0 16px 0
   padding: 0px
 
   @include unselectable
@@ -673,15 +678,21 @@ $workflow-font-size: 12pt
   cursor: pointer
   font-size: 15px
   font-weight: 700
-  line-height: 45px
+  line-height: 30px
   @include round-corners(2px)
   text-align: center
   text-shadow: #98a50d 0 1px 0
   vertical-align: bottom
+  @include gradient-bg(#ECF96B, #90991F)
+  &:hover
+    background-color: #90991F
 
 #extra_controlls
   width: 100%
   height: 100px
+  margin-top: 6px
+
+  .social
 
   #clear_signal
     width: 170px
@@ -701,16 +712,39 @@ $workflow-font-size: 12pt
   #next_beam
     width: 215px
     margin: -10px 0 0 0
+
   #done
-    display: none
     width: 215px
-    margin-top: -10px
+    margin: -10px 0 0 0
+
   #talk
     display: none
     width: 100%
     height: 60px
     line-height: 60px
     margin-top: -30px
+
+#social 
+  width: 220px
+  height: 33px
+  padding-top: 7px
+
+  #twitter_button
+    background-image: url('/assets/twitter_small.png')
+    width: 100px
+    height: 28px
+    display: inline-block
+    margin-left: 15px
+  #twitter_button:hover
+    background-image: url('/assets/twitter_small_active.png')
+
+  #facebook_button
+    background-image: url('/assets/facebook_small.png')
+    width: 100px
+    height: 28px
+    display: inline-block
+  #facebook_button:hover
+    background-image: url('/assets/facebook_small_active.png')
 
 #talk_prompt
   color: #5F5F5F
@@ -1491,47 +1525,30 @@ ul.pagination
 
   section[data-area="actions"]
     position: absolute
-    top: 428px
+    top: 420px
 
-  #social 
-    width: 220px
-    height: 33px
-
-    #twitter_button
-      background-image: url('/assets/twitter_small.png')
-      width: 100px
-      height: 28px
-      display: inline-block
-      margin-left: 15px
-    #twitter_button:hover
-      background-image: url('/assets/twitter_small_active.png')
-
-    #facebook_button
-      background-image: url('/assets/facebook_small.png')
-      width: 100px
-      height: 28px
-      display: inline-block
-    #facebook_button:hover
-      background-image: url('/assets/facebook_small_active.png')
+  .social
 
   .talk_prompt
     margin: 0
-    padding: 9px 0
+    padding: 4px 0px
     text-align: center
 
   #current_targets
     width: 100%
-    margin-top: -7px
-
+    height: 76px
+    margin-top: 5px
+    border: 1px solid #666
     ul
       li
         position: relative
         padding: 0 5px 0 70px
+        top: -10px
         label
           position: absolute
           width: 70px
           top: 0
-          left: 0
+          left: 5px
 
 #badge_profile_return
   width: 130px

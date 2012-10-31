@@ -37,12 +37,18 @@ class Info extends Spine.Controller
     @render subject
     @resetTime()
     @controls.show()
+    @social.show()
     @talk.hide()
-    @social.empty()
     @simulation_notification.hide()
     @talk_fill.hide()
     @thankyou.hide()
 
+    @social.append @view('classify/facebookWaterfall')
+      subject: Subject.first()
+
+    @social.append @view('classify/twitterWaterfall')
+      subject: Subject.first()
+      
     @talk.children('.extra_button').removeAttr 'disabled'
     @talk.find('[data-action="talk-no"]').html 'No'
 
@@ -103,6 +109,7 @@ class Info extends Spine.Controller
 
   doneClassification: =>
     @controls.hide()
+    @social.show()
     @talk.show()
     
     # @social.append @view('classify/facebookWaterfall')

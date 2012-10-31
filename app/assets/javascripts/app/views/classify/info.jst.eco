@@ -18,13 +18,14 @@
 
   <section data-area="actions">
     <div id="extra_controlls">
-      <div id="clear_signal" class="extra_button">Clear All Signals</div>
+      <div id="clear_signal" class="extra_button">Clear All Markings</div>
       <!--<a href="/#/about/video_tutorial"><div id='help_link' class='extra_button'>?</div></a>-->
       <div id="favourite" class="extra_button" >
         <img src="/assets/favourite_button_classify-new.png">
       </div>
       <div id="next_beam" class="extra_button">Next Beam</div>
       <div id="done" class="extra_button">Done</div>
+      <div id="social"></div>
     </div>
     
     <div id="talk">
@@ -32,7 +33,7 @@
       <p class="talk_prompt">Would you like to discuss <br> this observation?</p>
       <div class="extra_button" data-action="talk-yes" id="talkYes">Yes(disabled)</div>
       <div class="extra_button" data-action="talk-no" id="talkNo">No</div>  
+      <div id="social"></div>
     </div>
-    <div id="social"></div>
   </section>
 </div>
