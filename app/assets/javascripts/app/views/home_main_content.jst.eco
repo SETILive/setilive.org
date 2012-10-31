@@ -11,7 +11,17 @@
   <div id="stars_link_button">
     <a href="http://setistars.org" target="_blank">Learn more about SETI</a>
   </div>
-  <p style="margin: 0 220px 0 0">
-    SETILive is taking the Search for Extraterrestrial Intelligence (SETI) directly to you by presenting radio frequency signals LIVE from the SETI Institute's Allen Telescope Array (ATA) while it's pointed at stars that, based on Kepler exoplanet discoveries, have the best chances of being home to an alien civilization. We'll also be putting you "in the loop" where if enough of you see a potential extraterrestrial (ET) signal in the same data, then within minutes, the ATA will be interrupted and sent back to take a second look. The data you see will be from frequencies where human-made Radio Frequency Interference (RFI) crowds them and we believe the human eye will have a better chance than SETI's computer algorithms to find ET signals there.
+  <p style="margin: 0 220px 0 0;text-align:left">
+    SETILive is taking the Search for Extraterrestrial Intelligence (SETI) 
+    directly to you! We present radio frequency signals LIVE from the SETI 
+    Institute's Allen Telescope Array (ATA) while it's pointed at stars that, 
+    based on Kepler exoplanet discoveries, have the best chances of being home 
+    to an alien civilization. We'll also be putting you "in the loop" where if 
+    enough of you see a potential extraterrestrial (ET) signal in the same data,
+    then within minutes, the ATA will be interrupted and sent back to take a 
+    second look. The data you see will be from frequencies where human-made 
+    Radio Frequency Interference (RFI) crowds them and we believe the human eye 
+    will have a better chance than SETI's computer algorithms to find ET signals 
+    there.
   </p>
 </div>

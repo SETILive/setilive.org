@@ -2,9 +2,12 @@
   <div id="countdown">
     <p id="time">-</p>
     <% if @subject.subjectType is 'new': %>
-      <p>Suggested time to finish</p>
+      <p>Suggested time to finish.<br>Skip signals showing in more than one 
+         beam if you like.</p>
     <% else: %>
-      <p>Take your time, classify all signals!</p>
+      <p>Take your time! Try to classify<br>
+         all signals. Help us analyze<br>
+         earth-based interference.</p>
     <% end %>
   </div>
 
@@ -15,8 +18,8 @@
 
   <section data-area="actions">
     <div id="extra_controlls">
-      <div id="clear_signal" class="extra_button">Clear Signals</div>
-        <a href="/#/about/video_tutorial"><div id='help_link' class='extra_button'>?</div></a>
+      <div id="clear_signal" class="extra_button">Clear All Signals</div>
+      <!--<a href="/#/about/video_tutorial"><div id='help_link' class='extra_button'>?</div></a>-->
       <div id="favourite" class="extra_button" >
         <img src="/assets/favourite_button_classify-new.png">
       </div>
@@ -26,7 +29,7 @@
     
     <div id="talk">
       <!-- <p class="talk_prompt">Thank you for classifying! Your classification has been saved in the database.</p> -->
-      <p class="talk_prompt">Would you like to discuss this observation?</p>
+      <p class="talk_prompt">Would you like to discuss <br> this observation?</p>
       <div class="extra_button" data-action="talk-yes" id="talkYes">Yes(disabled)</div>
       <div class="extra_button" data-action="talk-no" id="talkNo">No</div>  
     </div>
