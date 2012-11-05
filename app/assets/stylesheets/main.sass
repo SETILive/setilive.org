@@ -345,12 +345,13 @@ input[type=text], input[type=password]
   height: 200px
 
 #star_field_small
-  width: 212px
-  height: 212px
+  width: 218px
+  height: 190px
   margin: 0 0 0
-  padding: 2px
-  background: url('static_starfield.png') center #000000
-  border: 1px solid #666
+  padding: 0px
+  background: url('static_starfield.png') black
+  border: 1px solid #394552
+  background-repeat: no-repeat
 
 #content
   margin: 0 -5px
@@ -448,8 +449,8 @@ input[type=text], input[type=password]
 
 .waterfall
   padding: 0
-  border: 3px solid #dfdfdf
-  @include box-shadows((0 2px 5px rgba(0,0,0,0.2)))
+  border: 2px solid #394552
+  @include box-shadows((0px 2px 8px rgba(0, 0, 0, .5)))
   @include round-corners(3px)
 
 #waterfall-0
@@ -550,7 +551,7 @@ input[type=text], input[type=password]
 
 #countdown #time
   width: 214px
-  height: 50px
+  height: 43px
   margin: 0px
   background: #121212
   background: -moz-linear-gradient(top,  #121212 0%, #1b1b1b 50%, #121212 51%, #1b1b1b 100%)
@@ -560,7 +561,7 @@ input[type=text], input[type=password]
   background: -ms-linear-gradient(top,  #121212 0%,#1b1b1b 50%,#121212 51%,#1b1b1b 100%)
   background: linear-gradient(to bottom,  #121212 0%,#1b1b1b 50%,#121212 51%,#1b1b1b 100%)
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#121212', endColorstr='#1b1b1b',GradientType=0 )
-  border: 3px #dfdfdf solid
+  border: 3px #394552 solid
   @include box-shadows((0 2px 4px rgba(0,0,0,0.2)))
   color: #cddc28
   font-family: TitilliumText22LThin, Sans-serif
@@ -569,8 +570,9 @@ input[type=text], input[type=password]
   line-height: 42pt
   @include round-corners(3px)
   &.text
-    font-size: 20pt
-    line-height: 40pt
+    font-size: 16pt
+    line-height: 32pt
+    padding-top: 5px
 
 p.title
   font-weight: normal
@@ -671,26 +673,24 @@ $workflow-font-size: 12pt
   padding: 0px
 
   @include unselectable
-  background-color: #cddc28
-  border: 1px solid #12161b
+  background-color: #185378
+  border: 1px solid #12161B
   @include box-shadows((inset 0px 1px #f4ff7e, 0 2px 4px rgba(0, 0, 0, 0.1)))
   color: white
   cursor: pointer
-  font-size: 15px
-  font-weight: 700
+  font-size: 14px
+  font-weight: 500
   line-height: 30px
   @include round-corners(2px)
+  border-radius: 3px
   text-align: center
-  text-shadow: #98a50d 0 1px 0
+  text-shadow: #13171C 0 1px 0
   vertical-align: bottom
-  @include gradient-bg(#ECF96B, #90991F)
-  &:hover
-    background-color: #90991F
 
 #extra_controlls
   width: 100%
   height: 100px
-  margin-top: 6px
+  margin-top: 42px
 
   .social
 
@@ -727,7 +727,7 @@ $workflow-font-size: 12pt
 #social 
   width: 220px
   height: 33px
-  padding-top: 7px
+  padding-top: 0px
 
   #twitter_button
     background-image: url('/assets/twitter_small.png')
@@ -769,7 +769,8 @@ $workflow-font-size: 12pt
   height: 76px
 
 .selected_beam
-  border: 3px solid #CDDC28
+  #border: 3px solid #CDDC28
+  border: 1px solid #CDDC28
 
 
 
@@ -1327,15 +1328,15 @@ ul.pagination
   height: 60px
   margin: 0 auto 20px
   padding: 0px
-  border: 1px solid #cddc28
-  @include round-corners(4px)
+  border: 1px solid #6D8196
+  @include round-corners(3px)
   list-style: none
 
   li
     position: relative
     height: 29px
     padding: 17px 0 12px 0
-    color: #cddc28
+    color: #6D8196
     font-size: 28px
     line-height: 28px
     text-align: center
@@ -1516,28 +1517,29 @@ ul.pagination
   position: absolute
   top: 0px
   right: 0px
-
-  color: #ccc
-  font-size: 13px
+  color: #A8BCD1
+  font-size: 12px
+  text-shadow: 0px 1px 0px black
 
   .info-container
     position: relative
 
   section[data-area="actions"]
     position: absolute
-    top: 420px
+    top: 396px
 
   .social
 
   .talk_prompt
-    margin: 0
+    margin-top: 0px
     padding: 4px 0px
     text-align: center
 
   #current_targets
-    width: 100%
-    height: 76px
+    width: 97%
+    height: 68px
     margin-top: 5px
+    padding: 3px
     border: 1px solid #666
     ul
       li

@@ -156,7 +156,7 @@ window.tutorialSteps = [
         ,
           title: "Why the Rush?"
           text: "If enough people see the same signal 
-          in the same single waterfall, <i>it could be ET!</i> More people looking
+          in the same single waterfall, it could be ET! More people looking
           faster helps make sure we check all 12 sets of data before
           they expire."
           location: [510,20]

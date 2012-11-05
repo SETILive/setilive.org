@@ -37,17 +37,17 @@ class Info extends Spine.Controller
     @render subject
     #@resetTime()
     @controls.show()
-    @social.show()
+    @social.hide()
     @talk.hide()
     @simulation_notification.hide()
     @talk_fill.hide()
     @thankyou.hide()
 
-    @social.append @view('classify/facebookWaterfall')
-      subject: Subject.first()
+    #@social.append @view('classify/facebookWaterfall')
+    #  subject: Subject.first()
 
-    @social.append @view('classify/twitterWaterfall')
-      subject: Subject.first()
+    #@social.append @view('classify/twitterWaterfall')
+    #  subject: Subject.first()
       
     @talk.children('.extra_button').removeAttr 'disabled'
     @talk.find('[data-action="talk-no"]').html 'No'
@@ -94,7 +94,7 @@ class Info extends Spine.Controller
         sec + ' ' +
         time_taken.getUTCFullYear() + '-' +
         mon + '-' +
-        day
+        day + ' UTC'
         
       @targets.html @view('classify/targets_info')
         target: sources
@@ -122,11 +122,11 @@ class Info extends Spine.Controller
     @social.show()
     @talk.show()
     
-    # @social.append @view('classify/facebookWaterfall')
-    #   subject: Subject.first()
+    @social.append @view('classify/facebookWaterfall')
+      subject: Subject.first()
 
-    # @social.append @view('classify/twitterWaterfall')
-    #   subject: Subject.first()
+    @social.append @view('classify/twitterWaterfall')
+      subject: Subject.first()
 
     if Subject.first().has_simulation
       @simulation_notification.show() 
