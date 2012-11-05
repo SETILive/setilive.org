@@ -9,6 +9,7 @@ class StatsPusher
            }
     
     # puts "pusing #{JSON.pretty_generate stats}"
-    Pusher['dev-telescope'].trigger('stats_update', stats) unless Rails.env.development?
+    push_chan_prefix = Rails.env.development? ? ':dmode-' : ''
+    Pusher[push_chan_prefix + 'dev-telescope'].trigger('stats_update', stats)
   end
 end
