@@ -39,6 +39,20 @@ class ZooniverseUsersController < ApplicationController
     end
   end
 
+  def live_classification_stats
+    if current_user
+      @unseen = RedisConnection.keys('*_subject_new*').count
+      list = RedisConnection.keys("subject_recent*").map{|r| r.gsub("subject_recent_","") }
+      @unseen += (list - current_user.seen_subject_ids.map(&:to_s)).count
+      @seen = RedisConnection.get("live_subjects_seen_#{current_user.id}")
+      @seen = 0 unless @seen
+      respond_to do |format|
+        format.html
+        format.json {render :json=> {seen: @seen, unseen: @unseen}.to_json}
+      end
+    end
+  end
+  
   def favourites 
     respond_to do |format|
       format.json { render json: current_user.recent_favourites(page: params[:page].to_i).as_json }

@@ -42,7 +42,20 @@ class Classification
     zooniverse_user.update_classification_stats(self)
   end
   
-  def update_redis 
+  def update_redis
+    # Manage live classification count for user
+    if RedisConnection.get("subject_recent_#{subject.id.to_s}")
+      num_live = RedisConnection.get("live_subjects_seen_#{zooniverse_user.id}").to_i
+      if RedisConnection.ttl("subject_timer") > 0 # Still live data - renew...
+        RedisConnection.setex("live_subjects_seen_#{zooniverse_user.id}", 60, 
+          num_live  ? num_live + 1 : 1 )
+      else # Live window closed - update, but let it die
+        RedisConnection.setex("live_subjects_seen_#{zooniverse_user.id}",
+          RedisConnection.ttl("live_subjects_seen_#{zooniverse_user.id}"), 
+          num_live ? num_live + 1 : 1 )
+      end
+    end
+    
     RedisConnection.setex "recent_classification_#{self.id}", 60, 1
     RedisConnection.incr "total_classifications"
   end

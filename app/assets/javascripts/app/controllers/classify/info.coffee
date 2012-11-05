@@ -35,7 +35,7 @@ class Info extends Spine.Controller
 
     # Make sure info shown is default
     @render subject
-    @resetTime()
+    #@resetTime()
     @controls.show()
     @social.show()
     @talk.hide()
@@ -52,11 +52,21 @@ class Info extends Spine.Controller
     @talk.children('.extra_button').removeAttr 'disabled'
     @talk.find('[data-action="talk-no"]').html 'No'
 
+    @telescope_status = Telescope.findByAttribute('key','telescope_status')
     if subject.subjectType == 'new' or window.tutorial == true
-      @timeInterval = setInterval @updateTime, 100
+      #@timeInterval = setInterval @updateTime, 100
+      $.getJSON '/user_live_stats.json', (data) =>
+        total = parseInt(data.seen,10) + parseInt(data.unseen,10) + 1
+        console.log "total: ", total
+        @time.addClass 'text'
+        @time.html "#{data.seen} of #{total} Classified!"
     else
       @time.addClass 'text'
-      @time.html 'Archive Data'
+      if @telescope_status.value is 'active' or @telescope_status.value is 'replay'
+        @time.html 'Archive Data'
+      else
+        @time.html 'Archive Data'
+        
 
     if subject.observations.count == 1
       @done.show()
@@ -94,18 +104,18 @@ class Info extends Spine.Controller
   clearSignals: =>
     Spine.trigger 'clearSignals'
 
-  updateTime: =>
-    timeRemaining = (@targetTime - Date.now())/1000
-    mins          = Math.floor timeRemaining/60
-    secs          = Math.floor timeRemaining-mins*60
-    @time.html "#{if mins<10 then "0" else ""}#{mins}:#{if secs<10 then "0"  else ""}#{secs}"
-    if timeRemaining <= 0
-      clearInterval @timeInterval
-      @time.html '00:00'
+#  updateTime: =>
+#    timeRemaining = (@targetTime - Date.now())/1000
+#    mins          = Math.floor timeRemaining/60
+#    secs          = Math.floor timeRemaining-mins*60
+#    @time.html "#{if mins<10 then "0" else ""}#{mins}:#{if secs<10 then "0"  else ""}#{secs}"
+#    if timeRemaining <= 0
+#      clearInterval @timeInterval
+#      @time.html '00:00'
 
-  resetTime: =>
-    @time.removeClass 'text'
-    @targetTime = (0.5).minutes().fromNow()
+#  resetTime: =>
+#    @time.removeClass 'text'
+#    @targetTime = (0.5).minutes().fromNow()
 
   doneClassification: =>
     @controls.hide()

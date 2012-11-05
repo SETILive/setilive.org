@@ -2,8 +2,8 @@
   <div id="countdown">
     <p id="time">-</p>
     <% if @subject.subjectType is 'new': %>
-      <p>Suggested time to finish.<br>Skip signals showing in more than one 
-         beam if you like.</p>
+      <p>This is your progress classifying live data. Skip signals showing in 
+         more than one beam if you like.</p>
     <% else: %>
       <p>Take your time! Try to classify<br>
          all signals. Help us analyze<br>
