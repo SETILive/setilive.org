@@ -31,7 +31,15 @@ class Subject
   key :sub_channel, Integer 
   key :observation_id, Integer 
   key :original_redis_key, String
-  key :rendering, Integer, :default=>0
+  
+  key :rendering, Integer, :default => 2 # 0 => pols separate, ave=10.4
+                                         # 1 => pols separate, ave=15 (~5-May-2012)
+                                         # 2 => pols combined, ave=25
+                                         
+  key :imaging, Integer, :default => 2 # 0 => Min/Max scaling, t=0 at top
+                                       # 1 => No scaling, t=0 at top
+                                       # 2 => No Scaling, t=0 at bottom
+                                       
   key :follow_up_id, Integer, :default => 0
 
 
@@ -200,7 +208,8 @@ class Subject
       {observation_id: data[3],
         activity_id: data[4],
         pol: data[5].to_i,
-        sub_channel: data[6].to_i
+        sub_channel: data[6].to_i,
+        rendering: 1
       }
      else
       {observation_id: data[3],
