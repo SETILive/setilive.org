@@ -86,13 +86,16 @@ class Subject
   
   
   def update_classification_count 
-    self.increment :classification_count => 1 
+    #self.increment :classification_count => 1    
+    # Atomic operation .increment updates db only, not "self". Have to do it the
+    #   hard way to keep classification count valid in context and save later.
+    self.classification_count += 1
     check_retire 
   end
   
 
   def check_retire 
-    if classification_count >= 0
+    if classification_count >= 4
       if suitable_for_followup?
         self.remove_from_redis
         CheckResults.perform_async(self.id) 
@@ -102,6 +105,7 @@ class Subject
         self.done
       end
     end
+    self.save
   end
   
   def suitable_for_followup?
