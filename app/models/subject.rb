@@ -134,7 +134,7 @@ class Subject
     # Interferes with fake followups if it extends into the next activity
     # 130 + T + subjectCreationTime < 340s
     RedisConnection.setex( "subject_recent_#{self.id}",
-      RedisConnection.ttl("subject_timer") ,  self.id)
+      RedisConnection.ttl("subject_timer") + 5 ,  self.id) # ttl=-1 sometimes.
   end
 
   def pop_in_redis
