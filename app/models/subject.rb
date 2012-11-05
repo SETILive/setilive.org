@@ -21,7 +21,13 @@ class Subject
   key :width , Integer
   key :height , Integer
   key :total_score , Float
-  key :pol , Integer 
+  
+  key :pol , Integer # Note: effective with pol combining of observations,
+                     #   (rendering version 2) if ool = 2,  observations 
+                     #   may be combined if both polarizations were available 
+                     #   from the telescope. There is a separate pol key for 
+                     #   observations to determine which were.
+                     
   key :sub_channel, Integer 
   key :observation_id, Integer 
   key :original_redis_key, String
@@ -308,7 +314,8 @@ class Subject
                                     :has_simulation => false,
                                     :data_url => urls[2],
                                     :image_url => urls[0],
-                                    :thumb_url => urls[1]
+                                    :thumb_url => urls[1],
+                                    :pol => beam['polarization']
                                     )
 
           else 

@@ -17,6 +17,8 @@ class Observation
   key :uploaded, Boolean, :default => false
   key :has_simulation, Boolean, :default=>false
   key :simulation_ids , Array
+  key :pol, Integer # Note: Added for rendering version 2 with pol combining.
+                    # 0 => X, 1 => Y, 2 => I (X,Y combined).
   
   belongs_to :source 
   belongs_to :subject
