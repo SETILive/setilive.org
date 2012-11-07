@@ -30,6 +30,10 @@ class Profile extends Spine.Controller
     if User.count() == 0
       User.fetch_current_user()
     else
+      # gotUser() Doesn't update user stats and favourites so...
+      # using nuclear option, but still doesn't update favourites
+      #@gotUser() 
+      User.fetch_current_user()
       @gotUser()
 
   deactivate: ->
