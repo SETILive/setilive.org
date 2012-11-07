@@ -57,7 +57,6 @@ class Info extends Spine.Controller
       #@timeInterval = setInterval @updateTime, 100
       $.getJSON '/user_live_stats.json', (data) =>
         total = parseInt(data.seen,10) + parseInt(data.unseen,10) + 1
-        console.log "total: ", total
         @time.addClass 'text'
         @time.html "#{data.seen} of #{total} Classified!"
     else

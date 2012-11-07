@@ -78,7 +78,6 @@ class Messages extends Spine.Controller
     Spine.trigger 'followUpTrigger'
 
   onPusherFakeFollowUpTrigger: (data) =>
-    console.log "Fake Follow Up: ", data
     t = Telescope.findByAttribute('key', 'fake_follow_up_trigger')
     t.updateAttribute('value', data)
     @displayFakeFollowUp()
