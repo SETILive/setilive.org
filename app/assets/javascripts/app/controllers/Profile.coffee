@@ -10,6 +10,7 @@ class Profile extends Spine.Controller
   
   constructor: ->
     super
+    $("#notification_bar").show()
     @collectionType = 'favourites'
     @favourites = {}
     @recents = {}
@@ -24,6 +25,7 @@ class Profile extends Spine.Controller
   active: ->
     super
     User.bind 'refresh', @gotUser
+    $("#notification_bar").show()
 
     if User.count() == 0
       User.fetch_current_user()

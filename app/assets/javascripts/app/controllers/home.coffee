@@ -11,6 +11,7 @@ class Home extends Spine.Controller
 
   active: ->
     super
+    $("#notification_bar").hide()
     @render()
 
   deactivate: =>

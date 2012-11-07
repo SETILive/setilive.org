@@ -14,6 +14,7 @@ class Classify extends Spine.Controller
 
   active: (params) =>
     super
+    $("#notification_bar").show()
     if @user_set < 0
       @timeout_id = window.setTimeout @active, 1000, params
     else

@@ -24,6 +24,7 @@ class Sources extends Spine.Controller
       @changePage @page
 
   active: ->
+    $("#notification_bar").hide()
     super
     Source.bind 'refresh', @changePage
     @render()

@@ -7,6 +7,7 @@ class About extends Spine.Controller
     @html @view "about/#{current_view}"
      
   active: (params) ->
+    $("#notification_bar").hide()
     super
     
     switch params.content
