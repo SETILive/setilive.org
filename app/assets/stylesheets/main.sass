@@ -112,6 +112,14 @@ a
   &:hover
     color: #cddc28
 
+p, div.description-left
+  margin: 3px 0 3px 0
+  @include unselectable(text)
+  font-family: TitilliumText22LRegular, Sans-serif
+  font-size: 14px
+  line-height: 18px
+  text-align: left
+
 p, div.description
   margin: 3px 0 3px 0
   @include unselectable(text)
@@ -207,6 +215,8 @@ input[type=text], input[type=password]
       font-size: 26px
       font-weight: 400
       text-align: left
+  p
+    text-align: left
 
   .team_member
     clear: both

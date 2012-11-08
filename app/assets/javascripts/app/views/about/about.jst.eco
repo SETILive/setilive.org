@@ -12,11 +12,31 @@
       </div>
 
       <div class="description">
-        The Allen Telescope Array (ATA) uses telescopes to determine the direction of radio signals that come from the sky. Humans use two ears to do something similar. If a sound comes from in front of us or behind us, it arrives at both ears at the same time. If the sound comes from our left it arrives in our left ear first, and so on. If we want to concentrate on sounds coming from certain directions, our built in computer - our brain - uses the information from our ears and picks out what it needs. The human brain is much more sophisticated than any computer, so the ATA uses an array of 42 'ears' to provide the information needed for its computer to focus on specific directions.
+        The Allen Telescope Array (ATA) uses telescopes to determine the 
+        direction of radio signals that come from the sky. Humans use two ears 
+        to do something similar. If a sound comes from in front of us or behind 
+        us, it arrives at both ears at the same time. If the sound comes from 
+        our left it arrives in our left ear first, and so on. If we want to 
+        concentrate on sounds coming from certain directions, our built in 
+        computer - our brain - uses the information from our ears and picks out 
+        what it needs. The human brain is much more sophisticated than any 
+        computer, so the ATA uses an array of 42 'ears' to provide the 
+        information needed for its computer to focus on specific directions.
       </div>
-
+      
       <div class="description">
-        The advantage of an array over a single large dish is that the signals from these dishes can be combined in special ways by computer to electronically point it in several directions at the same time, with each circular spot about as small as what you get in only one direction with a single big dish. With <a href="http://www.setilive.org">setilive.org</a> we look at 'waterfall' images, which show the radio signals received by the ATA and how it changes over the 90 seconds or so before the ATA switches to a new direction or new frequency range (more about waterfall images later). The SETI scientists have automated computer algorithms to analyze these images and look for signals that might be worth a second look.
+        The advantage of an array over a single large dish is that the signals 
+        from these dishes can be combined in special ways by computer to 
+        electronically point it in several directions at the same time, with 
+        each circular spot about as small as what you get in only one direction 
+        with a single big dish. With 
+        <a href="http://www.setilive.org">setilive.org</a> we look at 
+        'waterfall' images, which show the radio signals received by the ATA 
+        and how it changes over the 90 seconds or so before the ATA switches to 
+        a new direction or new frequency range (more about waterfall images 
+        later). The SETI scientists have automated computer algorithms to 
+        analyze these images and look for signals that might be worth a second 
+        look.
       </div>
 
       <div class="description">
