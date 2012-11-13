@@ -12,23 +12,24 @@
     },
     {
     "title": "classify",
-    "description": "Classify level waterfalls",
+    "description": "Classify level waterfall groups",
     "condition": " user.total_classifications >= level ",
     "logo_url": "assets/badges/200px/classifications-200.png",
     "large_logo_url": "assets/badges/250px/classifications-250.png",
     "type": "cumulative",
-    "post_text": " just classified their level th target",
-    "levels":[5,10,25,50,75,100,250,500,750,1000]
+    "post_text": " just classified their level th group of waterfalls",
+    "levels":[5,10,25,50,75,100,250,500,750,1000,2000,4000,6000,8000,
+        10000,12000,14000,16000,18000,20000,25000,30000,40000,50000]
     },
     {
     "title": "trigger_followup",
     "description": "Trigger level followups",
-    "condition": " false ",
+    "condition": " user.total_follow_ups >= level ",
     "logo_url": "assets/badges/200px/signals-marked-200.png",
     "large_logo_url": "assets/badges/250px/signals-marked-250.png",
-    "post_text": " just triggered a SETILive telescope followup",
+    "post_text": " has helped trigger level telescope followups",
     "type": "cumulative",
-    "levels":[5,10,25,50,75,100,250,500,750,1000]
+    "levels":[1,2,4,6,8,10,15,20,25,30,40,50,75,100,250,500,750,1000]
     },
     {
     "title": "post_to_talk",
@@ -58,17 +59,8 @@
     "large_logo_url": "assets/badges/250px/signals-marked-250.png",
     "post_text": " has marked level signals from the ATA",
     "type": "cumulative",
-    "levels":[5,10,25,50,75,100,250,500,750,1000]
-    },
-    {
-    "title": "found_paul",
-    "description": "J",
-    "condition": "false",
-    "logo_url": "assets/badges/200px/aliens-200.png",
-    "large_logo_url": "assets/badges/250px//aliens-250.png",
-    "post_text": " has found Aliens. What else do you need to know?",
-    "type": "one_off",
-    "levels":[]
+    "levels":[5,10,25,50,75,100,250,500,750,1000,2000,4000,6000,8000,10000,
+              12000,14000,16000,18000,20000,25000,30000,40000,50000]
     }
   ]
 }
