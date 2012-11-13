@@ -89,20 +89,13 @@ class SubjectsController < ApplicationController
     end
     
     if subject == nil
-      if rand() < 0.8
-        subject = get_recent_subject
-        subject = get_new_subject unless subject
-      else
-        subject = get_new_subject
-        subject = get_recent_subject unless subject
-      end
+      subject = get_recent_subject
+      subject = get_new_subject unless subject
     end
 
-    subject = get_simulation_subject if rand() < 0.0 and subject == nil
-
     unless subject
-      #subject = Subject.random(:selector => {:status => "active"}).first 
-      subject = Subject.random_archive(current_user)
+      # subject = get_simulation_subject if rand() < 0.1
+      subject = Subject.random_archive(current_user) #unless subject
       @subjectType = "archive" 
     end
    
