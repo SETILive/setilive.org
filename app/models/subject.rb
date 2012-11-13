@@ -282,8 +282,7 @@ class Subject
       new_obs.save
     end
 
-    puts "Talk objects not generated on dev server"
-    #GenerateTalk.perform_async simulation_subject.id unless Rails.env.development?
+    GenerateTalk.perform_async simulation_subject.id unless Rails.env.development?
     simulation_subject        
 
   end

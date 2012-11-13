@@ -31,7 +31,7 @@
       <div id="social"></div>
       <!-- <p class="talk_prompt">Thank you for classifying! Your classification has been saved in the database.</p> -->
       <p class="talk_prompt">Would you like to discuss <br> this observation?</p>
-      <div class="extra_button" data-action="talk-yes" id="talkYes">Yes(disabled)</div>
+      <div class="extra_button" data-action="talk-yes" id="talkYes">Yes</div>
       <div class="extra_button" data-action="talk-no" id="talkNo">No</div>  
     </div>
   </section>

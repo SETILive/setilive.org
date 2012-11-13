@@ -15,8 +15,8 @@ class Messages extends Spine.Controller
     @pusherChannels = {}
 
     # Build Pusher channel based on environment
-    if window.location.hostname is 'devwww.setilive.org' or window.location.hostname is '0.0.0.0' or window.location.hostname is 'localhost'
-      @pusherChannel = 'dev-' + @pusherChannel
+    if window.location.hostname is 'www.setilive.org' or window.location.hostname is '0.0.0.0' or window.location.hostname is 'localhost'
+      @pusherChannel = @pusherChannel
 
     if window.location.hostname is '0.0.0.0' or window.location.hostname is 'localhost'
       @pusherChannel = 'dmode-' + @pusherChannel

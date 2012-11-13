@@ -8,8 +8,8 @@ task :process_sims => :environment do
     png = make_png(data,758,410)
     data_url  = upload_file("simulations/simulation_#{name}.json", data.to_json)
     image_url = upload_file("simulations/simulation_#{name}.png", png.to_s)
-    # data_url = "http://zooniverse-seti-dev.s3.amazonaws.com/development/simulations/simulation_#{name}.json"
-    # image_url = "http://zooniverse-seti-dev.s3.amazonaws.com/development/simulations/simulation_#{name}.png"
+    # data_url = "http://zooniverse-seti.s3.amazonaws.com/development/simulations/simulation_#{name}.json"
+    # image_url = "http://zooniverse-seti.s3.amazonaws.com/development/simulations/simulation_#{name}.png"
 
     data.delete("data")
 
@@ -63,7 +63,7 @@ end
 
 def upload_file(name , data)
   s3 = AWS::S3.new
-  bucket = s3.buckets['zooniverse-seti-dev']
+  bucket = s3.buckets['zooniverse-seti']
   object = bucket.objects[name]
   object.write( data, :acl=>:public_read )
   object.public_url

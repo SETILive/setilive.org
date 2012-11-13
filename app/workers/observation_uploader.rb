@@ -34,8 +34,7 @@ class ObservationUploader
 
     
     unless @observation.subject.observations.collect{|o| o.uploaded}.include?(false)
-      puts "Talk objects not generated on dev server"
-      #GenerateTalk.new.perform @observation.subject.id unless Rails.env.development?
+      GenerateTalk.new.perform @observation.subject.id unless Rails.env.development?
     end
 
   end
@@ -69,7 +68,7 @@ class ObservationUploader
       # Run local HTTP file server in s3store on port 9914
       # (i.e. python -m SimpleHTTPServer 9914) 
       bucket_home = ENV['HOME'] + '/' + 's3store'
-      bucket_name = 'zooniverse-seti-dev'
+      bucket_name = 'zooniverse-seti'
       file_path = bucket_home + '/' + bucket_name + '/' + name
       object_file = File.open( file_path, 'w' )
       object_file.write( data )
@@ -77,7 +76,7 @@ class ObservationUploader
       'http://localhost:9914/' + bucket_name + "/" + name
     else
       s3 = AWS::S3.new
-      bucket = s3.buckets['zooniverse-seti-dev']
+      bucket = s3.buckets['zooniverse-seti']
       object = bucket.objects[name]
       object.write( data, :acl=>:public_read )
       object.public_url
@@ -92,7 +91,7 @@ class ObservationUploader
       # Run local HTTP file server in s3store on port 9914
       # (i.e. python -m SimpleHTTPServer 9914) 
       bucket_home = ENV['HOME'] + '/' + 's3store'
-      bucket_name = 'zooniverse-seti-dev'
+      bucket_name = 'zooniverse-seti'
       temp = url.split("/")
       name_1 = temp[4] + "/" + temp[5]
       file_path_1 = bucket_home + '/' + bucket_name + '/' + name_1
@@ -108,7 +107,7 @@ class ObservationUploader
       end
     else
       s3 = AWS::S3.new
-      bucket = s3.buckets['zooniverse-seti-dev']
+      bucket = s3.buckets['zooniverse-seti']
       temp = url.split("/")
       name_1 = temp[3] + "/" + temp[4]
       object = bucket.objects[name_1]

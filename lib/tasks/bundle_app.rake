@@ -49,17 +49,17 @@ task :bundle_app do
   # S3 setup
   s3 = AWS::S3.new
   bucket = s3.buckets['***REMOVED***']
-  old_bundle = bucket.objects['dev_marv.tar.gz']
+  old_bundle = bucket.objects['marv.tar.gz']
   
   # move the old bundle if it exists
   if old_bundle.exists?
     timestamp = old_bundle.last_modified.strftime('%H%M-%d%m%y')
-    old_bundle.move_to "dev_marv-#{ timestamp }.tar.gz"
+    old_bundle.move_to "marv-#{ timestamp }.tar.gz"
   end
   
   # upload the new bundle
   print 'Uploading...'
-  new_bundle = bucket.objects['dev_marv.tar.gz']
+  new_bundle = bucket.objects['marv.tar.gz']
   new_bundle.write file: 'marv.tar.gz'
   puts '...done'
   `rm -f marv.tar.gz`
