@@ -138,20 +138,20 @@ window.tutorialSteps = [
           indicatorPos: "top right"
           speed:400
         ,
-          title: "Classify Timer"
+          title: "Classify Progress"
           text: "When the telescope is ACTIVE, you get live data as it happens.
-          A suggested time to finish classifying the waterfalls is counted down 
-          here whenever you're looking at live data."
+          You'll see your progress as how many of the available live
+          waterfall sets you've classified here."
           location: [510,20]
           indicatorPos: "top right"
           speed:400
         ,
           title: "Live Data Expires"
-          text: "Try to check as much data as you can for potential ET signals 
-          before the telescope moves to new targets. With live data, 
+          text: "Try to carefully check as much data as you can for potential 
+          ET signals while live data is available. With live data, 
           you can ignore any signals that show in two or more beams if you like."
           location: [510,20]
-          indicatorPos: "top right"
+          #indicatorPos: "top right"
           speed:400
         ,
           title: "Why the Rush?"
@@ -164,7 +164,7 @@ window.tutorialSteps = [
           speed:400
         ,
           title: "Follow-Ups"
-          text: "If enough people mark a promising signal, an automatic request
+          text: "If enough people do mark a promising signal, an automatic request
           is sent to the 
           telescope to give us more data from that direction at that frequency a 
           bit later to see if it's still present."
@@ -254,7 +254,7 @@ window.tutorialSteps = [
           speed:400
         ,
           title: "Let's Start the Search!"
-          text: "Ok, 'SETIzen', it's time to get to work!"
+          text: "Ok, 'SETIzen', let's start classifying!"
           location: [255,90]
           # indicatorPos: "top right"
           onLeave: ->
