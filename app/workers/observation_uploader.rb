@@ -15,6 +15,12 @@ end
 class ObservationUploader
   include Sidekiq::Worker 
 
+  # ***
+  #     This method no longer used in processing live data. rename_file method 
+  #     is now used on images uploaded a priori by frank. Talk structure is
+  #     now uploaded upon subject creation and observation file renaming
+  #     in subject.rb
+  # ***
   def perform(observation_id)
     @observation  = Observation.find(observation_id)
     @data = @observation.get_data

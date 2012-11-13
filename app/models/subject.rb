@@ -345,6 +345,10 @@ class Subject
           o.uploaded = true
           o.save
         end
+        
+        unless s.observations.collect{|o| o.uploaded}.include?(false)
+          GenerateTalk.new.perform s.id # unless Rails.env.development?
+        end        
 
       rescue   Exception => e  
         Rails.logger.error "could not create subject "
