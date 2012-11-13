@@ -9,6 +9,7 @@ class ZooniverseUser
   key :badges, Array
   key :total_classifications , Integer, :default => 0
   key :total_follow_ups , Integer,  :default => 0
+  key :followup_signal_ids, Array
   key :total_signals , Integer,  :default => 0
   key :total_logins, Integer, :default =>0
   key :talk_click_count, Integer, :default => 0 
@@ -82,6 +83,12 @@ class ZooniverseUser
     end
     updater[:$inc]["total_signals"] = total_signals
     updater
+  end
+  
+  def update_followups( followup_signal_id )
+    self.followup_signal_ids << followup_signal_id
+    self.total_follow_ups += 1 
+    puts 'saved...' if self.save
   end
 
   def badgeDetails

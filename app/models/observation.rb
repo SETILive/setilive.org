@@ -141,6 +141,17 @@ class Observation
     else
       puts "...not saved"
     end
+    
+    update_user_followups( sig_id_num )
+    
+  end
+  
+  def update_user_followups( sig_id_num )
+    classifications = self.subject.classifications
+    classifications.each do |c|
+        user = ZooniverseUser.find(c.zooniverse_user_id)
+        user.update_followups( sig_id_num )        
+      end 
   end
 
   # def update_signal_groups
