@@ -347,7 +347,7 @@ class Subject
         end
         
         unless s.observations.collect{|o| o.uploaded}.include?(false)
-          GenerateTalk.new.perform s.id # unless Rails.env.development?
+          GenerateTalk.new.perform s.id unless Rails.env.development?
         end        
 
       rescue   Exception => e  
