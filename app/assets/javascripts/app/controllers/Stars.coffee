@@ -6,74 +6,56 @@ class Stars extends Spine.Controller
   
   constructor: ->
     super
-    @paper = Raphael (@el.attr 'id'), '100%', '100%'
-    @drawField()
-    @indicators = {}
+    @paper = Raphael("star_field_small","100%","100%")
+    @indicators={}
+    @calcBounds()
+    @colors = ['red', 'yellow', 'green']
 
   updateTarget: (data) ->
 
-  drawField: =>
-    @calcBounds()
-    @stars = Source.kepler_planets()
-    for star, i in @stars 
-      if i % 12 == 0
-        @drawStar star
-
-    @drawIndicators()
-
-    Spine.bind 'update_indicators', (data) =>
+  drawField:=>
+    
+    obss = Subject.last().observations
+    @current_indicators = [null, null, null]
+    for obs,index in obss
+      if obs.source.coords[0]? and obs.source.coords[1]?
+        @current_indicators[index] = obs.source
+        @drawStar( obs.source, @colors[index] )
+        @drawIndicator( index, @colors[index] )
+    
+    Spine.bind "update_indicators",(data)=>
       @current_indicators[data.beamNo] = data.source
     
-  calcBounds: ->
-    minRa  = 360
-    minDec = 360
-    maxRa  = 0
-    maxDec = 0
-    for star in @stars
-      minRa  = star.coords[0] if star.coords[0] < minRa and star.coords[0]>25
-      maxRa  = star.coords[0] if star.coords[0] > maxRa
-      minDec = star.coords[1] if star.coords[1] < minDec and star.coords[1]>0
-      maxDec = star.coords[1] if star.coords[1] > maxDec
+  calcBounds:->
+    @center = [290.667, 44.5] # degrees <= 19:22:40 +44:30:00
     
-    # @bounds = [minRa, minDec, maxRa, maxDec]
-    @bounds = [280.641, 37.84073829650879, 301.721, 52.1491]
+    # Pixel size in tangent-projected RA and DEC degrees (I think this is
+    # correct.
+    # A fudge factor of 1.05 is included for empirical image scaling error
+    # The image is also not rotated properly, but this is not corrected.
+    @dXdR =  ( @el.width() / 2.0 ) / ( Math.tan( ( Math.PI / 180.0 ) * 
+             ( 35.25477 * 1.05 ) / 2.0 ) * ( 180.0 / Math.PI ) )
+    @dYdD = ( @el.height() / 2.0 ) / ( Math.tan( ( Math.PI / 180.0 ) * 
+             ( 23.32797 * 1.05 ) / 2.0 ) * ( 180.0 / Math.PI ) )
 
-  convertRaDec: (pos) ->
-    @calcBounds() unless @bounds?
-    new_ra  = (pos[0]-@bounds[0])*@el.width()/(@bounds[2]-@bounds[0])
-    new_dec = (pos[1]-@bounds[1])*@el.height()/(@bounds[3]-@bounds[1])
-    [new_ra,new_dec]
+  convertRaDec:(pos)->
+    ra_pixels  = @el.width() / 2.0 - ( pos[0] - @center[0] ) * @dXdR
+    dec_pixels = @el.height() / 2.0 - ( pos[1] - @center[1] ) * @dYdD
+    [ra_pixels, dec_pixels]
 
   convertMag: (mag) ->
     mag / 6
   
-  drawStar: (star) ->
+  drawStar:(star, color)->
     unless star.coords[0] is 0 and star.coords[1] is 0
       pos = @convertRaDec(star.coords)
       mag = @convertMag(star.meta.kepler_mag)
       
-      circle = @paper.circle(pos[0], (pos[1]+3), mag)
-      circle.attr "fill", "white"
-
-  drawIndicators: ->
-    stars_with_coords = Source.select (s) =>
-      s.coords[0] = parseInt s.coords[0], 10
-      s.coords[1] = parseInt s.coords[1], 10
-
-      @bounds[0] < s.coords[0] < @bounds[2] and @bounds[1] < s.coords[1] < @bounds[3]
-
-    @current_indicators = _.shuffle(stars_with_coords).slice 0, 3
-
-    @drawIndicator 0, "#CDDC28"
-    @drawIndicator 1, "red" 
-    @drawIndicator 2, "blue"
+      circle = @paper.circle(pos[0], pos[1], mag)
+      circle.attr "fill", color
 
   drawIndicator: (beamNo, color) ->
     star = @current_indicators[beamNo]
-
-    # Ensure an indicator is always on a star.
-    # Might not be true because we don't draw all stars
-    @drawStar star
 
     if star?
       pos = @convertRaDec(star.coords)
@@ -91,14 +73,14 @@ class Stars extends Spine.Controller
         indicator.node.setAttribute("class", "indi")
 
         if index == indicators.length-1
-          anim = Raphael.animation {"r":"50", "stroke-opacity":"0", "stroke-width":0}, 2000, =>
+          anim = Raphael.animation {"r":"20", "stroke-opacity":"0", "stroke-width":0}, 1000, =>
             indicator.remove()
-            setTimeout (=>self.drawIndicator(beamNo,color)), 2000
+            setTimeout (=>self.drawIndicator(beamNo,color)), 1000
         else
-          anim = Raphael.animation {"r":"50", "stroke-opacity":"0", "stroke-width":0}, 2000, =>
+          anim = Raphael.animation {"r":"20", "stroke-opacity":"0", "stroke-width":0}, 1000, =>
             indicator.remove()
 
-        indicator.animate anim.delay(index*400)
+        indicator.animate anim.delay(index*200)
 
 
 window.Stars = Stars

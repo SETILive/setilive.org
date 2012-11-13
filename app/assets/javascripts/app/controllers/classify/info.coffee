@@ -99,6 +99,9 @@ class Info extends Spine.Controller
         target: sources
         date: utc_date
         location: subject.location
+        
+      @stars = new Stars(el:$("#star_field_small"))
+      @stars.drawField() #Source.fetch()
 
   clearSignals: =>
     Spine.trigger 'clearSignals'
