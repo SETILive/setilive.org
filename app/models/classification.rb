@@ -50,8 +50,9 @@ class Classification
         RedisConnection.setex("live_subjects_seen_#{zooniverse_user.id}", 60, 
           num_live  ? num_live + 1 : 1 )
       else # Live window closed - update, but let it die
+        # 5 seconds added for case when it's expired and ttl returns -1
         RedisConnection.setex("live_subjects_seen_#{zooniverse_user.id}",
-          RedisConnection.ttl("live_subjects_seen_#{zooniverse_user.id}"), 
+          RedisConnection.ttl("live_subjects_seen_#{zooniverse_user.id}") + 5, 
           num_live ? num_live + 1 : 1 )
       end
     end
