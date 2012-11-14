@@ -9,7 +9,7 @@ end
 task :update_workflow => :environment do
   puts "updating workflow"
   data = JSON.parse(IO.read(Rails.root.join('data', 'workflow2.json')))
-  workflow = Workflow.first
+  workflow = Workflow.where(:primary => true).first
   workflow.questions = data['questions']
   workflow.save
 end
