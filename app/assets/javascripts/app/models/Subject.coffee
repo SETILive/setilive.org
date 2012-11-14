@@ -15,10 +15,11 @@ class Subject extends Spine.Model
       url += "?subject_id=#{window.subject_id}"
 
     $.getJSON url, (data) =>
-      if data.observations.length == 0
+      if data.observations.length == 0 or !data.observations[0].uploaded
         @fetch_next_for_user()
       else
-        Subject.dataifyData data
+        # No longer need to create images in client
+        #Subject.dataifyData data
 
         if Subject.count()
           Subject.destroyAll()
