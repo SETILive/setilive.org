@@ -18,11 +18,10 @@ Marv::Application.routes.draw do
   require 'sidekiq/web'
   mount Sidekiq::Web => '/sidekiq'
   
-  match '/classify'  => 'classifications#classify'
+  match '/classify'  => redirect('/#/classify') #'classifications#classify'
   match '/next_subject' => 'subjects#next_subject_for_user'
   match '/current_user' => "ZooniverseUsers#current_logged_in_user"
 
-  match '/fake_followup' => 'subjects#fake_followup_trigger'
   match '/fake_followup_2' => 'subjects#fake_followup_trigger_2'
   match '/active_workflow' => 'workflows#active_workflow'
 
@@ -43,13 +42,18 @@ Marv::Application.routes.draw do
   match '/awardBadge' => 'ZooniverseUsers#awardBadge', :as => 'awardBadge'
   #match '/register_talk_click' => 'ZooniverseUsers#register_talk_click', :as => 'register_talk_click'
 
-  match '/tutorial'  => 'classifications#tutorial'
+  match '/tutorial'  => redirect('/#/classify/tutorial') #'classifications#tutorial'
+  match '/video_tutorial' => redirect('/#/about/video_tutorial')
+  match '/about' => redirect('/#/about')
+  match '/ted' => redirect('/#/about/ted')
+  match '/team' => redirect('/#/about/team')
   match '/tutorial_subject' => 'subjects#tutorial_subject'
   match '/seen_tutorial' => 'ZooniverseUsers#seen_tutorial'
 
   match '/science_report' => 'ZooniverseUsers#index'
   match '/stats' => 'home#stats'
   match '/telescope_status' => 'home#telescope_status'
+  match '/telescope_status_change_time' => 'home#telescope_status_change_time'
   match '/time_to_followup' => 'home#time_to_followup'
   match '/time_to_new_data' => 'home#time_to_new_data'
   match '/retrieve_system_state' => 'home#retrieve_system_state'
@@ -59,7 +63,7 @@ Marv::Application.routes.draw do
   match '/sweeps_change' => 'ZooniverseUsers#sweeps_change'
   match '/sweeps_opt_out' => 'ZooniverseUsers#sweeps_out'
 
-  match '/gallery' => 'home#gallery'
+  match '/gallery' => redirect('/#/about/gallery') #'home#gallery'
   match '/simulations' => 'home#simulations'
 
   root :to => 'home#index'
