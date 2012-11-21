@@ -115,6 +115,7 @@ class Observation
   end
   
   def trigger_followup f, sig_grp, on    
+    subject.done
     signal_id_num = subject.follow_up_id
     f.observations << self  
     f.signal_groups << sig_grp if on

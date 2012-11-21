@@ -67,7 +67,7 @@ class Followup
              }
   
     RedisConnection.setex "follow_up_#{self.id}", 30, reply.to_json
-    key = RedisConnection.keys("fake_followup*") ? "fakeFollowUpTrigger" : "followUpTrigger"
+    key = RedisConnection.get("fake_followup_2") ? "fakeFollowUpTrigger" : "followUpTrigger"
     on_request = self.current_stage == 0 ? is_on : !is_on
     key_value = 'Level ' + 
                 ( ( 1.0 * self.current_stage + 2.5 ) / 2.0 ).to_int.to_s +
