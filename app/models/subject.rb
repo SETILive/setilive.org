@@ -179,16 +179,13 @@ class Subject
 
   def self.random_frank_subject 
     keys = RedisConnection.keys '*subject_new*'
-    return nil if keys.empty?
     key = keys.sample
-    subject  = JSON.parse(RedisConnection.get key)
-    RedisConnection.del key
-#    subject['beam'].each do |beam|
-#      beam_no  = beam['beam'] 
-#      data_key = key.gsub("subject_new", "subject_data_new")+"_#{beam_no}"
-#      RedisConnection.expire data_key, 60*10
-#    end
-    generate_subject_from_frank(subject, key)
+    value = RedisConnection.get( key )
+    if value
+      subject  = JSON.parse( value )
+      RedisConnection.del key
+      generate_subject_from_frank(subject, key)
+    end      
   end
   
   # Supports fake followup controlled triggering
