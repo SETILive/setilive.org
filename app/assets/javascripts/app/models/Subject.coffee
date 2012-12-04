@@ -15,6 +15,7 @@ class Subject extends Spine.Model
       url += "?subject_id=#{window.subject_id}"
 
     $.getJSON url, (data) =>
+      console.log(data)
       if data.observations.length == 0 or !data.observations[0].uploaded
         @fetch_next_for_user()
       else
