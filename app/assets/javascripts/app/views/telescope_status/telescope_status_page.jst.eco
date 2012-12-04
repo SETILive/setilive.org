@@ -27,15 +27,24 @@
       <h1 id="large_status_title">The telescope's status is <%= @status %></h1>
     <% end %>
     <h2 id="lastUpdate">Last updated at  <%= Date.now().toString("HH:mm d/M/yyyy") %></h2>
-    <p>
+    <p style="text-align:left">
         <%if @status == 'inactive': %>
-          The Allen Telescope Array is currently inactive. This means that no new data being sent by the telescopes, and so we're in replay mode. New data will be coming in shortly...
+          The Allen Telescope Array is currently inactive or operating in a mode
+          not compatible with SETILive. No live data is available until the next
+          scheduled active session. In the meantime, we are showing archived 
+          data. The signals you mark will help us analyze human-made interfering
+          signals. Thanks, and good luck!
         <% end %>
         <%if @status == 'active': %>
-          The Allen Telescope Array is currently active. This means that new data is being sent by the telescope to SETILive.
+          The Allen Telescope Array is currently active. This means that new 
+          data is being sent "live" by the telescope to SETILive. Good luck!
         <% end %>
-        <%if @status == 'training': %>
-         The Allen Telescope Array is currently showing archived data. This allows us to practice analyzing different types of signals and helps us gather better statistics about the data you’re helping to classify. Good luck!
+        <%if @status == 'replay': %>
+          The Allen Telescope Array is currently being simulated. 
+          This means that no new data is being sent by the telescope, but we're 
+          "replaying" older data as if it was live, usually for testing or 
+          demonstration purposes. Feel free to classify the data as usual. 
+          Have fun!
         <% end %>
     </p>
   </div>  

@@ -32,6 +32,8 @@
   <% end %>
   <li class="telescope_status">
     <img src = '/assets/status_<%=@telescope_status%>.png' />
-    <p> Telescope <br /> <%=@telescope_status%></p>
+    <p> Telescope <br /> <%=@telescope_status%> <br></p>
+      <ul style="color:#c0c0c0;font-size:10pt"> <p>Until: <%=@next_time_str1%> <br> 
+           <%=@next_time_str2%> </p></ul>
   </li>
 </ul>

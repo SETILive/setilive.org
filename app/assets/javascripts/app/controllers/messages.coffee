@@ -8,6 +8,7 @@ class Messages extends Spine.Controller
     'new_telescope_data': 'onPusherNewData'
     'time_to_followup': 'onPusherTimeToFollowUp'
     'status_changed': 'onPusherTelescopeStatusChange'
+    'next_status_changed': 'onPusherTelescopeStatusChangeTime'
     'followUpTrigger': 'onPusherFollowUpTrigger'
     'fakeFollowUpTrigger': 'onPusherFakeFollowUpTrigger'
 
@@ -70,6 +71,9 @@ class Messages extends Spine.Controller
     t.updateAttribute('value', data)
     @displayTelescopeStatus()
     Spine.trigger 'telescope_status'
+    
+  onPusherTelescopeStatusChangeTime: (data) =>
+    Telescope.updateTelescopeStatusChangeTime(data)
 
   onPusherFollowUpTrigger: (data) =>
     t = Telescope.findByAttribute('key', 'follow_up_trigger')

@@ -29,6 +29,15 @@ class HomeController < ApplicationController
        format.json {render :json => @status.to_json}
      end
   end
+  
+  def telescope_status_change_time
+    next_status = RedisConnection.get('next_status_change') || '0'
+    data = {key: 'telescope_status_change', value: next_status}
+    respond_to do |format|
+      format.html
+      format.json {render :json => data.to_json}
+    end
+  end
 
   def time_to_followup
      @time = RedisConnection.get('time_to_followup') || '0'
@@ -55,9 +64,10 @@ class HomeController < ApplicationController
      time_to_followup_ttl = RedisConnection.ttl('subject_timer')
      time_to_new_data = RedisConnection.get("time_to_new_data") || '0'
      time_to_new_data_ttl = RedisConnection.ttl("time_to_new_data")
-
+     next_status = RedisConnection.get('next_status_change') || '0'
      data = [
         {key: 'telescope_status', value: telescope_status},
+        {key: 'telescope_status_change', value: next_status},
         {key: 'time_to_followup', value: time_to_followup_ttl},
         {key: 'time_to_new_data', value: time_to_new_data_ttl}
       ]
