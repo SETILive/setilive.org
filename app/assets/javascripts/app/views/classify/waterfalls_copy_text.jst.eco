@@ -1,6 +1,6 @@
 <div class="extra_button">
   <p>Clear & copy from Beam</p>
   <% for source, i in @sources: %>
-    <span data-source="<%- source %>" data-destination="<%- @destination %>"><%- source %></span>
+    <span data-source="<%- source %>" data-destination="<%- @destination %>"><%- @map[source-1] %></span>
   <% end %>
 </div>

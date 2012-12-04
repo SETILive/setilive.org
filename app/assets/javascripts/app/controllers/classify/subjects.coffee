@@ -19,6 +19,7 @@ class Subjects extends Spine.Controller
   dragging: false
   stage: 0
   current_beam: 0
+  beamMap: [0, 0, 0] # Maps Beam number to thumbnail sequence number
     
   constructor: ->
     super
@@ -103,7 +104,7 @@ class Subjects extends Spine.Controller
       beamNumbers = _.pluck otherObservationsWithSignals, 'beam_no'
       beamNumbers = _.sortBy beamNumbers, (num) ->
         -num
-      $("#waterfall-#{@current_beam}").siblings('.copy-beam').html @view('classify/waterfalls_copy_text')({sources: beamNumbers, destination: @current_beam_no})
+      $("#waterfall-#{@current_beam}").siblings('.copy-beam').html @view('classify/waterfalls_copy_text')({sources: beamNumbers, destination: @current_beam_no, map: @beamMap})
 
     $("#waterfall-#{@current_beam}").addClass("selected_beam")
     @drawBeam @main_beam.find("canvas"), @current_subject, @current_beam
@@ -210,7 +211,8 @@ class Subjects extends Spine.Controller
   dissableSignalDraw: =>
     @canDrawSignal = false
     
-  drawBeam: (target, subject, beamNo) ->
+  drawBeam: (target, subject, beamNo) =>
+    @beamMap[subject.observations[beamNo].beam_no - 1] = beamNo + 1
     ctx = target[0].getContext('2d')
 
     targetWidth = $(target[0]).width()
