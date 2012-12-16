@@ -72,44 +72,32 @@ class Observation
   # 
   # 1. If no followup pending on the observation, triggers a separate followup for 
   # any real signals signals found.
-  # 2. If an ON followup pending on the observation, triggers the next stage if
-  # any real signals are found in it.
-  # 3. If an OFF followup is pending on the observation, triggers the next stage
-  # if either no multi-beam signals are found or only real signals are found.
-  # New followups are triggered for the latter case.
-  def check_followup
-    is_followup = subject.follow_up_id > 0
-    if is_followup
-      f = Followup.where(:signal_id_nums => subject.follow_up_id ).first
-      obs_type = f.current_stage + 1
-    else
-      f = nil
-      obs_type = 0
-    end
-    is_beam = ( is_followup and f.observations.sort(:created_at).last.beam_no == beam_no )
-    is_onx = ( is_beam and obs_type.odd? )
-    is_offx = ( is_beam and obs_type.even? )
-    is_empty = ( signal_groups.count == 0 )
-    
-    if ( is_empty and is_offx )
-      trigger_followup(f, nil, false)
-    else
-      # SIGGROUPS in obs
-      multi = false # Initialize no-reals flag
-      sig_grp_tmp = nil
-      signal_groups.each do |sig_grp|
-        real = sig_grp.is_real?
-        sig_grp_tmp = sig_grp if real # Remembers last real signal group
-        if ( ( !is_onx or is_offx ) and real )
-          trigger_followup( Followup.new(), sig_grp, true )
+  # 2. If an ONx followup pending on the observation, triggers the next stage if
+  # any real signals are found in it. Reports the one with highest confidence.
+  # 3. If an OFFx followup is pending on the observation, triggers the next stage
+  # if no signals are found in it.
+  def check_followup fup
+    if fup
+      if ( fup.current_stage + 1 ).even?
+        # OFFx: Trigger only on no signals in candidate beam
+        trigger_followup(fup, nil, false) if signal_groups.count == 0 
+      else
+        # ONx: Trigger on highest confidence valid signal
+        confidence = 0
+        sig_grp_best = nil
+        signal_groups.each do |sig_grp|
+          real = sig_grp.is_real?          
+          if real && ( sig_grp.confidence > confidence )
+            sig_grp_best = sig_grp
+            confidence = sig_grp.confidence
+          end
         end
-        multi ||= !real 
+        trigger_followup( fup, sig_grp_best, true ) if sig_grp_best
       end
-      if ( is_onx and !multi )
-        trigger_followup( f, sig_grp_tmp, true )
-      end
-      if ( is_offx and !multi )
-        trigger_followup( f, nil, false)
+    else
+      # ON: Trigger on all valid signals
+      signal_groups.each do |sig_grp|
+        trigger_followup( Followup.new(), sig_grp, true ) if sig_grp.is_real?
       end
     end
   end
@@ -155,14 +143,4 @@ class Observation
       end 
   end
 
-  # def update_signal_groups
-  #   if subject.classification_count > 10
-  #     new_signals = self.subject_signals.where(:signal_group=>nil).collect{|ss| ss.to_fof}
-  #     groups  = self.signal_group.collect{ |signal_group| signal_group.to_fof }
-  #     groups  = groups + new_signals
-  #     fof_finder = FOFFinder.create_with_groups groups, 1
-  #     fof_finder.find_groups 
-  #   end
-  # end
-  
 end

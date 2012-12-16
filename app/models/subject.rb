@@ -396,8 +396,18 @@ class Subject
       signalFinder.generate_signal_groups  
     end
     
-    # Check each observation for followup action
-    observations.each { |obs| obs.check_followup }
+    is_followup = follow_up_id > 0
+    
+    if is_followup
+      # Check only followup beam
+      f = Followup.where(:signal_id_nums => follow_up_id ).first
+      beam_no = f.observations.sort(:created_at).last.beam_no
+      obs = observations.where(:beam_no => beam_no ).first
+      obs.check_followup(f) if obs
+    else
+      # Check each observation for followup action
+      observations.each { |obs| obs.check_followup(nil) }
+    end
   end
 
 
