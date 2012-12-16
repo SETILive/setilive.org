@@ -31,6 +31,10 @@ class Workflows extends Spine.Controller
     # Adjust workflow position and look
     x = @el.parent().width() * (Math.max(signal.freqEnd, signal.freqStart) ) + 20
     y = @el.parent().height() * (signal.timeEnd + signal.timeStart) / 2.0 - @el.height() / 2.0
+    
+    # Keep out of thumbnail area where list item clicks aren't recognized
+    y = Math.min( y, @el.parent().height() - @el.height() - 10 )
+    
     @el.css
       top: y
       left: x
