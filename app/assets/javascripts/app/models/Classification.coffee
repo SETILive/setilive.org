@@ -24,6 +24,7 @@ class Classification extends Spine.Model
       dataType: 'json'
       success: (response) =>
         Classification.trigger 'classificationSaved'
+        signal.destroy() for signal in @signals().all()
         @destroy()
 
   updateSignal: (x,y) =>
