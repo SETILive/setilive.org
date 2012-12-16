@@ -2,7 +2,7 @@
   <div id="profile_top">
     <h1 id="user_welcome">
       <% if @user?: %>
-        Welcome back, <%= @user.name %>.
+        Welcome back, <%= @user.name %>
       <% end %>
     </h1>
     <ul id="user_badges">
@@ -16,6 +16,26 @@
         </li>
       <% end %>
     </ul>
+    <!-- COMMENT Telescope notification opt-in/out button disabled
+    <div id="email_opt_img" style=text-align:left>
+      <% if @telescopeNotify: %>
+        <img  title='Click to stop email notifications of when the telescope will next be active.' 
+          src='/assets/status_inactive.png'>
+      <% else: %>
+        <img   title='Click to receive email notifications of when the telescope will next be active.' 
+          src='/assets/status_active.png'>
+      <% end %>
+    </div>
+    <div id="email_opt_desc">
+      <p style=text-align:left>
+        <% if @telescopeNotify: %>
+          <b>Disable</b> telescope Active<br>email notifications.
+        <% else: %>
+          <b>Enable</b> telescope Active<br>email notifications.
+        <% end %>
+      </p>
+    </div>
+    END COMMENT -->
   </div>
   
   <div id="profile_bottom">

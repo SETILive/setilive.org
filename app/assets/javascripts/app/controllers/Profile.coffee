@@ -7,6 +7,7 @@ class Profile extends Spine.Controller
     'click .collectionType': 'selectCollectionType'
     'click .favourite':  'addFavourite'
     'click .favourited':  'removeFavourite'
+    'click  #email_opt_img': 'toggleTelescopeNotify'
   
   constructor: ->
     super
@@ -52,6 +53,7 @@ class Profile extends Spine.Controller
       collectionType: @collectionType
       itemTemplate: @view('profile/waterfallCollectionItem')
       badgeTemplate: @view('profile/badge')
+      telescopeNotify: @user.telescope_notify
   
   addFavourite: (e) =>
     observation_id = $(e.currentTarget).data().id 
@@ -98,5 +100,12 @@ class Profile extends Spine.Controller
     @pagination.page = @data.page
     @pagination.pages = @data.pages
     @pagination.perPage = @data.per_page
+    
+  toggleTelescopeNotify: =>
+    $.ajax
+      type: 'POST'
+      url: '/telescope_toggle_notify'
+    User.fetch_current_user()
+    @gotUser()
 
 window.Profile = Profile

@@ -23,6 +23,7 @@ class ZooniverseUser
   key :agreed_to_sweeps_rules, Boolean, :default => false
   key :agreed_to_email, Boolean, :default => false
   key :came_from_discovery, Boolean, :default=>false
+  key :telescope_notify, Boolean, :default => false
   
   timestamps! 
   
@@ -37,6 +38,12 @@ class ZooniverseUser
     Badge.not_awarded(self).each do |badge|
       badge.award_to self if badge.award?(self)
     end
+  end
+  
+  def telescope_toggle_notify
+    self.telescope_notify = !self.telescope_notify
+    self.save
+    self.telescope_notify
   end
   
   def update_classification_stats(classification)
@@ -120,7 +127,8 @@ class ZooniverseUser
       total_signals: total_signals,
       total_logins: total_logins,
       talk_click_count: talk_click_count,
-      sweeps_status: sweeps_status
+      sweeps_status: sweeps_status,
+      telescope_notify: telescope_notify
     }
   end
 

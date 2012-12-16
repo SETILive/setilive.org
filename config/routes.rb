@@ -62,6 +62,8 @@ Marv::Application.routes.draw do
 
   match '/sweeps_change' => 'ZooniverseUsers#sweeps_change'
   match '/sweeps_opt_out' => 'ZooniverseUsers#sweeps_out'
+  match '/telescope_toggle_notify' => 'ZooniverseUsers#telescope_toggle_notify'
+  match '/telescope_notify_users' => 'ZooniverseUsers#telescope_notify_users'
 
   match '/gallery' => redirect('/#/about/gallery') #'home#gallery'
   match '/simulations' => 'home#simulations'

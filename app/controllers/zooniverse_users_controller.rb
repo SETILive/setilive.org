@@ -1,7 +1,10 @@
 class ZooniverseUsersController < ApplicationController
-  before_filter :check_login, :except=>[:index,:current_logged_in_user]
+  before_filter :check_login, :except=>[:index, :current_logged_in_user, 
+                                        :telescope_notify_users]
   before_filter :authenticate, :only => [:index]
 
+  passwd = "***REMOVED***"
+  
   def index 
     respond_to do |format|
       format.json {render json: ZooniverseUser.science_report}
@@ -110,6 +113,32 @@ class ZooniverseUsersController < ApplicationController
         format.json {render json: "please log in first", :status=>403}
       end
     end 
+  end
+ 
+  def telescope_toggle_notify
+    if current_user
+      current_user.telescope_toggle_notify
+      respond_to do |format|
+        format.json {render json: current_user.telescope_notify}
+      end
+    else
+      respond_to do |format|
+        format.json {render json: "please log in first", :status=>403}
+      end
+    end
+      
+  end
+
+  def telescope_notify_users
+    if params[:passwd] == self.passwd      
+      puts "**** TELESCOPE SCHEDULE NOTIFICATION ****"
+      puts "proxy for telescope notification emailer call"
+      puts "*****************************************"      
+    else      
+      respond_to do |format|
+        format.json {render json: "bad parameters", :status=>406}
+      end      
+    end
   end
  
   def show
