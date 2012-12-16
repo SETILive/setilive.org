@@ -13,7 +13,7 @@ class SubjectsController < ApplicationController
     ffid = RedisConnection.get('fake_followup')    
     if ffid
       #If so, replace the key with one allowing repeated classifying.
-      RedisConnection.setex('fake_followup_2', 240, ffid )
+      RedisConnection.setex('fake_followup_2', 120, ffid )
       RedisConnection.del( 'fake_followup' )
       render :inline => 
         "fake followup 2 started on activity_id=" << 
