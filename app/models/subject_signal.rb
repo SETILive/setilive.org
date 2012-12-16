@@ -24,7 +24,7 @@ class SubjectSignal
   end
 
   def calc_grad # Slope in normalized top-left x-right, y-down coordinates
-    (end_point[0]-start_point[0]) / (end_point[1]-start_point[1]).abs < 0.0001 ?
+    ( (end_point[0]-start_point[0]) / (end_point[1]-start_point[1]) ).abs < 0.0001 ?
           10000.0 :
           (end_point[1]-start_point[1])/(end_point[0]-start_point[0])
   end

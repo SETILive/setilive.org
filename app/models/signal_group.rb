@@ -11,6 +11,14 @@ class SignalGroup
   
   key :characteristics, Array
   key :real, Boolean, :default => false 
+  key :parms, Hash, 
+          :default => (temp = RedisConnection.get( 'signal_group_parms' )) ?
+                      JSON.parse( temp ) :
+                      { drift_max: 2.0, # Hz/sec/GHz Max Doppler
+                        drift_min: 0.007, # Vertical criterion
+                        drift_tol: 1.0, # Inter-beam matching, drift
+                        mid_tol: 0.05 # Inter-beam matching, normalized x
+                      }
 
   belongs_to :observation
   belongs_to :source
@@ -28,50 +36,39 @@ class SignalGroup
   
   def calc_drift
     # In Hz / second
-    -( observation.subject.freq_range / 93.0 ) / gradient
+    # NOTE: SonATA DX vertical limits are too precise for SETILive measurement
+    # (i.e., < 0.13 degrees on waterfall), so reported value is always outside
+    # limits. Also test for nil. Gets called before parms is defined apparently.
+    temp = -( observation.subject.freq_range / 93.0 ) / gradient
+    if parms[:drift_min]
+      ( temp.abs > parms[:drift_min] ) ? temp : parms[:drift_min] * 1.2
+    end
   end
   
   def calc_start_freq
     # Relative to center frequency in Hz at start of waterfall (y=0)
     observation.subject.location['freq'] +
       ( mid + 0.5 / gradient - 0.5 ) * observation.subject.freq_range / 1_000_000.0
-       
   end
   
   def is_real?
-    single_beam? and isnt_vertical?
-  end
-
-  def single_beam?
-    !multi_beam?
+    self.drift < parms[:drift_max] * self.start_freq / 1000.0 &&
+    self.drift.abs > parms[:drift_min] &&
+    single_beam( parms[:drift_tol], parms[:mid_tol] )
   end
   
-  def isnt_vertical?
-    !is_vertical?
-  end
-  
-  def multi_beam?
+  def single_beam( d_drift, d_mid )
     observation.subject.observations.each do |test_obs|
       unless test_obs.id == observation.id
         test_obs.signal_groups.each do |signal_group| 
-          if (signal_group.angle - angle).abs < 0.079 and (signal_group.mid - mid).abs < 10
-            return true
+          if ( (signal_group.drift - drift).abs < d_drift ) and 
+             ( (signal_group.mid - mid).abs < d_mid )
+            return false
           end 
         end
       end
     end
-    return false
+    return true
   end
-  
-  def is_vertical?
-    angle > -0.005 and angle < 0.005 # Two pixels
-  end
-
-  def trigger_followup?
-    unless check_vertical or in_one_beam==false 
-      return true
-    end
-    return false 
-  end
-  
+    
 end
