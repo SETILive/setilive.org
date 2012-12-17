@@ -12,10 +12,8 @@ class SignalGroup
   key :characteristics, Array
   key :real, Boolean, :default => false 
   key :parms, Hash, 
-          :default => (temp = RedisConnection.get( 'signal_group_parms' )) ?
-                      JSON.parse( temp ) :
-                      { drift_max: 2.0, # Hz/sec/GHz Max Doppler
-                        drift_min: 0.007, # Vertical criterion
+          :default => { drift_max: 1.0, # Hz/sec/GHz Max Doppler
+                        drift_min: 0.007, # Hz/sec Vertical criterion
                         drift_tol: 1.0, # Inter-beam matching, drift
                         mid_tol: 0.05 # Inter-beam matching, normalized x
                       }
@@ -27,8 +25,17 @@ class SignalGroup
   many :subject_signals, :in => :subject_signal_ids
 
   timestamps! 
+  
+  before_create :load_parms
+  
   before_save :calc_characteristics 
 
+  def load_parms
+    if ( temp = RedisConnection.get('signal_group_parms') )
+      self.parms = JSON.parse( temp )
+    end
+  end
+  
   def calc_characteristics
     self.drift = calc_drift
     self.start_freq = calc_start_freq  
@@ -40,9 +47,8 @@ class SignalGroup
     # (i.e., < 0.13 degrees on waterfall), so reported value is always outside
     # limits. Also test for nil. Gets called before parms is defined apparently.
     temp = -( observation.subject.freq_range / 93.0 ) / gradient
-    if parms[:drift_min]
-      ( temp.abs > parms[:drift_min] ) ? temp : parms[:drift_min] * 1.2
-    end
+    ( temp.abs > parms[:drift_min] ) ? temp : 
+        ( temp > 0  ? 1.0 : -1.0 ) * parms[:drift_min] * 1.2
   end
   
   def calc_start_freq
@@ -52,8 +58,8 @@ class SignalGroup
   end
   
   def is_real?
-    self.drift < parms[:drift_max] * self.start_freq / 1000.0 &&
-    self.drift.abs > parms[:drift_min] &&
+    drift < parms[:drift_max] * start_freq / 1000.0 &&
+    drift.abs > parms[:drift_min] &&
     single_beam( parms[:drift_tol], parms[:mid_tol] )
   end
   

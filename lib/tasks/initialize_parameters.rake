@@ -4,7 +4,7 @@
 task :signal_group_parms_init => :environment do
 
 	RedisConnection.set( 'signal_group_parms',
-    { drift_max: 2.0, # Hz/sec/GHz Max Doppler
+    { drift_max: 1.0, # Hz/sec/GHz Max Doppler
           drift_min: 0.007, # Vertical criterion
           drift_tol: 1.0, # Inter-beam matching, drift
           mid_tol: 0.05 # Inter-beam matching, normalized x
