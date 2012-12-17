@@ -253,9 +253,10 @@ class Subjects extends Spine.Controller
   # interaction with the beams!
   placeMarker: (e) =>
     if @canDrawSignal and not @dragging
-      dx  = (e.pageX * 1.0 - $(e.currentTarget).offset().left) / @main_beam.width()*1.0
-      dy  = (e.pageY * 1.0 - $(e.currentTarget).offset().top) / @main_beam.height()*1.0
-      
+      # Note offset of 4 pixels for offset caused by border. Border only 2 pixels
+      # thick so why 4? I have no idea.
+      dx  = (e.pageX * 1.0 - $(e.currentTarget).offset().left - 4 ) / @main_beam.width()*1.0
+      dy  = (e.pageY * 1.0 - $(e.currentTarget).offset().top - 4 ) / @main_beam.height()*1.0
       if @stage is 0
         signal = @current_classification.newSignal(dx, dy, @current_subject.observations[@current_beam].id )
       else 
