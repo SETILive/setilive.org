@@ -1,5 +1,5 @@
 source 'http://rubygems.org'
-gem 'rails', '3.2.11'
+gem 'rails', '3.2.1'
 gem 'coffee-rails', '3.2.2'
 gem 'mongo_mapper', '0.11.0'
 gem 'bson', '1.5.2'
@@ -43,6 +43,5 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'minitest'
   gem 'autotest-rails'
-  gem 'ZenTest', '4.8.3'
   # gem 'debugger'
 end
