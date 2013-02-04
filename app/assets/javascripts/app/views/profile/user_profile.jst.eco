@@ -16,7 +16,6 @@
         </li>
       <% end %>
     </ul>
-    <!-- COMMENT Telescope notification opt-in/out button disabled
     <div id="email_opt_img" style=text-align:left>
       <% if @telescopeNotify: %>
         <img  title='Click to stop email notifications of when the telescope will next be active.' 
@@ -35,7 +34,6 @@
         <% end %>
       </p>
     </div>
-    END COMMENT -->
   </div>
   
   <div id="profile_bottom">
