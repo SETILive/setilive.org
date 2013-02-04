@@ -28,29 +28,41 @@ class Workflows extends Spine.Controller
       previous_answer: previous_answer
 
   startWorkflow: (signal) =>
-    # Adjust workflow position and look
-    x = @el.parent().width() * (Math.max(signal.freqEnd, signal.freqStart) ) + 20
-    y = @el.parent().height() * (signal.timeEnd + signal.timeStart) / 2.0 - @el.height() / 2.0
-    
-    # Keep out of thumbnail area where list item clicks aren't recognized
-    y = Math.min( y, @el.parent().height() - @el.height() - 10 )
-    
-    @el.css
-      top: y
-      left: x
-
-    # Only show 'Close X' if working on an already classified signal
-    if signal.characterisations.length > 1
-      @el.find('#close-workflow').show()
-    else
-      @el.find('#close-workflow').hide()
-
-    @el.show()
-
     # Setup working signal as the current signal
     @currentSignal = signal
     @currentSignal.save()
-    @setUpQuestion(Workflow.first().questions[0]._id)
+    
+    @type = window.Subject.toJSON()[0].subjectType
+    if @type == 'archive' or signal.characterisations.length > 0
+      # Adjust workflow position and look
+      x = @el.parent().width() * (Math.max(signal.freqEnd, signal.freqStart) ) + 20
+      y = @el.parent().height() * (signal.timeEnd + signal.timeStart) / 2.0 - @el.height() / 2.0
+
+      # Keep out of thumbnail area where list item clicks aren't recognized
+      y = Math.min( y, @el.parent().height() - @el.height() - 10 )
+
+      @el.css
+        top: y
+        left: x
+
+      # Only show 'Close X' if working on an already classified signal
+      if signal.characterisations.length > 1 and @type == 'archive'
+        @el.find('#close-workflow').show()
+      else
+        @el.find('#close-workflow').hide()
+
+      @el.show()
+
+      @setUpQuestion()
+    else
+      workflow = Workflow.findByAttribute("name", "zooniverse_interface3")
+      new_characterisation =
+        question_id: workflow.questions[0]._id
+        answer_id: workflow.questions[0].answers[0]._id
+
+      @currentSignal.characterisations.push new_characterisation
+      Workflow.trigger 'workflowDone', 'done'
+
 
   closeWorkflow: =>
     @answer_list.html("")
@@ -64,7 +76,10 @@ class Workflows extends Spine.Controller
     Workflow.trigger 'workflowDone', 'done'
 
   setUpQuestion: (question_id = -1) ->
-    workflow = Workflow.first()
+    if @type == 'archive'
+      workflow = Workflow.findByAttribute("name", "zooniverse_interface2")
+    else
+      workflow = Workflow.findByAttribute("name", "zooniverse_interface3")
     question_id = workflow.questions[0]._id if question_id == -1
      
     for question in workflow.questions
@@ -113,6 +128,7 @@ class Workflows extends Spine.Controller
       "narrow": "<img src='assets/question_icons/signal_continuous.png' class ='answer-icon' style='display: inline-block'></img>"  
       "vertical": "<img src='assets/question_icons/straight.png' class ='answer-icon' style='display: inline-block'></img>"
       "erratic": "<img src='assets/question_icons/signal_erratic.png' class ='answer-icon' style='display: inline-block'></img>"
+      "done": "<img src='assets/question_icons/done.png' class ='answer-icon' style='display: inline-block'></img>"
     lookup[answer.name.toLowerCase()]
     
 window.Workflows = Workflows

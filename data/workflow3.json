@@ -1,0 +1,20 @@
+{
+  "description": "Abbreviated zooniverse interface for live seti data",
+  "primary": true,
+  "type": "decision_tree",
+  "name": "zooniverse_interface3",
+  "project": "seti",
+  "version": "1.0",
+  "questions": [
+    {
+     "_id": "4ecbcc1f40af4716ef000010",
+      "name": "Modify Your Marking",
+      "answers": [
+        {
+          "_id": "4ecbcc1f40af4716ef000030",
+          "name": "done"
+        } 
+      ]
+    }
+  ]
+}

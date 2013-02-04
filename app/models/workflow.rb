@@ -10,7 +10,7 @@ class Workflow
   many :subject_signals
 
   def self.active_workflow 
-    Workflow.where(:primary=>true).first  
+    Workflow.where(:primary=>true) 
   end
 
 end

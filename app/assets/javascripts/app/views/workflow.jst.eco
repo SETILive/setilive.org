@@ -15,6 +15,6 @@
         <%- @answerHelper(answer) %><span class="answer_text"><%- answer.name %></span>
       </li>      
     <% end %>
-    <li id="delete_signal">delete</li>
   <% end %>
+  <li id="delete_signal">delete</li>
 </ul>

@@ -1,0 +1,12 @@
+<img src="/assets/about/ata/telescope_large.png" id="telescope">
+<span>
+  <h2>Telescope is Inactive</h2>
+  <p style="text-align:left;margin-right:20px">The Allen Telescope Array is 
+    currently inactive.<br>
+    You are welcome to classify archived data.<br>
+    The telescope will be active again at:<br><br>
+    <b><%=Telescope.findByAttribute('key', 'telescope_status_change_time').value%>
+    <%=Telescope.findByAttribute('key', 'telescope_status_change_date').value%></b>    
+  </p>
+  <div class="extra_button" id="close">Close This Window</div>
+</span>
