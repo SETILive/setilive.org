@@ -70,6 +70,14 @@ class ZooniverseUsersController < ApplicationController
     end
   end
 
+  def seen_marking_notice
+    current_user.seen_marking_notice=true
+    current_user.save
+    respond_to do |format|
+      format.json { render json: "" }
+    end
+  end
+
   def current_logged_in_user 
     if current_user 
       respond_to do |format|

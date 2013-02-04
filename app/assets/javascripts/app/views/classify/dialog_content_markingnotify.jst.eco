@@ -1,12 +1,10 @@
-<img src="/assets/about/ata/telescope_large.png" id="telescope">
-<span>
-  <h2>Telescope is Inactive</h2>
-  <p style="text-align:left;margin-right:20px">The Allen Telescope Array is 
-    currently inactive.<br>
-    You are welcome to classify archived data.<br>
-    The telescope will be active again at:<br><br>
-    <b><%=Telescope.findByAttribute('key', 'telescope_status_change_time').value%>
-    <%=Telescope.findByAttribute('key', 'telescope_status_change_date').value%></b>    
+<span style="left:40px">
+  <h2>Classifying LIVE data is now easier!</h2>
+  <p style="font-size:16px;text-align:left;margin-right:20px">
+    - No "Describe the Signal" choices.<br>
+    - Mark two points on a signal, then immediately mark another.<br>
+    - You can still modify marks by clicking on them.<br><br>
+    <b>NOTE:</b> Archive data marking hasn't changed.    
   </p>
   <div class="extra_button" id="close">Close This Window</div>
 </span>

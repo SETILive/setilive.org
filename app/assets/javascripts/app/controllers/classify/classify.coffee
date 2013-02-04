@@ -50,6 +50,8 @@ class Classify extends Spine.Controller
           @dialog_shown = true
           Spine.trigger 'telescope_status'
 
+        Spine.one 'marking_notify', @markingNotifySetup
+
   deactivate: =>
     super
     @cleanup()
@@ -79,5 +81,8 @@ class Classify extends Spine.Controller
   initialTelescopeSetup: =>
     if Telescope.findByAttribute('key','telescope_status').value is 'inactive'
       dialog = new Dialog({el: $('#dialog-underlay'), content: @view('classify/dialog_content_statusinactive')()})
+
+  markingNotifySetup: =>
+    dialog = new Dialog({el: $('#dialog-underlay'), content: @view('classify/dialog_content_markingnotify')()})
 
 window.Classify = Classify

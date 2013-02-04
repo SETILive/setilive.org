@@ -2,7 +2,7 @@ class User extends Spine.Model
   @configure 'User', 'zooniverse_user_id', 'api_key', 'name', 'favourites', 
     'badges', 'total_classifications', 'classification_count', 'signal_count',
     "follow_up_count","total_follow_ups", "total_signals","sweeps_status", 
-    "total_logins","talk_click_count","telescope_notify"
+    "total_logins","talk_click_count","telescope_notify","seen_marking_notice"
   
   constructor: ->
     super 
@@ -75,4 +75,12 @@ class User extends Spine.Model
         @save()
         callback() if callback?
 
+  seenMarkingNotice: =>
+    $.ajax
+      type: 'POST'
+      url: '/seen_marking_notice'
+      success: (response)=>
+        @seen_marking_notice = true
+        @save()
+        
 window.User = User

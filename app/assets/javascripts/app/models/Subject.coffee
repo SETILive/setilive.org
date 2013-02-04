@@ -26,6 +26,9 @@ class Subject extends Spine.Model
           Subject.destroyAll()
 
         Subject.create data
+        if data.subjectType is 'new' and not User.first().seen_marking_notice
+          User.first().seenMarkingNotice()
+          Spine.trigger 'marking_notify'
   
   @get_tutorial_subject: ->
     $.getJSON 'tutorial_subject.json', (data) ->

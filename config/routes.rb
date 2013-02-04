@@ -49,6 +49,7 @@ Marv::Application.routes.draw do
   match '/team' => redirect('/#/about/team')
   match '/tutorial_subject' => 'subjects#tutorial_subject'
   match '/seen_tutorial' => 'ZooniverseUsers#seen_tutorial'
+  match '/seen_marking_notice' => 'ZooniverseUsers#seen_marking_notice'
 
   match '/science_report' => 'ZooniverseUsers#index'
   match '/stats' => 'home#stats'
