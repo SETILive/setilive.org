@@ -6,6 +6,6 @@ class Workflow extends Spine.Model
 
   @fetch: ->
     $.getJSON '/active_workflow.json', (data) =>
-      Workflow.create data
-  
+      for work in data
+        Workflow.create work
 window.Workflow = Workflow
