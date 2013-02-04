@@ -16,7 +16,11 @@ class Subject extends Spine.Model
 
     $.getJSON url, (data) =>
       console.log(data)
-      if data.observations.length == 0 or !data.observations[0].uploaded
+      # Workaround for non-uploaded observations getting through.
+      data_check = ( data.observations.length > 0 )
+      for obs in data.observations
+        data_check &= obs.uploaded
+      if !data_check
         @fetch_next_for_user()
       else
         # No longer need to create images in client
