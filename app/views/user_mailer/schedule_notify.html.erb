@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <p>
+      SETILive is scheduled to start its next LIVE data session on: 
+    </p>
+    <p>
+      <%= @utc_str %>
+    </p>
+    <p>In various time zones:<br><br>
+      <%= @uk_str %><br/>
+      <%= @et_str %><br/>
+      <%= @pt_str %>
+    </p>
+    <p>
+      Log in to SETILive at: <a href="<%= @url_setilive %>"><%= @url_setilive %></a>.
+    </p>
+    <p>
+      For detailed Telescope status and schedule:
+      <a href="<%= @url_setiquestinfo %>"><%= @url_setiquestinfo %></a>.
+    </p>
+    <p>To stop receiving these emails, go to <a href="<%= @url_setilive %>">
+      <%= @url_setilive %></a>, log in if necessary, go to your
+      Profile page and click the "Disable telescope Active email notifications"
+      button.
+    </p>
+    <p>Thanks for your help in the Search for Extraterrestrial Intelligence!</p>
+  </body>
+</html>

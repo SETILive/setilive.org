@@ -2,8 +2,8 @@ class ZooniverseUsersController < ApplicationController
   before_filter :check_login, :except=>[:index, :current_logged_in_user, 
                                         :telescope_notify_users]
   before_filter :authenticate, :only => [:index]
-
-  passwd = "***REMOVED***"
+  
+  skip_before_filter :browser, :only => [:telescope_notify_users]
   
   def index 
     respond_to do |format|
@@ -138,10 +138,38 @@ class ZooniverseUsersController < ApplicationController
   end
 
   def telescope_notify_users
-    if params[:passwd] == self.passwd      
-      puts "**** TELESCOPE SCHEDULE NOTIFICATION ****"
-      puts "proxy for telescope notification emailer call"
-      puts "*****************************************"      
+    puts params[:passwd]
+    if params[:passwd] == '***REMOVED***'
+      temp = RedisConnection.get("telescope_notify_parms")
+      parms = temp ? 
+              JSON.parse( temp ) : 
+              JSON.parse( {:chunk_size => 100, :time_between => 15 }.to_json)
+      chunk_size = parms["chunk_size"]
+      delta_t = parms["time_between"]
+      skipnum = 0
+      delay = 0
+      next_time = (RedisConnection.get("next_status_change").to_f/1000.0).to_i
+      unless next_time == 0
+        respond_to do |format|
+          format.json {render json: "email process started"}
+        end
+        begin
+          users = ZooniverseUser.where(
+            :telescope_notify => true).limit(chunk_size).skip(skipnum).to_a
+          user_emails = []
+          users.each { |u| user_emails << u.email}
+          unless user_emails.count == 0
+            TelescopeScheduleNotify.perform_in( 
+            delay.minutes.from_now, user_emails, next_time )
+          end
+          skipnum += chunk_size
+          delay += delta_t
+        end while users.count != 0
+      else
+        respond_to do |format|
+          format.json {render json: "emails not sent. Nothing is scheduled"}
+        end
+      end
     else      
       respond_to do |format|
         format.json {render json: "bad parameters", :status=>406}

@@ -22,3 +22,18 @@ task :frank_parms_init => :environment do
 	    }.to_json
 	  )
 end
+
+# Telescope schedule email notifier parameters
+task :telescope_notify_parms_init => :environment do
+  RedisConnection.set( 'telescope_notify_parms', 
+    { chunk_size: 200, # Number of emails sent at one time
+      time_between: 15 # How often to send email chunks in minutes
+      }.to_json )
+end
+
+# Initialize all parameters
+task :initialize_parameters => :environment do
+  Rake::Task['signal_group_parms_init'].execute
+  Rake::Task['frank_parms_init'].execute
+  Rake::Task['telescope_notify_parms_init'].execute
+end

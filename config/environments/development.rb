@@ -33,4 +33,14 @@ Marv::Application.configure do
   # Uncomment here and in Gemfile to enable debugging
   #require 'debugger' ; debugger
 
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :address              => "smtp.sendgrid.net",
+    :port                 => 587,
+    :domain               => 'galaxyzoo.org',
+    :user_name            => '***REMOVED***',
+    :password             => '***REMOVED***',
+    :authentication       => 'plain',
+    :enable_starttls_auto => true  }
+  
 end
