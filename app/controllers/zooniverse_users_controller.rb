@@ -155,7 +155,8 @@ class ZooniverseUsersController < ApplicationController
         end
         begin
           users = ZooniverseUser.where(
-            :telescope_notify => true).limit(chunk_size).skip(skipnum).to_a
+            :telescope_notify => true, 
+            :email => { :$ne => nil } ).limit(chunk_size).skip(skipnum).to_a
           user_emails = []
           users.each { |u| user_emails << u.email}
           unless user_emails.count == 0
