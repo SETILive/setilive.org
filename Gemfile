@@ -14,6 +14,7 @@ gem 'sidekiq', '2.7.0'
 gem 'bcrypt-ruby', '3.0.1', :require => 'bcrypt'
 gem 'aws-sdk', '~> 1.3.3'
 gem 'libxml-ruby', '2.2.2'
+gem 'json', '1.7.7'
 gem 'httparty', '0.8.1'
 gem 'multi_xml', '0.4.1' # dependency of HTTParty, but also used directly
 gem 'rubycas-client', :path => 'vendor/gems/rubycas-client/'

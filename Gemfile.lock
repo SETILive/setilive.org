@@ -86,7 +86,7 @@ GEM
       multi_xml
     i18n (0.6.1)
     journey (1.0.4)
-    json (1.7.6)
+    json (1.7.7)
     libv8 (3.3.10.4)
     libxml-ruby (2.2.2)
     mail (2.4.4)
@@ -219,6 +219,7 @@ DEPENDENCIES
   ezcrypto (= 0.7.2)
   factory_girl_rails
   httparty (= 0.8.1)
+  json (= 1.7.7)
   libxml-ruby (= 2.2.2)
   minitest
   mongo_mapper (= 0.12.0)
