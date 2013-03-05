@@ -48,23 +48,26 @@ class Messages extends Spine.Controller
       channel.bind key, @[method]
 
   onPusherSourceChange: (data) =>
-    t = Telescope.findByAttribute('key', 'target_change')
-    val = data.target.name
-    if val == undefined
-      val = 'SETI ' + data.target_id
-    t.updateAttribute('value', val)
-    @displayTargetChange()
-    Spine.trigger 'target_changed'
+    unless window.isTutorial
+      t = Telescope.findByAttribute('key', 'target_change')
+      val = data.target.name
+      if val == undefined
+        val = 'SETI ' + data.target_id
+      t.updateAttribute('value', val)
+      @displayTargetChange()
+      Spine.trigger 'target_changed'
 
   onPusherNewData: (data) =>
-    t = Telescope.findByAttribute('key', 'time_to_new_data')
-    t.updateAttribute('value', data)
-    @displayNewData()
+    unless window.isTutorial
+      t = Telescope.findByAttribute('key', 'time_to_new_data')
+      t.updateAttribute('value', data)
+      @displayNewData()
 
   onPusherTimeToFollowUp: (data) =>
-    t = Telescope.findByAttribute('key', 'time_to_followup')
-    t.updateAttribute('value', data)
-    @displayFollowup()
+    unless window.isTutorial
+      t = Telescope.findByAttribute('key', 'time_to_followup')
+      t.updateAttribute('value', data)
+      @displayFollowup()
 
   onPusherTelescopeStatusChange: (data) =>
     t = Telescope.findByAttribute('key', 'telescope_status')
@@ -76,16 +79,18 @@ class Messages extends Spine.Controller
     Telescope.updateTelescopeStatusChangeTime(data)
 
   onPusherFollowUpTrigger: (data) =>
-    t = Telescope.findByAttribute('key', 'follow_up_trigger')
-    t.updateAttribute('value', data)
-    @displayFollowUp()
-    Spine.trigger 'followUpTrigger'
+    unless window.isTutorial
+      t = Telescope.findByAttribute('key', 'follow_up_trigger')
+      t.updateAttribute('value', data)
+      @displayFollowUp()
+      Spine.trigger 'followUpTrigger'
 
   onPusherFakeFollowUpTrigger: (data) =>
-    t = Telescope.findByAttribute('key', 'fake_follow_up_trigger')
-    t.updateAttribute('value', data)
-    @displayFakeFollowUp()
-    Spine.trigger 'fakeFollowUpTrigger'
+    unless window.isTutorial
+      t = Telescope.findByAttribute('key', 'fake_follow_up_trigger')
+      t.updateAttribute('value', data)
+      @displayFakeFollowUp()
+      Spine.trigger 'fakeFollowUpTrigger'
 
   onBadgeAwarded: (data) =>
     message = 

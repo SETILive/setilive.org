@@ -1,4 +1,7 @@
-<a href="https://twitter.com/share?url=<%=encodeURI("http://talk.setilive.org/observation_groups/#{@subject.zooniverse_id}")%>&text=I just classified the targets: <%=[observation.source.name for observation in @subject.observations].join(" ")%> on SetiLive&hashtags=setilive"
+<% if isTutorial: %>
+    <a ><div id="twitter_button"></div>
+<% else: %>
+    <a href="https://twitter.com/share?url=<%=encodeURI("http://talk.setilive.org/observation_groups/#{@subject.zooniverse_id}")%>&text=I just classified the targets: <%=[observation.source.name for observation in @subject.observations].join(" ")%> on SetiLive&hashtags=setilive"
 
-  target="_blank"> <div id="twitter_button"></div>
-</a>
+    target="_blank"> <div id="twitter_button"></div></a>
+<% end %>

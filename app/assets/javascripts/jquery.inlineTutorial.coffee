@@ -5,6 +5,7 @@ $.widget "ui.inlineTutorial",
     current_step: null
     current_step_id: 0
     speed: 5000
+    skip: 0
 
   _create: ->
     self = this
@@ -13,8 +14,8 @@ $.widget "ui.inlineTutorial",
     $("#inline_tutorial_box .controls .tutorial_next").live "click", ->
       self.next_step()
 
-    $("#inline_tutorial_box .controls .tutorial_previous").live "click", ->
-      self.previous_step()
+    $("#inline_tutorial_box .controls .tutorial_skip").live "click", ->
+      self.skip_step()
     
     $(@element).append "<div id='inline_tutorial_outer'></div>"
 
@@ -90,11 +91,10 @@ $.widget "ui.inlineTutorial",
       $(indicatorDiv).addClass "inline-arrow-" + settings[1]
       $("#inline_tutorial_outer").append $(indicatorDiv)
 
-  previous_step: ->
+  skip_step: ->
     op = @options
-    op.current_step.onLeave.call this  if typeof op.current_step.onLeave is "function"
-    op.current_step_id = op.current_step_id - 1
-    op.current_step = op.steps[op.current_step_id]
+    op.current_step_id = op.current_step_id + op.current_step.skip
+    @next_step()
 
   dismiss: ->
     $("#inline_tutorial_outer").fadeOut 200

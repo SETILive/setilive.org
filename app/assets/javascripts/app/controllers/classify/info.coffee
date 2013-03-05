@@ -58,7 +58,7 @@ class Info extends Spine.Controller
       $.getJSON '/user_live_stats.json', (data) =>
         total = parseInt(data.seen,10) + parseInt(data.unseen,10) + 1
         @time.addClass 'text'
-        @time.html "#{data.seen} of #{total} Classified!"
+        @time.html "LIVE:  #{data.seen} of #{total} Classified!"
     else
       @time.addClass 'text'
       if @telescope_status.value is 'active' or @telescope_status.value is 'replay'
@@ -142,17 +142,19 @@ class Info extends Spine.Controller
   getNextSubject: (e) =>
     clearInterval @timeInterval
     action = $(e.currentTarget).data 'action'
+    unless window.isTutorial
+      switch action
+        when 'talk-yes'
+          subject = Subject.first()
+          window.open subject.talkURL()
+          $.getJSON '/register_talk_click'
 
-    switch action
-      when 'talk-yes'
-        subject = Subject.first()
-        window.open subject.talkURL()
-        $.getJSON '/register_talk_click'
-
-    unless @talk.children('.extra_button').attr('disabled') is 'disabled'
-      Subject.fetch_next_for_user()
-    @talk.children('.extra_button').attr 'disabled', 'disabled'
-    @talk.find('[data-action="talk-no"]').html 'Loading...'
+      unless ( 
+        @talk.children('.extra_button').attr('disabled') is 'disabled' or 
+        window.isTutorial )
+        Subject.fetch_next_for_user()
+      @talk.children('.extra_button').attr 'disabled', 'disabled'
+      @talk.find('[data-action="talk-no"]').html 'Loading...'
 
   favourite: (e) =>
     unless $(e.currentTarget).hasClass('favourited')

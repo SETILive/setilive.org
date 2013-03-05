@@ -4,6 +4,11 @@
     <p class="tutorial_text"><%= @text %></p>
   </div>
   <div class="controls">
-    <span class="tutorial_next">next</span>
+    <% if @navigate: %>
+      <span class="tutorial_skip">Skip to Part 2</span>
+      <span class="tutorial_next">next</span>
+    <% else: %>
+      <span class="tutorial_next">next</span>
+    <% end %>
   </div>
 </div>  

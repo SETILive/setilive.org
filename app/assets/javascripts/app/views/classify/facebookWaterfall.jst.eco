@@ -1,6 +1,9 @@
 
 <div class='facebook_button' style='display:inline-block;' >
-  <a target="_blank" href="https://www.facebook.com/dialog/feed?
+  <% if window.isTutorial: %>
+    <a><div id='facebook_button'></div></a>
+  <% else: %>
+    <a target="_blank" href="https://www.facebook.com/dialog/feed?
     app_id=310507282327045&
     link=<%=encodeURI("http://talk.setilive.org/observation_groups/#{@subject.zooniverse_id}")%>&
     picture=<%= encodeURI(@subject.observations[0].thumb_url) %>&
@@ -9,4 +12,5 @@
     description=<%=encodeURI("SETILive allows users to help search for extra-terrestrial civilisations by analysing live data from the Allen Telescope Array.")%>&
     message=<%=encodeURI("SETILive allows users to help search for extra-terrestrial civilisations by analysing live data from the Allen Telescope Array.")%>&
     redirect_uri=http://www.setilive.org"> <div id='facebook_button'></div></a>
+   <% end %>
 </div>

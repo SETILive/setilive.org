@@ -11,6 +11,11 @@
       "name": "Describe the signal",
       "answers": [
         {
+          "_id": "4ecbcc1f40af4716ef000022",
+          "leads_to": "4ecbcc1f40af4716ef000007",
+          "name": "parallel"
+        },
+        {
           "_id": "4ecbcc1f40af4716ef000020",
           "name": "broken",
           "leads_to": "4ecbcc1f40af4716ef000007"
@@ -19,11 +24,6 @@
           "_id": "4ecbcc1f40af4716ef000021",
           "name": "continuous",
           "leads_to": "4ecbcc1f40af4716ef000007"
-        },
-        {
-          "_id": "4ecbcc1f40af4716ef000022",
-          "leads_to": "4ecbcc1f40af4716ef000007",
-          "name": "parallel"
         }
       ]
     },
