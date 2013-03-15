@@ -165,7 +165,7 @@ class ZooniverseUser
     }
     
     observation_fields = [:image_url, :uploaded, :source_id, :subject_id]
-    observation_options = { fields: observation_fields, skip: offset, limit: opts[:per_page], sort: [:$natural, -1] }
+    observation_options = { fields: observation_fields, skip: offset, limit: opts[:per_page] }
     if opts[:type] == "favourites"
       observation_selector = { :_id => { :$in => observation_ids } }  
     else
