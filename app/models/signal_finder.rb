@@ -60,7 +60,7 @@ class SignalFinder
   end
 
   def calc_confidence
-    total = self.observation.subject.classification_count
+    total = self.observation.subject.live_classification_count
     chains.each do |c|
       c[:confidence] = c[:points].count.to_f / total 
     end

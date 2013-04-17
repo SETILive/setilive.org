@@ -23,6 +23,7 @@ class Subject
   key :total_score , Float
   key :uploaded_at , Time # Actually, time files were made permanent on AWS.
   key :followup_check_at , Time
+  key :live_count_threshold , Integer
   
   key :pol , Integer # Note: effective with pol combining of observations,
                      #   (rendering version 2) if pol = 2,  observations 
@@ -48,7 +49,8 @@ class Subject
   key :has_simulation, Boolean, :default=>false
 
   key :classification_count, Integer, :default => 0 
-
+  key :live_classification_count, Integer, :default => 0
+  
   scope :simulation , where(:has_simulation=>true)
   scope :real , where(:has_simulation=>false)
   scope :followups, where(:follow_up_id =>{"$gt"=>0})
@@ -58,7 +60,7 @@ class Subject
   has_many :observations 
   has_many :classifications
 
-  after_create :pop_in_redis_temp
+  after_create :set_live_count_threshold, :pop_in_redis_temp
 
   # validates_presence_of  :observation_id
   #after_save :store_in_redis
@@ -88,26 +90,38 @@ class Subject
   
   
   def update_classification_count 
-    #self.increment :classification_count => 1    
-    # Atomic operation .increment updates db only, not "self". Have to do it the
-    #   hard way to keep classification count valid in context and save later.
-    self.classification_count += 1
-    check_retire 
-  end
-  
-
-  def check_retire 
-    if classification_count >= 4
-      if suitable_for_followup?
+    # Note: self.increment is an atomic operation which updates db only, not "self". 
+    # Instead, we're incrementing it in a local contex and saving it later.
+    if RedisConnection.get(  "subject_recent_#{self.id}" )
+      # Live subject handling
+      self.live_classification_count += 1
+      if self.live_classification_count >= self.live_count_threshold
         self.remove_from_redis
         self.followup_check_at = Time.now
         CheckResults.perform_async(self.id)
       end
-      
-      if classification_count >= 19
+    else
+      # Archive subject handling
+      self.classification_count += 1
+      max_count = RedisConnection.get('max_classification_count')
+      max_count = max_count ? max_count.to_i : 19
+      if self.classification_count >= max_count
         self.done
       end
     end
+    self.save
+  end
+  
+  def set_live_count_threshold
+    # subject adaptive classification threshold parameters
+    num_beams = ( temp = RedisConnection.get("num_beams") ) ? temp.to_i : 2
+    num_users = RedisConnection.keys("online_*").count
+    min_threshold = ( temp = RedisConnection.get( 'min_live_threshold' ) ) ?
+                    temp.to_i : 4
+    thresh_factor = ( temp = RedisConnection.get( 'live_threshold_factor' ) ) ?
+                    temp.to_f : 2.1
+    thresh = ( ( num_users / num_beams ) * thresh_factor ).to_i # Truncate, don't round
+    self.live_count_threshold = thresh < min_threshold ? min_threshold : thresh
     self.save
   end
   
