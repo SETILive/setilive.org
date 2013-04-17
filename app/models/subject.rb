@@ -21,9 +21,11 @@ class Subject
   key :width , Integer
   key :height , Integer
   key :total_score , Float
+  key :uploaded_at , Time # Actually, time files were made permanent on AWS.
+  key :followup_check_at , Time
   
   key :pol , Integer # Note: effective with pol combining of observations,
-                     #   (rendering version 2) if ool = 2,  observations 
+                     #   (rendering version 2) if pol = 2,  observations 
                      #   may be combined if both polarizations were available 
                      #   from the telescope. There is a separate pol key for 
                      #   observations to determine which were.
@@ -98,7 +100,8 @@ class Subject
     if classification_count >= 4
       if suitable_for_followup?
         self.remove_from_redis
-        CheckResults.perform_async(self.id) 
+        self.followup_check_at = Time.now
+        CheckResults.perform_async(self.id)
       end
       
       if classification_count >= 19
@@ -342,7 +345,8 @@ class Subject
           o.uploaded = true
           o.save
         end
-        
+        s.uploaded_at = Time.now
+        s.save
         unless s.observations.collect{|o| o.uploaded}.include?(false)
           GenerateTalk.new.perform s.id unless Rails.env.development?
         end        
