@@ -35,9 +35,19 @@ class Classification
     results.as_json
   end
   
-  def update_subject
+  def update_subject    
+    # Adjust live subject priority
+
+    # Priority is a score: +1 for each user classification, +2 if user also 
+    # marked something on it.
+    if ( RedisConnection.ttl( "subject_recent_#{self.subject.id}" ) >= 15 )
+      RedisConnection.incr( "subject_recent_#{self.subject.id}" )
+      # Extra boost if user marked it
+      RedisConnection.incr( "subject_recent_#{self.subject.id}" ) if self.subject_signals.count > 0
+    end
     self.subject.update_classification_count
   end
+  
   def update_zooniverse_user 
     zooniverse_user.update_classification_stats(self)
   end

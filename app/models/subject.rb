@@ -134,10 +134,10 @@ class Subject
   end
 
   def pop_in_redis_temp
-    # Interferes with fake followups if it extends into the next activity
-    # 130 + T + subjectCreationTime < 340s
+    # Place id in Redis for a bit longer than the live subject lifetime.
+    # Redis key value is used as a priority factor, initialized to zero.
     RedisConnection.setex( "subject_recent_#{self.id}",
-      RedisConnection.ttl("subject_timer") + 5 ,  self.id) # ttl=-1 sometimes.
+                            RedisConnection.ttl("subject_timer") + 5 ,  0)
   end
 
   def pop_in_redis
