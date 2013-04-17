@@ -36,7 +36,7 @@ class Classification
   end
   
   def update_subject    
-    # Adjust live subject priority
+    # Adjust live subject priority and manage live seen-subjects
 
     # Priority is a score: +1 for each user classification, +2 if user also 
     # marked something on it.
@@ -44,6 +44,14 @@ class Classification
       RedisConnection.incr( "subject_recent_#{self.subject.id}" )
       # Extra boost if user marked it
       RedisConnection.incr( "subject_recent_#{self.subject.id}" ) if self.subject_signals.count > 0
+      
+      # Seen subject management
+      key = "recents_seen_#{zooniverse_user.id}"
+      user_seen = ( temp = RedisConnection.get( key ) ) ? JSON.parse( temp ) : []
+      user_seen << "subject_recent_#{self.subject.id}"
+      RedisConnection.setex( key, 
+                           RedisConnection.ttl( "subject_timer" ),
+                           user_seen.to_json )
     end
     self.subject.update_classification_count
   end
@@ -53,20 +61,6 @@ class Classification
   end
   
   def update_redis
-    # Manage live classification count for user
-    if RedisConnection.get("subject_recent_#{subject.id.to_s}")
-      num_live = RedisConnection.get("live_subjects_seen_#{zooniverse_user.id}").to_i
-      if RedisConnection.ttl("subject_timer") > 0 # Still live data - renew...
-        RedisConnection.setex("live_subjects_seen_#{zooniverse_user.id}", 60, 
-          num_live  ? num_live + 1 : 1 )
-      else # Live window closed - update, but let it die
-        # 5 seconds added for case when it's expired and ttl returns -1
-        RedisConnection.setex("live_subjects_seen_#{zooniverse_user.id}",
-          RedisConnection.ttl("live_subjects_seen_#{zooniverse_user.id}") + 5, 
-          num_live ? num_live + 1 : 1 )
-      end
-    end
-    
     RedisConnection.setex "recent_classification_#{self.id}", 60, 1
     RedisConnection.incr "total_classifications"
   end

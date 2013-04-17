@@ -47,8 +47,8 @@ class ZooniverseUsersController < ApplicationController
       @unseen = RedisConnection.keys('*_subject_new*').count
       list = RedisConnection.keys("subject_recent*").map{|r| r.gsub("subject_recent_","") }
       @unseen += (list - current_user.seen_subject_ids.map(&:to_s)).count
-      @seen = RedisConnection.get("live_subjects_seen_#{current_user.id}")
-      @seen = 0 unless @seen
+      @seen = (temp = RedisConnection.get("recents_seen_#{current_user.id}")) ?
+              JSON.parse(temp).count : 0
       respond_to do |format|
         format.html
         format.json {render :json=> {seen: @seen, unseen: @unseen}.to_json}
@@ -138,7 +138,6 @@ class ZooniverseUsersController < ApplicationController
   end
 
   def telescope_notify_users
-    puts params[:passwd]
     if params[:passwd] == '***REMOVED***'
       temp = RedisConnection.get("telescope_notify_parms")
       parms = temp ? 
