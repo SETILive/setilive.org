@@ -132,20 +132,17 @@ class SubjectsController < ApplicationController
     #Subject.random_recent(current_user)
     # Make array of recent subject keys
     subjects = RedisConnection.keys( "subject_recent_*" )
-    puts "subjects: #{subjects}"
     unless subjects.empty?
       # Get user's seen list
       user_seen = 
         (temp = RedisConnection.get("recents_seen_#{current_user.id}")) ?
         JSON.parse( temp ) : []
       unseen_list = subjects - user_seen    
-      puts "unseen_list=#{unseen_list}"
       unless unseen_list.empty?
         # Get array of priorities with unseen list
         # Choose first highest priority key
         priorities = RedisConnection.mget( unseen_list )
         subject_id = unseen_list[ priorities.index( priorities.max() ) ].gsub( "subject_recent_", "" )
-        puts "subject_id: #{subject_id}"
         Subject.find(subject_id)
       else
         return nil
