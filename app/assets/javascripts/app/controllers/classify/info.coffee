@@ -56,9 +56,8 @@ class Info extends Spine.Controller
     if subject.subjectType == 'new' or window.tutorial == true
       #@timeInterval = setInterval @updateTime, 100
       $.getJSON '/user_live_stats.json', (data) =>
-        total = parseInt(data.seen,10) + parseInt(data.unseen,10) + 1
         @time.addClass 'text'
-        @time.html "LIVE:  #{data.seen} of #{total} Classified!"
+        @time.html "LIVE:  #{data.seen} classified, #{data.unseen} left"
     else
       @time.addClass 'text'
       if @telescope_status.value is 'active' or @telescope_status.value is 'replay'

@@ -44,14 +44,20 @@ class ZooniverseUsersController < ApplicationController
 
   def live_classification_stats
     if current_user
-      @unseen = RedisConnection.keys('*_subject_new*').count
-      list = RedisConnection.keys("subject_recent*").map{|r| r.gsub("subject_recent_","") }
-      @unseen += (list - current_user.seen_subject_ids.map(&:to_s)).count
-      @seen = (temp = RedisConnection.get("recents_seen_#{current_user.id}")) ?
-              JSON.parse(temp).count : 0
+      @unclassified = RedisConnection.keys('*_subject_new*').count
+      seen_list = JSON.parse( RedisConnection.get( 
+        "recents_seen_#{current_user.id}" ) ).map{ 
+        |s| s.gsub("subject_recent_", "")}
+      recents_list = RedisConnection.keys(
+        "subject_recent*").map{|r| r.gsub("subject_recent_","") }
+      unclassified_recents_list = recents_list - seen_list
+      #puts "new:#{@unclassified} recents:#{recents_list.count} unseen recents:#{unclassified_recents_list.count}"
+      @unclassified += ( unclassified_recents_list.count + 1 ) # Current one seen but not classified
+      @classified = (temp = RedisConnection.get("recents_seen_#{current_user.id}")) ?
+              JSON.parse(temp).count - 1 : 0 # Current one seen but not classified
       respond_to do |format|
         format.html
-        format.json {render :json=> {seen: @seen, unseen: @unseen}.to_json}
+        format.json {render :json=> {seen: @classified, unseen: @unclassified}.to_json}
       end
     end
   end
