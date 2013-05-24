@@ -4,19 +4,74 @@ class SignalFinder
   key :chains , Array
   key :tolerance, Float, :default=>1
   key :clusters_on, Array, :default=>[:ang, :mid]
-  key :weights, Hash , :default => {ang: (1.0/20.0), mid: (1.0/5.0) }
+  key :weights, Hash , :default => {ang: 5.73, mid: 10.0 } # ang:10 deg, mid:10%
   key :consensus_on, Array
-  key :centers_in_coords, Array, :default => [:ang,:mid,:grad]
-  key :limits, Hash, :default => {:ang=>180}
+  key :centers_in_coords, Array, :default => [:ang,:mid]
+  key :user_clusters, Array
 
   belongs_to :observation
   
   timestamps! 
-
+  
+  before_create :load_parms
+  
+  def load_parms
+    if ( temp = RedisConnection.get('signal_finder_parms') )
+      self.weights = JSON.parse( temp )['weights']
+    end
+  end
+  
 
   def self.create_with_observation(observation, args={})
-    args = args.merge( { :observation_id=> observation.id, :pending_ids => observation.subject_signals.collect(&:_id)})
+    
+    args = args.merge( { :observation_id=> observation.id } )
     finder = SignalFinder.create(args)
+    
+    # Process each classifications separately in Phase 1
+    observation.subject.classifications.each do |c|
+      # Collect the user's signals
+      user_chains = []
+      sigs = observation.subject_signals.select do |ss| 
+        ss.classification_id == c.id
+      end
+      sigs.each do |ss|
+        # Note that ang: from subject_signal.calc_angle is now limited to +/-pi/2
+        user_chains << { center:{}, points: [{ang: ss.calc_angle, mid: ss.calc_mid, grad: ss.calc_grad, ss_id: ss.id}] }
+      end
+      i = 0
+      done = true
+      while i < user_chains.count
+        j = i + 1
+        while j < user_chains.count
+          if finder.compare_chains(user_chains[i],user_chains[j])
+            user_chains[i][:points] = user_chains[i][:points] | user_chains[j][:points]
+            user_chains.delete_at j 
+            j=j-1
+            done=false 
+          end 
+          j += 1
+        end
+        i += 1
+      end
+      
+      # Phase 1 Clustering:
+      # Take each user chain cluster and convert it to a single point chain
+      # from the cluster average.
+      user_chains.each do |uc|
+        finder.calc_center_for_chain( uc )
+        # Note confidence is ignored as it's not relevant until phase 2
+        
+        # Add these collapsed chains to the chains array.        
+        # Note that signal_id is now an array of signal_ids that
+        # went into that collapsed point. When the points are combined in chains,
+        # each point in the chain will have an array of signal_ids.
+        finder.chains << {center:{}, confidence: 0, 
+          points: [{ang: uc[:center][:ang], mid: uc[:center][:mid], 
+          grad: uc[:center][:grad], 
+          signal_id: uc[:points].collect { |p| p[:ss_id] } }]}
+      end
+    end
+    puts "chains:#{finder.chains.to_json}"
     finder
   end 
 
@@ -24,6 +79,7 @@ class SignalFinder
     signal = SubjectSignal.find(signal_id)
     if signal and signal.real?
       chains << {center:{}, confidence: 0, points:[{ang: signal.calc_angle, mid: signal.calc_mid , grad: signal.calc_grad, signal_id: signal.id}]}
+      signal_ids.delete(signal_id)
     end
   end
 
@@ -35,7 +91,8 @@ class SignalFinder
   end
  
   def check_for_results
-    self.find_groups
+    until self.update_chains
+    end
     self.calc_confidence
     self.centers
     self.interesting_signals
@@ -68,37 +125,25 @@ class SignalFinder
 
   def dist(point1,point2)
     val =0
-
-    self.clusters_on ||= chains.first.points.first.keys
-     
-    self.clusters_on.each{ |key| weights[key] ||= 1} #fill in missing weights
-    
     self.clusters_on.each do |key|
       raw_dist = (point1[key] - point2[key]).abs
-      if limits[key]
-        if raw_dist > limits[key] 
-          raw_dist = raw_dist - limits[key] 
-        end
-      end
-        val = val + ( raw_dist  * weights[key] )**2 
+      val = val + ( raw_dist  * weights[key] )**2 
     end
     val =Math.sqrt(val)
   end
 
 
   def calc_center_for_chain(chain)
-    if self.centers_in_coords.length==0
-      self.centers_in_coords = chains.first[:points].first.keys
+        
+    num_points_in_chain = chain[:points].count.to_f
+    self.centers_in_coords.each do |key|
+      ave = 0.0
+      chain[:points].each do |point|
+        ave += point[key]
+      end
+      chain[:center][key] = ave / num_points_in_chain
     end
-
-    ave = self.centers_in_coords.each.inject({}){|r,v| r[v] = 0.0;r }
-    chain[:points].each do |point|
-      self.centers_in_coords.each{|key| ave[key]+=point[key] }
-    end
-    
-    no_points_in_chain = chain[:points].count.to_f
-    chain[:center] = ave.keys.inject({}){|r,key| r[key]= ave[key]/no_points_in_chain; r}
-    
+    chain[:center][:grad] = Math.tan(chain[:center][:ang])
   end
   
   def centers
@@ -143,7 +188,6 @@ class SignalFinder
   end
 
   def compare_chains(chain1, chain2)
-    joined = false
     chain1[:points].each do |part1|
       chain2[:points].each do |part2|
         if self.dist(part1, part2) < tolerance

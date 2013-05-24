@@ -46,7 +46,7 @@ class SignalGroup
     # NOTE: SonATA DX vertical limits are too precise for SETILive measurement
     # (i.e., < 0.13 degrees on waterfall), so reported value is always outside
     # limits. Also test for nil. Gets called before parms is defined apparently.
-    temp = -( observation.subject.freq_range / 93.0 ) / gradient
+    temp = -( observation.subject.freq_range / 93.0 ) * gradient
     ( temp.abs > parms[:drift_min] ) ? temp : 
         ( temp > 0  ? 1.0 : -1.0 ) * parms[:drift_min] * 1.2
   end
@@ -58,7 +58,7 @@ class SignalGroup
   end
   
   def is_real?
-    drift < parms[:drift_max] * start_freq / 1000.0 &&
+    drift.abs < parms[:drift_max] * start_freq / 1000.0 &&
     drift.abs > parms[:drift_min] &&
     single_beam( parms[:drift_tol], parms[:mid_tol] )
   end

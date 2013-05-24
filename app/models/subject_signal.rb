@@ -29,8 +29,9 @@ class SubjectSignal
           (end_point[1]-start_point[1])/(end_point[0]-start_point[0])
   end
 
-  def calc_angle # Counter-clockwise from down 
-    (Math.atan2((end_point[0] - start_point[0]),(end_point[1]-start_point[1])))
+  def calc_angle
+     # Counter-clockwise from down, limited to +/- pi/2 eliminates pi ambiguity
+    (Math.atan((end_point[0] - start_point[0]) / (end_point[1]-start_point[1])))
   end
 
   def real?

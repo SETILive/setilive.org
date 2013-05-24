@@ -3,6 +3,7 @@ class Followup
   key :current_stage , Integer , :default => -1
   key :signal_id_nums , Array
   key :followup_msgs, Array
+  key :is_test, Boolean, :default => false
   has_many :signal_groups
   has_many :observations
   
@@ -67,7 +68,12 @@ class Followup
              }
   
     RedisConnection.setex "follow_up_#{self.id}", 30, reply.to_json
-    key = RedisConnection.get("fake_followup_2") ? "fakeFollowUpTrigger" : "followUpTrigger"
+    if RedisConnection.get("fake_followup_2")
+      key = "fakeFollowUpTrigger"
+      is_test = true
+    else
+      key = "followUpTrigger"
+    end
     on_request = self.current_stage == 0 ? is_on : !is_on
     key_value = 'Level ' + 
                 ( ( 1.0 * self.current_stage + 2.5 ) / 2.0 ).to_int.to_s +
