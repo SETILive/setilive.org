@@ -113,13 +113,20 @@ class Subject
   end
   
   def set_live_count_threshold
+    unless ( parms = RedisConnection.get( 'live_classification_parms') )
+      parms = { min_live_threshold: 4,
+          number_of_beams: 2,
+          live_threshold_factor: 1.0
+        }.to_json     
+ 
+        RedisConnection.set( 'live_classification_parms', parms )
+    end
+    parms = JSON.parse( parms )
     # subject adaptive classification threshold parameters
-    num_beams = ( temp = RedisConnection.get("num_beams") ) ? temp.to_i : 2
+    num_beams = parms['number_of_beams']
     num_users = RedisConnection.keys("online_*").count
-    min_threshold = ( temp = RedisConnection.get( 'min_live_threshold' ) ) ?
-                    temp.to_i : 4
-    thresh_factor = ( temp = RedisConnection.get( 'live_threshold_factor' ) ) ?
-                    temp.to_f : 2.1
+    min_threshold = parms['min_live_threshold']
+    thresh_factor = parms['live_threshold_factor']
     thresh = ( ( num_users / num_beams ) * thresh_factor ).to_i # Truncate, don't round
     self.live_count_threshold = thresh < min_threshold ? min_threshold : thresh
     self.save
@@ -246,7 +253,16 @@ class Subject
   def end_freq
     central_freq + freq_range*0.5
   end
+  
+  def get_mid frequency
+    ( frequency - central_freq ) / freq_range
+  end
 
+  def get_grad # Slope in normalized top-left x-right, y-down coordinates
+    ( (end_point[0]-start_point[0]) / (end_point[1]-start_point[1]) ).abs < 0.0001 ?
+          10000.0 :
+          (end_point[1]-start_point[1])/(end_point[0]-start_point[0])
+  end
   def generate_simulation(simulation=nil)
     
     subject_attributes = self.attributes.dup
