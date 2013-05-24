@@ -45,13 +45,6 @@ class Classification
       # Extra boost if user marked it
       RedisConnection.incr( "subject_recent_#{self.subject.id}" ) if self.subject_signals.count > 0
       
-      # Seen subject management
-      key = "recents_seen_#{zooniverse_user.id}"
-      user_seen = ( temp = RedisConnection.get( key ) ) ? JSON.parse( temp ) : []
-      user_seen << "subject_recent_#{self.subject.id}"
-      RedisConnection.setex( key, 
-                           RedisConnection.ttl( "subject_timer" ),
-                           user_seen.to_json )
     end
     self.subject.update_classification_count
   end

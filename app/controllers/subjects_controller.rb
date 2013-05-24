@@ -1,4 +1,47 @@
 class SubjectsController < ApplicationController
+  
+  def show
+    subject = Subject.find( params[:id] )
+    if subject 
+      respond_to do |format|
+        subject  = subject.as_json(:include =>{:observations=>{:include=>:source, :except=>:data} })
+        @subjectType = 'review'
+        subject['followupId'] = nil
+        subject.observations.each do |o|
+          if o.followup_id
+            subject['followupId'] = o.followup_id
+            subject['followupObs'] = o.id
+          end 
+        end
+        subject['followupId'] = Followup.where
+        subject['subjectType']= @subjectType
+        format.json { render json: subject.to_json , :status => '200' }
+      end
+    else
+      respond_to do |format|
+        format.json { render json: '', :status => '404' }
+      end
+    end
+  end
+  
+  def followup_subjects
+    fup_id = params[:fupId]
+    puts "followup_subjects:fup_id:#{fup_id}"
+    fup = Followup.find(fup_id)
+    if fup
+      obs_ids = fup.observations.collect {|o| o.id.to_s }
+      subj_ids = obs_ids.collect {|o| Observation.find(o).subject_id.to_s }
+      respond_to do |format|
+        format.json { 
+          render json: {'obsIds' => obs_ids, 'subjIds' => subj_ids } }.to_json
+      end
+    else
+      respond_to do |format|
+        format.json { render json: '', :status => '404' }
+      end
+    end
+  end
+  
   def tutorial_subject 
     respond_to do |format|
       format.json { render json: Subject.tutorial_subject.to_json(:include => {:observations=>{:include=>:source}}), :status => '200' }
@@ -104,8 +147,20 @@ class SubjectsController < ApplicationController
       # in zooniverse_user.update_classification_stats. Better here since at
       # this point, the user will see the subject whether they classify or not.
       # Also should eliminate repeated serving/refresh of a bad recent subject.
-      updater = current_user.update_seen(subject)
-      current_user.collection.update({ :_id => current_user.id }, updater)
+      
+      if @subjectType =='new'
+        # Live Seen subject management
+        key = "recents_seen_#{current_user.id}"
+        user_seen = ( temp = RedisConnection.get( key ) ) ? JSON.parse( temp ) : []
+        user_seen << "subject_recent_#{subject.id}"
+        RedisConnection.setex( key, 
+                            RedisConnection.ttl( "subject_timer" ) + 2,
+                            user_seen.to_json )
+      else
+        #Non-live subject seen management
+        updater = current_user.update_seen(subject)
+        current_user.collection.update({ :_id => current_user.id }, updater)
+      end
          
       respond_to do |format|
         subject  = subject.as_json(:include =>{:observations=>{:include=>:source, :methods=>:data_for_display, :except=>:data} })
