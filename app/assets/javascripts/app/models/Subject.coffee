@@ -15,7 +15,7 @@ class Subject extends Spine.Model
       url += "?subject_id=#{window.subject_id}"
 
     $.getJSON url, (data) =>
-      console.log(data)
+      #console.log(data)
       # Workaround for non-uploaded observations getting through.
       data_check = ( data.observations.length > 0 )
       for obs in data.observations

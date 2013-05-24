@@ -107,7 +107,7 @@ class ObservationUploader
       return nil unless File.exists?(file_path_1)
       File.rename(file_path_1, file_path_2)
       if File.exists?(file_path_2) 
-        'http://localhost:9914/' + bucket_name + "/" + name_2
+        "http://#{`hostname`.gsub("\n",'')}:9914/#{bucket_name}/#{name_2}"
       else
         nil
       end

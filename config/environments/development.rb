@@ -30,8 +30,14 @@ Marv::Application.configure do
 
   # use pry 
   
-  # Uncomment here and in Gemfile to enable debugging
-  #require 'debugger' ; debugger
+  # Set to :warn for puts spam only
+  config.log_level = :warn #:debug
+  
+  # Uncomment here enable debugging
+  require 'debugger'
+  
+  # Uncomment here to start debugger upon loading
+  #debugger
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {

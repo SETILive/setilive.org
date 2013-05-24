@@ -12,3 +12,4 @@ vendor/cache
 nbproject
 
 /.pryrc
+/lib/tasks/local/
