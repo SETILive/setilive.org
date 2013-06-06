@@ -34,7 +34,7 @@ Marv::Application.configure do
   config.log_level = :warn #:debug
   
   # Uncomment here enable debugging
-  require 'debugger'
+  #require 'debugger'
   
   # Uncomment here to start debugger upon loading
   #debugger

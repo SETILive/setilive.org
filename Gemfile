@@ -44,6 +44,6 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'minitest'
   gem 'autotest-rails'
-  gem 'thin' # webrick alt without "WARN Could not determine..." spam.
-  gem 'debugger'
+  #gem 'thin' # webrick alt without "WARN Could not determine..." spam.
+  # gem 'debugger'
 end
