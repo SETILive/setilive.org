@@ -156,11 +156,10 @@ class SubjectsController < ApplicationController
         RedisConnection.setex( key, 
                             RedisConnection.ttl( "subject_timer" ) + 2,
                             user_seen.to_json )
-      else
-        #Non-live subject seen management
-        updater = current_user.update_seen(subject)
-        current_user.collection.update({ :_id => current_user.id }, updater)
       end
+      #General user seen subject management
+      updater = current_user.update_seen(subject)
+      current_user.collection.update({ :_id => current_user.id }, updater)
          
       respond_to do |format|
         subject  = subject.as_json(:include =>{:observations=>{:include=>:source, :methods=>:data_for_display, :except=>:data} })
