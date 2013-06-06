@@ -121,15 +121,9 @@ class Observation
     
     f.signal_id_nums << sig_id_num
     f.trigger_next_stage
-    puts "Triggering..."
     msg = f.trigger_follow_up on
     f.followup_msgs << msg
-    puts "Trying to save..."
-    if f.save
-      puts "...saved."
-    else
-      puts "...not saved"
-    end
+    f.save
     
     update_user_followups( sig_id_num )
     
@@ -142,5 +136,47 @@ class Observation
         user.update_followups( sig_id_num )        
       end 
   end
+  
+  def add_signal_data( data, user_id )
+    subj = self.subject
+
+    # Current user and other user markings on this observation
+    cls = self.subject.classifications.where( :zooniverse_user_id => user_id ).first
+    user_ss = cls ? cls.subject_signals.select { |s| s.observation == self }.to_a : []
+    other_ss = self.subject_signals.limit(20).to_a - user_ss
+   
+    if ( fup_id = defined?(self.followup_id) ? self.followup_id : nil )
+      fup = Followup.find( fup_id )
+      index = fup.observations.sort(:created_at.asc).to_a.index(self)
+      msg = JSON.parse(fup.followup_msgs[index])
+      fup_sig_id = fup.signal_id_nums[index]
+      fup_id = fup.id
+
+      if ( index == 0 || index.odd? ) # ONx followup
+
+        # Signal groups are only added for ONx followups
+        sg = fup.signal_groups.sort(:created_at.asc).to_a.at( ( index + 1 / 2 ) )
+        fup_sig = [sg.mid, sg.angle]
+        fup_type = 'ON' + ( index == 0 ? '' : ( ( index + 1 ) / 2 ).to_s )
+
+      else # OFFx followup - no signal group
+
+        fup_sigs = subj.get_signal( msg['rfFreq'], msg['drift'] )
+        fup_type = 'OFF' + (index / 2).to_i
+
+      end
+      data['followup_id'] = fup_id
+      data['followup_signal_id'] = fup_sig_id
+      data['followup_type'] = fup_type  
+      data['followup_signal'] = fup_sig
+    end
+    
+    sigs_user = user_ss.collect { |ss| [ss.start_point, ss.end_point] }
+    sigs_other = other_ss.collect { |ss| [ss.start_point, ss.end_point] }    
+    data['user_signals'] = sigs_user
+    data['other_signals'] = sigs_other
+
+  end
+  nil
 
 end

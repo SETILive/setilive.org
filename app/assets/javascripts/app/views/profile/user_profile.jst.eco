@@ -38,20 +38,22 @@
   
   <div id="profile_bottom">
     <div id="view_selection">
-      <span>View</span>
+      <span>View:</span>
+      <ul id="view_selection" style="width:45%">
+        <li class="collectionType <%= 'category_selection' if @collectionType is 'recents'%>" data-id="recents">Recents / </li>
+        <li class="collectionType <%= 'category_selection' if @collectionType is 'followups'%>" data-id="followups">Followups /</li>
+        <li class="collectionType <%= 'category_selection' if @collectionType is 'favourites'%>" data-id="favourites">Favourites</li>
+      </ul>
+      <span title="Hold mouse over or click to view"=>Show Markings:</span>
       <ul id="view_selection">
-        <li class="collectionType <%= 'catagory_selection' if @collectionType is 'recents'%>" data-id="recents">Recents / </li>
-        <li class="collectionType <%= 'catagory_selection' if @collectionType is 'followups'%>" data-id="Followups">Followups /</li>
-        <li class="collectionType <%= 'catagory_selection' if @collectionType is 'favourites'%>" data-id="favourites">Favourites</li>
+        <li class="markingType <%= 'category_selection' if @userMarks is true %>" title="your markings" data-id="userMarks" style="color:darkorange">Mine / </li>
+        <li class="markingType <%= 'category_selection' if @followupSignal is true %>" title="followup signal track" data-id="followupSignal" style="color:magenta">Followup / </li>
+        <li class="markingType <%= 'category_selection' if @otherMarks is true %>" title="others&#8217; markings" data-id="otherMarks" style="color:green">Others</li>
       </ul>
     </div>
     
     <div id="subjects">
-      <% if @collectionType is 'followups': %>
-        <h2 style="color:black; text-align:center">We are currently operating in a mode where we are not triggering followups at the telescope.</h2>
-      <% else if @user: %>
-        <%- @itemTemplate user: @user, items: @subjects %>
-      <% end %>
+      <%- @itemTemplate user: @user, items: @subjects, collectionType: @collectionType %>
     </div>
     
     <%- @pagination.menu() %>

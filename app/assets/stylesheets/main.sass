@@ -1230,11 +1230,12 @@ ul.pagination
       
   #profile_bottom
     #view_selection
+      margin-right: 30px
       margin-left: 30px
       margin-top: 30px
       text-transform: uppercase
       font-size: 12px
-      font-family: TitilliumText22LThin, Sans-serif
+      font-family: TitilliumText22LRegular, Sans-serif
       span 
         color: black
         margin-right: 20px
@@ -1248,11 +1249,31 @@ ul.pagination
         li
           display: inline-block
           vertical-align: top
-        li.catagory_selection
+        li.category_selection
           font-family: TitilliumText22LBold, Sans-serif
+    #mark_selection
+      margin-right: 30px
+      margin-left: 30px
+      margin-top: 30px
+      text-transform: uppercase
+      font-size: 12px
+      font-family: TitilliumText22LRegular, Sans-serif
+      span 
+        color: black
+        margin-right: 20px
+      ul
+        display: inline-block
+        margin: 0px
+        padding: 0px
+        list-style: none 
+        color: black
+        cursor: pointer
+        li
+          display: inline-block
+          vertical-align: top
     #subjects 
       margin-left: 30px
-      margin-top: 40px
+      margin-top: 30px
 
       .waterfall
         display: inline-block
@@ -1712,38 +1733,41 @@ ul.pagination
   float: left
   width: 215px
   height: 108px
-  margin: 0 7px 10px 7px
+  margin: 0 7px 25px 7px
   @include box-shadow
   border: #f1f1f1 solid 3px
   color: #ffffff
   .classification_details
     position: absolute
-    top: 85px
+    top: 115px
     left: 0px
     width: 100%
     text-align: center
     font-size: 9px
-  .discuss
+    color: black
+  .discuss, .review
     position: absolute
+    cursor: pointer
     top: 90px
-    left: 0px
-    width: 100%
+    left: 15%
+    width: 70%
     text-align: center
-    font-size: 9px
+    font-size: 10px
 
   .favourite, .favourited
     display: none
     position: absolute
-    top: 25px
-    left: 84px
+    bottom: 5px
+    left: 5px
     text-align: center
     cursor: pointer
-    width: 47px 
-    height: 47px 
+    width: 20px 
+    height: 20px 
     background-color: transparentize(white,0.8)
     @include round-corners(2px)
     img
-      margin-top: 8px
+      margin-top: 2px
+      width: 15px
 
   .favourited
     display: block

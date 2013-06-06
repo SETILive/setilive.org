@@ -3,7 +3,7 @@ class User extends Spine.Model
     'badges', 'total_classifications', 'classification_count', 'signal_count',
     "follow_up_count","total_follow_ups", "total_signals","sweeps_status", 
     "total_logins","talk_click_count","telescope_notify","seen_marking_notice",
-    "seen_reviewpage_notice"
+    "seen_profile_notice", "seen_reviewpage_notice"
   
   constructor: ->
     super 

@@ -1,10 +1,12 @@
 <span style="left:40px">
-  <h2>Classifying LIVE data is now easier!</h2>
-  <p style="font-size:16px;text-align:left;margin-right:20px">
-    - No "Describe the Signal" choices.<br>
-    - Mark two points on a signal, then immediately mark another.<br>
-    - You can still modify marks by clicking on them.<br><br>
-    <b>NOTE:</b> Archive data marking hasn't changed.    
+  <h2>New features of the Profile Page.</h2>
+  <p style="font-size:14px;text-align:left;margin-right:20px">
+    - Waterfalls now ordered from most recent instead of from oldest.<br>
+    - You can see markings you and others made using "SHOW MARKINGS" links.<br>
+    - Show group-averaged markings that triggered a followup.<br>
+    - Followups tab now shows followups that you helped trigger.<br>
+    - Smaller "Favourite" button for less clutter on the waterfalls.<br>
+    - New "Review" link for expanded view of any waterfalls on your profile page.
   </p>
   <div class="extra_button" id="close">Close This Window</div>
 </span>

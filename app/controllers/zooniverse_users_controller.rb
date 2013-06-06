@@ -67,6 +67,12 @@ class ZooniverseUsersController < ApplicationController
       format.json { render json: current_user.recent_favourites(page: params[:page].to_i).as_json }
     end
   end
+  
+  def followups
+    respond_to do |format|
+      format.json { render json: current_user.followups(page: params[:page].to_i).as_json }
+    end
+  end
 
   def seen_tutorial
     current_user.seen_tutorial=true
@@ -78,6 +84,14 @@ class ZooniverseUsersController < ApplicationController
 
   def seen_marking_notice
     current_user.seen_marking_notice=true
+    current_user.save
+    respond_to do |format|
+      format.json { render json: "" }
+    end
+  end
+
+  def seen_profile_notice
+    current_user.seen_profile_notice=true
     current_user.save
     respond_to do |format|
       format.json { render json: "" }

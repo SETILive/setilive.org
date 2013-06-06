@@ -30,6 +30,7 @@ Marv::Application.routes.draw do
   match '/user_favourites' => 'ZooniverseUsers#favourites'
   match '/user_recents' => 'ZooniverseUsers#recents'
   match '/user_live_stats' => 'ZooniverseUsers#live_classification_stats'
+  match '/user_followups' => 'ZooniverseUsers#followups'
 
   match '/redirect' => 'accounts#go_home'
   match '/login'   => 'accounts#login', :as => 'login'
@@ -50,6 +51,7 @@ Marv::Application.routes.draw do
   match '/tutorial_subject' => 'subjects#tutorial_subject'
   match '/seen_tutorial' => 'ZooniverseUsers#seen_tutorial'
   match '/seen_marking_notice' => 'ZooniverseUsers#seen_marking_notice'
+  match '/seen_profile_notice' => 'ZooniverseUsers#seen_profile_notice'
   match '/seen_reviewpage_notice' => 'ZooniverseUsers#seen_reviewpage_notice'
 
   match '/science_report' => 'ZooniverseUsers#index'

@@ -1,6 +1,7 @@
-<% for item in @items: %>
+<% for item, index in @items: %>
   <% if item.uploaded: %>
-    <div class="observation" style="background-image: url(<%= item.image_url %>); background-size: 221px 114px">
+    <div class="observation" style="background-image: url(<%= item.image_url %>); background-size: 221px 114px" >
+      <canvas style="width: 100%; height: 100%; position: absolute; top: 0px; left: 0px"></canvas>
       <% if @user: %>
         <% if item._id in @user.favourites: %>
           <div class="favourited" title="unfavourite" data-id= "<%= item._id %>">
@@ -12,12 +13,18 @@
           </div>
         <% end %>
       <% end %>
+      <% if @collectionType is 'followups': %>
+        <p class = "discuss">
+            <a href="/#/review/<%= item.subject_id %>" >Review</a> or <a href="http://talk.setilive.org/observation_groups/<%= item.subject_id %>">Discuss</a> this followup
+        </p>
+      <% else: %>
+        <p class = "discuss">
+            <a href="/#/review/<%= item.subject_id %>" >Review</a> or <a href="http://talk.setilive.org/observation_groups/<%= item.subject_id %>">Discuss</a> this signal
+        </p>
+      <% end %>
       <span class="classification_details">
-        Signal from <a href="/sources/<%= item.source_id %>"><%= item.source_name %></a>
+        from <a href="/sources/<%= item.source_id %>" style="color:blue"><%= item.source_name %></a>
       </span>
-      <p class="discuss">
-        <a href="http://talk.setilive.org/observation_groups/<%= item.subject_id %>">Discuss this signal</a>
-      </p>
     </div>
 
   <% end %>

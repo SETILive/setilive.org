@@ -25,6 +25,7 @@ class ZooniverseUser
   key :came_from_discovery, Boolean, :default=>false
   key :telescope_notify, Boolean, :default => false
   key :seen_marking_notice, Boolean, :default => false
+  key :seen_profile_notice, Boolean, :default => false
   key :seen_reviewpage_notice, Boolean, :default => false
   
   timestamps! 
