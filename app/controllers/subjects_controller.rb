@@ -1,5 +1,7 @@
 class SubjectsController < ApplicationController
   
+  before_filter :check_login
+    
   def show
     subject = Subject.find( params[:id] )
     if subject 
