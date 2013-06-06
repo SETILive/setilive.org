@@ -1,0 +1,42 @@
+<div class="info-container">
+  <div id="countdown">
+    <% if @isFollowup: %>
+      <p id="time">Profile Followup Review</p>
+      <p>Hover/click buttons for markings & followup signals. Prev/Next to
+         review followups in the chain.</p>
+    <% else: %>
+       <p id="time">Profile Archive Review</p>
+       <p>Hover/click buttons</br>to see your and</br>others&#8217; markings.</p>
+    <% end %>
+  </div>
+
+  <div id="star_field_small"></div>
+
+  <div id="current_targets"></div>
+
+
+  <section data-area="actions">
+    <p>Show Markings</p>
+    <div id="extra_controlls" style="margin-top: 23px">
+      <div id="select" class="extra_button" 
+        style="background-color: darkorange" title="Your Markings">Mine</div>
+      <% if @isFollowup: %>
+        <div id="select" class="extra_button" 
+            style="background-color: magenta" title="Followup Signal Track">Followup</div>
+      <% else: %>
+        <div id="select" class="extra_button" 
+            style="background-color: gray; color: darkgrey">Followup</div>
+      <% end %>
+      <div id="select" class="extra_button" 
+        style="background-color: green"title="Others&#8217; Markings" >Others</div>
+      <div id="previous" class="extra_button" 
+        style="<%= 'cursor: default; background-color: gray; color: darkgrey' if !@enablePrev %>" >
+        Prev in Chain</div>
+      <div id="next" class="extra_button" 
+        style="<%= 'cursor: default; background-color: gray; color: darkgrey' if !@enableNext %>" >
+        Next in Chain</div>
+      <div id="done" class="extra_button">Return to Profile</div>
+    </div>
+    
+  </section>
+</div>

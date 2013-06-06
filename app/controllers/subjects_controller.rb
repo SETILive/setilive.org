@@ -3,19 +3,27 @@ class SubjectsController < ApplicationController
   before_filter :check_login
     
   def show
-    subject = Subject.find( params[:id] )
+    id = params[:id]
+    subject = id.starts_with?("GSL0") ?
+              Subject.where(:zooniverse_id => id).first :
+              Subject.find( id )
     if subject 
       respond_to do |format|
-        subject  = subject.as_json(:include =>{:observations=>{:include=>:source, :except=>:data} })
+        subject  = subject.as_json(
+          :include =>{:observations=>{:include=>:source, :except=>:data} })
         @subjectType = 'review'
-        subject['followupId'] = nil
-        subject.observations.each do |o|
-          if o.followup_id
-            subject['followupId'] = o.followup_id
-            subject['followupObs'] = o.id
-          end 
+        subject['followupIds'] = []
+        subject['followupObs'] = []
+        subject['observations'].each do |o|
+          obs = Observation.find(o['id']);
+          obs.add_signal_data( o, current_user.id)
+          o['followupObs'] = []
+          if o['followup_id']
+            subject['followupIds'] << o['followup_id']
+            subject['followupObs'] << o['zooniverse_id']
+            o['followupObs'] = Followup.find(o['followup_id']).observations.collect {|x| x.zooniverse_id}
+          end  
         end
-        subject['followupId'] = Followup.where
         subject['subjectType']= @subjectType
         format.json { render json: subject.to_json , :status => '200' }
       end

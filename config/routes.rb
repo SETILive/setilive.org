@@ -50,6 +50,7 @@ Marv::Application.routes.draw do
   match '/tutorial_subject' => 'subjects#tutorial_subject'
   match '/seen_tutorial' => 'ZooniverseUsers#seen_tutorial'
   match '/seen_marking_notice' => 'ZooniverseUsers#seen_marking_notice'
+  match '/seen_reviewpage_notice' => 'ZooniverseUsers#seen_reviewpage_notice'
 
   match '/science_report' => 'ZooniverseUsers#index'
   match '/stats' => 'home#stats'

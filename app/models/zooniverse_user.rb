@@ -25,6 +25,7 @@ class ZooniverseUser
   key :came_from_discovery, Boolean, :default=>false
   key :telescope_notify, Boolean, :default => false
   key :seen_marking_notice, Boolean, :default => false
+  key :seen_reviewpage_notice, Boolean, :default => false
   
   timestamps! 
   
@@ -96,7 +97,7 @@ class ZooniverseUser
   def update_followups( followup_signal_id )
     self.followup_signal_ids << followup_signal_id
     self.total_follow_ups += 1 
-    puts 'saved...' if self.save
+    self.save
   end
 
   def badgeDetails
@@ -111,6 +112,11 @@ class ZooniverseUser
   def recent_favourites(opts = { })
     opts[:type] = 'favourites'
     _paginated_recents favourite_ids, opts
+  end
+  
+  def followups( opts = {} )
+    opts[:type] = 'followups'
+    _paginated_recents followup_signal_ids, opts
   end
   
   def increment_count
@@ -130,7 +136,9 @@ class ZooniverseUser
       talk_click_count: talk_click_count,
       sweeps_status: sweeps_status,
       telescope_notify: telescope_notify,
-      seen_marking_notice: seen_marking_notice
+      seen_marking_notice: seen_marking_notice,
+      seen_profile_notice: seen_profile_notice,
+      seen_reviewpage_notice: seen_reviewpage_notice
     }
   end
 
@@ -157,22 +165,42 @@ class ZooniverseUser
   
   def _paginated_recents(observation_ids, opts = { })
     opts = { page: 1, per_page: 8 }.merge opts.symbolize_keys
-    offset = opts[:per_page] * (opts[:page] - 1)
+    len = observation_ids.length
+    numpages = (observation_ids.length / opts[:per_page].to_f).ceil
+    lastnum = len % opts[:per_page]
+    if opts[:page] == numpages 
+      offset = 0
+      numlim = lastnum
+    else
+      offset = lastnum + ( numpages - opts[:page] - 1 ) * opts[:per_page]
+      numlim = opts[:per_page]
+    end
     json = {
       page: opts[:page],
-      pages: (observation_ids.length / opts[:per_page].to_f).ceil,
+      pages: numpages,
       per_page: opts[:per_page]
     }
     
     observation_fields = [:image_url, :uploaded, :source_id, :subject_id]
-    observation_options = { fields: observation_fields, skip: offset, limit: opts[:per_page] }
+    observation_options = { fields: observation_fields, skip: offset, limit: numlim }
     if opts[:type] == "favourites"
       observation_selector = { :_id => { :$in => observation_ids } }  
-    else
+    elsif opts[:type] == 'recents'
       observation_selector = { :subject_id => { :$in => observation_ids } }  
+    elsif opts[:type] == "followups"
+      # observation_ids are actually signal_id_nums from Followup
+      # First convert this list to a list of observation ids
+      obs_ids = observation_ids.collect do |id|
+        fup = Followup.where(:signal_id_nums => id).first
+        index = fup.signal_id_nums.index(id)
+        fup.observations.sort(:created_at.asc).to_a.at(index).id
+      end
+      observation_selector = { :_id => { :$in => obs_ids } }      
+    else
+      return nil
     end
     
-    results = Observation.collection.find(observation_selector, observation_options).to_a
+    results = Observation.collection.find(observation_selector, observation_options).to_a.reverse
     source_ids = results.collect{ |result| result['source_id'] }
     subject_ids = results.collect{ |result| result['subject_id'] }
     
@@ -182,6 +210,8 @@ class ZooniverseUser
     results.each do |result|
       result['source_name'] = sources[result['source_id']]
       result['subject_id'] = subjects[result['subject_id']]
+      obs = Observation.find( result["_id"] )
+      obs.add_signal_data( result, self.id ) #if opts[:type] == 'followups'
     end
     
     json[:collection] = results

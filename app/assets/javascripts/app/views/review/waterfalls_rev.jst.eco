@@ -1,0 +1,23 @@
+<div class="waterfall large-waterfall" id="main-waterfall" 
+     style="position: relative; background-image: url(<%= @observations[@current_beam].image_url %>); background-size: 100% 100% ">
+  <canvas style="width: 100%; height: 100%; position: absolute; top: 0px; left: 0px"></canvas>
+  <div id="workflow" class="workflow_area">
+    <div id="workflow-container">
+      <div id="close-workflow">Close X</div>
+      <div id="workflow-area"></div>
+    </div>
+  </div>
+</div>
+
+<% for beam, index in @observations: %>
+  <% if (beam.data? and beam.data.length > 0) or beam.uploaded: %>
+    <div class="small-waterfall-container" data-id="<%- index %>">
+      <div class="waterfall small-waterfall <%- "waterfall-first" if index == 0 %>" 
+           id="waterfall-<%- index %>" data-id="<%- index %>" 
+           style="position: relative; background-image: url(<%= beam.image_url %>); background-size: 100% 100%">
+        <canvas style="width: 100%; height: 100%; position: absolute; top: 0px; left: 0px"></canvas>
+      </div>
+      <div class="copy-beam"></div>
+    </div>
+  <% end %>
+<% end %>

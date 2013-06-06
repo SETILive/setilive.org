@@ -11,6 +11,7 @@ class Main extends Spine.Stack
     profile: Profile
     telescope: TelescopeStatusPage
     classify: Classify
+    review: Review
 
   routes:
     '/classify/:type': 'classify'
@@ -21,6 +22,7 @@ class Main extends Spine.Stack
     '/sources': 'sources'
     '/profile/badges/:id': 'badges'
     '/profile': 'profile'
+    '/review/:id': 'review'
     '/telescope_status': 'telescope'
     '/': 'home'
 

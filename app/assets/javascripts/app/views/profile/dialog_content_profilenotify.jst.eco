@@ -1,0 +1,10 @@
+<span style="left:40px">
+  <h2>Classifying LIVE data is now easier!</h2>
+  <p style="font-size:16px;text-align:left;margin-right:20px">
+    - No "Describe the Signal" choices.<br>
+    - Mark two points on a signal, then immediately mark another.<br>
+    - You can still modify marks by clicking on them.<br><br>
+    <b>NOTE:</b> Archive data marking hasn't changed.    
+  </p>
+  <div class="extra_button" id="close">Close This Window</div>
+</span>

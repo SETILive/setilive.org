@@ -449,7 +449,7 @@ input[type=text], input[type=password]
           &:hover
             background-image: url("star_selected.png")
 
-#classify-area
+#classify-area, #review-area
   width: 100%
   position: relative
   top: 0px
@@ -730,8 +730,8 @@ $workflow-font-size: 12pt
     margin: -10px 0 0 0
 
   #done
-    width: 215px
-    margin: -10px 0 0 0
+    width: 213px
+    margin: -10px 0 0 2px
 
   #talk
     display: none
@@ -739,6 +739,19 @@ $workflow-font-size: 12pt
     height: 60px
     line-height: 60px
     margin-top: -30px
+
+  #select
+    width: 29%
+    margin-right: 1%
+    margin-left: 1%
+    margin-top: -10%
+    margin-bottom: 0%
+
+  #next, #previous
+    width: 46%
+    margin-right: 1%
+    margin-left: 1%
+    margin-top: 2%
 
 #social 
   width: 220px
@@ -1574,13 +1587,13 @@ ul.pagination
     ul
       li
         position: relative
-        padding: 0 5px 0 70px
+        padding: 0 5px 0 63px
         top: -10px
         label
           position: absolute
           width: 70px
           top: 0
-          left: 5px
+          left: 2px
 
 #badge_profile_return
   width: 130px

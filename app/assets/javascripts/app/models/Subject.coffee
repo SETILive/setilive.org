@@ -1,6 +1,27 @@
 class Subject extends Spine.Model
-  @configure 'Subject','observations','activityId', 'bandwidthMhz', 'location', 'bitPix', 'centerFreqMhz', 'endTimeNanos', 'uploaded', 'image_url', 'thumb_url','data_url', 'zooniverse_id', "subjectType", "created_at", "has_simulation","simulation_reveal_url", "simulation_url"
+  @configure 'Subject','observations','activityId', 'bandwidthMhz', 'location', 
+             'bitPix', 'centerFreqMhz', 'endTimeNanos', 'uploaded', 'image_url', 
+             'thumb_url','data_url', 'zooniverse_id', "subjectType", 
+             "created_at", "has_simulation","simulation_reveal_url", 
+             "simulation_url", "followupIds", "followupObs"
+
   @extend Spine.Events
+  
+  @fetch: (id) ->
+    url = 'subjects/' + id + '.json'
+    
+    $.getJSON url, (data) =>
+      #console.log(data)
+      # Workaround for non-uploaded observations getting through.
+      data_check = ( data.observations.length > 0 )
+      for obs in data.observations
+        data_check &= obs.uploaded
+      if !data_check
+      else
+        if Subject.count()
+          Subject.destroyAll()
+
+        Subject.create data
   
   @fetch_from_url: (url) ->
     $.getJSON url, (data)->

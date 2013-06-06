@@ -1,0 +1,10 @@
+<span style="left:40px">
+  <h2>Welcome to the all-new "Review" Page.</h2>
+  <p style="font-size:14px;text-align:left;margin-right:20px">
+    - Like the "Classify Page" but here, you review instead of create markings.<br>
+    - Show markings you and others made using the top row of buttons.<br>
+    - Show averaged signals if followup was triggered from this waterfall group.<br>
+    - If one of a series of triggered followups, you can step through them.<br>
+  </p>
+  <div class="extra_button" id="close">Close This Window</div>
+</span>

@@ -84,6 +84,14 @@ class ZooniverseUsersController < ApplicationController
     end
   end
 
+  def seen_reviewpage_notice
+    current_user.seen_reviewpage_notice=true
+    current_user.save
+    respond_to do |format|
+      format.json { render json: "" }
+    end
+  end
+  
   def current_logged_in_user 
     if current_user 
       respond_to do |format|
