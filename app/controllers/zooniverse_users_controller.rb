@@ -45,9 +45,8 @@ class ZooniverseUsersController < ApplicationController
   def live_classification_stats
     if current_user
       @unclassified = RedisConnection.keys('*_subject_new*').count
-      seen_list = JSON.parse( RedisConnection.get( 
-        "recents_seen_#{current_user.id}" ) ).map{ 
-        |s| s.gsub("subject_recent_", "")}
+      temp = JSON.parse( RedisConnection.get( "recents_seen_#{current_user.id}" ) )
+      seen_list = temp ? temp.map{ |s| s.gsub("subject_recent_", "")} : []
       recents_list = RedisConnection.keys(
         "subject_recent*").map{|r| r.gsub("subject_recent_","") }
       unclassified_recents_list = recents_list - seen_list
