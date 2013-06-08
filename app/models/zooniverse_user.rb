@@ -168,6 +168,7 @@ class ZooniverseUser
     opts = { page: 1, per_page: 8 }.merge opts.symbolize_keys
     len = observation_ids.length
     numpages = (observation_ids.length / opts[:per_page].to_f).ceil
+    numpages = 1 if numpages == 0
     lastnum = len % opts[:per_page]
     if opts[:page] == numpages 
       offset = 0
@@ -194,7 +195,12 @@ class ZooniverseUser
       obs_ids = observation_ids.collect do |id|
         fup = Followup.where(:signal_id_nums => id).first
         index = fup.signal_id_nums.index(id)
-        fup.observations.sort(:created_at.asc).to_a.at(index).id
+        temp = fup.observations.sort(:created_at.asc).to_a.at(index).id
+        if temp
+          temp
+        else
+          fup.observations.sort(:created_at.asc).to_a.last.id
+        end        
       end
       observation_selector = { :_id => { :$in => obs_ids } }      
     else
