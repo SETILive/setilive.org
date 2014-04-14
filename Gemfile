@@ -1,5 +1,5 @@
 source 'http://rubygems.org'
-gem 'rails', '3.2.11'
+gem 'rails', '3.2.17'
 gem 'coffee-rails', '3.2.2'
 gem 'mongo_mapper', '0.12.0'
 gem 'bson', '1.5.2'
@@ -13,7 +13,7 @@ gem 'ezcrypto', '0.7.2'
 gem 'sidekiq', '2.7.5'
 gem 'bcrypt-ruby', '3.0.1', :require => 'bcrypt'
 gem 'aws-sdk', '~> 1.3.3'
-gem 'libxml-ruby', '2.2.2'
+gem 'libxml-ruby', '2.7.0'
 gem 'json', '1.7.7'
 gem 'httparty', '0.8.1'
 gem 'multi_xml', '0.4.1' # dependency of HTTParty, but also used directly
@@ -32,7 +32,7 @@ group :assets do
 end
 
 group :production do
-  gem 'therubyracer', '0.9.9'
+  gem 'therubyracer', '0.12.1'
 end
 
 group :development, :test do
