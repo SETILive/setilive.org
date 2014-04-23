@@ -20,6 +20,8 @@ task :ensure_indexes => :environment do
   Observation.ensure_index [['source_id', 1]]
   Observation.ensure_index [['subject_id', 1]]
   Observation.ensure_index [['uploaded', 1], ['subject_id', 1]]
+  Observation.ensure_index [['followup_id', 1]]
+  Observation.ensure_index [['followup_id', 1], ['created_at', -1]]
   
   puts "Building indexes for Source"
   drop_indexes_on(Source)

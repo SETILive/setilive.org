@@ -41,10 +41,14 @@ end
 task :boot_app => :environment do
   BOOTSTRAP = true
   Rake::Task['load_workflow'].execute
+  Rake::Task['update_workflow'].execute
   Rake::Task['generate_badges'].execute
   Rake::Task['create_tutorial_subject'].execute
   Rake::Task['ensure_indexes'].execute
   Rake::Task['create_kepler_targets'].execute
-  Rake::Task['generate_subjects'].execute
+  # Current Subjects initializer rake doesn't work with ui branch. Need a
+  # new rake to seed the database with subjects.
+  #Rake::Task['generate_subjects'].execute
   Rake::Task['initialize_parameters'].execute
+  RedisConnection.set("current_status", "inactive")
 end
