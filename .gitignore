@@ -12,4 +12,6 @@ vendor/cache
 nbproject
 
 /.pryrc
-/lib/tasks/local/.ruby-version
+/lib/tasks/local/
+.ruby-version
+.ruby-gemset
