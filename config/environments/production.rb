@@ -57,8 +57,8 @@ Marv::Application.configure do
   config.action_mailer.smtp_settings = {
     :address              => "email-smtp.us-east-1.amazonaws.com",
     :port                 => 587,
-    :user_name            => 'AKIAJMU6FUGVRHORRZ2Q',
-    :password             => 'AkomZ1Xh/xDjXeS2BKILGN4vV3imgxw+vxoG71Yfhbgd',
+    :user_name            => '***REMOVED***',
+    :password             => '***REMOVED***',
     :authentication       => 'plain',
     :enable_starttls_auto => true  }
 end
