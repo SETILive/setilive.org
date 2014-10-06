@@ -20,7 +20,7 @@ class App extends Spine.Controller
 
   constructor: ->
     super
-    @nav = new NavBar(el: $('#top')).el.insertBefore $('#notification_bar')
+    @nav = new NavBar(el: $('#top')).el.insertBefore $('#notice')
     @notifications = new Notifications(el: $('#notification_bar')) 
     @append @main = new Main
 

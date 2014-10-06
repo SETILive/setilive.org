@@ -25,9 +25,19 @@
 
   <div class="container">
     <div id="top"></div>
+    <div id="notice" style="font-size:24px;text-align:center;margin-bottom:5px">
+        <% message = RedisConnection.get( "notice_message") %>
+        <% link = RedisConnection.get( "notice_message_link") %>
+        <% if message and message != ""  %>
+          <%= message %>
+        <% end %>
+        <% if link and link != "" %>
+          <a href='<%= link %>'> More info...</a> 
+        <% end %>
+    </div>
     <ul id="notification_bar"></ul>
     <section></section>
-    <%= yield %>
+    <%= yield %>http://www.w3schools.com/tags/att_font_size.as
   </div>
 
   <div id="footer">

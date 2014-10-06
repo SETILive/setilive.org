@@ -183,7 +183,7 @@ class Messages extends Spine.Controller
     message =
       name: 'default'
       content:
-        initial: 'Welcome to SETILive! Update Preview (Beta)'
+        initial: 'Welcome to SETILive!'
       type: 'alert'
 
     Notification.create message
