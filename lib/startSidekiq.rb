@@ -1,1 +1,1 @@
-`sidekiq -s redis://redistogo:***REMOVED***@***REMOVED***:9359/ &`
+`sidekiq -s redis://REDIS_USERNAME:REDIS_PASSWORD@REDIS_HOST:9359/ &`

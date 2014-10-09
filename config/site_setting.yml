@@ -8,8 +8,8 @@ common:
     - arfon.smith@gmail.com
   default_interface_name: "ZooniverseInterface"
 
-  s3_access_key_id: "***REMOVED***"
-  s3_secret_access_key: "***REMOVED***"
+  s3_access_key_id: "S3_ACCESS_KEY_ID"
+  s3_secret_access_key: "S3_SECRET_ACCESS_KEY"
 development:
 
 production:

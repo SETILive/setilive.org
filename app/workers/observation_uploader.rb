@@ -9,7 +9,7 @@ if Rails.env.development?
   AWS.config :access_key_id=>'123', :secret_access_key => 'abc', 
     :use_ssl => false, :s3_port => 10001, :s3_endpoint => 'localhost'
 else
-  AWS.config :access_key_id=>'***REMOVED***', :secret_access_key => '***REMOVED***'
+  AWS.config :access_key_id=>'AWS_ACCESS_KEY_ID', :secret_access_key => 'AWS_SECRET_ACCESS_KEY'
 end
 
 class ObservationUploader

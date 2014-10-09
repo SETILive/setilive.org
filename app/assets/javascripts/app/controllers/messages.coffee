@@ -1,7 +1,7 @@
 
 class Messages extends Spine.Controller
 
-  pusherKey: '***REMOVED***'
+  pusherKey: 'PUSHER_KEY'
   pusherChannel: 'telescope'
   pusher: 
     'target_changed': 'onPusherSourceChange'

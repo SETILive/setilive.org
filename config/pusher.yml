@@ -1,7 +1,7 @@
 development: &global_settings
-  app_id: '***REMOVED***'
-  key: '***REMOVED***'
-  secret: '***REMOVED***'
+  app_id: 'PSUHER_APP_ID'
+  key: 'PUSHER_KEY'
+  secret: 'PUSHER_SECRET'
 
 test:
   database: marv-test

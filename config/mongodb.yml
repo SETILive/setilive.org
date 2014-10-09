@@ -1,6 +1,6 @@
 development: &global_settings
   host: localhost
-  database: ***REMOVED***
+  database: setilive-production
   port: 27017
 
 
@@ -9,9 +9,8 @@ test:
   <<: *global_settings
 
 production:
-  host: ***REMOVED***
-  database: ***REMOVED***
-  port: 27188
-  username: setilive
-  password: ***REMOVED***
-
+  host: MONGO_HOST
+  database: MONGO_DATABASE
+  port: MONGO_PORT
+  username: MONGO_USERNAME
+  password: MONGO_PASSWORD

@@ -1,7 +1,7 @@
 class Zooniverse
   include HTTParty
   base_uri 'https://www.zooniverse.org'
-  basic_auth 'api', '***REMOVED***'
+  basic_auth 'ZOONIVERSE_USERNAME', 'ZOONIVERSE_API_KEY'
   format :xml
   
   def self.create_user(hash)

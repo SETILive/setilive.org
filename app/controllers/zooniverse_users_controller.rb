@@ -165,7 +165,7 @@ class ZooniverseUsersController < ApplicationController
   end
 
   def telescope_notify_users
-    if params[:passwd] == '***REMOVED***'
+    if params[:passwd] == 'TELESCOPE_PASSWORD'
       temp = RedisConnection.get("telescope_notify_parms")
       parms = temp ? 
               JSON.parse( temp ) : 

@@ -1,7 +1,7 @@
 class TalkCreator
   include HTTParty
   base_uri 'http://talk.setilive.org'
-  basic_auth '***REMOVED***', '***REMOVED***'
+  basic_auth 'TALK_USERNAME', 'TALK_API_KEY'
   format :json
   
   def self.talk_create(hash)

@@ -11,7 +11,7 @@ test:
   db: 1
 
 production:
-  host: ***REMOVED***
+  host: REDIS_HOST
   thread_safe: true
-  password: ***REMOVED***
-  port: 6381
+  password: REDIS_PASSWORD
+  port: REDIS_PORT

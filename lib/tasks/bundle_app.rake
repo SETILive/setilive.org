@@ -1,7 +1,7 @@
 desc 'Bundle application and upload it to S3'
 task :bundle_app do
   require 'aws-sdk'
-  AWS.config access_key_id: '***REMOVED***', secret_access_key: '***REMOVED***'
+  AWS.config access_key_id: 'AWS_ACCESS_KEY_ID', secret_access_key: 'AWS_SECRET_ACCESS_KEY'
   
   # hang onto the working branch
   working_branch = `git rev-parse --abbrev-ref HEAD`.chomp
@@ -48,7 +48,7 @@ task :bundle_app do
   
   # S3 setup
   s3 = AWS::S3.new
-  bucket = s3.buckets['***REMOVED***']
+  bucket = s3.buckets['S3_BUCKET']
   old_bundle = bucket.objects['marv.tar.gz']
   
   # move the old bundle if it exists
